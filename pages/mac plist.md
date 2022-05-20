@@ -1,0 +1,2 @@
+- plist编辑
+- launchctl命令
