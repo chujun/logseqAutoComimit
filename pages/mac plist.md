@@ -10,7 +10,7 @@
   # 查看任务列表, 使用 grep '任务部分名字' 过滤
   $ launchctl list | grep 'com.demo'
    
-  # 开始任务
+  # 开始任务，可以立刻执行任务，用于测试
   $ launchctl start  com.demo.plist
    
   # 结束任务
