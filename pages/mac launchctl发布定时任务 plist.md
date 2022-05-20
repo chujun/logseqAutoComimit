@@ -43,13 +43,14 @@
     </dict>
   </plist>
   ```
-- plist文件摆放位置
+- plist文件摆放位置 
   赋值到launchctl的执行位置,有如下几种
   ~/Library/LaunchAgents 由用户自己定义的任务项
   /Library/LaunchAgents 由管理员为用户定义的任务项
   /Library/LaunchDaemons由管理员定义的守护进程任务项
   /System/Library/LaunchAgents 由Mac OS X为用户定义的任务项
   /System/Library/LaunchDaemons 由Mac OS X定义的守护进程任务项
+  我的路径: ~/Library/LaunchAgents/com.jun.logseq.auto.sync.plist
 - launchctl命令发布定时任务
   ```shell
   # 加载任务, -w选项会将plist文件中无效的key覆盖掉，建议加上
