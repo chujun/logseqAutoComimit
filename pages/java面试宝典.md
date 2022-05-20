@@ -9,7 +9,7 @@
 - # 网络
   tcp协议
   http协议
-- 数据结构与算法
+- # 数据结构与算法
   [[算法]]
   [[数据结构]]
 - # 分布式
@@ -35,11 +35,12 @@
   spring boot
   spring mvc
   mybatis，tkmybatis，mybatisplus
-- 数据库
-- redis
-- mq
-- 中间件
+- # 数据库
+  mysql
+- # redis
+- # mq
+- # 中间件
   ES
   zookeeper
-- 源码阅读
+- # 源码阅读
 -
