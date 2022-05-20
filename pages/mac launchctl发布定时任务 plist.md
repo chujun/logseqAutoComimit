@@ -78,4 +78,5 @@
   
   ```
   console.app->system.log->搜索plist->可以查询launchctl执行失败的日志信息
--
+- 缺点:
+  launchctl定时任务执行失败
