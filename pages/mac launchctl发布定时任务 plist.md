@@ -44,6 +44,13 @@
     </dict>
   </plist>
   ```
+  Plist部分参数说明：
+  Label：对应的需要保证全局唯一性；
+  Program：要运行的程序；
+  ProgramArguments：命令语句
+  StartCalendarInterval：运行的时间，单个时间点使用dict，多个时间点使用 array
+  StartInterval：时间间隔，与StartCalendarInterval使用其一，单位为秒
+  StandardInPath、StandardOutPath、StandardErrorPath：标准的输入输出错误文件
 - plist文件摆放位置 
   赋值到launchctl的执行位置,有如下几种
   ~/Library/LaunchAgents 由用户自己定义的任务项
