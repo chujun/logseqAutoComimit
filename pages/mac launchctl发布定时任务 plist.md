@@ -79,4 +79,4 @@
   ```
   console.app->system.log->搜索plist->可以查询launchctl执行失败的日志信息
 - 缺点:
-  launchctl定时任务执行失败
+  launchctl定时任务执行失败时不方便查询日志定位到问题所在，不能迅速区分是配置问题还是sh脚本问题。
