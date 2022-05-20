@@ -17,4 +17,5 @@
   $ launchctl stop   com.demo.plist
   
   ```
+  console.app->system.log->搜索plist->可以查询launchctl执行失败的日志信息
 -
