@@ -34,9 +34,9 @@
  {:block/name "later",
   :block/created-at 1652536833485,
   :block/updated-at 1652536833485}
- {:block/name "mac plist",
+ {:block/name "mac launchctl发布定时任务 plist",
   :block/created-at 1653056701737,
-  :block/updated-at 1653059822520}
+  :block/updated-at 1653061656862}
  {:block/name "may 13th, 2022",
   :block/created-at 1652406306958,
   :block/updated-at 1652406359865}
@@ -58,6 +58,9 @@
  {:block/name "may 20th, 2022",
   :block/created-at 1652981103198,
   :block/updated-at 1653056701738}
+ {:block/name "may 21st, 2022",
+  :block/created-at 1653063553488,
+  :block/updated-at 1653063553488}
  {:block/name "now",
   :block/created-at 1652536833485,
   :block/updated-at 1652536833485}
