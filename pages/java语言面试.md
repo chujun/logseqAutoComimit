@@ -8,7 +8,7 @@
   无论是基本类型和是引用类型，在实参传入形参时，都是值传递。Java 中只有值传递，
   C语言有值传递和引用传递两种方式
   [Java 中只有值传递](https://github.com/Snailclimb/JavaGuide/blob/main/docs/java/basis/why-there-only-value-passing-in-java.md)
-  [这篇介绍更详细清晰](https://segmentfault.com/a/1190000016773324)
+  [这篇介绍更详细清晰,如果还是比较迷惑的话](https://segmentfault.com/a/1190000016773324)
 - 集合
 - 并发
 - JVM
