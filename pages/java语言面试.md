@@ -1,10 +1,12 @@
 - 基础
   1. java方法调用形参是值传递还是引用传递? 
   明确值传递和引用传递定义.
-  值传递:
+  值传递:方法接收的是实参值的拷贝
   引用传递:
-  Java 中只有值传递，C语言有值传递和引用传递两种方式
+  无论是基本类型和是引用类型，在实参传入形参时，都是值传递。Java 中只有值传递，
+  C语言有值传递和引用传递两种方式
   [Java 中只有值传递](https://github.com/Snailclimb/JavaGuide/blob/main/docs/java/basis/why-there-only-value-passing-in-java.md)
+  [](https://segmentfault.com/a/1190000016773324)
 - 集合
 - 并发
 - JVM
