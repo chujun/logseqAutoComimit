@@ -5,6 +5,7 @@
   [jvm规范8官方文档链接](https://docs.oracle.com/javase/specs/jvms/se8/html/index.html)
   
   1. java语言特点
+  面向对象三大特性:封装，继承，多态
   2. jdk vs jre
   3. OpenJDK vs OracleJDK
   [openjdk github](https://github.com/openjdk/jdk)
