@@ -63,19 +63,40 @@
 - 集合
 - 泛型
 - 反射
-  JDK实现动态代理
-  InvocationHandler,
-  java Proxy创建代理类，必须指明类加载器,需要实现的接口
-  ```java
-  public static Object getProxy(Object targetBusinessObject, AbstractBaseHandler handler) {
-          Object proxyObject = targetBusinessObject;
-          handler.setTargetBusinessObject(targetBusinessObject);
-  
-          proxyObject = Proxy.newProxyInstance(targetBusinessObject.getClass().getClassLoader(), targetBusinessObject.getClass().getInterfaces(), handler);
-  
-          return proxyObject;
-      }
-  ```
+	- JDK实现动态代理
+	  InvocationHandler,
+	  java Proxy创建代理类，必须指明类加载器,需要实现的接口定义列表，拦截方法处理器(InvocationHandler的子类)。
+	  ```java
+	  public static Object getProxy(Object targetBusinessObject, AbstractBaseHandler handler) {
+	          Object proxyObject = targetBusinessObject;
+	          handler.setTargetBusinessObject(targetBusinessObject);
+	  
+	          proxyObject = Proxy.newProxyInstance(targetBusinessObject.getClass().getClassLoader(), targetBusinessObject.getClass().getInterfaces(), handler);
+	  
+	          return proxyObject;
+	      }
+	  ```
+	  ```java
+	  public class DebugInvocationHandler implements InvocationHandler {
+	      /**
+	       * 代理类中的真实对象
+	       */
+	      private final Object target;
+	  
+	      public DebugInvocationHandler(Object target) {
+	          this.target = target;
+	      }
+	  
+	      public Object invoke(Object proxy, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
+	          System.out.println("before method " + method.getName());
+	          Object result = method.invoke(target, args);
+	          System.out.println("after method " + method.getName());
+	          return result;
+	      }
+	  }
+	  ```
+	-
+	-
 - 并发
 - JVM
 - 新特性
