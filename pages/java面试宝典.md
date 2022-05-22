@@ -1,5 +1,5 @@
 - 参考资料
-  []
+  [JavaGuide 在线阅读网站](https://javaguide.cn/java/basis/java-basic-questions-01.html#%E5%BF%85%E7%9C%8B%E4%B8%93%E6%A0%8F)
 - # [[java语言面试]]
   基础
   java
