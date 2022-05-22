@@ -63,6 +63,19 @@
 - 集合
 - 泛型
 - 反射
+  JDK实现动态代理
+  InvocationHandler,
+  java Proxy创建代理类，必须指明类加载器,需要实现的接口
+  ```java
+  public static Object getProxy(Object targetBusinessObject, AbstractBaseHandler handler) {
+          Object proxyObject = targetBusinessObject;
+          handler.setTargetBusinessObject(targetBusinessObject);
+  
+          proxyObject = Proxy.newProxyInstance(targetBusinessObject.getClass().getClassLoader(), targetBusinessObject.getClass().getInterfaces(), handler);
+  
+          return proxyObject;
+      }
+  ```
 - 并发
 - JVM
 - 新特性
