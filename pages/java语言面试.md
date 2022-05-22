@@ -18,7 +18,23 @@
   [深拷贝和浅拷贝区别](https://javaguide.cn/java/basis/java-basic-questions-02.html#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%8C%BA%E5%88%AB%E4%BA%86%E8%A7%A3%E5%90%97-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D)
   104. 字符串常量池
   105. String的intern方法作用
-  
+  ```java
+  // 在堆中创建字符串对象”Java“
+  // 将字符串对象”Java“的引用保存在字符串常量池中
+  String s1 = "Java";
+  // 直接返回字符串常量池中字符串对象”Java“对应的引用
+  String s2 = s1.intern();
+  // 会在堆中在单独创建一个字符串对象
+  String s3 = new String("Java");
+  // 直接返回字符串常量池中字符串对象”Java“对应的引用
+  String s4 = s3.intern();
+  // s1 和 s2 指向的是堆中的同一个对象
+  System.out.println(s1 == s2); // true
+  // s3 和 s4 指向的是堆中不同的对象
+  System.out.println(s3 == s4); // false
+  // s1 和 s4 指向的是堆中的同一个对象
+  System.out.println(s1 == s4); //true
+  ```
   1. java方法调用形参是值传递还是引用传递? 
   方法实参和形参
   明确值传递和引用传递定义。
