@@ -8,7 +8,7 @@
   JVM
   新特性
 - # 设计模式
-  六大设计原则，SOL(L)LID
+  六大设计原则，SOL(L)ID
   [软件设计模式——七大设计原则](https://hjk.life/posts/design-patterns-principles/)
 - # 操作系统
 - # 网络
