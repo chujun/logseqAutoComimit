@@ -35,8 +35,18 @@
   // s1 和 s4 指向的是堆中的同一个对象
   System.out.println(s1 == s4); //true
   ```
-  106. 字符串"+"拼接引发的编译期常量折叠优化
-  []()
+  106. 字符串"+"拼接引发的
+  编译期常量折叠代码优化
+  ```java
+  String str1 = "str";
+  String str2 = "ing";
+  String str3 = "str" + "ing";
+  String str4 = str1 + str2;
+  String str5 = "string";
+  System.out.println(str3 == str4);//false
+  System.out.println(str3 == str5);//true
+  System.out.println(str4 == str5);//false
+  ```
   1. java方法调用形参是值传递还是引用传递? 
   方法实参和形参
   明确值传递和引用传递定义。
