@@ -10,8 +10,6 @@
   3. OpenJDK vs OracleJDK
   [openjdk github](https://github.com/openjdk/jdk)
   10.语言
-  泛型
-  反射
   注解
   序列化/反序列化
   101. 重写
@@ -63,6 +61,8 @@
   [Java 中只有值传递](https://github.com/Snailclimb/JavaGuide/blob/main/docs/java/basis/why-there-only-value-passing-in-java.md)
   [这篇介绍更详细清晰,如果还是比较迷惑的话](https://segmentfault.com/a/1190000016773324)
 - 集合
+- 泛型
+- 反射
 - 并发
 - JVM
 - 新特性
