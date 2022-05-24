@@ -12,11 +12,12 @@
   10.语言
   注解
   序列化/反序列化
-  比较常用的序列化协议有 hessian(不常用了)、kyro、Protobuf,JDK 自带的序列化方式,json。
+  比较常用的序列化协议有 hessian(不常用了)、kyro、Protobuf，Thrift,JDK 自带的序列化方式,json。
   JDK 自带的序列化方式:不跨语言，效率低，有安全漏洞
-  kyro:高性能，不跨语言
+  hessian:跨语言，效率高，老版本序列化协议 hessian2
+  kyro:高性能，专门针对java
   Protobuf: google出品，跨语言，高性能，比较繁琐
-  Protostuff:Protobuf
+  Protostuff:Protobuf升级版，配置更简单
   101. 重写
   重写: 方法名、参数列表必须相同，子类方法返回值类型应比父类方法返回值类型更小或相等，抛出的异常范围小于等于父类，访问修饰符范围大于等于父类。
   理解：继承父类方法重写,子类方法的申明必须与父类保持兼容,不然就不满足设计原则之里氏替换原则了。
