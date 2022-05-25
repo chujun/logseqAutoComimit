@@ -115,5 +115,7 @@
   ```
 - 中序遍历
 - 后序遍历
+  ![Morris算法后续遍历访问数据时机.png](../assets/截屏2022-05-25_下午8.44.58_1653482808613_0.png)
+-
 - 资料
   [前序遍历Morris解法](https://leetcode.cn/problems/binary-tree-preorder-traversal/solution/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/)
