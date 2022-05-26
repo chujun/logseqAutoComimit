@@ -1,4 +1,4 @@
-- 从 JVM 角度来说，动态代理是在运行时动态生成类字节码，并加载到 JVM 中的
+- 从 JVM 角度来说，动态代理是在运行时动态生成类字节码，并加载到 JVM 中。
 - **Proxy** , **InvocationHandler** 类是核心
   核心:使用Proxy类newProxyInstance()方法生成代理对象
   ```java
@@ -29,5 +29,8 @@
   第一个参数proxy :动态生成的代理类
   第二个参数method : 与代理类对象调用的方法相对应,代理类接口声明的方法
   第三个参数args : 当前 method 方法的参数
+  
+  具体代码实例就不介绍了，比较简单
 - 进一步深入研究
   ProxyClassFactory
+- 如何查看代理类生成的类字节码内容
