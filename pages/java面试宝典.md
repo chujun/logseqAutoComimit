@@ -11,6 +11,11 @@
   六大设计原则，SOL(L)ID
   TODO:cj tobe总结
   [软件设计模式——七大设计原则](https://hjk.life/posts/design-patterns-principles/)
+  
+  代理模式
+  
+  观察者模式
+  订阅模式
 - # 操作系统
 - # 网络
   tcp协议
