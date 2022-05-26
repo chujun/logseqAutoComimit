@@ -7,4 +7,20 @@
   2. CGLIB 动态代理是通过生成一个被代理类的子类来拦截被代理类的方法调用，因此不能代理声明为 final 类型的类和方法。
   3. 效率比较
   大部分情况都是 JDK 动态代理更优秀，随着 JDK 版本的升级，这个优势更加明显。
+- 核心类介绍
+  MethodInterceptor 接口和 Enhancer 类是核心
+  ```java
+  public interface MethodInterceptor
+  extends Callback{
+      // 拦截被代理类中的方法
+      public Object intercept(Object obj, java.lang.reflect.Method method, Object[] args,
+                                 MethodProxy proxy) throws Throwable;
+  }
+  ```
+  obj :被代理的对象（需要增强的对象）
+  method :被拦截的方法（需要增强的方法）
+  args :方法入参
+  proxy :用于调用原始方法
+  
+  Enhancer类来动态获取被代理类，当代理类调用方法的时候，实际调用的是 MethodInterceptor 中的 intercept 方法。
 -
