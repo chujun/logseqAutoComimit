@@ -43,7 +43,7 @@
       }
   }
   ```
-- 实际demo举例
+- 实操创建一个动态代理类举例
   0.导入jar包
   ```xml
   <dependency>
@@ -85,5 +85,42 @@
   ```
   
   3.创建一个类实现一个MethodInterceptor
+  ```java
+  public class DebugMethodInterceptor implements MethodInterceptor {
+      @Override
+      public Object intercept(final Object obj, final Method method, final Object[] args, final MethodProxy proxy) throws Throwable {
+          //调用方法之前，我们可以添加自己的操作
+          System.out.println("before method: " + method.getName());
+          //调用被代理对象的原始方法
+          Object object = proxy.invokeSuper(obj, args);
+          //调用方法之后，我们同样可以添加自己的操作
+          System.out.println("after method: " + method.getName());
+          return object;
+      }
+  }
+  ```
+  10 单元自测
+  ```java
+  public class CglibProxyTest {
+      @Test
+      public void test() {
+          AliSmsService aliSmsService = CglibProxyFactory.getProxy(AliSmsService.class,
+              new DebugMethodInterceptor());
+          aliSmsService.send("java");
+          //before method send
+          //send message:java
+          //after method send
+      }
+  
+      @Test
+      public void testSendFinal() {
+          AliSmsService aliSmsService = CglibProxyFactory.getProxy(AliSmsService.class,
+              new DebugMethodInterceptor());
+          aliSmsService.sendFinal("java");
+          //sendV2 message:java
+      }
+  
+  }
+  ```
 -
 -
