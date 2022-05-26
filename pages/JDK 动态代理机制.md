@@ -26,4 +26,7 @@
           throws Throwable;
   }
   ```
+  第一个参数proxy :动态生成的代理类
+  第二个参数method : 与代理类对象调用的方法相对应,代理类接口声明的方法
+  第三个参数args : 当前 method 方法的参数
 -
