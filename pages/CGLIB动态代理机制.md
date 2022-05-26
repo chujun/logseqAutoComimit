@@ -53,4 +53,37 @@
   </dependency>
   ```
   1.被代理的类
+  ```java
+  public class AliSmsService {
+      public String send(String message) {
+          System.out.println("send message:" + message);
+          return message;
+      }
+  
+      public final String sendFinal(String message) {
+          System.out.println("sendV2 message:" + message);
+          return message;
+      }
+  }
+  ```
+  2.利用Enhancer创建动态代理类
+  ```java
+  public class CglibProxyFactory {
+      public static <T> T getProxy(Class<T> clazz, MethodInterceptor methodInterceptor) {
+          // 创建动态代理增强类
+          Enhancer enhancer = new Enhancer();
+          // 设置类加载器
+          enhancer.setClassLoader(clazz.getClassLoader());
+          // 设置被代理类
+          enhancer.setSuperclass(clazz);
+          // 设置方法拦截器
+          enhancer.setCallback(methodInterceptor);
+          // 创建代理类
+          return (T) enhancer.create();
+      }
+  }
+  ```
+  
+  3.创建一个类实现一个MethodInterceptor
+-
 -
