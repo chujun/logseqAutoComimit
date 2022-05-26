@@ -14,6 +14,9 @@
   
   代理模式
   主要场景
+  静态代理和动态代理
+  静态代理:基本用不到，对目标对象的所有方法都是手动完成
+  动态代理
   类图
   代码
   [java代理模式](https://javaguide.cn/java/basis/proxy.html#_1-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F)
