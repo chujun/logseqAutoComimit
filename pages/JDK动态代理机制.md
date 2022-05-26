@@ -31,6 +31,8 @@
   第三个参数args : 当前 method 方法的参数
   
   具体代码实例就不介绍了，比较简单
+- 缺点
+  只能代理实现了接口的类。 #CGLIB动态代理机制
 - 进一步深入研究代理
   ProxyClassFactory
   根据 ProxyGenerator.generateProxyClass(proxyClassName, interfaces);生成代理类的二进制字节流
