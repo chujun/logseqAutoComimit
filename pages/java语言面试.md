@@ -114,6 +114,7 @@
 	  而动态代理是在运行时动态生成类字节码，并加载到 JVM 中的。
 	- [[JDK动态代理机制]]
 	  [[CGLIB动态代理机制]]
+	  ((628f7bd3-d45e-4cbd-8da3-294eaa3f257d))
 	- [java代理模式](https://javaguide.cn/java/basis/proxy.html#_1-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F)
 - 并发
 - [[JVM]]
