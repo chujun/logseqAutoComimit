@@ -31,8 +31,9 @@
   第三个参数args : 当前 method 方法的参数
   
   具体代码实例就不介绍了，比较简单
-- 进一步深入研究
+- 进一步深入研究代理
   ProxyClassFactory
+  根据 ProxyGenerator.generateProxyClass(proxyClassName, interfaces);生成代理类的二进制字节流
 - 如何查看代理类生成的类字节码内容
 - 具体实战演练
   ```java
@@ -44,6 +45,7 @@
       public static void generateProxyClass(String path, String proxyClassName, Class<?>[] interfaces) {
           byte[] bytes = ProxyGenerator.generateProxyClass(proxyClassName, interfaces);
           try {
+            	//import org.apache.commons.io.FileUtils;
               FileUtils.writeByteArrayToFile(new File(path + "/" + proxyClassName + ".class"), bytes);
           } catch (IOException e) {
               throw new RuntimeException(e);
