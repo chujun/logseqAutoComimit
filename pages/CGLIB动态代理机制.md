@@ -29,7 +29,7 @@
   
   public class CglibProxyFactory {
   
-      public static Object getProxy(Class<?> clazz,) {
+      public static Object getProxy(Class<?> clazz,MethodInterceptor methodInterceptor) {
           // 创建动态代理增强类
           Enhancer enhancer = new Enhancer();
           // 设置类加载器
@@ -37,11 +37,20 @@
           // 设置被代理类
           enhancer.setSuperclass(clazz);
           // 设置方法拦截器
-          //enhancer.setCallback(new DebugMethodInterceptor());
+          enhancer.setCallback(methodInterceptor);
           // 创建代理类
           return enhancer.create();
       }
   }
   ```
 - 实际demo举例
+  0.导入jar包
+  ```xml
+  <dependency>
+    <groupId>cglib</groupId>
+    <artifactId>cglib</artifactId>
+    <version>3.3.0</version>
+  </dependency>
+  ```
+  1.被代理的类
 -
