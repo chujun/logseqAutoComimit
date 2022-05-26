@@ -64,7 +64,8 @@
   ```java
   ProxyClassUtils.generateProxyClass("/Users/chujun/my/project/javaddu/target/proxy", "Calculator$proxy0", new Class[]{Calculator.class});
   ```
-  生成的动态代理类反编译之后内容如下
+  生成的动态代理类反编译之后内容如下,
+  代理类的构造器参数里面有InvocationHandler
   ```class
   
   
