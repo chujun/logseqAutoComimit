@@ -13,7 +13,10 @@
   [软件设计模式——七大设计原则](https://hjk.life/posts/design-patterns-principles/)
   
   代理模式
-  
+  主要场景
+  类图
+  代码
+  [java代理模式](https://javaguide.cn/java/basis/proxy.html#_1-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F)
   观察者模式
   订阅模式
 - # 操作系统
