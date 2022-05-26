@@ -11,5 +11,19 @@
   		...
   	}
   ```
-  第一个参数指明使用哪个类加载器生成类字节码.
-  第二个参数指明代理类
+  第一个参数指明使用哪个类加载器生成类字节码。
+  第二个参数指明代理类实现了哪些接口。
+  第三个参数指明客户端调用代理类的代理方法时，代理类该怎么处理。
+  
+  而InvocationHandler就指明了代理类该怎么处理代理方法
+  ```java
+  public interface InvocationHandler {
+  
+      /**
+       * 当你使用代理对象调用方法的时候实际会调用到这个方法
+       */
+      public Object invoke(Object proxy, Method method, Object[] args)
+          throws Throwable;
+  }
+  ```
+-
