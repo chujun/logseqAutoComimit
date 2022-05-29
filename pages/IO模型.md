@@ -54,6 +54,8 @@
 	- I/O 多路复用
 	  select/poll/epoll函数
 	- 信号驱动 I/O
+	  
+	  ![image.png](../assets/image_1653811191681_0.png)
 	- 异步 I/O
 -
 - java IO模型
@@ -61,6 +63,7 @@
   在客户端连接数量不高的情况下，是没问题的。但是，当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。我们需要一种更高效的 I/O 处理模型来应对更高的并发量。
   NIO(Non Blocking IO) jdk4引入
   AIO(Aysnc IO)jdk7引入
+- 多线程中使用的IO模型
 - 零拷贝技术
 - 资料
   [如何完成一次 IO](https://llc687.top/126.html)
