@@ -71,7 +71,7 @@
 	- I/O多路复用
 	  定义:也称事件驱动IO，在单个线程里同时监控多个套接字，通过 select /poll轮询/epoll查看所负责的所有 socket，当某个 socket 有数据到达了，就通知用户进程。
 	  select/poll/epoll三种函数实现
-	  select:可以同时等待多个IO数据准备就绪,进程阻塞,只要有任意一个就绪，就返回
+	  select:可以同时等待多个IO数据准备就绪,进程阻塞,只要有任意一个就绪，就唤醒进程。
 	  poll:可以同时轮训多个IO数据准备是否就绪，只要有任意一个就绪，就返回
 	  epollo:TODO:cj
 	  ![image.png](../assets/image_1653824421764_0.png)
