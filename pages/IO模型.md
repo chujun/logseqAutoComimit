@@ -105,12 +105,18 @@
 	  ![image.png](../assets/image_1653825732794_0.png)
 -
 - java IO模型
-  BIO(Blocking IO)同步阻塞IO模型,最传统的模型。
+  1. BIO(Blocking IO)同步阻塞IO模型,最传统的模型。
   该模型下常见优化的方案就是用线程池.
   在客户端连接数量不高的情况下，是没问题的。
   限制:当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。
-  NIO(Non Blocking IO) jdk4引入
-  AIO(Aysnc IO)jdk7引入
+  2. NIO(Non Blocking IO) jdk4引入
+  常用类：Selector,Channel,Buffer,
+  Selector 其实就是 select/poll/epoll 的外包类。
+  ![image.png](../assets/image_1653829162081_0.png) 
+  实现了零拷贝技术
+  FileChannel.map() : 基于内存映射 mmap 方式一种实现，可以把一个文件从 position 位置开始的 size 大小的区域映射为内存映像文件。()
+  FileChannel.transferTo() : 通过调用 sendfile 方式实现的零拷贝。
+  3. AIO(Aysnc IO)jdk7引入
 -
 -
 - 资料
