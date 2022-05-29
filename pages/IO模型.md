@@ -21,6 +21,7 @@
 	- 同步阻塞 I/O
 	- 同步非阻塞 I/O
 	- I/O 多路复用
+	  select/poll/epoll函数
 	- 信号驱动 I/O
 	- 异步 I/O
 -
