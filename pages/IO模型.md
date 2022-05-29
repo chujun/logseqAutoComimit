@@ -110,6 +110,8 @@
   在客户端连接数量不高的情况下，是没问题的。
   限制:当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。
   2. NIO(Non Blocking IO) jdk4引入
+  NIO 虽然用的是多路复用I/O模型，却属于同步非阻塞,
+  工作原理:收到的请求会先注册到多路复用器 Selector 上，多路复用器轮询直到连接有 I/O 请求时才启动一个线程进行处理。也就是前文中的多路复用 I/O 模型，虽然说多路复用模型是阻塞的，但在 NIO 这里，因为有Selector，read 和 write 操作都是非阻塞的.
   常用类：Selector,Channel,Buffer,
   Selector 其实就是 select/poll/epoll 的外包类。
   ![image.png](../assets/image_1653829162081_0.png) 
