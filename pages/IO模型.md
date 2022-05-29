@@ -14,13 +14,20 @@
 	  1. 内核等待I/O设备准备好数据。
 	  2. 内核将数据从内核空间拷贝到用户空间。
 - 五种常见的I/O模型
+  同步异步
+  阻塞非阻塞
   UNIX 系统下， IO 模型一共有 5 种：
-	- 同步阻塞 I/O、
+	-
+	- 同步阻塞 I/O
 	- 同步非阻塞 I/O
 	- I/O 多路复用
 	- 信号驱动 I/O
-	- 异步 I/O。
+	- 异步 I/O
+-
 - java IO模型
+  BIO(Blocking IO)同步阻塞IO模型
+  NIO(Non Blocking IO) jdk4引入
+  AIO(Aysnc IO)jdk7引入
 - 零拷贝技术
 - 资料
   [IO模型详解](https://javaguide.cn/java/basis/io.html#%E4%BD%95%E4%B8%BA-i-o)
