@@ -118,6 +118,8 @@
   FileChannel.transferTo() : 通过调用 sendfile 方式实现的零拷贝。
   应用：[[Netty]] 基于NIO
   3. AIO(Aysnc IO)jdk7引入
+  在 NIO 的基础上引入了新的异步通道的概念，并提供了异步文件通道和异步套接字通道的实现。
+  目前的实践项目不多
 -
 -
 - 资料
