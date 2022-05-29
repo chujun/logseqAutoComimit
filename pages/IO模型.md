@@ -25,7 +25,7 @@
 	- 异步 I/O
 -
 - java IO模型
-  BIO(Blocking IO)同步阻塞IO模型
+  BIO(Blocking IO)同步阻塞IO模型,最传统的模型
   NIO(Non Blocking IO) jdk4引入
   AIO(Aysnc IO)jdk7引入
 - 零拷贝技术
