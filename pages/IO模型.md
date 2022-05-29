@@ -30,8 +30,7 @@
   AIO(Aysnc IO)jdk7引入
 - 零拷贝技术
 - 资料
-  [如何完成一次 IO
-  ](https://llc687.top/126.html)
+  [如何完成一次 IO](https://llc687.top/126.html)
   [IO模型详解](https://javaguide.cn/java/basis/io.html#%E4%BD%95%E4%B8%BA-i-o)
 - 书籍
-  《UNIX 网络编程 卷 1；套接字联网 API 》6.2 节 IO 模型
+  《UNIX 网络编程 卷1:套接字联网 API 》6.2 节 IO 模型
