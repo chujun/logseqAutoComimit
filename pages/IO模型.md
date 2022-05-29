@@ -13,6 +13,10 @@
 	- 应用程序发起 I/O 调用后，会经历两个步骤：
 	  1. 等待数据准备好（Waiting for the data to be ready）
 	  2. 从内核向进程复制数据（Copying the data from the kernel to the process）
+- 准备知识
+  虚拟内存
+  ![image.png](../assets/image_1653807210194_0.png) 
+  用户空间和内核空间
 - 五种常见的I/O模型
   同步异步
   阻塞非阻塞
