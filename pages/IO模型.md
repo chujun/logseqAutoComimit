@@ -113,9 +113,11 @@
   NIO 虽然用的是多路复用I/O模型，却属于同步非阻塞,
   工作原理:收到的请求会先注册到多路复用器 Selector 上，多路复用器轮询直到连接有 I/O 请求时才启动一个线程进行处理。也就是前文中的多路复用 I/O 模型，虽然说多路复用模型是阻塞的，但在 NIO 这里，因为有Selector，read 和 write 操作都是非阻塞的.
   常用类：Selector,Channel,Buffer,
+  Channel（通道）相当于操作系统中的内核缓冲区。
+  Buffer 就相当于操作系统中的用户空间缓冲区。
   Selector 其实就是 select/poll/epoll 的外包类。
   ![image.png](../assets/image_1653829162081_0.png) 
-  实现了零拷贝技术
+  NIO实现了零拷贝技术
   FileChannel.map() : 基于内存映射 mmap 方式一种实现，可以把一个文件从 position 位置开始的 size 大小的区域映射为内存映像文件。(不是完全的零拷贝技术)
   FileChannel.transferTo() : 通过调用 sendfile 方式实现的零拷贝。
   应用：[[Netty]] 基于NIO
