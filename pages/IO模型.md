@@ -33,7 +33,6 @@
 	  进程切换时，需保存、装载各种状态数据等资源， 代价就比较高。
 	- 4.进程上下文切换
 	  到了内核，为了控制进程执行，内核必须有能力挂起正在 CPU 上运行的进程，并恢复以前挂起的某个进程的执行。这种行为被称为进程切换。
-- Linux IO读写方式
 - I/O设备与CPU的通信方式
   1. I/O中断
   在DMA技术出现前，应用程序与磁盘间的 I/O 操作都通过 CPU 中断完成。
@@ -117,7 +116,7 @@
   Buffer 就相当于操作系统中的用户空间缓冲区。
   Selector 其实就是 select/poll/epoll 的外包类。
   ![image.png](../assets/image_1653829162081_0.png) 
-  NIO实现了零拷贝技术
+  NIO实现了零拷贝技术，
   FileChannel.map() : 基于内存映射 mmap 方式一种实现，可以把一个文件从 position 位置开始的 size 大小的区域映射为内存映像文件。(不是完全的零拷贝技术)
   FileChannel.transferTo() : 通过调用 sendfile 方式实现的零拷贝。
   应用：[[Netty]] 基于NIO
