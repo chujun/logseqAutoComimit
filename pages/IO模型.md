@@ -114,8 +114,9 @@
   Selector 其实就是 select/poll/epoll 的外包类。
   ![image.png](../assets/image_1653829162081_0.png) 
   实现了零拷贝技术
-  FileChannel.map() : 基于内存映射 mmap 方式一种实现，可以把一个文件从 position 位置开始的 size 大小的区域映射为内存映像文件。()
+  FileChannel.map() : 基于内存映射 mmap 方式一种实现，可以把一个文件从 position 位置开始的 size 大小的区域映射为内存映像文件。(不是完全的零拷贝技术)
   FileChannel.transferTo() : 通过调用 sendfile 方式实现的零拷贝。
+  应用：[[Netty]] 
   3. AIO(Aysnc IO)jdk7引入
 -
 -
