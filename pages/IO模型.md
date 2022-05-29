@@ -10,10 +10,9 @@
 	  只有内核空间才能进行系统态级别的资源有关的操作，比如文件管理、进程通信、内存管理等等。
 	- 应用程序想进行IO操作(例如磁盘IO，网络IO等),必须调用操作系统的*系统调用*api访问内核空间。
 	  从应用程序的视角来看的话，我们的应用程序对操作系统的内核发起 IO 调用（系统调用），操作系统负责的内核执行具体的 IO 操作。我们的应用程序实际上只是发起了 IO 操作的调用而已，具体 IO 的执行是由操作系统的内核来完成的。
-	-
-- 应用程序发起 I/O 调用后，会经历两个步骤：
-  1. 等待数据准备好（Waiting for the data to be ready）
-  2. 从内核向进程复制数据（Copying the data from the kernel to the process）
+	- 应用程序发起 I/O 调用后，会经历两个步骤：(这个认知很重要)
+	  1. 等待数据准备好（Waiting for the data to be ready）
+	  2. 从内核向进程复制数据（Copying the data from the kernel to the process）
 - 准备知识
   都是计算机系统的基础知识(TODO:cj 需要补课)
 	- 1. 虚拟内存
