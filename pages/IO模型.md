@@ -116,3 +116,4 @@
   [原来 8 张图，就可以搞懂「零拷贝」了](https://www.cnblogs.com/xiaolincoding/p/13719610.html)
 - 书籍
   《UNIX 网络编程 卷1:套接字联网 API 》6.2 节 IO 模型
+  《现代操作系统》
