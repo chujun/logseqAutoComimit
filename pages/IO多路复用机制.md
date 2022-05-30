@@ -110,7 +110,29 @@
 	- 3. epoll
 	  epoll可以理解为event poll，不同于无差别轮询，epoll会把哪个流发生了怎样的I/O事件通知我们。后续处理fd集合时这样就不需要线性遍历fd集合了
 		- epoll函数定义
-		- epoll数据结构:红黑树
+		  ```cpp
+		  #include <sys/epoll.h>
+		  
+		  // 数据结构
+		  // 每一个epoll对象都有一个独立的eventpoll结构体
+		  // 用于存放通过epoll_ctl方法向epoll对象中添加进来的事件
+		  // epoll_wait检查是否有事件发生时，只需要检查eventpoll对象中的rdlist双链表中是否有epitem元素即可
+		  struct eventpoll {
+		      /*红黑树的根节点，这颗树中存储着所有添加到epoll中的需要监控的事件*/
+		      struct rb_root  rbr;
+		      /*双链表中则存放着将要通过epoll_wait返回给用户的满足条件的事件*/
+		      struct list_head rdlist;
+		  };
+		  
+		  // API
+		  int epoll_create(int size); // 内核中间加一个 ep 对象，把所有需要监听的 socket 都放到 ep 对象中
+		  int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event); // epoll_ctl 负责把 socket 增加、删除到内核红黑树
+		  int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);// epoll_wait 负责检测可读队列，没有可读 socket 则阻塞进程
+		  
+		  
+		  ```
+		- epoll数据结构:
+		  双链表结构+红黑树
 		- epoll优缺点
 		- epoll两种工作模式
 		- epoll应用:例如nginx
