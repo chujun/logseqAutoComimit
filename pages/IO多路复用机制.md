@@ -1,8 +1,9 @@
 - 定义:也称事件驱动IO，在单个线程里同时监控多个套接字，通过 select /poll/epoll查看所负责的所有 socket，当任意一个socket 有数据准备好，就通知用户进程。
   select/poll/epoll三种函数实现
   select:可以同时等待多个IO数据准备就绪,进程阻塞,只要有任意一个就绪，就唤醒进程。
-  poll:可以同时轮训多个IO数据准备是否就绪，只要有任意一个就绪，就返回
-  epollo:TODO:cj
+  poll:可以同时轮训多个IO数据准备是否就绪，
+  epollo:可以同时等待多个IO数据准备就绪,进程阻塞，只要有
+  
   以select实现方式描述，poll/epoll大致相同
   ![select实现方式IO多路复用.png](../assets/image_1653824421764_0.png)
   第一阶段和第二阶段都阻塞，是同步阻塞(三种实现方式都是)。
