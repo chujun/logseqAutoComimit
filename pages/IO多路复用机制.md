@@ -142,6 +142,50 @@
 		  当调用epoll_wait检查是否有事件发生时，只需要检查eventpoll对象中的rdlist双链表中是否有epitem元素即可。如果rdlist不为空，则把发生的事件复制到用户态，同时将事件数量返回给用户。
 		- epollo处理过程
 		  ![image.png](../assets/image_1653888047827_0.png)
+		  
+		  第一步：epoll_create()系统调用。此调用返回一个句柄，之后所有的使用都依靠这个句柄来标识。
+		  第二步：epoll_ctl()系统调用。通过此调用向epoll对象中添加、删除、修改感兴趣的事件，返回0标识成功，返回-1表示失败。
+		  第三部：epoll_wait()系统调用。通过此调用收集在epoll监控中已经发生的事件。
+		- epoll函数使用伪代码
+		  ```cpp
+		  int main(int argc, char* argv[])
+		  {
+		     /*
+		     * 在这里进行一些初始化的操作，
+		     * 比如初始化数据和socket等。
+		     */
+		  
+		      // 内核中创建ep对象
+		      epfd=epoll_create(256);
+		      // 需要监听的socket放到ep中
+		      epoll_ctl(epfd,EPOLL_CTL_ADD,listenfd,&ev);
+		   
+		      while(1) {
+		        // 阻塞获取
+		        nfds = epoll_wait(epfd,events,20,0);
+		        for(i=0;i<nfds;++i) {
+		            if(events[i].data.fd==listenfd) {
+		                // 这里处理accept事件
+		                connfd = accept(listenfd);
+		                // 接收新连接写到内核对象中
+		                epoll_ctl(epfd,EPOLL_CTL_ADD,connfd,&ev);
+		            } else if (events[i].events&EPOLLIN) {
+		                // 这里处理read事件
+		                read(sockfd, BUF, MAXLINE);
+		                //读完后准备写
+		                epoll_ctl(epfd,EPOLL_CTL_MOD,sockfd,&ev);
+		            } else if(events[i].events&EPOLLOUT) {
+		                // 这里处理write事件
+		                write(sockfd, BUF, n);
+		                //写完后准备读
+		                epoll_ctl(epfd,EPOLL_CTL_MOD,sockfd,&ev);
+		            }
+		        }
+		      }
+		      return 0;
+		  }
+		  
+		  ```
 		- epoll数据结构:
 		  双链表结构+红黑树(O(logN))
 		  通过红黑树和双链表数据结构，并结合回调机制，造就了epoll的高效。
