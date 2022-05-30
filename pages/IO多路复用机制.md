@@ -128,9 +128,8 @@
 		  int epoll_create(int size); // 内核中间加一个 ep 对象，把所有需要监听的 socket 都放到 ep 对象中
 		  int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event); // epoll_ctl 负责把 socket 增加、删除到内核红黑树
 		  int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);// epoll_wait 负责检测可读队列，没有可读 socket 则阻塞进程
-		  
-		  
 		  ```
+		  epitem
 		  ```cpp
 		  struct epitem{
 		      struct rb_node  rbn;//红黑树节点
@@ -140,9 +139,12 @@
 		      struct epoll_event event; //期待发生的事件类型
 		  }
 		  ```
+		  当调用epoll_wait检查是否有事件发生时，只需要检查eventpoll对象中的rdlist双链表中是否有epitem元素即可。如果rdlist不为空，则把发生的事件复制到用户态，同时将事件数量返回给用户。
 		- epollo处理过程
+		  ![image.png](../assets/image_1653888047827_0.png)
 		- epoll数据结构:
-		  双链表结构+红黑树
+		  双链表结构+红黑树(O(logN))
+		  通过红黑树和双链表数据结构，并结合回调机制，造就了epoll的高效。
 		- epoll优缺点
 		- epoll两种工作模式
 		- epoll应用:例如nginx
