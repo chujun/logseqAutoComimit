@@ -43,7 +43,7 @@
 		  )                              
 		  ```
 		- select调用过程
-		- ![image.png](../assets/image_1653882483619_0.png) 
+		  ![image.png](../assets/image_1653882483619_0.png) 
 		  select调用过程
 		  （1）使用copy_from_user从用户空间拷贝fd_set到内核空间
 		  （2）注册回调函数__pollwait
@@ -53,7 +53,7 @@
 		  （6）poll方法返回时会返回一个描述读写操作是否就绪的mask掩码，根据这个mask掩码给fd_set赋值。
 		  （7）如果遍历完所有的fd，还没有返回一个可读写的mask掩码，则会调用schedule_timeout是调用select的进程（也就是current）进入睡眠。当设备驱动发生自身资源可读写后，会唤醒其等待队列上睡眠的进程。如果超过一定的超时时间（schedule_timeout指定），还是没人唤醒，则调用select的进程会重新被唤醒获得CPU，进而重新遍历fd，判断有没有就绪的fd。
 		  （8）把fd_set从内核空间拷贝到用户空间
-		  select函数详情
+		- select函数详情
 		  ```cpp
 		  #include <sys/select.h>
 		  #include <sys/time.h>
@@ -83,9 +83,11 @@
 		  FD_CLR(int fd, fd_set* fds)    // 将给定的描述符从文件中删除  
 		  
 		  ```
-		- select缺点:
+		- select函数缺点
+		  id:: 62944299-b96d-48d3-8c02-4a38a71a9711
 		  FD ((629436f6-7eb2-4324-9f58-24e6112dfc12))
 		  1. 单个进程所打开的FD是有限制的，通过 FD_SETSIZE 设置，默认1024 ;
+		  --->高并发下很容易突破这个限制上限
 		  2. 每次调用 select，都需要把 fd 集合从用户态拷贝到内核态，这个开销在 fd 很多时会很大；
 		  3. 需要遍历整个fd集合，不管那个fd是活跃的,对 socket 扫描时是线性扫描，采用轮询的方法，效率较低（高并发）
 	-
@@ -105,7 +107,9 @@
 	  int poll(struct pollfd fds[], nfds_t nfds, int timeout);
 	  
 	  ```
-	  与select相比,((select缺点))改进了select的第一个缺点(最大连接数限制)，但是后面两个缺点还是存在的。(CPU拷贝fd集合从用户空间到内核空间)，
+	  与select相比
+	  ((62944299-b96d-48d3-8c02-4a38a71a9711)) 
+	  改进了select的第一个缺点(最大连接数限制)，但是后面两个缺点还是存在的。(CPU拷贝fd集合从用户空间到内核空间)，
 	  优点
 	  它没有最大连接数的限制，原因是它是基于链表来存储的.
 	  缺点
