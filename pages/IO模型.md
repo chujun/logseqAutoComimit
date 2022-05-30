@@ -14,6 +14,7 @@
 	  1. 等待数据准备好（Waiting for the data to be ready）
 	  2. 从内核向进程复制数据（Copying the data from the kernel to the process）
 - 准备知识
+  id:: 629317ef-ddcb-45f7-8e4b-44af198efc0a
   都是计算机系统的基础知识(TODO:cj 需要补课)
 	- 1. 虚拟内存
 	  虚拟内存为每个进程提供一个一致私有的地址空间，每个进程拥有一片连续完整的内存空间，让进程有种在独享主存的美好错觉。
