@@ -26,10 +26,51 @@
   select具有O(n)的无差别轮询复杂度，同时处理的流越多，无差别轮询时间就越长
   poll:可以同时轮训多个IO数据准备是否就绪，
   epollo:可以同时等待多个IO数据准备就绪,进程阻塞，只要有
-	- 1. select 
+	- LATER 1. select 
 	  select:有I/O事件发生了，通知用户进程，却并不知道具体是哪几个流(文件描述符)，只能无差别轮询所有流，找出有读写操作的流
 	  select具有O(n)的无差别轮询复杂度，同时处理的流越多，无差别轮询时间就越长
 	  select调用过程
+	  ![image.png](../assets/image_1653882483619_0.png) 
+	  select函数定义
+	  ```
+	  // API
+	  int select(
+	      int max_fd, 
+	      fd_set *readset, 
+	      fd_set *writeset, 
+	      fd_set *exceptset, 
+	      struct timeval *timeout
+	  )                              // 返回值就绪描述符的数目
+	  ```
+	  
+	  ```cpp
+	  #include <sys/select.h>
+	  #include <sys/time.h>
+	  
+	  #define FD_SETSIZE 1024
+	  #define NFDBITS (8 * sizeof(unsigned long))
+	  #define __FDSET_LONGS (FD_SETSIZE/NFDBITS)
+	  
+	  // 数据结构 (bitmap)
+	  typedef struct {
+	      unsigned long fds_bits[__FDSET_LONGS];
+	  } fd_set;
+	  
+	  // API
+	  int select(
+	      int max_fd, 
+	      fd_set *readset, 
+	      fd_set *writeset, 
+	      fd_set *exceptset, 
+	      struct timeval *timeout
+	  )                              // 返回值就绪描述符的数目
+	  
+	  FD_ZERO(int fd, fd_set* fds)   // 清空集合
+	  FD_SET(int fd, fd_set* fds)    // 将给定的描述符加入集合
+	  FD_ISSET(int fd, fd_set* fds)  // 判断指定描述符是否在集合中 
+	  FD_CLR(int fd, fd_set* fds)    // 将给定的描述符从文件中删除  
+	  
+	  ```
 	  select缺点:
 	  1. 单个进程所打开的FD是有限制的，通过 FD_SETSIZE 设置，默认1024 ;
 	  2. 每次调用 select，都需要把 fd 集合从用户态拷贝到内核态，这个开销在 fd 很多时会很大；
