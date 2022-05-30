@@ -6,3 +6,4 @@
   get
   put
   remove
+- hash的死循环
