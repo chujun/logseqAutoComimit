@@ -131,6 +131,16 @@
 		  
 		  
 		  ```
+		  ```cpp
+		  struct epitem{
+		      struct rb_node  rbn;//红黑树节点
+		      struct list_head    rdllink;//双向链表节点
+		      struct epoll_filefd  ffd;  //事件句柄信息
+		      struct eventpoll *ep;    //指向其所属的eventpoll对象
+		      struct epoll_event event; //期待发生的事件类型
+		  }
+		  ```
+		- epollo处理过程
 		- epoll数据结构:
 		  双链表结构+红黑树
 		- epoll优缺点
