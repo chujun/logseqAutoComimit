@@ -26,7 +26,7 @@
   select具有O(n)的无差别轮询复杂度，同时处理的流越多，无差别轮询时间就越长
   poll:可以同时轮训多个IO数据准备是否就绪，
   epollo:可以同时等待多个IO数据准备就绪,进程阻塞，只要有
-	- LATER 1. select 
+	- 1. select 
 	  select:有I/O事件发生了，通知用户进程，却并不知道具体是哪几个流(文件描述符)，只能无差别轮询所有流，找出有读写操作的流
 	  select具有O(n)的无差别轮询复杂度，同时处理的流越多，无差别轮询时间就越长
 	  select调用过程
@@ -34,15 +34,16 @@
 	  select函数定义
 	  ```
 	  // API
+	  // 返回值就绪描述符的数目,若超时则返回0，若出错则返回-1
 	  int select(
 	      int max_fd, 
 	      fd_set *readset, 
 	      fd_set *writeset, 
 	      fd_set *exceptset, 
 	      struct timeval *timeout
-	  )                              // 返回值就绪描述符的数目
+	  )                              
 	  ```
-	  
+	  详情
 	  ```cpp
 	  #include <sys/select.h>
 	  #include <sys/time.h>
