@@ -22,11 +22,8 @@
   所以在并发量不高的情况下,同步阻塞IO+线程池的方式相比IO多路复用机制可能效率更高(具体需要测试)
 - IO多路复用机制三种实现select/poll/epoll函数
   select/poll/epoll三种函数实现
-  select:有I/O事件发生了，却并不知道具体是哪几个文件描述符
-  select具有O(n)的无差别轮询复杂度，同时处理的流越多，无差别轮询时间就越长
-  poll:可以同时轮训多个IO数据准备是否就绪，
-  epollo:可以同时等待多个IO数据准备就绪,进程阻塞，只要有
-  FD 是文件描述符的缩写
+	- 缩写
+	  FD 是文件描述符的缩写
 	- 1. select 
 	  select:有I/O事件发生了，通知用户进程，却并不知道具体是哪几个流(文件描述符)，只能无差别轮询所有流，找出有读写操作的流
 	  select具有O(n)的无差别轮询复杂度，同时处理的流越多，无差别轮询时间就越长
@@ -93,28 +90,24 @@
 	-
 	- 2. poll
 	  poll本质上和select没有区别，它将用户传入的数组拷贝到内核空间，然后查询每个fd对应的设备状态， 但是它没有最大连接数的限制，原因是它是基于链表来存储的.
-	  poll函数定义:
-	  ```cpp
-	  #include <poll.h>
-	  // 数据结构
-	  struct pollfd {
-	      int fd;                         // 需要监视的文件描述符
-	      short events;                   // 需要内核监视的事件
-	      short revents;                  // 实际发生的事件
-	  };
-	  
-	  // API
-	  int poll(struct pollfd fds[], nfds_t nfds, int timeout);
-	  
-	  ```
-	  与select相比
-	  ((62944299-b96d-48d3-8c02-4a38a71a9711)) 
-	  改进了select的第一个缺点(最大连接数限制)，但是后面两个缺点还是存在的。(CPU拷贝fd集合从用户空间到内核空间)，
-	  优点
-	  它没有最大连接数的限制，原因是它是基于链表来存储的.
-	  缺点
-	  1. 每次调用 poll ，都需要把 fd 集合从用户态拷贝到内核态，这个开销在 fd 很多时会很大；
-	  2. 对 socket 扫描是线性扫描，采用轮询的方法，效率较低（高并发时）
+		- poll函数定义:
+		  ```cpp
+		  #include <poll.h>
+		  // 数据结构
+		  struct pollfd {
+		      int fd;                         // 需要监视的文件描述符
+		      short events;                   // 需要内核监视的事件
+		      short revents;                  // 实际发生的事件
+		  };
+		  
+		  // API
+		  int poll(struct pollfd fds[], nfds_t nfds, int timeout);
+		  
+		  ```
+		- 与select函数相比较
+		  ((62944299-b96d-48d3-8c02-4a38a71a9711)) 
+		  改进了select的第一个缺点(它没有最大连接数的限制，原因是它是基于链表来存储的)，
+		  但是后面两个缺点还是存在的。(CPU拷贝fd集合从用户空间到内核空间和线性遍历fd集合)
 	- 3. epoll
 	  优缺点
 - IO多路复用机制三种实现函数的比较
