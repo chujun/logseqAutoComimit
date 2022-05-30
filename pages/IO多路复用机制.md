@@ -198,8 +198,8 @@
 		-
 		- epoll两种工作模式
 		  EPOLLLT 和 EPOLLET 两种触发模式，LT 是默认的模式，ET 是 “高速” 模式。
-		  LT(Level Triggered) 模式下，只要这个 fd 还有数据可读，每次 epoll_wait 都会返回它的事件，提醒用户程序去操作；
-		  ET(Edge Triggered) 模式下，它只会提示一次，直到下次再有数据流入之前都不会再提示了，无论 fd 中是否还有数据可读。所以在 ET 模式下，read 一个 fd 的时候一定要把它的 buffer 读完，或者遇到 EAGIN 错误。
+		  LT(Level Triggered水平触发) 模式下，只要这个 fd 还有数据可读，每次 epoll_wait 都会返回它的事件，提醒用户程序去操作；
+		  ET(Edge Triggered边缘触发) 模式下，它只会提示一次，直到下次再有数据流入之前都不会再提示了，无论 fd 中是否还有数据可读。所以在 ET 模式下，read 一个 fd 的时候一定要把它的 buffer 读完，不然缓存数据就丢失了，或者遇到 EAGIN 错误。
 		- epoll应用:例如nginx
 		  epoll是Linux目前大规模网络并发程序开发的首选模型。在绝大多数情况下性能远超select和poll。
 		  在并发连接不高的情况下，多线程+阻塞I/O方式可能性能更好。
