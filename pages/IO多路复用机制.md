@@ -23,7 +23,7 @@
 - IO多路复用机制三种实现select/poll/epoll函数
   select/poll/epoll三种函数实现
 	- 缩写
-	  FD 是文件描述符的缩写
+	  FD 是文件描述符的缩写 ((629436f6-7eb2-4324-9f58-24e6112dfc12))
 	- 1. select 
 	  select:有I/O事件发生了，通知用户进程，却并不知道具体是哪几个流(文件描述符)，只能无差别轮询所有流，找出有读写操作的流
 	  select具有O(n)的无差别轮询复杂度，同时处理的流越多，无差别轮询时间就越长
@@ -41,7 +41,6 @@
 		  ```
 		- select调用过程
 		  ![image.png](../assets/image_1653882483619_0.png) 
-		  select调用过程
 		  （1）使用copy_from_user从用户空间拷贝fd_set到内核空间
 		  （2）注册回调函数__pollwait
 		  （3）遍历所有fd，调用其对应的poll方法（对于socket，这个poll方法是sock_poll，sock_poll根据情况会调用到tcp_poll,udp_poll或者datagram_poll）
@@ -109,7 +108,8 @@
 		  改进了select的第一个缺点(它没有最大连接数的限制，原因是它是基于链表来存储的)，
 		  但是后面两个缺点还是存在的。(CPU拷贝fd集合从用户空间到内核空间和线性遍历fd集合)
 	- 3. epoll
-	  优缺点
+	  epoll可以理解为event poll，不同于无差别轮询，epoll会把哪个流发生了怎样的I/O事件通知我们。后续处理fd集合时这样就不需要线性遍历fd集合了
+	- select/poll/epoll汇总比较
 - IO多路复用机制三种实现函数的比较
 - IO多路复用机制的应用
   常用于处理高并发的网络请求,所有请求里同时发生读写操作的比例一般不会很高，绝大多数请求读写都是阻塞状态
