@@ -7,6 +7,9 @@
   2. jdk vs jre
   3. OpenJDK vs OracleJDK
   [openjdk github](https://github.com/openjdk/jdk)
+  4. 集合
+  [[HashMap]]
+  [[ConcurrentHashMap]]
   10.语言
   注解
   序列化/反序列化
