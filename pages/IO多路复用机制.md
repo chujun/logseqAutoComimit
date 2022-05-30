@@ -232,9 +232,9 @@
   2. nginx
   nginx支持多种并发模型,nginx 自动选择最高效的模型.
   NGINX中支持的并发模型：
-  select:
-  poll:
+  linux操作系统：select,poll,epoll
   epoll:IO多路复用、高效并发模型，可在 Linux 2.6+ 及以上内核可以使用
+  其他操作系统平台:kqueue,/dev/poll, eventport
 -
 -
 - 资料
