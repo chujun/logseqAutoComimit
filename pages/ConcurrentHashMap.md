@@ -2,6 +2,7 @@
   初始化
   hash
   扩容--->rehash
+  链表<->红黑树
   put
   get
   remove
