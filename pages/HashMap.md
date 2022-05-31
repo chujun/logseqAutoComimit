@@ -7,4 +7,4 @@
   put
   remove
 - hash的死循环
-  hash
+- hash线程不安全
