@@ -7,3 +7,4 @@
   put
   remove
 - hash的死循环
+  hash
