@@ -6,13 +6,15 @@
   	2. jdk6之后jvm对synchronized锁进行了一系列优化，自旋锁、适应性自旋锁、锁消除、锁粗化、偏向锁、轻量级锁等。
    你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。--->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(相比jdk7)。
 - synchronized的底层原理
+  id:: 629875cb-0dcd-4aff-a6f6-520d1fbfcb63
   0.背景知识
   Class文件格式，对象头Mark
   1.锁的四种状态
   无锁状态--->偏向锁状态--->轻量级锁状态---->重量级锁状态
   逐步加深
   2.锁的升级化过程
-  [Java锁的升级化过程分析-有赞技术团队](https://tech.youzan.com/javasuo-yu-xian-cheng-de-na-xie-shi/)
+  
+  梳理得很不错
   ![2.6本章小结锁的升级化过程图.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
 - 典型场景应用
   2. 双重锁检测方式实现单例模式
@@ -36,3 +38,5 @@
    }
    }
    ```
+- 资料
+  [Java锁的升级化过程分析，有图很详细-有赞技术团队](https://tech.youzan.com/javasuo-yu-xian-cheng-de-na-xie-shi/)
