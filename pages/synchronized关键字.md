@@ -27,15 +27,20 @@
 	  ![image.png](../assets/image_1654159626872_0.png) 
 	  
 	  jvm指令monitorenter , monitorexit
+	  
 	  monitorenter:
 	  monitorexit:
+	  [jvm8-monitorenter官方文档](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5.monitorenter)
+	  
 	  更底层就是看jdk用C++源码怎么实现的了
+	  Monitor 是基于 C++实现的，由ObjectMonitor实现的。每个对象中都内置了一个 ObjectMonitor对象。
+	-
 	- 2. 锁的四种状态
 	  无锁状态--->偏向锁状态--->轻量级锁状态---->重量级锁状态
 	  逐步加深
 	- 3.锁的升级化过程
 	  
-	  图片整理梳理得很不错
+	  图片整理梳理得很不错,后续再看看
 	  ![2.6本章小结锁的升级化过程图.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
 - 典型场景应用
   2. 双重锁检测方式实现单例模式
