@@ -29,6 +29,7 @@
   注意点:在操作系统中层面线程有 READY 和 RUNNING 状态，而在 JVM 层面只能看到 RUNNABLE 状态
   
   2. 线程生命周期图
+  图就是最好的说明
   ![image.png](../assets/image_1654136846423_0.png)
   原图中 wait 到 runnable 状态的转换中，join实际上是Thread类的方法，但这里写成了Object。
 -
