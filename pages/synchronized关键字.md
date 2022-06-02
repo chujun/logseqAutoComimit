@@ -31,7 +31,7 @@
 	  当执行 monitorenter 指令时，线程试图获取锁也就是获取 对象监视器 monitor 的持有权。
 	  对象监视器 monitor同一时刻只允许有一个拥有者。
 	  
-	  下面解释了**可重入锁**
+	  下面同时解释了synchronized为何是**可重入锁**
 	  monitorenter:
 	  1. 如果对象监视器monitor的锁计数器为0,则线程允许进入代码块,锁计数器+1。这个线程就拥有了这个锁
 	  2. 如果该线程本身已经拥有了这个锁，那么锁计数器+1.
@@ -41,7 +41,7 @@
 	  
 	  [jvm8-monitorenter官方文档](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5.monitorenter)
 	  
-	  注意：同步代码块是通过 monitorenter 和 monitorexit 来实现的，同步方法是加了一个 ACC_SYNCHRONIZED 修饰来实现的，不过底层还是对象监视器 monitor 。
+	  注意：同步代码块是通过 monitorenter 和 monitorexit 来实现的，同步方法是加了一个 ACC_SYNCHRONIZED 修饰来实现的，不过底层本质还是对象监视器 monitor 。
 	  
 	  更底层就是看jdk用C++源码怎么实现的了
 	  Monitor 是基于 C++实现的，由ObjectMonitor实现的。每个对象中都内置了一个 ObjectMonitor对象。
@@ -50,9 +50,11 @@
 	  无锁状态--->偏向锁状态--->轻量级锁状态---->重量级锁状态
 	  逐步加深
 	- 3.锁的升级化过程
+	  注意锁可以升级不可降级，这种策略是为了提高获得锁和释放锁的效率
 	  
 	  从jdkC++源码级别分析总结了锁的升级化过程
 	  ![2.6本章小结锁的升级化过程图.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
+	  [Java锁的升级化过程分析，有图很详细-有赞技术团队](https://tech.youzan.com/javasuo-yu-xian-cheng-de-na-xie-shi/)
 - 典型场景应用
   2. 双重锁检测方式实现单例模式
   2. 双重锁检测方式实现
