@@ -20,8 +20,11 @@
 	  	return s1+s2+s3;
 	  }
 	  ```
-	  在jdk5之前就会转为StringBuffer.append方法拼接，而StringBuffer.append()方法中就有同步块的存在。
-	- 锁粗话
+	  
+	  在jdk5之前jvm编译器就会转为StringBuffer.append方法拼接，而StringBuffer.append()方法中就有同步块的存在。
+	  ![截屏2022-06-02 下午8.50.41.png](../assets/截屏2022-06-02_下午8.50.41_1654174601691_0.png)
+	- 锁粗化
+	  现象：一个同步加锁代码块可能出现在循环体中
 	- 偏向锁
 	- 轻量级锁
 	- 你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。
