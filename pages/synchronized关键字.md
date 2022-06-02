@@ -37,14 +37,21 @@
 	  
 	  如果说轻量级锁是在无竞争的情况下使用CAS操作去消除同步使用的互斥量，那偏向锁就是在无竞争的情况下把整个同步都消除掉，连CAS操作都不去做了。
 	  
-	  jdk15废弃偏向锁了
-	  [Deprecate and Disable Biased Locking](https://openjdk.java.net/jeps/374)
+	  jdk15默认禁用偏向锁了
+	  
 	  废弃原因:
 	  0. 在过去，Java 应用通常使用的都是 HashTable、Vector 等比较老的集合库，这类集合库大量使用了 synchronized 来保证线程安全。
 	  1. 随着时代的变化，新的 Java 应用基本都已经使用了无锁的集合库，比如 HashMap、ArrayList 等,
 	  在多线程场景下，Java 也提供了 ConcurrentHashMap、CopyOnWriteArrayList 等性能更好的线程安全的集合库。
 	  对于使用了新类库的 Java 应用来说，偏向锁带来的收益已不如过去那么明显，而且在当下多线程应用越来越普遍的情况下，偏向锁带来的锁升级操作反而会影响应用的性能。
-	  2.
+	  2. 时代变了，维护成本却还在增加
+	  偏向锁为整个「同步子系统」引入了大量的复杂度，并且这些复杂度也入侵到了 HotSpot 的其它组件。
+	  这导致了系统代码难以理解，难以进行大的设计变更，降低了子系统的演进能力.
+	  
+	  >Biased locking introduced a lot of complex code into the synchronization subsystem and is invasive to other HotSpot components as well.
+	  
+	  [Deprecate and Disable Biased Locking](https://openjdk.java.net/jeps/374)
+	-
 	- 轻量级锁
 	  
 	  轻量级锁便通过CAS操作避免使用互斥量的开销
