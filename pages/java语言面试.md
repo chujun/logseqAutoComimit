@@ -119,7 +119,7 @@
 	  [[CGLIB动态代理机制]]
 	  ((628f7bd3-d45e-4cbd-8da3-294eaa3f257d))
 	- [java代理模式](https://javaguide.cn/java/basis/proxy.html#_1-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F)
-- 并发
+- [[java并发]]
   CopyOnWrite,COW写时复制机制
 - [[JVM]]
 - 新特性
