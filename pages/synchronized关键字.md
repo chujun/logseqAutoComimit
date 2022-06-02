@@ -19,34 +19,7 @@
 	  	return s1+s2+s3;
 	  }
 	  ```
-	  ---> javap -verbose反编译class文件
-	  ```idea show bytecode
-	   public java.lang.String contractString(java.lang.String, java.lang.String, java.lang.String);
-	      descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	      flags: ACC_PUBLIC
-	      Code:
-	        stack=2, locals=4, args_size=4
-	           0: new           #5                  // class java/lang/StringBuilder
-	           3: dup
-	           4: invokespecial #6                  // Method java/lang/StringBuilder."<init>":()V
-	           7: aload_1
-	           8: invokevirtual #7                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
-	          11: aload_2
-	          12: invokevirtual #7                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
-	          15: aload_3
-	          16: invokevirtual #7                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
-	          19: invokevirtual #8                  // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
-	          22: areturn
-	        LineNumberTable:
-	          line 15: 0
-	        LocalVariableTable:
-	          Start  Length  Slot  Name   Signature
-	              0      23     0  this   Lcom/jun/chu/java/mulithread/SynchronizedDemo;
-	              0      23     1    s1   Ljava/lang/String;
-	              0      23     2    s2   Ljava/lang/String;
-	              0      23     3    s3   Ljava/lang/String;
-	  
-	  ```
+	  在jdk5之前就会转为StringBuffer.append方法拼接，而StringBuffer.append()方法中就有同步块的存在。
 	- 你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。--->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(相比jdk7)。
 - synchronized的底层原理
   id:: 629875cb-0dcd-4aff-a6f6-520d1fbfcb63
