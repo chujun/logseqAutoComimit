@@ -26,9 +26,11 @@
 	  ```
 	  ![image.png](../assets/image_1654159626872_0.png) 
 	  
-	  jvm指令monitorenter , monitorexit
+	  核心jvm指令monitorenter , monitorexit
+	  
 	  当执行 monitorenter 指令时，线程试图获取锁也就是获取 对象监视器 monitor 的持有权。
-	  对象监视器 monitor同一时刻只允许有一个拥有者
+	  对象监视器 monitor同一时刻只允许有一个拥有者。
+	  
 	  monitorenter:
 	  1. 如果对象监视器monitor的锁计数器为0,则线程允许进入代码块,锁计数器+1。这个线程就拥有了这个锁
 	  2. 如果该线程本身已经拥有了这个锁，那么锁计数器+1.
@@ -36,6 +38,8 @@
 	  monitorexit:
 	  从这儿可以看出synchronized支持可重入
 	  [jvm8-monitorenter官方文档](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5.monitorenter)
+	  
+	  注意：同步代码块是通过 monitorenter 和 monitorexit 来实现的，同步方法是加了一个 ACC_SYNCHRONIZED 修饰来实现的，不过底层还是对象监视器 monitor 。
 	  
 	  更底层就是看jdk用C++源码怎么实现的了
 	  Monitor 是基于 C++实现的，由ObjectMonitor实现的。每个对象中都内置了一个 ObjectMonitor对象。
