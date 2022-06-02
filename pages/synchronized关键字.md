@@ -34,8 +34,9 @@
 	  monitorenter:
 	  1. 如果对象监视器monitor的锁计数器为0,则线程允许进入代码块,锁计数器+1。这个线程就拥有了这个锁
 	  2. 如果该线程本身已经拥有了这个锁，那么锁计数器+1.
-	  3. 如果其他线程
+	  3. 如果其他线程已经拥有了这个锁，那个该线程则阻塞直到锁计数器为0才再次尝试
 	  monitorexit:
+	  1.锁计数器-1
 	  从这儿可以看出synchronized支持可重入
 	  [jvm8-monitorenter官方文档](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5.monitorenter)
 	  
@@ -49,7 +50,7 @@
 	  逐步加深
 	- 3.锁的升级化过程
 	  
-	  图片整理梳理得很不错,后续再看看
+	  从jdkC++源码级别分析总结了锁的升级化过程
 	  ![2.6本章小结锁的升级化过程图.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
 - 典型场景应用
   2. 双重锁检测方式实现单例模式
