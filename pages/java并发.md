@@ -28,4 +28,5 @@
   ![image.png](../assets/image_1654136820182_0.png)
   线程生命周期图
   ![image.png](../assets/image_1654136846423_0.png)
+  订正(来自issue736)：原图中 wait 到 runnable 状态的转换中，join实际上是Thread类的方法，但这里写成了Object。
 -
