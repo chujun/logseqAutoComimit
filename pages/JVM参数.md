@@ -1,1 +1,3 @@
 - 线程相关
+  -XX:+UseSpinning 开启自旋锁 jdk1.6，默认true ((f6152514-a942-4aa1-8e61-de1116a30b3c))
+  -XX:PreBlockSpin 自选次数,默认10次
