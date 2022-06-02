@@ -77,7 +77,7 @@
 	- 作用:保证同一个时刻synchronized修饰的方法或者方法块只有一个线程能执行。(互斥锁)
 	- jvm不同版本对synchronized锁的优化
 	  1. 早期就是个重量级锁,效率很低。
-	  2. jdk6之后对synchronized锁进行了一系列优化，自旋锁、适应性自旋锁、锁消除、锁粗化、偏向锁、轻量级锁等。
+	  2. jdk6之后jvm对synchronized锁进行了一系列优化，自旋锁、适应性自旋锁、锁消除、锁粗化、偏向锁、轻量级锁等。
 	  你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。--->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(相比jdk7)。
 	- 锁的四种状态
 	  无锁状态、偏向锁状态、轻量级锁状态、重量级锁状态,逐步加深
