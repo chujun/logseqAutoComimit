@@ -1,5 +1,9 @@
 - 背景知识
-  [[java内存模型]]
+  1. [[java内存模型]]
+  2. CPU资源抢占方式
+  操作系统架构通常都是用所谓的“时间分片（time quantum or time slice）”方式进行抢占式（preemptive）轮转调度（round-robin式）。
+- 基础知识点
+  线程上下文切换
 - 进程和线程
   程序执行的基本单元,一个进程可以有多个线程，
   线程是更小的CPU执行单位
@@ -32,4 +36,7 @@
   图就是最好的说明
   ![image.png](../assets/image_1654136846423_0.png)
   原图中 wait 到 runnable 状态的转换中，join实际上是Thread类的方法，但这里写成了Object。
+  
+  线程上下文切换:
+  CPU
 -
