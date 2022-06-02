@@ -61,11 +61,13 @@
 	  [Deprecate and Disable Biased Locking](https://openjdk.java.net/jeps/374)
 	-
 	- 轻量级锁
+	  id:: 6298b2ff-7bc1-4d9f-aa5d-2f72933bc324
 	  
 	  轻量级锁便通过CAS操作避免使用互斥量的开销
 	  轻量级锁能提升程序同步性能的依据是“对于绝大部分的锁，在整个同步周期内都是不存在竞争的”这一经验法则。
 	  
 	  加轻量级锁时，虚拟机首先将在当前线程的栈帧中建立一个名为锁记录（Lock Record）的空间，用于存储锁对象目前的Mark Word的拷贝（官方为这份拷贝加了一个Displaced前缀，即Displaced Mark Word）。
+	  这个拷贝还是有作用的 ((6298b8fd-0098-4554-84ec-5b5150f560a5)) 
 	  ![截屏2022-06-03 上午12.02.57.png](../assets/截屏2022-06-03_上午12.02.57_1654185798389_0.png) 
 	  
 	  ((6298791f-12c9-4fb8-b68a-60855d19aefa))
