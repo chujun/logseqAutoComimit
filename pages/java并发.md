@@ -87,6 +87,8 @@
 	  你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。--->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(相比jdk7)。
 	- 锁的四种状态
 	  无锁状态、偏向锁状态、轻量级锁状态、重量级锁状态,逐步加深
+	  [](https://tech.youzan.com/javasuo-yu-xian-cheng-de-na-xie-shi/)
+	  ![image.png](../assets/image_1654158002331_0.png)
 	- 典型场景应用
 	  2. 双重锁检测方式实现单例模式
 	   
