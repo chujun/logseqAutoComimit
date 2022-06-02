@@ -27,8 +27,11 @@
 	  ![image.png](../assets/image_1654159626872_0.png) 
 	  
 	  jvm指令monitorenter , monitorexit
+	  当执行 monitorenter 指令时，线程试图获取锁也就是获取 对象监视器 monitor 的持有权。
 	  
 	  monitorenter:
+	  1. 如果对象监视器monitor的锁计数器为0,则线程允许进入代码块,锁计数器+1。这个线程就拥有了这个锁
+	  2. 
 	  monitorexit:
 	  [jvm8-monitorenter官方文档](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5.monitorenter)
 	  
