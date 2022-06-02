@@ -7,30 +7,36 @@
    你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。--->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(相比jdk7)。
 - synchronized的底层原理
   id:: 629875cb-0dcd-4aff-a6f6-520d1fbfcb63
-  0.背景知识
-  Class文件格式，对象头MarkWord
-  1.jvm层理解synchronized
-  实例synchronized
-  ```
-  public class SynchronizedDemo {
-      public void method() {
-          synchronized (this) {
-              System.out.println("synchronized 代码块");
-          }
-      }
-  }
-  ```
-  monitorenter , monitorexit
-  monitorenter
-  monitorexit
-  更底层就是看jdk用C++源码怎么实现的了
-  2. 锁的四种状态
-  无锁状态--->偏向锁状态--->轻量级锁状态---->重量级锁状态
-  逐步加深
-  3.锁的升级化过程
-  
-  梳理得很不错
-  ![2.6本章小结锁的升级化过程图.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
+	- 0.背景知识
+	  Class文件格式，对象头MarkWord
+	- 1.jvm层理解synchronized
+	  实例synchronized修饰同步块
+	  ```
+	  public class SynchronizedDemo {
+	      public void method() {
+	          synchronized (this) {
+	              System.out.println("synchronized 代码块");
+	          }
+	      }
+	  }
+	  ```
+	  执行反编译
+	  ```shell
+	  javap -c -s -v -l SynchronizedDemo.class
+	  ```
+	  ![image.png](../assets/image_1654159626872_0.png) 
+	  
+	  jvm指令monitorenter , monitorexit
+	  monitorenter:
+	  monitorexit:
+	  更底层就是看jdk用C++源码怎么实现的了
+	- 2. 锁的四种状态
+	  无锁状态--->偏向锁状态--->轻量级锁状态---->重量级锁状态
+	  逐步加深
+	- 3.锁的升级化过程
+	  
+	  图片整理梳理得很不错
+	  ![2.6本章小结锁的升级化过程图.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
 - 典型场景应用
   2. 双重锁检测方式实现单例模式
   2. 双重锁检测方式实现
