@@ -88,7 +88,7 @@
 	- 锁的四种状态
 	  无锁状态、偏向锁状态、轻量级锁状态、重量级锁状态,逐步加深
 	  [](https://tech.youzan.com/javasuo-yu-xian-cheng-de-na-xie-shi/)
-	  ![image.png](../assets/image_1654158002331_0.png)
+	  ![2.6本章小结.png](../assets/image_1654158066220_0.png)
 	- 典型场景应用
 	  2. 双重锁检测方式实现单例模式
 	   
