@@ -4,7 +4,8 @@
 - jvm不同版本对synchronized锁的优化
   	1. 早期就是个重量级锁,效率很低。
   	2. jdk6之后jvm对synchronized锁进行了一系列优化，自旋锁、适应性自旋锁、锁消除、锁粗化、偏向锁、轻量级锁等。
-     自旋锁:CAS机制
+     自旋锁:CAS机制，注意自旋等待时间，时间太长反而影响CPU执行效率。
+     jvm:参数-XX：+UseSpinning
    你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。--->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(相比jdk7)。
 - synchronized的底层原理
   id:: 629875cb-0dcd-4aff-a6f6-520d1fbfcb63
