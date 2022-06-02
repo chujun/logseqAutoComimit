@@ -24,9 +24,11 @@
   好处:
   坏处:
 - 线程的生命周期和状态
-  线程状态
+  1. 线程状态
   ![image.png](../assets/image_1654136820182_0.png)
-  线程生命周期图
+  注意点:在操作系统中层面线程有 READY 和 RUNNING 状态，而在 JVM 层面只能看到 RUNNABLE 状态
+  
+  2. 线程生命周期图
   ![image.png](../assets/image_1654136846423_0.png)
-  订正(来自issue736)：原图中 wait 到 runnable 状态的转换中，join实际上是Thread类的方法，但这里写成了Object。
+  原图中 wait 到 runnable 状态的转换中，join实际上是Thread类的方法，但这里写成了Object。
 -
