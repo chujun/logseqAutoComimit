@@ -11,9 +11,9 @@
   1.锁的四种状态
   无锁状态--->偏向锁状态--->轻量级锁状态---->重量级锁状态
   逐步加深
-  2.锁的重量化过程
-  [Java锁与线程的那些事,有赞技术团队](https://tech.youzan.com/javasuo-yu-xian-cheng-de-na-xie-shi/)
-  ![2.6本章小结.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
+  2.锁的升级化过程
+  [Java锁的升级化过程分析-有赞技术团队](https://tech.youzan.com/javasuo-yu-xian-cheng-de-na-xie-shi/)
+  ![2.6本章小结锁的升级化过程图.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
 - 典型场景应用
   2. 双重锁检测方式实现单例模式
   2. 双重锁检测方式实现
