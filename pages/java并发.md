@@ -86,6 +86,7 @@
 	  你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。--->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(相比jdk7)。
 	- 锁的四种状态
 	  无锁状态、偏向锁状态、轻量级锁状态、重量级锁状态,逐步加深
+	- 应用
 -
 - #
 - volatile 关键字

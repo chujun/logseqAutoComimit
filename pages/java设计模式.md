@@ -25,13 +25,15 @@
 	      }
 	  }
 	  ```
-	  为什么uniqueInstance必须用volatile关键字修饰
-	  线程安全问题
-	  原因:uniqueInstance = new Singleton(); 这段代码其实是分为三步执行：
-	  1. 为 uniqueInstance 分配内存空间
-	  2. 初始化 uniqueInstance
-	  3. 将 uniqueInstance 指向分配的内存地址.
-	   JVM 具有指令重排的特性，执行顺序有可能变成 1->3->2。虽然这种概率很小很小。
-	  多线程环境下，例如，线程 T1 执行了 1 和 3，此时 T2 调用 getUniqueInstance() 后发现 uniqueInstance 不为空，因此返回 uniqueInstance，但此时 uniqueInstance 还未被初始化。
-	  volatile关键字的作用之一可以禁止 JVM 的指令重排，保证在多线程环境下也能正常运行。
+		- 为什么uniqueInstance必须用volatile关键字修饰
+		  线程安全问题
+		  原因:uniqueInstance = new Singleton(); 这段代码其实是分为三步执行：
+		  1. 为 uniqueInstance 分配内存空间
+		  2. 初始化 uniqueInstance
+		  3. 将 uniqueInstance 指向分配的内存地址.
+		   
+		  JVM 具有指令重排的特性，执行顺序有可能变成 1->3->2。虽然这种概率很小很小。
+		  但在多线程环境下，例如，线程 T1 执行了 1 和 3，此时 T2 调用 getUniqueInstance() 后发现 uniqueInstance 不为空，因此返回 uniqueInstance，但此时 uniqueInstance 还未被初始化。
+		  
+		  volatile关键字的作用之一可以禁止 JVM 的指令重排，保证在多线程环境下也能正常运行。
 -
