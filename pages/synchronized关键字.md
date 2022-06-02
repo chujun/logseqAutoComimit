@@ -31,13 +31,14 @@
 	  当执行 monitorenter 指令时，线程试图获取锁也就是获取 对象监视器 monitor 的持有权。
 	  对象监视器 monitor同一时刻只允许有一个拥有者。
 	  
+	  下面解释了**可重入锁**
 	  monitorenter:
 	  1. 如果对象监视器monitor的锁计数器为0,则线程允许进入代码块,锁计数器+1。这个线程就拥有了这个锁
 	  2. 如果该线程本身已经拥有了这个锁，那么锁计数器+1.
 	  3. 如果其他线程已经拥有了这个锁，那个该线程则阻塞直到锁计数器为0才再次尝试
 	  monitorexit:
-	  1.锁计数器-1
-	  从这儿可以看出synchronized支持可重入
+	  1.对象监视器monitor的锁计数器-1,如果锁计数器为0，则说明该线程不再拥有该锁，其他因锁阻塞的线程可以开始抢占锁了。如果不为0,则该线程仍持有该锁。
+	  
 	  [jvm8-monitorenter官方文档](https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5.monitorenter)
 	  
 	  注意：同步代码块是通过 monitorenter 和 monitorexit 来实现的，同步方法是加了一个 ACC_SYNCHRONIZED 修饰来实现的，不过底层还是对象监视器 monitor 。
