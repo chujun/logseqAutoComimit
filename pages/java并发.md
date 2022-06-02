@@ -73,8 +73,12 @@
 	  start方法调用内核系统调用启动了新线程,这会有多个线程，而直接调用run方法不会产生新线程，就只是个普通方法调用。
 -
 - synchronized关键字
-  目的：解决多个线程访问资源的同步性问题，保证同一个时刻只有一个线程能获得synchronized修饰的方法或者方法块能获得互斥锁。
+  目的：解决多个线程访问资源的同步性问题。
+  作用:保证同一个时刻synchronized修饰的方法或者方法块只有一个线程能执行。(互斥锁)
   jvm不同版本对synchronized锁的优化
   早期就是个重量级锁,效率很低
+  你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。--->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(先比jdk7)。
+-
+- #
 - volatile 关键字
 -
