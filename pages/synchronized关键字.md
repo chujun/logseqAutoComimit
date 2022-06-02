@@ -8,11 +8,26 @@
 - synchronized的底层原理
   id:: 629875cb-0dcd-4aff-a6f6-520d1fbfcb63
   0.背景知识
-  Class文件格式，对象头Mark
-  1.锁的四种状态
+  Class文件格式，对象头MarkWord
+  1.jvm层理解synchronized
+  实例synchronized
+  ```
+  public class SynchronizedDemo {
+      public void method() {
+          synchronized (this) {
+              System.out.println("synchronized 代码块");
+          }
+      }
+  }
+  ```
+  monitorenter , monitorexit
+  monitorenter
+  monitorexit
+  更底层就是看jdk用C++源码怎么实现的了
+  2. 锁的四种状态
   无锁状态--->偏向锁状态--->轻量级锁状态---->重量级锁状态
   逐步加深
-  2.锁的升级化过程
+  3.锁的升级化过程
   
   梳理得很不错
   ![2.6本章小结锁的升级化过程图.png](../assets/image_1654158066220_0.png){:height 482, :width 790}
