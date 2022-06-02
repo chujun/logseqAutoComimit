@@ -30,10 +30,12 @@
 	  举例：比如上面锁消除的例子中的StringBuffer.append同步加锁，
 	  扩展到第一个append()操作之前直至最后一个append()操作之后，这样只需要加锁一次就可以了
 	- 偏向锁
-	  ((6298b8fd-0098-4554-84ec-5b5150f560a5))
+	  背景知识:
+	  对象头中的MarkWord ((6298b8fd-0098-4554-84ec-5b5150f560a5))
 	- 轻量级锁
 	- 你会发现目前的话，不论是各种开源框架还是 JDK 源码都大量使用了 synchronized 关键字。
 	  --->jdk8的ConcurrentHashMap源码线程安全就是CAS+synchronized了(相比jdk7)。
+	-
 - synchronized的底层原理
   id:: 629875cb-0dcd-4aff-a6f6-520d1fbfcb63
 	- 0.背景知识
