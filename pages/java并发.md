@@ -113,7 +113,7 @@
 		  而CAS保证了操作原子性,volatile保证内存可见性和禁止指令重排序,
 		  不加volatile的话,可能变更的值不会给其他线程立刻可见.
 		- 3. Lock API
-		  以ReentrantLock举例是可重入锁，
+		  以ReentrantLock举例是可重入锁
 	- 加锁方式比较
 	  ReentrantLock与synchronized区别
 		- a. 支持中断锁。
@@ -137,4 +137,5 @@
 		  手动lock，finally unlock实现，
 - [[java并发包]]
 - 线程池
-- [[ThreadLocal ]]
+- [[线程单例]]
+-
