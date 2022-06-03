@@ -86,7 +86,7 @@
 	  juc包里大量使用，例如原子类包AtomicInteger
 - java加锁的几种方式
   1. synchronized
-  可重入锁，非公平锁
+  可重入锁，非公平锁,不可中断锁
   2. volatile+ Unsafe的CAS机制 ((62998b2a-c6fd-43ad-b055-9451d80a65d7)) 
   3. Lock API
   以ReentrantLock举例是可重入锁，
