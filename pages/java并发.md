@@ -79,7 +79,7 @@
 - # [[synchronized关键字]]
 -
 - volatile 关键字
-- [[java并发类]]
+- [[java并发包]]
 - 线程池
 -
 -

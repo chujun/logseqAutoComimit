@@ -1,12 +1,17 @@
-- Thread, Runnable
+- 里面提供一系列并发开发的工具类,并发包 java.util.concurrent
 - Callable,Future
 - Lock,Condition
   ReentrantLock
+- 原子类
 - juc并发包
-  并发包 java.util.concurrent
+  
   Future
   原子类
   Lock
+  LockSupport
+  AbstractQueuedSynchronizer(AQS)
+  ReentrantLock
+  StampedLock(jdk1.8)
   线程安全容器
   线程池
   ForkJoin框架
