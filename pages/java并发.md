@@ -79,6 +79,10 @@
 - # [[synchronized关键字]]
 -
 - volatile 关键字
+- java加锁的几种方式
+  1. synchronized
+  2. volatile+ Unsafe的CAS机制
+  3. Lock
 - [[java并发包]]
 - 线程池
 - ThreadLocal 
