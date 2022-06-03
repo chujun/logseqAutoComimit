@@ -8,10 +8,20 @@
   弱引用(WeakReference)
   虚引用(PhantomReference)
   ![截屏2022-06-03 下午7.21.04.png](../assets/截屏2022-06-03_下午7.21.04_1654255291803_0.png)
-  当引用类型传入的类型被gc垃圾回收器回收时Reference的get方法会返回null
+  Reference
+  当引用类型Reference构造器传入的类型referent对象被gc垃圾回收器回收时，再调用Reference的get方法会返回null。
   ```java
   public abstract class Reference<T> {
   	private T referent;
+  	volatile ReferenceQueue<? super T> queue;
+  	Reference(T referent) {
+          this(referent, null);
+      }
+  
+      Reference(T referent, ReferenceQueue<? super T> queue) {
+          this.referent = referent;
+          this.queue = (queue == null) ? ReferenceQueue.NULL : queue;
+      }
   	/**
        * Returns this reference object's referent.  If this reference object has
        * been cleared, either by the program or by the garbage collector, then
@@ -25,6 +35,7 @@
       }
   }
   ```
+  应用:ThreadLocal的ThreadLocalMap的Entry就是继承了WeakReference，导致潜在的内存泄漏问题。
 - 优化
   逃逸分析技术
   应用 锁消除 ((6298a5bf-d69e-468c-816f-036e2d687654))
