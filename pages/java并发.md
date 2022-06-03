@@ -81,5 +81,5 @@
 - volatile 关键字
 - [[java并发包]]
 - 线程池
--
--
+- ThreadLocal 
+  不在并发包之列
