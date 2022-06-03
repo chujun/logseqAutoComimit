@@ -7,6 +7,7 @@
   软引用(SoftReference)
   弱引用(WeakReference)
   虚引用(PhantomReference)
+  ![截屏2022-06-03 下午7.21.04.png](../assets/截屏2022-06-03_下午7.21.04_1654255291803_0.png)
 - 优化
   逃逸分析技术
   应用 锁消除 ((6298a5bf-d69e-468c-816f-036e2d687654))
