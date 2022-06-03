@@ -82,7 +82,7 @@
 - java加锁的几种方式
   1. synchronized
   2. volatile+ Unsafe的CAS机制
-  而CAS保证了操作原子性,不加volatile的话,可能
+  而CAS保证了操作原子性,不加volatile的话,可能变更的值不会给其他线程立刻可见
   volatile 修饰符保证了内存可见性和指令禁止重排序，
   应用
   juc包里大量使用，例如原子类包AtomicInteger
