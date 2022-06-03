@@ -65,6 +65,7 @@
 - 创建线程
 -
 - 线程Thread基本方法
+	- wait, notify, notifyAll
 	- 说说 sleep() 方法和 wait() 方法区别和共同点?
 	  两者都释放CPU资源，但sleep不释放锁资源，而wait释放锁资源(必须在sync)
 	  两者最主要的区别在于：sleep() 方法没有释放锁，而 wait() 方法释放了锁 。
@@ -84,13 +85,14 @@
 	  ((6299ba1a-4a99-4b17-93b6-f23479f27e75)) 
 	  juc包里大量使用，例如原子类包AtomicInteger
 -
-	- java锁的的几种方式
+	- java锁的的实现方式
 		- 实现锁的要求
 		  原子性
 		  内存可见性
 		  指令重排序
 		- java加锁的三种方式
 			- 1. synchronized
+			  JVM层面源语实现
 			  可重入锁，非公平锁,不可中断锁
 			- id:: 6299ba1a-4a99-4b17-93b6-f23479f27e75
 			  2. volatile+ Unsafe的CAS机制 
