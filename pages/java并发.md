@@ -83,12 +83,15 @@
   volatile两个语义：
   内存可见性
   禁止指令重排序
-  
+  volatile与synchronized关键字区别
+  1. volatile是轻量级实现,volatile 性能肯定比synchronized关键字要好 
+  2.volatile
   底层实现原理:
   应用：
 	- 1. volatile+ Unsafe的CAS机制 实现锁功能
 	  juc包里大量使用，例如原子类包AtomicInteger
-	- 2. ((629865a4-5176-4fe4-87f9-46a1ff1883e3))
+	- 2. 双重锁检测实现单例模式
+	  ((629865a4-5176-4fe4-87f9-46a1ff1883e3))
 - # java锁的的实现方式
   java锁
 	- 实现锁的要求
