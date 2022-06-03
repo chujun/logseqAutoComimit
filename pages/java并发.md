@@ -81,13 +81,14 @@
 - # volatile 关键字
   应用：
 	- 1. volatile+ Unsafe的CAS机制 实现锁功能 
-	  而CAS保证了操作原子性,不加volatile的话,可能变更的值不会给其他线程立刻可见
 	  juc包里大量使用，例如原子类包AtomicInteger
 - adf
 - java加锁的几种方式
   1. synchronized
   可重入锁，非公平锁,不可中断锁
-  2. volatile+ Unsafe的CAS机制  
+  2. volatile+ Unsafe的CAS机制 
+  而CAS保证了操作原子性,volatile保证内存可见性和禁止指令重排序,
+  不加volatile的话,可能变更的值不会给其他线程立刻可见.
   3. Lock API
   以ReentrantLock举例是可重入锁，
   与synchronized区别
