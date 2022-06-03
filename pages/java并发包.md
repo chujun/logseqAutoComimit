@@ -6,7 +6,7 @@
   ReentrantLock
   StampedLock(jdk1.8)
 - 原子类
-  基于CAS机制实现同步加锁功能
+  基于CAS+volatile机制实现同步加锁功能
 - 线程安全容器
   ArrayBlockingQueue
   ConcurrentHashMap
