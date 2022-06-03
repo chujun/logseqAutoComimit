@@ -92,34 +92,34 @@
 	  指令重排序
 	- java加锁的三种方式
 	  开始
-	  1. synchronized
-	  JVM层面源语实现
-	  可重入锁，非公平锁,不可中断锁
-	  2. volatile+ Unsafe的CAS机制 
-	  而CAS保证了操作原子性,volatile保证内存可见性和禁止指令重排序,
-	  不加volatile的话,可能变更的值不会给其他线程立刻可见.
-	  3. Lock API
-	  以ReentrantLock举例是可重入锁，
-	  ReentrantLock与synchronized区别
-	  a. 支持中断锁。
-	  中断锁:中断锁指的是锁在执行时可被中断，也就是在执行时可以接收 interrupt 的通知，从而中断锁执行。
-	  lockInterruptibly()方法 抛出InterruptedException异常
-	  中断锁应用场景:
-	  b. 公平锁和非公平锁都支持
-	  c. 锁可以绑定多个条件
-	  同时绑定多个Condition对象，只需多次调用newCondition方法即可。
-	  例如ArrayBlockingQueue队列中的notEmpty,notFull Condition
-	  ```java
-	  public ArrayBlockingQueue(int capacity, boolean fair) {
-	        if (capacity <= 0)
-	            throw new IllegalArgumentException();
-	        this.items = new Object[capacity];
-	        lock = new ReentrantLock(fair);
-	        notEmpty = lock.newCondition();
-	        notFull =  lock.newCondition();
-	    }
-	  ```
-	  手动lock，finally unlock实现，
+		- 1. synchronized
+		  JVM层面源语实现
+		  可重入锁，非公平锁,不可中断锁
+		- 2. volatile+ Unsafe的CAS机制 
+		  而CAS保证了操作原子性,volatile保证内存可见性和禁止指令重排序,
+		  不加volatile的话,可能变更的值不会给其他线程立刻可见.
+		- 3. Lock API
+		  以ReentrantLock举例是可重入锁，
+		  ReentrantLock与synchronized区别
+		  a. 支持中断锁。
+		  中断锁:中断锁指的是锁在执行时可被中断，也就是在执行时可以接收 interrupt 的通知，从而中断锁执行。
+		  lockInterruptibly()方法 抛出InterruptedException异常
+		  中断锁应用场景:
+		  b. 公平锁和非公平锁都支持
+		  c. 锁可以绑定多个条件
+		  同时绑定多个Condition对象，只需多次调用newCondition方法即可。
+		  例如ArrayBlockingQueue队列中的notEmpty,notFull Condition
+		  ```java
+		  public ArrayBlockingQueue(int capacity, boolean fair) {
+		        if (capacity <= 0)
+		            throw new IllegalArgumentException();
+		        this.items = new Object[capacity];
+		        lock = new ReentrantLock(fair);
+		        notEmpty = lock.newCondition();
+		        notFull =  lock.newCondition();
+		    }
+		  ```
+		  手动lock，finally unlock实现，
 	-
 -
 - [[java并发包]]
