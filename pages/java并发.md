@@ -85,7 +85,11 @@
 	  而CAS保证了操作原子性,不加volatile的话,可能变更的值不会给其他线程立刻可见
 	  juc包里大量使用，例如原子类包AtomicInteger
 - java加锁的几种方式
-  
+  锁的几大要求
+  1. 原子性 
+  2. 内存可见性 
+  3. 指令重排序
+  三种方式
   1. synchronized
   可重入锁，非公平锁,不可中断锁
   2. volatile+ Unsafe的CAS机制 ((62998b2a-c6fd-43ad-b055-9451d80a65d7)) 
@@ -99,6 +103,17 @@
   b. 公平锁和非公平锁都支持
   c. 锁可以绑定多个条件
   同时绑定多个Condition对象，只需多次调用newCondition方法即可。
+  例如ArrayBlockingQueue队列中的notEmpty,notFull 
+  ```java
+  public ArrayBlockingQueue(int capacity, boolean fair) {
+          if (capacity <= 0)
+              throw new IllegalArgumentException();
+          this.items = new Object[capacity];
+          lock = new ReentrantLock(fair);
+          notEmpty = lock.newCondition();
+          notFull =  lock.newCondition();
+      }
+  ```
   手动lock，finally unlock实现，
 - [[java并发包]]
 - 线程池
