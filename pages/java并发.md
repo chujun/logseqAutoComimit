@@ -91,7 +91,7 @@
   3. Lock API
   以ReentrantLock举例是可重入锁，
   与synchronized区别
-  a. 等待可中断，持有锁的线程长期不释放的时候，正在等待的线程可以选择放弃等待，这相当于Synchronized来说可以避免出现死锁的情况。(指定等待时长)
+  a. 支持中断锁。等待可中断，持有锁的线程长期不释放的时候，正在等待的线程可以选择放弃等待，这相当于Synchronized来说可以避免出现死锁的情况。lockInterruptibly()方法
   b. 公平锁和非公平锁都支持
   c. 锁可以绑定多个条件
   同时绑定多个Condition对象，只需多次调用newCondition方法即可。
