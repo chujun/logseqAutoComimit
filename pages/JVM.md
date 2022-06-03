@@ -2,6 +2,11 @@
   java内存区域
 - [[类加载机制]]
 - [[JVM参数]]
+- 四大引用类型
+  强引用
+  软引用(SoftReference)
+  弱引用(WeakReference)
+  虚引用(PhantomReference)
 - 优化
   逃逸分析技术
   应用 锁消除 ((6298a5bf-d69e-468c-816f-036e2d687654))
