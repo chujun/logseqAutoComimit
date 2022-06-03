@@ -79,13 +79,15 @@
 - # [[synchronized关键字]]
 -
 - volatile 关键字
+  应用：
+	- 1.volatile+ Unsafe的CAS机制 实现锁功能 
+	  id:: 62998b2a-c6fd-43ad-b055-9451d80a65d7
+	  而CAS保证了操作原子性,不加volatile的话,可能变更的值不会给其他线程立刻可见
+	  juc包里大量使用，例如原子类包AtomicInteger
 - java加锁的几种方式
   1. synchronized
-  2. volatile+ Unsafe的CAS机制
-  而CAS保证了操作原子性,不加volatile的话,可能变更的值不会给其他线程立刻可见
-  volatile 修饰符保证了内存可见性和指令禁止重排序，
-  应用
-  juc包里大量使用，例如原子类包AtomicInteger
+  可重入锁
+  2. volatile+ Unsafe的CAS机制 ((62998b2a-c6fd-43ad-b055-9451d80a65d7)) 
   3. Lock
 - [[java并发包]]
 - 线程池
