@@ -80,18 +80,19 @@
 - # [[synchronized关键字]]
 -
 - # volatile 关键字
-  背景知识
-  1. [[java内存模型(JMM)]]
+  volatile
+	- 背景知识
+	  1. [[java内存模型(JMM)]]
 	- volatile两个语义：
 	  内存可见性
 	  禁止指令重排序
 	- volatile与synchronized关键字区别
-	  
 	  1. volatile是轻量级实现,volatile 性能肯定比synchronized关键字要好 .
 	  volatile 关键字只能用于变量而 synchronized 关键字可以修饰方法以及代码块 .
 	  2. volatile只保证内存可见性,不能保证数据的原子性,synchronized 关键字两者都能保证。
 	  3. volatile关键字主要用于解决变量在多个线程之间的可见性，而 synchronized 关键字解决的是多个线程之间访问资源的同步性。
-	  底层实现原理:
+	- volatile底层实现原理
+	  TODO:cj 后续补充
 	- 应用：
 		- 1. volatile+ Unsafe的CAS机制 实现锁功能
 		  juc包里大量使用，例如原子类包AtomicInteger
@@ -136,5 +137,4 @@
 		  手动lock，finally unlock实现，
 - [[java并发包]]
 - 线程池
-- ThreadLocal 
-  不在并发包之列
+- [[ThreadLocal ]]
