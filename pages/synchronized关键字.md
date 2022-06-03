@@ -136,27 +136,5 @@
 	  JVM启动时必不可免会有大量sync的操作，而偏向锁并不是都有利。如果开启了偏向锁，会发生大量锁撤销和锁升级操作，大大降低JVM启动效率。
 	  
 	  我们可以明确地说，只有锁对象处于匿名偏向状态，线程才能拿到到我们通常意义上的偏向锁。而处于无锁状态的锁对象，只能进入到轻量级锁状态。
-- 典型场景应用
-  2. 双重锁检测方式实现单例模式
-  2. 双重锁检测方式实现
-   ``` java
-   public class Singleton {
-- private volatile static Singleton uniqueInstance;
-- private Singleton() {
-   }
-- public  static Singleton getUniqueInstance() {
-   //先判断对象是否已经实例过，没有实例化过才进入加锁代码
-   if (uniqueInstance == null) {
-   //类对象加锁
-   synchronized (Singleton.class) {
-   if (uniqueInstance == null) {
-   uniqueInstance = new Singleton();
-   }
-   }
-   }
-   return uniqueInstance;
-   }
-   }
-   ```
 - 资料
   [Java锁的升级化过程分析，有图很详细-有赞技术团队](https://tech.youzan.com/javasuo-yu-xian-cheng-de-na-xie-shi/)
