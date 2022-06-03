@@ -82,7 +82,7 @@
 - # volatile 关键字
   应用：
 	- 1. volatile+ Unsafe的CAS机制 实现锁功能
-	  ((6299ba1a-4a99-4b17-93b6-f23479f27e75)) 
+	  
 	  juc包里大量使用，例如原子类包AtomicInteger
 - # java锁的的实现方式
   java锁
@@ -90,7 +90,9 @@
 	  原子性
 	  内存可见性
 	  指令重排序
+	-
 	- java加锁的三种方式
+	  开始
 	  1. synchronized
 	  JVM层面源语实现
 	  可重入锁，非公平锁,不可中断锁
