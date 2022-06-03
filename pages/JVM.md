@@ -3,6 +3,7 @@
 - [[类加载机制]]
 - [[JVM参数]]
 - 四大引用类型
+  id:: 6299ed85-5fab-4abb-ad7e-d901f1d30469
   强引用
   软引用(SoftReference)
   弱引用(WeakReference)
