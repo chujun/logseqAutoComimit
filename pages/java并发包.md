@@ -13,7 +13,9 @@
   StampedLock(jdk1.8)
 - 原子类
   id:: 629985ca-1cb9-447c-9919-e0adac191863
-  基于CAS+volatile机制实现同步加锁功能
+  定义:原子类说简单点就是具有原子/原子操作特征的类。
+  A
+  基于循环CAS+volatile机制实现同步加锁功能
 - 线程安全容器
   ArrayBlockingQueue
   ConcurrentHashMap
