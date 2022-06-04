@@ -66,8 +66,11 @@
 -
 - 线程Thread基本方法
 	- 实现 Runnable 接口和 Callable 接口的区别
-	  Runnable接口不会返回结果或抛出检查异常。
-	  Callable 接口 可以返回结果或者抛出异常。
+	  1. Runnable接口不会返回结果或抛出检查异常。
+	  2. Callable接口可以返回结果或者抛出异常。
+	  
+	  工具类 Executors 可以实现将 Runnable 对象转换成 Callable 对象。
+	  （Executors.callable(Runnable task) 或 Executors.callable(Runnable task, Object result)）。
 	- wait, notify, notifyAll
 	- 说说 sleep() 方法和 wait() 方法区别和共同点?
 	  两者都释放CPU资源，但sleep不释放锁资源，而wait释放锁资源(必须在sync)
@@ -148,5 +151,7 @@
 	  1. 降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。
 	  2. 提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。
 	  3. 提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。
+	- java线程池
+	  ((629986de-7a5f-4d94-9345-35be7b205ca6))
 - [[线程单例]]
 -

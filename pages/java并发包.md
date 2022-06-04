@@ -13,7 +13,8 @@
   ConcurrentHashMap
   ConcurrentSkipListMap
   ConcurrentSkipListSet
-- 线程池
+- java线程池
+  id:: 629986de-7a5f-4d94-9345-35be7b205ca6
   Executor
   Executors
 - ForkJoin框架
