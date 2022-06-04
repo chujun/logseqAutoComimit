@@ -77,14 +77,16 @@
 	- 线程池各个参数及其含义
 	  corePoolSize:最小可以同时运行的线程数
 	  maximumPoolSize:最大线程数,当队列中存放的任务达到队列容量的时候，当前可以同时运行的线程数量变为最大线程数。(非必要不增加线程数，线程是个重量级资源)
-	  
 	  long keepAliveTime,TimeUnit unit:线程最大存活时长
-	  BlockingQueue<Runnable> workQueue:任务阻塞列队,当新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中。
+	  当线程池中的线程数量大于 corePoolSize 的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了 keepAliveTime才会被回收销毁；
+	  BlockingQueue<Runnable> workQueue:任务等待阻塞列队,当新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中。
 	  ThreadFactory threadFactory:线程工厂类
 	  RejectedExecutionHandler handler:拒绝策略
 	  ![截屏2022-06-04 下午9.04.05.png](../assets/截屏2022-06-04_下午9.04.05_1654347860231_0.png)
+	- 拒绝策略类型
+	  ThreadPoolExecutor.AbortPolicy： 抛出 RejectedExecutionException来拒绝新任务的处理。
 	- 线程池针对不断增加请求的处理流程
-	  (非必要不增加线程数，线程是个重量级资源),所以
+	  (非必要不增加线程数，线程是个重量级资源),所以请求先存在等待队列中，队列满了的话，再扩大线程数
 	  corePoolSize--->workQueue--->maximumPoolSize--->RejectedExecutionHandler
 - 线程池监控
 - 定时任务线程池ScheduledExecutorService
