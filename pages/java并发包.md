@@ -35,9 +35,19 @@
 	  《阿里巴巴 Java 开发手册》中强制线程池不允许使用 Executors 去创建，(底层也是调用ThreadPoolExecutor构造器创建线程池)
 	  而是通过 ThreadPoolExecutor方式自定义线程池各个参数，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险
 	  方式一:通过Executors类创建(xxx强烈不推荐方式)
+	  Executors.newCachedThreadPool:
+	  ```
+	  public static ExecutorService newCachedThreadPool() {
+	          return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+	                                        60L, TimeUnit.SECONDS,
+	                                        new SynchronousQueue<Runnable>());
+	      }
+	  ```
+	  问题:线程池线程数量可以无限增加。
+	  
 	  方式二:通过ThreadPoolExecutor构造方法
 	  ![截屏2022-06-04 下午8.45.38.png](../assets/截屏2022-06-04_下午8.45.38_1654346758080_0.png)
-	  创建定时任务线程池
+	  通过ScheduledThreadPoolExecutor构造器创建定时任务线程池
 	  ```java
 	  public ScheduledThreadPoolExecutor(int corePoolSize,
 	                                         ThreadFactory threadFactory,
@@ -46,6 +56,7 @@
 	                new DelayedWorkQueue(), threadFactory, handler);
 	      }
 	  ```
+	  ![截屏2022-06-04 下午8.49.01.png](../assets/截屏2022-06-04_下午8.49.01_1654346954935_0.png)
 	- 线程池原理
 	  线程池各个参数及其含义
 	- 线程池监控
