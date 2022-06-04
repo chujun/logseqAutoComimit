@@ -90,7 +90,7 @@
 	  ThreadPoolExecutor.DiscardOldestPolicy： 此策略将丢弃最早的未处理的任务请求。
 	- 线程池针对不断增加请求的处理流程
 	  (非必要不增加线程数，线程是个重量级资源),所以请求先存在等待队列中，队列满了的话，再扩大线程数
-	  corePoolSize--->workQueue--->maximumPoolSize--->RejectedExecutionHandler
+	  0线程数--->corePoolSize--->workQueue--->maximumPoolSize--->RejectedExecutionHandler
 	  ![image.png](../assets/image_1654348737634_0.png)
 - 线程池监控
 - 定时任务线程池ScheduledExecutorService
