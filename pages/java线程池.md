@@ -84,7 +84,10 @@
 	  RejectedExecutionHandler handler:拒绝策略
 	  ![截屏2022-06-04 下午9.04.05.png](../assets/截屏2022-06-04_下午9.04.05_1654347860231_0.png)
 	- 拒绝策略类型
-	  ThreadPoolExecutor.AbortPolicy： 抛出 RejectedExecutionException来拒绝新任务的处理。
+	  ThreadPoolExecutor.AbortPolicy： 抛出 RejectedExecutionException来拒绝新任务的处理。(默认情况下都采用这个，抛出异常)
+	  ThreadPoolExecutor.CallerRunsPolicy： 调用执行自己的线程运行任务，也就是直接在调用execute方法的线程中运行(run)被拒绝的任务，如果执行程序已关闭，则会丢弃该任务。因此这种策略会降低对于新任务提交速度，影响程序的整体性能。如果您的应用程序可以承受此延迟并且你要求任何一个任务请求都要被执行的话，你可以选择这个策略。
+	  ThreadPoolExecutor.DiscardPolicy： 不处理新任务，直接丢弃掉。
+	  ThreadPoolExecutor.DiscardOldestPolicy： 此策略将丢弃最早的未处理的任务请求。
 	- 线程池针对不断增加请求的处理流程
 	  (非必要不增加线程数，线程是个重量级资源),所以请求先存在等待队列中，队列满了的话，再扩大线程数
 	  corePoolSize--->workQueue--->maximumPoolSize--->RejectedExecutionHandler
