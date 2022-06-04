@@ -74,14 +74,14 @@
   ```
   ![截屏2022-06-04 下午8.49.01.png](../assets/截屏2022-06-04_下午8.49.01_1654346954935_0.png)
 - 线程池原理
-  线程池各个参数及其含义
-  corePoolSize:
-  maximumPoolSize:最大线程池数
-  long keepAliveTime,TimeUnit unit:线程最大存活时长
-  BlockingQueue<Runnable> workQueue:
-  ThreadFactory threadFactory:
-  RejectedExecutionHandler handler:
-  ![截屏2022-06-04 下午9.04.05.png](../assets/截屏2022-06-04_下午9.04.05_1654347860231_0.png)
-  线程池针对不断增加请求的处理流程
+	- 线程池各个参数及其含义
+	  corePoolSize:最小可以同时运行的线程数
+	  maximumPoolSize:最大线程数
+	  long keepAliveTime,TimeUnit unit:线程最大存活时长
+	  BlockingQueue<Runnable> workQueue:阻塞列队
+	  ThreadFactory threadFactory:线程工厂类
+	  RejectedExecutionHandler handler:拒绝策略
+	  ![截屏2022-06-04 下午9.04.05.png](../assets/截屏2022-06-04_下午9.04.05_1654347860231_0.png)
+	- 线程池针对不断增加请求的处理流程
 - 线程池监控
 - 定时任务线程池ScheduledExecutorService
