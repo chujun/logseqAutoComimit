@@ -13,9 +13,13 @@
   StampedLock(jdk1.8)
 - 原子类
   id:: 629985ca-1cb9-447c-9919-e0adac191863
-  定义:原子类说简单点就是具有原子/原子操作特征的类。
-  A
-  基于循环CAS+volatile机制实现同步加锁功能
+	- 定义:原子类说简单点就是具有原子/原子操作特征的类。
+	  例如:AtomicInteger,AtomicBoolean，AtomicLong，AtomicLongArray等等
+	- 原理
+	  基于循环CAS+volatile机制实现同步加锁功能
+	- 类型
+	- ![截屏2022-06-04 下午9.32.15.png](../assets/截屏2022-06-04_下午9.32.15_1654349548197_0.png)
+	- 基本类型
 - 线程安全容器
   ArrayBlockingQueue
   ConcurrentHashMap
