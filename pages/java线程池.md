@@ -1,0 +1,79 @@
+- 核心类
+  Executor
+  Executors
+  ExecutorService
+  ThreadPoolExecutor
+  ScheduledExecutorService
+- 线程池执行execute()方法和 submit()方法区别
+  	1. execute()方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功与否；
+  	2. submit()方法用于提交需要返回值的任务。线程池会返回一个 Future 类型的对象
+   Future:
+   Future 对象可以判断线程任务是否执行成功，
+   并且可以通过 Future 的 get()方法来获取返回值，get()方法会阻塞当前线程直到任务完成，
+   而使用 get(long timeout，TimeUnit unit)方法则会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。
+- 如何创建线程池
+  **《阿里巴巴 Java 开发手册》中强制线程池不允许使用 Executors 去创建，(底层也是调用ThreadPoolExecutor构造器创建线程池)
+  而是通过 ThreadPoolExecutor方式自定义线程池各个参数，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险**
+  方式一:通过Executors类创建(xxx强烈不推荐方式)
+  Executors.newCachedThreadPool:
+  含义:返回一个可根据实际情况调整线程数量的线程池.
+  问题:最大线程池数为Integer.MAX_VALUE,线程池线程数量可以无限增加，可能导致OOM。
+  ```
+  public static ExecutorService newCachedThreadPool() {
+          return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                                        60L, TimeUnit.SECONDS,
+                                        new SynchronousQueue<Runnable>());
+      }
+  ```
+    
+  Executors.newSingleThreadExecutor
+  含义:返回一个只有一个线程的线程池.
+  问题:任务队列为无限大的阻塞队列，可能导致OOM。
+  ``` java
+  public static ExecutorService newSingleThreadExecutor() {
+          return new FinalizableDelegatedExecutorService
+              (new ThreadPoolExecutor(1, 1,
+                                      0L, TimeUnit.MILLISECONDS,
+                                      new LinkedBlockingQueue<Runnable>()));
+      }
+  ```
+  Executors.newFixedThreadPool
+  含义:返回一个固定线程数量的线程池。该线程池中的线程数量始终不变.
+  问题:任务队列为无限大的阻塞队列，可能导致OOM。
+  ``` java
+  public static ExecutorService newFixedThreadPool(int nThreads) {
+          return new ThreadPoolExecutor(nThreads, nThreads,
+                                        0L, TimeUnit.MILLISECONDS,
+                                        new LinkedBlockingQueue<Runnable>());
+      }
+  ```
+  Executors.newScheduledThreadPool
+  问题:最大线程池数为Integer.MAX_VALUE,线程池线程数量可以无限增加，可能导致OOM。
+  ``` java
+  public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
+          return new ScheduledThreadPoolExecutor(corePoolSize);
+      }
+  ```
+  ``` java
+  public ScheduledThreadPoolExecutor(int corePoolSize) {
+          super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,
+                new DelayedWorkQueue());
+      }
+  ```
+    
+  方式二:通过ThreadPoolExecutor构造方法
+  ![截屏2022-06-04 下午8.45.38.png](../assets/截屏2022-06-04_下午8.45.38_1654346758080_0.png)
+  通过ScheduledThreadPoolExecutor构造器创建定时任务线程池
+  ``` java
+  public ScheduledThreadPoolExecutor(int corePoolSize,
+                                         ThreadFactory threadFactory,
+                                         RejectedExecutionHandler handler) {
+          super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,
+                new DelayedWorkQueue(), threadFactory, handler);
+      }
+  ```
+  ![截屏2022-06-04 下午8.49.01.png](../assets/截屏2022-06-04_下午8.49.01_1654346954935_0.png)
+- 线程池原理
+  线程池各个参数及其含义
+- 线程池监控
+- 定时任务线程池ScheduledExecutorService
