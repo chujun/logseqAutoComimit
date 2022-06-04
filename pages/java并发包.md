@@ -25,10 +25,16 @@
 	  Executor
 	  Executors
 	  ExecutorService
+	  ThreadPoolExecutor
 	- 线程池执行execute()方法和 submit()方法区别
 	  1. execute()方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功与否；
 	  2. submit()方法用于提交需要返回值的任务。线程池会返回一个 Future 类型的对象 
 	  ((629b51bd-72dd-460f-a97e-806b99d0e708))
+	- 如何创建线程池
+	  《阿里巴巴 Java 开发手册》中强制线程池不允许使用 Executors 去创建，()
+	  而是通过 ThreadPoolExecutor方式自定义线程池各个参数，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险
+	  线程池各个参数及其含义
+	- 线程池原理
 	-
 - ForkJoin框架
 - CompletableFuture
