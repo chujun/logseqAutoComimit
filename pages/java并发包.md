@@ -55,6 +55,28 @@
 	                                      new LinkedBlockingQueue<Runnable>()));
 	      }
 	  ```
+	  Executors.newFixedThreadPool
+	  问题:任务队列为无限大的阻塞队列，可能导致OOM。
+	  ```java
+	  public static ExecutorService newFixedThreadPool(int nThreads) {
+	          return new ThreadPoolExecutor(nThreads, nThreads,
+	                                        0L, TimeUnit.MILLISECONDS,
+	                                        new LinkedBlockingQueue<Runnable>());
+	      }
+	  ```
+	  Executors.newScheduledThreadPool
+	  问题:
+	  ```java
+	  public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
+	          return new ScheduledThreadPoolExecutor(corePoolSize);
+	      }
+	  ```
+	  ```java
+	  public ScheduledThreadPoolExecutor(int corePoolSize) {
+	          super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,
+	                new DelayedWorkQueue());
+	      }
+	  ```
 	  
 	  方式二:通过ThreadPoolExecutor构造方法
 	  ![截屏2022-06-04 下午8.45.38.png](../assets/截屏2022-06-04_下午8.45.38_1654346758080_0.png)
