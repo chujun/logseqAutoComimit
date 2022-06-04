@@ -1,5 +1,11 @@
 - 里面提供一系列并发开发的工具类,并发包 java.util.concurrent
 - Callable,Future
+	- Callable:
+	- Future:
+	  id:: 629b51bd-72dd-460f-a97e-806b99d0e708
+	  Future 对象可以判断线程任务是否执行成功，
+	  并且可以通过 Future 的 get()方法来获取返回值，get()方法会阻塞当前线程直到任务完成，
+	  而使用 get(long timeout，TimeUnit unit)方法则会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。
 - Lock,Condition
   LockSupport
   AbstractQueuedSynchronizer(AQS)
@@ -20,6 +26,9 @@
 	  Executors
 	  ExecutorService
 	- 线程池执行execute()方法和 submit()方法区别
+	  1. execute()方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功与否；
+	  2. submit()方法用于提交需要返回值的任务。线程池会返回一个 Future 类型的对象 
+	  ((629b51bd-72dd-460f-a97e-806b99d0e708))
 	-
 - ForkJoin框架
 - CompletableFuture
