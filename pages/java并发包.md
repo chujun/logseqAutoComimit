@@ -15,8 +15,12 @@
   ConcurrentSkipListSet
 - java线程池
   id:: 629986de-7a5f-4d94-9345-35be7b205ca6
-  Executor
-  Executors
+	- 核心类
+	  Executor
+	  Executors
+	  ExecutorService
+	- 线程池执行execute()方法和 submit()方法区别
+	-
 - ForkJoin框架
 - CompletableFuture
   [CompletableFuture原理与实践-外卖商家端API的异步化-美团技术团队](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
