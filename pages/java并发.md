@@ -65,6 +65,9 @@
 - 创建线程
 -
 - 线程Thread基本方法
+	- 实现 Runnable 接口和 Callable 接口的区别
+	  Runnable接口不会返回结果或抛出检查异常。
+	  Callable 接口 可以返回结果或者抛出异常。
 	- wait, notify, notifyAll
 	- 说说 sleep() 方法和 wait() 方法区别和共同点?
 	  两者都释放CPU资源，但sleep不释放锁资源，而wait释放锁资源(必须在sync)
