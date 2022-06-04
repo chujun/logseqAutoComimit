@@ -36,6 +36,7 @@
 	  而是通过 ThreadPoolExecutor方式自定义线程池各个参数，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险
 	  方式一:通过Executors类创建(xxx强烈不推荐方式)
 	  Executors.newCachedThreadPool:
+	  含义:返回一个可根据实际情况调整线程数量的线程池.
 	  问题:最大线程池数为Integer.MAX_VALUE,线程池线程数量可以无限增加，可能导致OOM。
 	  ```
 	  public static ExecutorService newCachedThreadPool() {
@@ -46,6 +47,7 @@
 	  ```
 	  
 	  Executors.newSingleThreadExecutor
+	  含义:返回一个只有一个线程的线程池.
 	  问题:任务队列为无限大的阻塞队列，可能导致OOM。
 	  ```java
 	  public static ExecutorService newSingleThreadExecutor() {
@@ -56,6 +58,7 @@
 	      }
 	  ```
 	  Executors.newFixedThreadPool
+	  含义:返回一个固定线程数量的线程池。该线程池中的线程数量始终不变.
 	  问题:任务队列为无限大的阻塞队列，可能导致OOM。
 	  ```java
 	  public static ExecutorService newFixedThreadPool(int nThreads) {
@@ -65,7 +68,7 @@
 	      }
 	  ```
 	  Executors.newScheduledThreadPool
-	  问题:
+	  问题:最大线程池数为Integer.MAX_VALUE,线程池线程数量可以无限增加，可能导致OOM。
 	  ```java
 	  public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
 	          return new ScheduledThreadPoolExecutor(corePoolSize);
