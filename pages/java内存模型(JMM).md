@@ -71,6 +71,7 @@
 		  
 		  来看一个指令重排序可能导致问题的例子。
 		  开发过程中常见配置读取过程的伪代码例子,只是我们在处理配置文件时一般不会出现并发，所以没有察觉这会有问题。
+		  如果initialized不用volatile修饰,就可能由于指令重排序,导致"initialized = true;"被置于配置初始化工作代码之前先执行,因为这个执行顺序对线程init方法是不影响的。这就导致线程B可能执行错误了。
 		  ```java
 		  public class VolatileInstructionResort {
 		      private Map<String, String> conf;
