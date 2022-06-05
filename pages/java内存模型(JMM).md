@@ -58,13 +58,13 @@
 - jvm对于volatile型变量的特殊规则
   id:: 629c2156-6c97-400d-865b-80a8f71be9b0
   volatile型变量 jvm保证两个特性:内存可见性和指令禁止重排序性
-	- 内存可见性
+	- volatile内存可见性
 	  定义:当一条线程修改了这个volatile变量的值，新值对于其他线程来说是可以立即得知的.
 	  
 	  普通变量
 	  普通变量并不能做到这一点，普通变量的值在线程间传递时均需要通过主内存来完成。
 	  比如，线程A修改一个普通变量的值，然后向主内存进行回写，另外一条线程B在线程A回写完成了之后再对主内存进行读取操作，新变量值才会对线程B可见。
-	- 指令禁止重排序性
+	- volatile禁止指令重排序性
 	  id:: 629c5f6f-887d-462a-938b-782e6831bf57
 	  
 	  普通变量
@@ -145,23 +145,6 @@
 	      }
 	  }
 	  ```
-	- public class Singleton {
-	- private volatile static Singleton uniqueInstance;
-	- private Singleton() {
-	    }
-	- public  static Singleton getUniqueInstance() {
-	       //先判断对象是否已经实例过，没有实例化过才进入加锁代码
-	        if (uniqueInstance == null) {
-	            //类对象加锁
-	            synchronized (Singleton.class) {
-	                if (uniqueInstance == null) {
-	                    uniqueInstance = new Singleton();
-	                }
-	            }
-	        }
-	        return uniqueInstance;
-	    }
-	  }
 	- 错误认知:基于volatile变量的运算在并发下是线程安全的
 	  锁的原子性要求并没有满足 ((6299c682-4f78-4d5f-9d9c-2e032d7d8e8f)) 
 	  因为Java里面的运算操作符存在非原子操作的运算(例如a++自增运算)，这导致volatile变量的运算在并发下一样是不安全的，
@@ -232,7 +215,10 @@
 	  }
 	  ```
 	  这类场景中就很适合使用volatile变量来控制并发，当shutdown()方法被调用时，能保证所有线程中执行的doWork()方法都立即停下。
-	-
+	- volatitle变量与普通变量和锁性能比较
+	  volatitle变量与普通变量:volatile变量读操作的性能消耗与普通变量几乎没有什么差别，但是写操作则可能会慢上一些，因为它需要在本地代码中插入许多内存屏障指令来保证处理器不发生乱序执行
+	  volatitle变量与锁比较:大多数场景下volatile的总开销仍然要比锁来得更低。
+	  因此我们在volatile与锁中选择的唯一判断依据仅仅是volatile的语义能否满足使用场景的需求。
 	-
 - 先行发生原则
   作用:可以用来确定一个操作在并发环境下是否安全的。
