@@ -112,6 +112,28 @@
 	- 单独使用volatile字段变量线程安全的使用场景
 	  1. 运算结果并不依赖变量的当前值，或者能够确保只有单一的线程修改变量的值。
 	  2. 变量不需要与其他的状态变量共同参与不变约束。
+	  举例：
+	  ```java
+	  public class VolatileThreadSafe {
+	      //状态变量,0表示初始化，+1表示启动，-1表示停止，boolean shutdown当然也可以
+	      private volatile int ctl;
+	  
+	      private void shutdown() {
+	          ctl = -1;
+	      }
+	  
+	      private void start() {
+	          ctl = 1;
+	      }
+	  
+	      private void execute() {
+	          while (ctl > 0) {
+	              //dowork
+	          }
+	      }
+	  }
+	  ```
+	  这类场景中就很适合使用volatile变量来控制并发，当shutdown()方法被调用时，能保证所有线程中执行的doWork()方法都立即停下。
 	-
 	-
 - 先行发生原则
