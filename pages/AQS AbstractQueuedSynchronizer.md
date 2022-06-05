@@ -5,6 +5,7 @@
 - 设计模式
   同步器的设计是基于模板方法模式的,
   AbstractQueuedSynchronizer以下5个方法必须被子类实现，默认抛出UnsupportedOperationException异常
+  其他方法都是final方法,无法修改。
   ```java
   protected boolean tryAcquire(int)//独占方式。尝试获取资源，成功则返回true，失败则返回false。
   protected boolean tryRelease(int)//独占方式。尝试释放资源，成功则返回true，失败则返回false。
