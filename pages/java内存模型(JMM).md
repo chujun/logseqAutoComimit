@@ -37,6 +37,7 @@
   变量操作顺序
   如果要把一个变量从主内存拷贝到工作内存，那就要按顺序执行read和load操作，
   如果要把变量从工作内存同步回主内存，就要按顺序执行store和write操作。
+  ![.drawio.png](../assets/未命名绘图.drawio_1654398476783_0.png) 
   
   注意:顺序执行而非连续执行
   也就是说read与load之间、store与write之间是可插入其他指令的，如对主内存中的变量a、b进行访问时，一种可能出现的顺序是read a、read b、load b、load a。
