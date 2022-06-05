@@ -52,10 +52,13 @@
 	  ·如果一个变量事先没有被lock操作锁定，那就不允许对它执行unlock操作，也不允许去unlock一个被其他线程锁定的变量。
 	  ·对一个变量执行unlock操作之前，必须先把此变量同步回主内存中（执行store、write操作）。
 	  专门针对volatile字段的一些特殊规定
+	  假定T表示一个线程，V和W分别表示两个volatile型变量，那么在进行read、load、use、assign、store和write操作时需要满足如下规则
+	  ·只有当线程T对变量V执行的前一个动作是load的时候，线程T才能对变量V执行use动作；并且，只有当线程T对变量V执行的后一个动作是use的时候，线程T才能对变量V执行load动作。线程T对变量V的use动作可以认为是和线程T对变量V的load、read动作相关联的，必须连续且一起出现。
+	  
 	  ((629c2156-6c97-400d-865b-80a8f71be9b0)) 
 	  
 	  后来Java设计团队将Java内存模型的操作描述简化为read、write、lock和unlock四种，但这只是语言描述上的等价化简，Java内存模型的基础设计并未改变.
-- jvm对于volatile型变量的特殊规则
+- jvm对于volatile型变量的特殊规则说明
   id:: 629c2156-6c97-400d-865b-80a8f71be9b0
   volatile型变量 jvm保证两个特性:内存可见性和指令禁止重排序性
 	- volatile内存可见性
