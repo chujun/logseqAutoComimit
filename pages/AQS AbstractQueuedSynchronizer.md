@@ -5,7 +5,7 @@
   例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
   CycliBarrier是基于ReentrantLock
   ![截屏2022-06-05 下午9.04.20.png](../assets/截屏2022-06-05_下午9.04.20_1654434285393_0.png)
-- 核心类:AbstractQueuedSynchronizer.Sync
+- 核心类:
 - 设计模式
   同步器的设计是基于模板方法模式的,
   AbstractQueuedSynchronizer以下5个方法必须被子类实现，默认抛出UnsupportedOperationException异常
@@ -19,3 +19,4 @@
   ```
   自定义的同步器类继承AbstractQueuedSynchronizer，必须实现一下5个方法
 - AQS原理
+  AbstractQueuedSynchronizer.Sync
