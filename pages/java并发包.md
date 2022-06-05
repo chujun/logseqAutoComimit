@@ -46,5 +46,9 @@
 - CompletableFuture
   [CompletableFuture原理与实践-外卖商家端API的异步化-美团技术团队](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
 - CountDownLaunch,CyclicBarrier,Semaphore
+  类比理解
+  CountDownLatch:F4赛车停下来等换好了4个轮胎后再跑，一直跑下去，countdown降为0后，永远不会reset回去了
+  CyclicBarrier:王者5排发车，一波发车完，下一波继续等5排再发车
+  Semaphore信号量就是限流，一个餐馆20个座位，最多20人同时吃饭
 -
 -
