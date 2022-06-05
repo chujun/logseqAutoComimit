@@ -27,7 +27,8 @@
 	  }
 	  ```
 		- 为什么uniqueInstance必须用volatile关键字修饰
-		  线程安全问题
+		  线程安全问题，禁止指令重排序
+		   ((629c231d-af92-4ec2-aea8-dfc16dbda864)) 
 		  原因:uniqueInstance = new Singleton(); 这段代码其实是分为三步执行：
 		  1. 为 uniqueInstance 分配内存空间
 		  2. 初始化 uniqueInstance
