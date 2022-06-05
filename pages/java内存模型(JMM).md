@@ -68,6 +68,43 @@
 	  锁的原子性要求并没有满足 ((6299c682-4f78-4d5f-9d9c-2e032d7d8e8f)) 
 	  因为Java里面的运算操作符存在非原子操作的运算(例如a++自增运算)，这导致volatile变量的运算在并发下一样是不安全的，
 	  举例:
+	  ```java
+	  public class VolatileTest {
+	      private static volatile int count = 0;
+	      private static final int THREAD_COUNT = 20;
+	  
+	      private static void increase() {
+	          count++;
+	      }
+	  
+	      @Test
+	      public void test() throws InterruptedException {
+	          Thread[] threads = new Thread[THREAD_COUNT];
+	          for (int i = 0; i < threads.length; i++) {
+	              threads[i] = new Thread(() -> {
+	                  for (int j = 0; j < 10000; j++) {
+	                      increase();
+	                  }
+	              });
+	              threads[i].start();
+	          }
+	          for (int i = 0; i < threads.length; i++) {
+	              threads[i].join();
+	          }
+	          //每次输出结果都不一样，小于10000*20=200000
+	          System.out.println(count);
+	      }
+	  }
+	  ```
+	  运行结果:
+	  最后输出的结果应该是200000。然而运行完这段代码之后，并不会获得期望的结果，而且会发现每次运行程序，输出的结果都不一样，都是一个小于200000的数字
+	  
+	  javap反编译后jvm字节码
+	  ![截屏2022-06-05 下午12.05.53.png](../assets/截屏2022-06-05_下午12.05.53_1654402006752_0.png)
+	  
+	  并发更新失败原因:
+	  当getstatic指令把race的值取到操作栈顶时，volatile关键字保证了race的值在此时是正确的，但是在执行iconst_1、iadd这些指令的时候，其他线程可能已经把race的值改变了，而操作栈顶的值就变成了过期的数据，所以putstatic指令执行后就可能把较小的race值同步回主内存之中。
+	-
 - 先行发生原则
   作用:可以用来确定一个操作在并发环境下是否安全的。
 - 对象堆内存布局(暂时先放在这儿，没有更合适的地方)
