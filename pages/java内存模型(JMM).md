@@ -64,13 +64,49 @@
 	  普通变量
 	  普通变量并不能做到这一点，普通变量的值在线程间传递时均需要通过主内存来完成。
 	  比如，线程A修改一个普通变量的值，然后向主内存进行回写，另外一条线程B在线程A回写完成了之后再对主内存进行读取操作，新变量值才会对线程B可见。
-	- 指令禁止重排序性
-	  
-	  普通变量
-	  普通的变量仅会保证在该方法的执行过程中所有依赖赋值结果的地方都能获取到正确的结果，而不能保证变量赋值操作的顺序与程序代码中的执行顺序一致。因为在同一个线程的方法执行过程中无法感知到这点，这就是Java内存模型中描述的所谓“线程内表现为串行的语义”（Within-Thread As-If-Serial Semantics）。
-	  
-	  来看一个指令重排序可能导致问题的例子。
-	  开发过程中常见配置读取过程的例子
+		- 指令禁止重排序性
+		  
+		  普通变量
+		  普通的变量仅会保证在该方法的执行过程中所有依赖赋值结果的地方都能获取到正确的结果，而不能保证变量赋值操作的顺序与程序代码中的执行顺序一致。因为在同一个线程的方法执行过程中无法感知到这点，这就是Java内存模型中描述的所谓“线程内表现为串行的语义”（Within-Thread As-If-Serial Semantics）。
+		  
+		  来看一个指令重排序可能导致问题的例子。
+		  开发过程中常见配置读取过程的伪代码例子,只是我们在处理配置文件时一般不会出现并发，所以没有察觉这会有问题。
+		  ```java
+		  public class VolatileInstructionResort {
+		      private Map<String, String> conf;
+		      //此变量必须用volatile,会有指令重排序问题，这儿内存可见性问题反倒不是问题,大不了多sleep几次。
+		      volatile boolean initialized = false;
+		      //线程A初始化
+		      private void init() {
+		          conf = new HashMap<>();
+		          //进行其他初始化配置
+		          processInitConfig(conf);
+		          //initialized状态变量设置为true,告诉其他线程配置可用了
+		          initialized = true;
+		      }
+		  
+		      private void processInitConfig(final Map<String, String> conf) {
+		  		//do config init work
+		      }
+		  	
+		  	//线程B执行
+		      private void execute() throws InterruptedException {
+		          //等待配置初始化完成，在进行后续其他操作
+		          while (!initialized) {
+		              Thread.sleep(100);
+		          }
+		  
+		          doSomethingWithConf();
+		      }
+		  
+		      /**
+		       * 方法约定:配置完成后才能掉该方法，不然会抛出异常
+		       */
+		      private void doSomethingWithConf() {
+		  		
+		      }
+		  }
+		  ```
 	- 错误认知:基于volatile变量的运算在并发下是线程安全的
 	  锁的原子性要求并没有满足 ((6299c682-4f78-4d5f-9d9c-2e032d7d8e8f)) 
 	  因为Java里面的运算操作符存在非原子操作的运算(例如a++自增运算)，这导致volatile变量的运算在并发下一样是不安全的，
