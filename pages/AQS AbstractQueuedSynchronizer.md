@@ -4,6 +4,7 @@
 - 常见类
   例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
   CycliBarrier是基于ReentrantLock
+  注意StampedLock jdk1.8不是基于AQS设计的
   ![截屏2022-06-05 下午9.04.20.png](../assets/截屏2022-06-05_下午9.04.20_1654434285393_0.png)
 - 核心类:
 - 设计模式
