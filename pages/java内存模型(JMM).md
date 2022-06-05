@@ -233,6 +233,21 @@
 	  }
 	  ```
 	  这类场景中就很适合使用volatile变量来控制并发，当shutdown()方法被调用时，能保证所有线程中执行的doWork()方法都立即停下。
+	  
+	  反例:而ReentrantLock.Sync的nonfairTryAcquire,state==0则算是依赖了
+	  ```java
+	  private volatile int state;
+	  final boolean nonfairTryAcquire(int acquires) {
+	              final Thread current = Thread.currentThread();
+	              int c = getState();
+	              if (c == 0) {
+	                  if (compareAndSetState(0, acquires)) {
+	                      setExclusiveOwnerThread(current);
+	                      return true;
+	                  }
+	              }
+	  }
+	  ```
 	- volatitle变量与普通变量和锁性能比较
 	  volatitle变量与普通变量:volatile变量读操作的性能消耗与普通变量几乎没有什么差别，但是写操作则可能会慢上一些，因为它需要在本地代码中插入许多内存屏障指令来保证处理器不发生乱序执行
 	  volatitle变量与锁比较:大多数场景下volatile的总开销仍然要比锁来得更低。
