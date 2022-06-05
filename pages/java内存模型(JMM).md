@@ -162,23 +162,6 @@
 	        return uniqueInstance;
 	    }
 	  }
-	- public class Singleton {
-	- private volatile static Singleton uniqueInstance;
-	- private Singleton() {
-	    }
-	- public  static Singleton getUniqueInstance() {
-	       //先判断对象是否已经实例过，没有实例化过才进入加锁代码
-	        if (uniqueInstance == null) {
-	            //类对象加锁
-	            synchronized (Singleton.class) {
-	                if (uniqueInstance == null) {
-	                    uniqueInstance = new Singleton();
-	                }
-	            }
-	        }
-	        return uniqueInstance;
-	    }
-	  }
 	- 错误认知:基于volatile变量的运算在并发下是线程安全的
 	  锁的原子性要求并没有满足 ((6299c682-4f78-4d5f-9d9c-2e032d7d8e8f)) 
 	  因为Java里面的运算操作符存在非原子操作的运算(例如a++自增运算)，这导致volatile变量的运算在并发下一样是不安全的，
