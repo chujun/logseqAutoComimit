@@ -91,9 +91,11 @@
   volatile
 	- 背景知识
 	  1. [[java内存模型(JMM)]]
-	- volatile两个语义：
+	- volatile保证两个特性：
 	  内存可见性
 	  禁止指令重排序
+	- volatile修饰变量在并发环境下是不安全的
+	  因为java运算不能保证原子性,没有满足锁的原子性要求,例如a++
 	- volatile与synchronized关键字区别
 	  1. volatile是轻量级实现,volatile 性能肯定比synchronized关键字要好 .
 	  volatile 关键字只能用于变量而 synchronized 关键字可以修饰方法以及代码块 .
