@@ -234,7 +234,9 @@
 	  ```
 	  这类场景中就很适合使用volatile变量来控制并发，当shutdown()方法被调用时，能保证所有线程中执行的doWork()方法都立即停下。
 	  
-	  反例:而ReentrantLock.Sync的nonfairTryAcquire,state==0则算是依赖了
+	  反例:
+	  而ReentrantLock.Sync的nonfairTryAcquire,state==0判断则算是依赖了stata的当前值,所以只能用volititle+CAS机制实现无锁化加锁方案
+	  线程A，B可能同时停留在"int c=getSate()"这行
 	  ```java
 	  private volatile int state;
 	  final boolean nonfairTryAcquire(int acquires) {
@@ -245,7 +247,14 @@
 	                      setExclusiveOwnerThread(current);
 	                      return true;
 	                  }
+	              }else if (current == getExclusiveOwnerThread()) {
+	                  int nextc = c + acquires;
+	                  if (nextc < 0) // overflow
+	                      throw new Error("Maximum lock count exceeded");
+	                  setState(nextc);
+	                  return true;
 	              }
+	              return false;
 	  }
 	  ```
 	- volatitle变量与普通变量和锁性能比较

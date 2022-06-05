@@ -121,7 +121,7 @@
 		- 1. synchronized
 		  JVM层面源语实现
 		  可重入锁，非公平锁,不可中断锁
-		- 2. volatile+ Unsafe的CAS机制 
+		- 2. volatile+ Unsafe的CAS机制无锁化加锁方案
 		  而CAS保证了操作原子性,volatile保证内存可见性和禁止指令重排序,
 		  不加volatile的话,可能变更的值不会给其他线程立刻可见.
 		- 3. Lock API
