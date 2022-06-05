@@ -94,6 +94,6 @@
 	  ![image.png](../assets/image_1654348737634_0.png)
 	- 线程池线程减少机制keepAliveTime
 	  如果线程池线程数大于核心线程池数,并且keepAliveTime时间内都没有收到新的请求,那么这些多出来的线程就会被认为是多余的,然后就会被销毁。
-	- 线程池监控
--
+	-
+- 线程池监控
 - 定时任务线程池ScheduledExecutorService
