@@ -36,6 +36,7 @@
 	- ![截屏2022-06-04 下午9.32.15.png](../assets/截屏2022-06-04_下午9.32.15_1654349548197_0.png)
 	-
 - 线程安全并发容器
+  从并发包中的容器类好像都不支持插入 null 值，因为 null 值往往用作其他用途，比如用于方法的返回值代表操作失败
   Map
 	- ConcurrentHashMap
 	- ConcurrentSkipListMap：基于跳表数据结构实现
@@ -90,7 +91,7 @@
 	  
 	  PriorityBlockingQueue实现原理:
 	  并发控制采用的是可重入锁 ReentrantLock
-	  二叉堆：完全二叉树 ((6297625a-2e4a-4ab7-8df3-474b2a7fa7a0))
+	  二叉堆：完全二叉树 ((629db27e-5618-4467-b25a-616234b6d727))
 	- ConcurrentLinkedQueue:基于链表，非阻塞队列,jdk中高并发环境中性能最好的队列，基于CAS无锁队列,不过比之Disruptor还是差一点的
 	  适合在对性能要求相对较高，同时对队列的读写存在多个线程同时进行的场景，即如果对队列加锁的成本较高则适合使用无锁的 ConcurrentLinkedQueue 来替代。
 	-
