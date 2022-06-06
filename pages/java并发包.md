@@ -46,13 +46,10 @@
 	  非阻塞队列的典型例子是 ConcurrentLinkedQueue,非阻塞队列可以通过 CAS 操作实现
 	- BlockingQueue:接口,阻塞队列
 	- ArrayBlockingQueue:基于数组，阻塞队列
-	  ConcurrentLinkedQueue:基于链表，非阻塞队列,
+	  ConcurrentLinkedQueue:基于链表，非阻塞队列,jdk中高并发环境中性能最好的队列，不过比之Disruptor还是差一点的
 	  适合在对性能要求相对较高，同时对队列的读写存在多个线程同时进行的场景，即如果对队列加锁的成本较高则适合使用无锁的 ConcurrentLinkedQueue 来替代。
-	  
-	  
-	  Set
 	-
-	- #
+	-
 	- ConcurrentSkipListSet
 	  
 	  List
