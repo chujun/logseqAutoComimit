@@ -36,7 +36,7 @@
 	- ![截屏2022-06-04 下午9.32.15.png](../assets/截屏2022-06-04_下午9.32.15_1654349548197_0.png)
 	-
 - 线程安全并发容器
-  从并发包中的容器类好像都不支持插入 null 值，因为 null 值往往用作其他用途，比如用于方法的返回值代表操作失败
+  从某篇博客中看到这个设计小原则:并发包中的容器类好像都不支持插入 null 值，因为 null 值往往用作其他用途，比如用于方法的返回值代表操作失败 TODO:cj待验证
   Map
 	- ConcurrentHashMap
 	- ConcurrentSkipListMap：基于跳表数据结构实现
@@ -49,6 +49,7 @@
 	  
 	  非阻塞队列的典型例子是 ConcurrentLinkedQueue,非阻塞队列可以通过 CAS 操作实现
 	- BlockingQueue:接口,阻塞队列
+	  [解读 java 并发队列 BlockingQueue](https://javadoop.com/post/java-concurrent-queue)
 	- ArrayBlockingQueue:基于数组，有界阻塞队列
 	  ArrayBlockingQueue实现原理:
 	  ArrayBlockingQueue 一旦创建，容量不能改变。其并发控制采用可重入锁 ReentrantLock ，不管是插入操作还是读取操作，都需要获取到锁才能进行操作。
