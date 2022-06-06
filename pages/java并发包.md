@@ -256,7 +256,7 @@
 	    }
 	  ```
 	  3. 异常处理
-	  使用不同的线程池方式,基本都是三种类型方法 
+	  a.使用handle方法处理异常 使用不同的线程池方式,基本都是三种类型方法 
 	  ```java
 	    public <U> CompletableFuture<U> handle(
 	    BiFunction<? super T, Throwable, ? extends U> fn) {
@@ -271,6 +271,9 @@
 	    	return uniHandleStage(screenExecutor(executor), fn);
 	    }
 	  ```
+	  b.使用exceptionally() 方法来处理异常情况。
+	  c.如果你想让CompletableFuture 的结果就是异常的话，可以使用 completeExceptionally() 方法为其赋值。
+	  
 	  
 	  4. 组合CompletableFuture
 	  thenCombine()
