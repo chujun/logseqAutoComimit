@@ -34,9 +34,11 @@
 	  AtomicReferenceFieldUpdater:原子更新引用类型字段的更新器
 	- ![截屏2022-06-04 下午9.32.15.png](../assets/截屏2022-06-04_下午9.32.15_1654349548197_0.png)
 	-
-- 线程安全容器
-  ArrayBlockingQueue
+- 线程安全并发容器
   ConcurrentHashMap
+  ConcurrentHashMap
+  ArrayBlockingQueue
+  
   ConcurrentSkipListMap
   ConcurrentSkipListSet
 - [[java线程池]]
