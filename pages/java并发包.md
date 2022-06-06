@@ -32,11 +32,56 @@
 	  AtomicStampedReference:原子更新带有版本号的引用类型。该类将整数值与引用关联起来，可用于解决原子的更新数据和数据的版本号，可以解决使用 CAS 进行原子更新时可能出现的 ABA 问题。
 	  ((629dbe40-7798-4e22-a293-dadfeb09e50b)) 
 	  AtomicMarkableReference:原子更新带有标记位的引用类型,AtomicStampedReference的简化版，不关心修改过几次，只关心是否修改过。只有在部分场景下可以解决CAS下的ABA问题
-	  对象的属性修改类型
+	  对象的属性修改类型原子类
 	  
 	  AtomicIntegerFieldUpdater:原子更新整型字段的更新器
 	  AtomicLongFieldUpdater:原子更新长整型字段的更新器
 	  AtomicReferenceFieldUpdater:原子更新引用类型字段的更新器
+	  使用方式
+	  1. 因为对象的属性修改类型原子类都是抽象类，所以每次使用都必须使用静态方法 newUpdater()创建一个更新器，并且需要设置想要更新的类和属性。
+	  2. 更新的对象属性必须使用 public volatile 修饰符。--->不然会抛出异常 IllegalArgumentException("Must be volatile type")
+	  ```java
+	  import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
+	  
+	  public class AtomicIntegerFieldUpdaterTest {
+	  	public static void main(String[] args) {
+	  		AtomicIntegerFieldUpdater<User> a = AtomicIntegerFieldUpdater.newUpdater(User.class, "age");
+	  
+	  		User user = new User("Java", 22);
+	  		System.out.println(a.getAndIncrement(user));// 22
+	  		System.out.println(a.get(user));// 23
+	  	}
+	  }
+	  
+	  class User {
+	  	private String name;
+	  	//这儿必须是volatile修饰
+	  	public volatile int age;
+	  
+	  	public User(String name, int age) {
+	  		super();
+	  		this.name = name;
+	  		this.age = age;
+	  	}
+	  
+	  	public String getName() {
+	  		return name;
+	  	}
+	  
+	  	public void setName(String name) {
+	  		this.name = name;
+	  	}
+	  
+	  	public int getAge() {
+	  		return age;
+	  	}
+	  
+	  	public void setAge(int age) {
+	  		this.age = age;
+	  	}
+	  
+	  }
+	  ```
 	-
 	- ![截屏2022-06-04 下午9.32.15.png](../assets/截屏2022-06-04_下午9.32.15_1654349548197_0.png)
 	-
