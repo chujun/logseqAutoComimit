@@ -49,7 +49,8 @@
   
   List
   CopyOnWriteArrayList:适合读多写少场景，COW写时复制机制
-  CopyOnWriteArrayList 读取是完全不用加锁的，并且更厉害的是：写入也不会阻塞读取操作。只有写入和写入之间需要进行同步等待
+  CopyOnWriteArrayList 读取是完全不用加锁的，并且写入也不会阻塞读取操作。只有写入和写入之间需要进行同步等待
+  CopyOnWriteArrayList实现原理:
   
   Collections.synchronizedXXX() 系列方法，使用synchronized关键字实现同步，效率低
   ![截屏2022-06-06 下午3.15.51.png](../assets/截屏2022-06-06_下午3.15.51_1654499800861_0.png)
