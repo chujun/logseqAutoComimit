@@ -228,6 +228,8 @@
 	  complete() 方法只能调用一次，后续调用将被忽略。
 	  resultFuture.complete(rpcResponse);
 	- 原理
+	- 设计模式
+	  观察者模式
 	- 使用场景
 	- 优点
 	- 缺点
