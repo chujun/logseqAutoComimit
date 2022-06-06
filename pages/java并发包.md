@@ -255,7 +255,24 @@
 	    return uniApplyStage(screenExecutor(executor), fn);
 	    }
 	  ```
-	  3. 组合CompletableFuture
+	  3. 异常处理
+	  使用不同的线程池方式,基本都是三种类型方法 
+	  ```java
+	  - public <U> CompletableFuture<U> handle(
+	    BiFunction<? super T, Throwable, ? extends U> fn) {
+	    return uniHandleStage(null, fn);
+	    }
+	  - public <U> CompletableFuture<U> handleAsync(
+	    BiFunction<? super T, Throwable, ? extends U> fn) {
+	    return uniHandleStage(defaultExecutor(), fn);
+	    }
+	  - public <U> CompletableFuture<U> handleAsync(
+	    BiFunction<? super T, Throwable, ? extends U> fn, Executor executor) {
+	    return uniHandleStage(screenExecutor(executor), fn);
+	    }
+	  ```
+	  
+	  4. 组合CompletableFuture
 	  thenCombine()
 	  thenCompose()
 	  
