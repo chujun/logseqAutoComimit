@@ -22,17 +22,22 @@
 	- 类型
 	  基本类型
 	  AtomicInteger，AtomicLong，AtomicBoolean
+	  
 	  数组类型
 	  AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray
-	  引用类型
+	  
+	  引用类型:
+	  基本类型原子类只能更新一个变量，如果需要原子更新多个变量，需要使用 引用类型原子类。
 	  AtomicReference：引用类型原子类
 	  AtomicStampedReference:原子更新带有版本号的引用类型。该类将整数值与引用关联起来，可用于解决原子的更新数据和数据的版本号，可以解决使用 CAS 进行原子更新时可能出现的 ABA 问题。
 	  ((629dbe40-7798-4e22-a293-dadfeb09e50b)) 
 	  AtomicMarkableReference:原子更新带有标记位的引用类型,AtomicStampedReference的简化版，不关心修改过几次，只关心是否修改过。只有在部分场景下可以解决CAS下的ABA问题
 	  对象的属性修改类型
+	  
 	  AtomicIntegerFieldUpdater:原子更新整型字段的更新器
 	  AtomicLongFieldUpdater:原子更新长整型字段的更新器
 	  AtomicReferenceFieldUpdater:原子更新引用类型字段的更新器
+	-
 	- ![截屏2022-06-04 下午9.32.15.png](../assets/截屏2022-06-04_下午9.32.15_1654349548197_0.png)
 	-
 - 线程安全并发容器
