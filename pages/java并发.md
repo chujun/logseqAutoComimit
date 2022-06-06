@@ -111,7 +111,14 @@
 - CAS机制
   CAS原理
   CAS实现
-  Unsafe的compareAndSwapObject,
+  Unsafe的compareAndSwapObject,compareAndSwapInt,compareAndSwapLong
+  ```java
+  public final native boolean compareAndSwapObject(Object obj, long fieldOffset, Object expectedValue, Object newValue);
+  
+      public final native boolean compareAndSwapInt(Object obj, long fieldOffset, int expectedValue, int newValue);
+  
+      public final native boolean compareAndSwapLong(Object obj, long fieldOffset, long expectedValue, long newValue);
+  ```
   ABA问题
 - # java锁的的实现方式
   java锁
