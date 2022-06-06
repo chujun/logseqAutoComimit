@@ -273,7 +273,55 @@
 	  ```
 	  b.使用exceptionally() 方法来处理异常情况。
 	  c.如果你想让CompletableFuture 的结果就是异常的话，可以使用 completeExceptionally() 方法为其赋值。
+	  举例使用
+	  ```java
+	  @Test
+	      public void testExceptionHandle() throws ExecutionException, InterruptedException {
+	          //第一种异常处理方法handle()方法方式
+	          CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+	              if (true) {
+	                  throw new RuntimeException("Computation error!");
+	              }
+	              return "hello!";
+	          }).handle((res, ex) -> {
+	              // res 代表返回的结果
+	              // ex 的类型为 Throwable ，代表抛出的异常
+	              System.out.println(ex.toString());
+	              return res != null ? res : "world!";
+	          });
+	          assertEquals("world!", future.get());
 	  
+	          //第二种处理异常方式exceptionally()方法
+	          CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
+	              if (true) {
+	                  throw new RuntimeException("Computation error!");
+	              }
+	              return "hello!";
+	          }).exceptionally(ex -> {
+	              System.out.println(ex.toString());// CompletionException
+	              return "world!";
+	          });
+	          assertEquals("world!", future2.get());
+	  
+	          //第三种处理异常方式completeExceptionally()方式
+	          CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
+	              if (true) {
+	                  throw new IllegalArgumentException("Computation error:IllegalArgumentException");
+	              }
+	              return "hello!";
+	          });
+	          //抛出指定的异常，一般都是将捕获的异常吐出去
+	          completableFuture.completeExceptionally(new RuntimeException("Calculation failed!"));
+	          try {
+	              completableFuture.get(); // ExecutionException
+	              Assert.fail();
+	          } catch (Exception e) {
+	              System.out.println(e.toString());
+	              Assert.assertEquals("java.lang.RuntimeException: Calculation failed!", e.getMessage());
+	          }
+	  
+	      }
+	  ```
 	  
 	  4. 组合CompletableFuture
 	  thenCombine()
@@ -292,7 +340,7 @@
 	- 资料
 	  [CompletableFuture原理与实践-外卖商家端API的异步化-美团技术团队](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
 	-
--
+- [[CompletableFuture]]
 - CountDownLaunch,CyclicBarrier,Semaphore
   类比理解
   CountDownLatch:F4赛车停下来等换好了4个轮胎后再跑，一直跑下去(countdown降为0后，永远不会reset回去)
