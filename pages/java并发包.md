@@ -237,7 +237,7 @@
 	  thenCombine()
 	  thenCompose()
 	  whenComplete()
-	  使用不同的线程池方式,thenApply,thenApplyAsync,thenApplyAsync(Executor)
+	  使用不同的线程池方式,基本都是三种类型方法 thenXXX,thenApplyAsync,thenApplyAsync(Executor)
 	  ```java
 	  - // 沿用上一个任务的线程池
 	    public <U> CompletableFuture<U> thenApply(
