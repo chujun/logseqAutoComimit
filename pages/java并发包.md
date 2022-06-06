@@ -226,12 +226,30 @@
 	  static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor);
 	  ```
 	  2. 处理异步结算的结果
-	  thenApply()
-	  thenAccept()
+	  thenApply() Function入参
+	  thenAccept() Comsumer入参
 	  thenRun()
 	  thenCombine()
 	  thenCompose()
 	  whenComplete()
+	  使用不同的线程池方式,thenApply,thenApplyAsync,thenApplyAsync(Executor)
+	  ```java
+	  - // 沿用上一个任务的线程池
+	    public <U> CompletableFuture<U> thenApply(
+	    Function<? super T,? extends U> fn) {
+	    return uniApplyStage(null, fn);
+	    }
+	  - //使用默认的 ForkJoinPool 线程池（不推荐）
+	    public <U> CompletableFuture<U> thenApplyAsync(
+	    Function<? super T,? extends U> fn) {
+	    return uniApplyStage(defaultExecutor(), fn);
+	    }
+	    // 使用自定义线程池(推荐)
+	    public <U> CompletableFuture<U> thenApplyAsync(
+	    Function<? super T,? extends U> fn, Executor executor) {
+	    return uniApplyStage(screenExecutor(executor), fn);
+	    }
+	  ```
 	  
 	  complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
