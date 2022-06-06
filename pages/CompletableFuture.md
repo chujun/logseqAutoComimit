@@ -190,6 +190,7 @@
 - 缺点
 - 问题
 - 资料
+  [另外，建议G友们可以看看京东的 asyncTool 这个并发框架，里面大量使用到了 CompletableFuture](https://gitee.com/jd-platform-opensource/asyncTool)
   [CompletableFuture原理与实践-外卖商家端API的异步化-美团技术团队](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
 -
 -
