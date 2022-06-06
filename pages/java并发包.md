@@ -39,7 +39,7 @@
   从某篇博客中看到这个设计小原则:并发包中的容器类好像都不支持插入 null 值，因为 null 值往往用作其他用途，比如用于方法的返回值代表操作失败 TODO:cj待验证
   Map
 	- ConcurrentHashMap
-	- ConcurrentSkipListMap：基于跳表数据结构实现
+	- ConcurrentSkipListMap：基于跳表数据结构实现，有序哈希表
 	  
 	  Queue
 	- 线程安全的 Queue 可以分为阻塞队列和非阻塞队列
