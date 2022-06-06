@@ -2,6 +2,7 @@
   初始化
   hash
   扩容--->rehash
+  hash冲突
   链表<->红黑树
   put
   get
