@@ -212,6 +212,15 @@
 	  ![截屏2022-06-06 下午7.56.25.png](../assets/截屏2022-06-06_下午7.56.25_1654516605098_0.png)
 	- 说明
 	- 常见用法
+	  创建
+	  ```java
+	  static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier);
+	  // 使用自定义线程池(推荐)
+	  static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier, Executor executor);
+	  static CompletableFuture<Void> runAsync(Runnable runnable);
+	  // 使用自定义线程池(推荐)
+	  static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor);
+	  ```
 	  complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
 	  resultFuture.complete(rpcResponse);
