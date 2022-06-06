@@ -231,10 +231,10 @@
 	  static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor);
 	  ```
 	  2. 处理异步结算的结果
-	  thenApply() Function入参
-	  thenAccept() Comsumer入参
+	  thenApply() Function入参，接收一个函数进行处理
+	  thenAccept() Comsumer入参，接收一个输入对象进行消费
 	  thenRun() Runnable入参，不能访问异步计算的结果
-	  whenComplete()
+	  whenComplete() BiConsumer入参，可以接收两个输入对象进行消费
 	  
 	  使用不同的线程池方式,基本都是三种类型方法 
 	  thenXXX,thenXXXAsync,thenXXXAsync(Executor)
