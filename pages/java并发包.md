@@ -37,25 +37,66 @@
 	-
 - 线程安全并发容器
   Map
-  ConcurrentHashMap
-  ConcurrentSkipListMap：基于跳表数据结构实现
-  
-  Queue
-  BlockingQueue:接口,阻塞队列
-  ArrayBlockingQueue:基于数组，阻塞队列
-  ConcurrentLinkedQueue:基于链表，非阻塞队列
-  Set
-  ConcurrentSkipListSet
-  
-  List
-  CopyOnWriteArrayList:适合读多写少场景
-  CopyOnWriteArrayList 读取是完全不用加锁的，并且写入也不会阻塞读取操作。只有写入和写入之间需要进行同步等待。(读读，读写，写读，)
-  CopyOnWriteArrayList实现原理:COW写时复制机制
-  
-  CopyOnWrite写时复制机制：在计算机，如果你想要对一块内存进行修改时，我们不在原有内存块中进行写操作，而是将内存拷贝一份，在新的内存中进行写操作，写完之后呢，就将指向原来内存指针指向新的内存，原来的内存就可以被回收掉了。
-  
-  Collections.synchronizedXXX() 系列方法，使用synchronized关键字实现同步，效率低
-  ![截屏2022-06-06 下午3.15.51.png](../assets/截屏2022-06-06_下午3.15.51_1654499800861_0.png)
+	- ConcurrentHashMap
+	- ConcurrentSkipListMap：基于跳表数据结构实现
+	  
+	  Queue
+	- BlockingQueue:接口,阻塞队列
+	- ArrayBlockingQueue:基于数组，阻塞队列
+	  ConcurrentLinkedQueue:基于链表，非阻塞队列
+	  
+	  Set
+	- ConcurrentSkipListSet
+	  
+	  List
+	- CopyOnWriteArrayList:适合读多写少场景
+	  CopyOnWriteArrayList 读取是完全不用加锁的，并且写入也不会阻塞读取操作。只有写入和写入之间需要进行同步等待。(读读，读写，写读不阻塞，写写阻塞)
+	  CopyOnWriteArrayList实现原理:COW写时复制机制
+	  
+	  CopyOnWrite写时复制机制：在计算机，如果你想要对一块内存进行修改时，我们不在原有内存块中进行写操作，而是将内存拷贝一份，在新的内存中进行写操作，写完之后呢，就将指向原来内存指针指向新的内存，原来的内存就可以被回收掉了。
+	  
+	  CopyOnWriteArrayList 读取操作的实现
+	  读取操作没有任何同步控制和锁操作，理由就是内部数组 array 不会发生修改，只会被另外一个 array 替换，因此可以保证数据安全。
+	  ```java
+	   /** The array, accessed only via getArray/setArray. */
+	      private transient volatile Object[] array;
+	      public E get(int index) {
+	          return get(getArray(), index);
+	      }
+	      @SuppressWarnings("unchecked")
+	      private E get(Object[] a, int index) {
+	          return (E) a[index];
+	      }
+	      final Object[] getArray() {
+	          return array;
+	      }
+	  ```
+	  CopyOnWriteArrayList 写操作的实现
+	  CopyOnWriteArrayList 写入操作 add()方法在添加集合的时候加了锁，保证了同步，避免了多线程写的时候会 copy 出多个副本出来。
+	  ```java
+	  /**
+	       * Appends the specified element to the end of this list.
+	       *
+	       * @param e element to be appended to this list
+	       * @return {@code true} (as specified by {@link Collection#add})
+	       */
+	      public boolean add(E e) {
+	          final ReentrantLock lock = this.lock;
+	          lock.lock();//加锁
+	          try {
+	              Object[] elements = getArray();
+	              int len = elements.length;
+	              Object[] newElements = Arrays.copyOf(elements, len + 1);//拷贝新数组
+	              newElements[len] = e;
+	              setArray(newElements);
+	              return true;
+	          } finally {
+	              lock.unlock();//释放锁
+	          }
+	      }
+	  ```
+	- Collections.synchronizedXXX() 系列方法，使用synchronized关键字实现同步，效率低
+	  ![截屏2022-06-06 下午3.15.51.png](../assets/截屏2022-06-06_下午3.15.51_1654499800861_0.png)
 - [[java线程池]]
   id:: 629986de-7a5f-4d94-9345-35be7b205ca6
 	-
