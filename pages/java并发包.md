@@ -6,11 +6,8 @@
 	  boolean cancel(boolean mayInterruptIfRunning) ：尝试取消执行任务。
 	  boolean isCancelled() ：判断任务是否被取消。
 	  boolean isDone() ： 判断任务是否已经被执行完成。
-	  get() ：等待任务执行完成并获取运算结果。
-	  get(long timeout, TimeUnit unit) ：多了一个超时时间。
-	  Future 对象可以判断线程任务是否执行成功，
-	  并且可以通过 Future 的 get()方法来获取返回值，get()方法会阻塞当前线程直到任务完成，
-	  而使用 get(long timeout，TimeUnit unit)方法则会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。
+	  T get() ：等待任务执行完成并获取运算结果。get()方法会阻塞当前线程直到任务完成，
+	  T get(long timeout, TimeUnit unit) ：多了一个超时时间。会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。
 - Lock,Condition
   LockSupport
   AbstractQueuedSynchronizer(AQS)
@@ -207,8 +204,9 @@
   id:: 629986de-7a5f-4d94-9345-35be7b205ca6
 	-
 - ForkJoin框架 jdk7
-- CompletableFuture jdk8
+- CompletableFuture
   简单介绍:
+   jdk8,CompletableFuture 同时实现了 Future 和 CompletionStage 接口。
   说明
   原理
   使用场景
@@ -216,6 +214,7 @@
   缺点
   问题
   [CompletableFuture原理与实践-外卖商家端API的异步化-美团技术团队](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
+-
 - CountDownLaunch,CyclicBarrier,Semaphore
   类比理解
   CountDownLatch:F4赛车停下来等换好了4个轮胎后再跑，一直跑下去(countdown降为0后，永远不会reset回去)
