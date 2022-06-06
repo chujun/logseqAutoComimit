@@ -47,7 +47,10 @@
   ConcurrentSkipListSet
   
   List
-  CopyOnWriteArrayList:适合读多写少场景
+  CopyOnWriteArrayList:适合读多写少场景，COW
+  
+  Collections.synchronizedXXX() 系列方法，使用synchronized关键字实现同步，效率低
+  ![截屏2022-06-06 下午3.15.51.png](../assets/截屏2022-06-06_下午3.15.51_1654499800861_0.png)
 - [[java线程池]]
   id:: 629986de-7a5f-4d94-9345-35be7b205ca6
 	-
