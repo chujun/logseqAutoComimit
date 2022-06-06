@@ -7,8 +7,22 @@
 -
 - 常见API用法
   常见用法
-	-
-	-
+	- 1. 创建CompletableFuture对象
+	   a.通过 new 关键字。
+	   b. 基于 CompletableFuture 自带的静态工厂方法：runAsync() 、supplyAsync() 。
+	   c. 如果已经知道计算的结果的话，可以使用静态方法 completedFuture() 来创建 CompletableFuture。
+	   ``` java
+	   CompletableFuture<String> future = CompletableFuture.completedFuture("hello!");
+	   assertEquals("hello!", future.get());
+	   ```
+	   ``` java
+	   static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier);
+	   // 使用自定义线程池(推荐)
+	   static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier, Executor executor);
+	   static CompletableFuture<Void> runAsync(Runnable runnable);
+	   // 使用自定义线程池(推荐)
+	   static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor);
+	   ```
 	- 2. 处理异步结算的结果
 	   thenApply() Function入参，接收一个函数进行处理
 	   thenAccept() Comsumer入参，接收一个输入对象进行消费
@@ -37,7 +51,7 @@
 	   ```
 	- 3. 异常处理
 	    a.使用handle方法处理异常 使用不同的线程池方式,基本都是三种类型方法 
-	   ```
+	   ```java
 	   public <U> CompletableFuture<U> handle(
 	   BiFunction<? super T, Throwable, ? extends U> fn) {
 	   return uniHandleStage(null, fn);
@@ -54,7 +68,7 @@
 	    b.使用exceptionally() 方法来处理异常情况。
 	    c.如果你想让CompletableFuture 的结果就是异常的话，可以使用 completeExceptionally() 方法为其赋值。
 	    举例使用
-	   ```
+	   ```java
 	   @Test
 	   public void testExceptionHandle() throws ExecutionException, InterruptedException {
 	   //第一种异常处理方法handle()方法方式
@@ -70,7 +84,7 @@
 	   return res != null ? res : "world!";
 	   });
 	   assertEquals("world!", future.get());
-	  - //第二种处理异常方式exceptionally()方法
+	  //第二种处理异常方式exceptionally()方法
 	   CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
 	   if (true) {
 	   throw new RuntimeException("Computation error!");
@@ -81,7 +95,7 @@
 	   return "world!";
 	   });
 	   assertEquals("world!", future2.get());
-	  - //第三种处理异常方式completeExceptionally()方式
+	  //第三种处理异常方式completeExceptionally()方式
 	   CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
 	   if (true) {
 	   throw new IllegalArgumentException("Computation error:IllegalArgumentException");
@@ -97,32 +111,12 @@
 	   System.out.println(e.toString());
 	   Assert.assertEquals("java.lang.RuntimeException: Calculation failed!", e.getMessage());
 	   }
-	  - }
+	  }
 	   ```
-	- 1. 创建CompletableFuture对象
-	   a.通过 new 关键字。
-	   b. 基于 CompletableFuture 自带的静态工厂方法：runAsync() 、supplyAsync() 。
-	   c. 如果已经知道计算的结果的话，可以使用静态方法 completedFuture() 来创建 CompletableFuture。
-	   ``` java
-	   CompletableFuture<String> future = CompletableFuture.completedFuture("hello!");
-	   assertEquals("hello!", future.get());
-	   ```
-	   ``` java
-	   static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier);
-	   // 使用自定义线程池(推荐)
-	   static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier, Executor executor);
-	   static CompletableFuture<Void> runAsync(Runnable runnable);
-	   // 使用自定义线程池(推荐)
-	   static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor);
-	   ```
-	  
-	  
-	  
-	  4. 组合CompletableFuture
+	- 4. 组合CompletableFuture
 	  thenCombine()
 	  thenCompose()
-	    
-	  complete方法
+	- complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
 	  resultFuture.complete(rpcResponse);
 -
