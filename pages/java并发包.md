@@ -212,7 +212,7 @@
 	  ![截屏2022-06-06 下午7.56.25.png](../assets/截屏2022-06-06_下午7.56.25_1654516605098_0.png)
 	- 说明
 	- 常见用法
-	  创建CompletableFuture对象
+	  1. 创建CompletableFuture对象
 	  通过 new 关键字。
 	  基于 CompletableFuture 自带的静态工厂方法：runAsync() 、supplyAsync() 。
 	  
@@ -224,6 +224,14 @@
 	  // 使用自定义线程池(推荐)
 	  static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor);
 	  ```
+	  2. 处理异步结算的结果
+	  thenApply()
+	  thenAccept()
+	  thenRun()
+	  thenCombine()
+	  thenCompose()
+	  whenComplete()
+	  
 	  complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
 	  resultFuture.complete(rpcResponse);
