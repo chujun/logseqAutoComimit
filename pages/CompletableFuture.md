@@ -118,9 +118,44 @@
 	  }
 	   ```
 	- 4. 组合CompletableFuture
-	  thenCombine()： 按顺序链接两个 CompletableFuture 对象
-	  thenCompose()：
-	  thenCompose，thenComposeAsync，thenComposeAsync使用不同的线程池方式
+	  thenCompose()：入参Function，按顺序链接两个 CompletableFuture 对象,
+	  thenCombine()： 
+	  thenXXX，thenXXXAsync，thenXXXAsync使用不同的线程池方式
+	  ```java
+	  public <U> CompletableFuture<U> thenCompose(
+	      Function<? super T, ? extends CompletionStage<U>> fn) {
+	      return uniComposeStage(null, fn);
+	  }
+	  
+	  public <U> CompletableFuture<U> thenComposeAsync(
+	      Function<? super T, ? extends CompletionStage<U>> fn) {
+	      return uniComposeStage(defaultExecutor(), fn);
+	  }
+	  
+	  public <U> CompletableFuture<U> thenComposeAsync(
+	      Function<? super T, ? extends CompletionStage<U>> fn,
+	      Executor executor) {
+	      return uniComposeStage(screenExecutor(executor), fn);
+	  }
+	  
+	  public <U,V> CompletableFuture<V> thenCombine(
+	          CompletionStage<? extends U> other,
+	          BiFunction<? super T,? super U,? extends V> fn) {
+	          return biApplyStage(null, other, fn);
+	      }
+	  
+	      public <U,V> CompletableFuture<V> thenCombineAsync(
+	          CompletionStage<? extends U> other,
+	          BiFunction<? super T,? super U,? extends V> fn) {
+	          return biApplyStage(asyncPool, other, fn);
+	      }
+	  
+	      public <U,V> CompletableFuture<V> thenCombineAsync(
+	          CompletionStage<? extends U> other,
+	          BiFunction<? super T,? super U,? extends V> fn, Executor executor) {
+	          return biApplyStage(screenExecutor(executor), other, fn);
+	      }
+	  ```
 	- complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
 	  resultFuture.complete(rpcResponse);
