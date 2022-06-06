@@ -49,7 +49,14 @@
 	  非阻塞队列的典型例子是 ConcurrentLinkedQueue,非阻塞队列可以通过 CAS 操作实现
 	- BlockingQueue:接口,阻塞队列
 	- ArrayBlockingQueue:基于数组，阻塞队列
-	- LinkedBlockingQueue:基于链表，阻塞队列
+	  ArrayBlockingQueue实现原理:
+	  ArrayBlockingQueue 一旦创建，容量不能改变。其并发控制采用可重入锁 ReentrantLock ，不管是插入操作还是读取操作，都需要获取到锁才能进行操作。
+	  默认为非公平锁
+	  ```java
+	  //公平锁，boolean标志位传给ReentrantLock
+	  private static ArrayBlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue<Integer>(10,true);
+	  ```
+	- LinkedBlockingQueue:基于单向链表，阻塞队列
 	- PriorityBlockingQueue:基于堆,优先级阻塞队列
 	- ConcurrentLinkedQueue:基于链表，非阻塞队列,jdk中高并发环境中性能最好的队列，基于CAS无锁队列,不过比之Disruptor还是差一点的
 	  适合在对性能要求相对较高，同时对队列的读写存在多个线程同时进行的场景，即如果对队列加锁的成本较高则适合使用无锁的 ConcurrentLinkedQueue 来替代。
