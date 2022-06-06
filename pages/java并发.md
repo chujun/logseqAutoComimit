@@ -110,39 +110,42 @@
 		  ((629865a4-5176-4fe4-87f9-46a1ff1883e3))
 - CAS机制
   id:: 629dbe40-7798-4e22-a293-dadfeb09e50b
-  CAS原理
-  
-  CAS实现原理
-  基于Unsafe的CAS方法，compareAndSwapObject,compareAndSwapInt,compareAndSwapLong
-  ```java
-  public final native boolean compareAndSwapObject(Object obj, long fieldOffset, Object expectedValue, Object newValue);
-  
-      public final native boolean compareAndSwapInt(Object obj, long fieldOffset, int expectedValue, int newValue);
-  
-      public final native boolean compareAndSwapLong(Object obj, long fieldOffset, long expectedValue, long newValue);
-  
-  ```
-  查看下AtomicInteger的源码
-  ```java
-  // setup to use Unsafe.compareAndSwapInt for updates（更新操作时提供“比较并替换”的作用）
-  public class AtomicInteger extends Number implements java.io.Serializable {
-      private static final long serialVersionUID = 6214790243416807050L;
-  
-      // setup to use Unsafe.compareAndSwapInt for updates
-      private static final Unsafe unsafe = Unsafe.getUnsafe();
-      private static final long valueOffset;
-  
-      static {
-          try {
-              valueOffset = unsafe.objectFieldOffset
-                  (AtomicInteger.class.getDeclaredField("value"));
-          } catch (Exception ex) { throw new Error(ex); }
-      }
-  
-      private volatile int value;
-  }
-  ```
-  ABA问题
+	- 定义:CAS 的原理是拿期望的值和原本的一个值作比较，如果相同则更新成新的值。
+	- CAS实现原理
+	  基于Unsafe的CAS方法，compareAndSwapObject,compareAndSwapInt,compareAndSwapLong
+	  [[Unsafe]]
+	  ```java
+	  public final native boolean compareAndSwapObject(Object obj, long fieldOffset, Object expectedValue, Object newValue);
+	  
+	      public final native boolean compareAndSwapInt(Object obj, long fieldOffset, int expectedValue, int newValue);
+	  
+	      public final native boolean compareAndSwapLong(Object obj, long fieldOffset, long expectedValue, long newValue);
+	  
+	  ```
+	  查看下AtomicInteger的源码
+	  AtomicInteger 类主要利用 CAS (compare and swap) + volatile 和 native 方法来保证原子操作
+	  ```java
+	  // setup to use Unsafe.compareAndSwapInt for updates（更新操作时提供“比较并替换”的作用）
+	  public class AtomicInteger extends Number implements java.io.Serializable {
+	      private static final long serialVersionUID = 6214790243416807050L;
+	  
+	      // setup to use Unsafe.compareAndSwapInt for updates
+	      private static final Unsafe unsafe = Unsafe.getUnsafe();
+	      private static final long valueOffset;
+	  
+	      static {
+	          try {
+	              valueOffset = unsafe.objectFieldOffset
+	                  (AtomicInteger.class.getDeclaredField("value"));
+	          } catch (Exception ex) { throw new Error(ex); }
+	      }
+	  
+	      private volatile int value;
+	  }
+	  ```
+	- ABA问题
+	- ABA问题解决
+	  AtomicStampedReference:原子更新带有版本号的引用类型
 - # java锁的的实现方式
   java锁
 	- 实现锁的三大要求
