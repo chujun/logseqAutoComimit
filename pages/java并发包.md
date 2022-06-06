@@ -233,11 +233,13 @@
 	  2. 处理异步结算的结果
 	  thenApply() Function入参
 	  thenAccept() Comsumer入参
-	  thenRun()
+	  thenRun() Runnable入参，不能访问异步计算的结果
 	  thenCombine()
 	  thenCompose()
 	  whenComplete()
-	  使用不同的线程池方式,基本都是三种类型方法 thenXXX,thenApplyAsync,thenApplyAsync(Executor)
+	  
+	  使用不同的线程池方式,基本都是三种类型方法 
+	  thenXXX,thenXXXAsync,thenXXXAsync(Executor)
 	  ```java
 	  - // 沿用上一个任务的线程池
 	    public <U> CompletableFuture<U> thenApply(
@@ -255,6 +257,8 @@
 	    return uniApplyStage(screenExecutor(executor), fn);
 	    }
 	  ```
+	  3. 组合CompletableFuture
+	  thenCombine()
 	  
 	  complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
