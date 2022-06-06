@@ -108,6 +108,11 @@
 		  juc包里大量使用，例如原子类包AtomicInteger
 		- 2. 双重锁检测实现单例模式
 		  ((629865a4-5176-4fe4-87f9-46a1ff1883e3))
+- CAS机制
+  CAS原理
+  CAS实现
+  Unsafe的compareAndSwapObject,
+  ABA问题
 - # java锁的的实现方式
   java锁
 	- 实现锁的三大要求
