@@ -205,15 +205,19 @@
 	-
 - ForkJoin框架 jdk7
 - CompletableFuture
-  简单介绍:
-   jdk8,CompletableFuture 同时实现了 Future 和 CompletionStage 接口。
-  说明
-  原理
-  使用场景
-  优点
-  缺点
-  问题
-  [CompletableFuture原理与实践-外卖商家端API的异步化-美团技术团队](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
+	- 简单介绍:
+	  异步编程模式,可以很好的和stream函数式编程整合在一起。
+	   jdk8,CompletableFuture 同时实现了 Future 和 CompletionStage 接口。
+	  CompletionStage使得具有编排能力，CompletableFuture 的函数式能力就是这个接口赋予的
+	  ![截屏2022-06-06 下午7.56.25.png](../assets/截屏2022-06-06_下午7.56.25_1654516605098_0.png)
+	- 说明
+	- 原理
+	- 使用场景
+	- 优点
+	- 缺点
+	- 问题
+	- 资料
+	- [CompletableFuture原理与实践-外卖商家端API的异步化-美团技术团队](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
 -
 - CountDownLaunch,CyclicBarrier,Semaphore
   类比理解
