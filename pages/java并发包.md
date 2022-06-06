@@ -212,7 +212,10 @@
 	  ![截屏2022-06-06 下午7.56.25.png](../assets/截屏2022-06-06_下午7.56.25_1654516605098_0.png)
 	- 说明
 	- 常见用法
-	  创建
+	  创建CompletableFuture对象
+	  通过 new 关键字。
+	  基于 CompletableFuture 自带的静态工厂方法：runAsync() 、supplyAsync() 。
+	  
 	  ```java
 	  static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier);
 	  // 使用自定义线程池(推荐)
