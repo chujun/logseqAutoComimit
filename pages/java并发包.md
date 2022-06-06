@@ -35,12 +35,19 @@
 	- ![截屏2022-06-04 下午9.32.15.png](../assets/截屏2022-06-04_下午9.32.15_1654349548197_0.png)
 	-
 - 线程安全并发容器
+  Map
   ConcurrentHashMap
-  ConcurrentHashMap
-  ArrayBlockingQueue
+  ConcurrentSkipListMap：基于跳表数据结构实现
   
-  ConcurrentSkipListMap
+  Queue
+  BlockingQueue:接口,阻塞队列
+  ArrayBlockingQueue:基于数组，阻塞队列
+  ConcurrentLinkedQueue:基于链表，非阻塞队列
+  Set
   ConcurrentSkipListSet
+  
+  List
+  CopyOnWriteArrayList:适合读多写少场景
 - [[java线程池]]
   id:: 629986de-7a5f-4d94-9345-35be7b205ca6
 	-
