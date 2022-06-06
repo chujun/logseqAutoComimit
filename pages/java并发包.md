@@ -83,7 +83,13 @@
 	      }
 	  ```
 	- PriorityBlockingQueue:基于堆,优先级无界阻塞队列
+	  PriorityBlockingQueue使用说明
+	  0. 排序:默认情况下元素采用自然顺序进行排序，也可以通过自定义类实现 compareTo() 方法来指定元素排序规则，或者初始化时通过构造器参数 Comparator 来指定排序规则。
+	  1. 插入:不可以插入 null 值，同时，插入队列的对象必须是可比较大小的（comparable），否则报 ClassCastException 异常。
+	  2. 它的插入操作 put 方法不会 block，因为它是无界队列（take 方法在队列为空的时候会阻塞）。
+	  
 	  PriorityBlockingQueue实现原理:
+	  并发控制采用的是可重入锁 ReentrantLock
 	- ConcurrentLinkedQueue:基于链表，非阻塞队列,jdk中高并发环境中性能最好的队列，基于CAS无锁队列,不过比之Disruptor还是差一点的
 	  适合在对性能要求相对较高，同时对队列的读写存在多个线程同时进行的场景，即如果对队列加锁的成本较高则适合使用无锁的 ConcurrentLinkedQueue 来替代。
 	-
