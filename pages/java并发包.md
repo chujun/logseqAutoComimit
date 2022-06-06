@@ -48,9 +48,11 @@
   ConcurrentSkipListSet
   
   List
-  CopyOnWriteArrayList:适合读多写少场景，COW写时复制机制
-  CopyOnWriteArrayList 读取是完全不用加锁的，并且写入也不会阻塞读取操作。只有写入和写入之间需要进行同步等待
-  CopyOnWriteArrayList实现原理:
+  CopyOnWriteArrayList:适合读多写少场景
+  CopyOnWriteArrayList 读取是完全不用加锁的，并且写入也不会阻塞读取操作。只有写入和写入之间需要进行同步等待。(读读，读写，写读，)
+  CopyOnWriteArrayList实现原理:COW写时复制机制
+  
+  CopyOnWrite写时复制机制：在计算机，如果你想要对一块内存进行修改时，我们不在原有内存块中进行写操作，而是将内存拷贝一份，在新的内存中进行写操作，写完之后呢，就将指向原来内存指针指向新的内存，原来的内存就可以被回收掉了。
   
   Collections.synchronizedXXX() 系列方法，使用synchronized关键字实现同步，效率低
   ![截屏2022-06-06 下午3.15.51.png](../assets/截屏2022-06-06_下午3.15.51_1654499800861_0.png)
