@@ -212,7 +212,7 @@
 	  ![截屏2022-06-06 下午7.56.25.png](../assets/截屏2022-06-06_下午7.56.25_1654516605098_0.png)
 	- 说明
 	  线程池:默认的 ForkJoinPool 线程池（不推荐),也可以使用指定的线程池(推荐方式)
-	- 常见用法
+	- 常见API用法
 	  1. 创建CompletableFuture对象
 	  a.通过 new 关键字。
 	  b. 基于 CompletableFuture 自带的静态工厂方法：runAsync() 、supplyAsync() 。
@@ -234,8 +234,6 @@
 	  thenApply() Function入参
 	  thenAccept() Comsumer入参
 	  thenRun() Runnable入参，不能访问异步计算的结果
-	  thenCombine()
-	  thenCompose()
 	  whenComplete()
 	  
 	  使用不同的线程池方式,基本都是三种类型方法 
@@ -259,6 +257,7 @@
 	  ```
 	  3. 组合CompletableFuture
 	  thenCombine()
+	  thenCompose()
 	  
 	  complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
