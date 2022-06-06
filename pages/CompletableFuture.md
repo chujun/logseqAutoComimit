@@ -7,6 +7,10 @@
 -
 - 常见API用法
   常见用法
+	- 0. 使用不同的线程池方式,基本都是三种类型方法
+	  thenXXX,：沿用上一个任务的线程池
+	  thenXXXAsync,：使用默认线程池ForkJoinCommon
+	  thenXXXAsync(Executor)：使用自定义指定线程池
 	- 1. 创建CompletableFuture对象
 	   a.通过 new 关键字。
 	   b. 基于 CompletableFuture 自带的静态工厂方法：runAsync() 、supplyAsync() 。
@@ -114,8 +118,9 @@
 	  }
 	   ```
 	- 4. 组合CompletableFuture
-	  thenCombine()
-	  thenCompose()
+	  thenCombine()： 按顺序链接两个 CompletableFuture 对象
+	  thenCompose()：
+	  thenCompose，thenComposeAsync，thenComposeAsync使用不同的线程池方式
 	- complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
 	  resultFuture.complete(rpcResponse);
