@@ -159,6 +159,24 @@
 	  那 thenCompose() 和 thenCombine() 有什么区别呢？
 	  thenCompose() 可以两个 CompletableFuture 对象，并将前一个任务的返回结果作为下一个任务的参数，它们之间存在着先后顺序。
 	  thenCombine() 会在两个任务都执行完成后，把两个任务的结果合并。两个任务是并行执行的，它们之间并没有先后依赖顺序。
+	  ```java
+	  @Test
+	      public void test5() throws ExecutionException, InterruptedException {
+	          CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> "hello!")
+	              .thenCompose(s -> CompletableFuture.supplyAsync(() -> s + "world!"));
+	          assertEquals("hello!world!", future.get());
+	  
+	          CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> "hello!")
+	              //并行没有先后顺序
+	              .thenCombine(CompletableFuture.supplyAsync(() -> "world!"), (s1, s2) -> s1 + s2)
+	              //存在先后顺序
+	              .thenCompose(s -> CompletableFuture.supplyAsync(() -> s + "nice!"));
+	          assertEquals("hello!world!nice!", completableFuture.get());
+	      }
+	  ```
+	- 并行运行多个 CompletableFuture
+	  allOf():等到所有的 CompletableFuture 都运行完成之后再返回
+	  anyOf()：只要有一个执行完成即可返回
 	- complete方法
 	  complete() 方法只能调用一次，后续调用将被忽略。
 	  resultFuture.complete(rpcResponse);
