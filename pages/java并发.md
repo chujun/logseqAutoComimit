@@ -123,7 +123,8 @@
 	  
 	  ```
 	  查看下AtomicInteger的源码
-	  AtomicInteger 类主要利用 CAS (compare and swap) + volatile 和 native 方法来保证原子操作
+	  AtomicInteger 类主要利用 CAS (compare and swap) + volatile 和 native 方法来保证原子操作.
+	  UnSafe 类的 objectFieldOffset() 方法是一个本地方法，这个方法是用来获取指定Field字段的内存地址。
 	  ```java
 	  // setup to use Unsafe.compareAndSwapInt for updates（更新操作时提供“比较并替换”的作用）
 	  public class AtomicInteger extends Number implements java.io.Serializable {

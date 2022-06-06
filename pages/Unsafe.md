@@ -1,1 +1,2 @@
 - CAS
+- objectFieldOffset方法
