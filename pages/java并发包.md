@@ -214,8 +214,13 @@
 	  线程池:默认的 ForkJoinPool 线程池（不推荐),也可以使用指定的线程池(推荐方式)
 	- 常见用法
 	  1. 创建CompletableFuture对象
-	  通过 new 关键字。
-	  基于 CompletableFuture 自带的静态工厂方法：runAsync() 、supplyAsync() 。
+	  a.通过 new 关键字。
+	  b. 基于 CompletableFuture 自带的静态工厂方法：runAsync() 、supplyAsync() 。
+	  c. 如果已经知道计算的结果的话，可以使用静态方法 completedFuture() 来创建 CompletableFuture。
+	  ```java
+	  CompletableFuture<String> future = CompletableFuture.completedFuture("hello!");
+	  assertEquals("hello!", future.get());
+	  ```
 	  
 	  ```java
 	  static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier);
