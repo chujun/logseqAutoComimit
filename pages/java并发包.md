@@ -11,6 +11,7 @@
   AbstractQueuedSynchronizer(AQS)
   [[AQS AbstractQueuedSynchronizer]]
   ReentrantLock
+  ReentrantReadWriteLock:读写锁的思想非常类似，也就是读读共享、写写互斥、读写互斥、写读互斥。
   StampedLock(jdk1.8)
 - 原子类
   id:: 629985ca-1cb9-447c-9919-e0adac191863
@@ -47,7 +48,8 @@
   ConcurrentSkipListSet
   
   List
-  CopyOnWriteArrayList:适合读多写少场景，COW
+  CopyOnWriteArrayList:适合读多写少场景，COW写时复制机制
+  CopyOnWriteArrayList 读取是完全不用加锁的，并且更厉害的是：写入也不会阻塞读取操作。只有写入和写入之间需要进行同步等待
   
   Collections.synchronizedXXX() 系列方法，使用synchronized关键字实现同步，效率低
   ![截屏2022-06-06 下午3.15.51.png](../assets/截屏2022-06-06_下午3.15.51_1654499800861_0.png)
