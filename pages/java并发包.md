@@ -42,13 +42,13 @@
 	  
 	  Queue
 	- 线程安全的 Queue 可以分为阻塞队列和非阻塞队列
-	  阻塞队列的典型例子是 BlockingQueue,有界队列,阻塞队列可以通过加锁来实现，
+	  阻塞队列的典型例子是 BlockingQueue,阻塞队列可以通过加锁来实现，
 	  广泛使用在“生产者-消费者”场景中
 	  其原因是 BlockingQueue 提供了可阻塞的插入和移除的方法。当队列容器已满，生产者线程会被阻塞，直到队列未满；当队列容器为空时，消费者线程会被阻塞，直至队列非空时为止。
 	  
 	  非阻塞队列的典型例子是 ConcurrentLinkedQueue,非阻塞队列可以通过 CAS 操作实现
 	- BlockingQueue:接口,阻塞队列
-	- ArrayBlockingQueue:基于数组，阻塞队列
+	- ArrayBlockingQueue:基于数组，有界阻塞队列
 	  ArrayBlockingQueue实现原理:
 	  ArrayBlockingQueue 一旦创建，容量不能改变。其并发控制采用可重入锁 ReentrantLock ，不管是插入操作还是读取操作，都需要获取到锁才能进行操作。
 	  默认为非公平锁
@@ -57,7 +57,33 @@
 	  private static ArrayBlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue<Integer>(10,true);
 	  ```
 	- LinkedBlockingQueue:基于单向链表，阻塞队列
-	- PriorityBlockingQueue:基于堆,优先级阻塞队列
+	  可以当做无界队列也可以当做有界队列来使用
+	  ```java
+	    /**
+	       *某种意义上的无界队列
+	       * Creates a {@code LinkedBlockingQueue} with a capacity of
+	       * {@link Integer#MAX_VALUE}.
+	       */
+	      public LinkedBlockingQueue() {
+	          this(Integer.MAX_VALUE);
+	      }
+	  
+	      /**
+	       *有界队列
+	       * Creates a {@code LinkedBlockingQueue} with the given (fixed) capacity.
+	       *
+	       * @param capacity the capacity of this queue
+	       * @throws IllegalArgumentException if {@code capacity} is not greater
+	       *         than zero
+	       */
+	      public LinkedBlockingQueue(int capacity) {
+	          if (capacity <= 0) throw new IllegalArgumentException();
+	          this.capacity = capacity;
+	          last = head = new Node<E>(null);
+	      }
+	  ```
+	- PriorityBlockingQueue:基于堆,优先级无界阻塞队列
+	  PriorityBlockingQueue实现原理:
 	- ConcurrentLinkedQueue:基于链表，非阻塞队列,jdk中高并发环境中性能最好的队列，基于CAS无锁队列,不过比之Disruptor还是差一点的
 	  适合在对性能要求相对较高，同时对队列的读写存在多个线程同时进行的场景，即如果对队列加锁的成本较高则适合使用无锁的 ConcurrentLinkedQueue 来替代。
 	-
