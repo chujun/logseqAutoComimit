@@ -211,6 +211,7 @@
 	  CompletionStage使得具有编排能力，CompletableFuture 的函数式能力就是这个接口赋予的
 	  ![截屏2022-06-06 下午7.56.25.png](../assets/截屏2022-06-06_下午7.56.25_1654516605098_0.png)
 	- 说明
+	  线程池:默认的 ForkJoinPool 线程池（不推荐),也可以使用指定的线程池(推荐方式)
 	- 常见用法
 	  1. 创建CompletableFuture对象
 	  通过 new 关键字。
