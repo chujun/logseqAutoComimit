@@ -32,8 +32,11 @@
   锁又分为公平锁和非公平锁
   公平锁:保证先到先得,按照线程在队列中的排队顺序，先到者先拿到锁
   非公平锁:不保证先到先得，当线程要获取锁时，先通过CAS 操作去抢锁，如果没抢到，当前线程再加入到队列中等待唤醒。
-  ((62a01030-1752-4dfb-a54c-606c810eb3b3)) 
+  ((62a0110a-97d3-4970-822d-38900c515148)) 
   2. Share(共享方式)
+  多个线程可同时执行，例如Semaphore,CountDownLatch,CyclicBarrier、ReadWriteLock
+  
+  一般锁和同步器都是一种方式，而ReentrantReadWriteLock可以看成是组合式，因为 ReentrantReadWriteLock 也就是读写锁允许多个线程同时对某一资源进行读。
 -
 - AQS原理
 - AQS源码分析
