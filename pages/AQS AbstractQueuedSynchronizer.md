@@ -30,8 +30,8 @@
   1. Exclusive(独占方式）
   同一时刻只有一个线程能执行, ReentrantLock
   锁又分为公平锁和非公平锁
-  公平锁:先到先得,按照线程在队列中的排队顺序，先到者先拿到锁
-  
+  公平锁:保证先到先得,按照线程在队列中的排队顺序，先到者先拿到锁
+  非公平锁:不保证先到先得，当线程要获取锁时，先通过CAS 操作去抢锁，如果没抢到，当前线程再加入到队列中等待唤醒。
   2. Share(共享方式)
 -
 - AQS原理
@@ -95,4 +95,5 @@
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
   CycliBarrier, SynchronousQueue是基于ReentrantLock,
   2. 我们自己也能利用 AQS 非常轻松容易地构造出符合我们自己需求的同步器。
+-
 -

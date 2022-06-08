@@ -1,13 +1,7 @@
 - 里面提供一系列并发开发的工具类,并发包 java.util.concurrent
 - Callable,Future
 	- Callable:
-	- Future:
-	  id:: 629b51bd-72dd-460f-a97e-806b99d0e708
-	  boolean cancel(boolean mayInterruptIfRunning) ：尝试取消执行任务。
-	  boolean isCancelled() ：判断任务是否被取消。
-	  boolean isDone() ： 判断任务是否已经被执行完成。
-	  T get() ：等待任务执行完成并获取运算结果。get()方法会阻塞当前线程直到任务完成，
-	  T get(long timeout, TimeUnit unit) ：多了一个超时时间。会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。
+	- id:: 629b51bd-72dd-460f-a97e-806b99d0e708
 - Lock,Condition
   LockSupport
   AbstractQueuedSynchronizer(AQS)
