@@ -24,7 +24,8 @@
   如果被请求的共享资源被占用，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，
   这个机制 AQS 是用 CLH 队列锁实现的，即将暂时获取不到锁的线程加入到队列中。
   
-  请求释放锁的共享资源时，
+  请求释放锁的共享资源时，共享资源为为非锁定状态,则唤醒CLH队列锁的线程竞争共享资源
+  ((62a005a5-bf25-40b9-a19d-41df701c9d49))
 - AQS原理
   AbstractQueuedSynchronizer.Sync
 - AQS源码分析
@@ -46,12 +47,17 @@
   }
   ```
 - CLH队列
+  id:: 62a005a5-bf25-40b9-a19d-41df701c9d49
   定义:虚头节点的双链阻塞队列 ,FIFO,AQS 是将每条请求共享资源的线程封装成一个 CLH队列的一个结点（Node）来实现锁的分配。
   一般使用自旋锁spinLock
   相比普通的双链队列有什么特点?
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
-- 子类实现AQS
-  要求:一般子类实现方法都需要操作共享状态变量state值
+- CLH队列
+  id:: 62a005a5-bf25-40b9-a19d-41df701c9d49
+  定义:虚头节点的双链阻塞队列 ,FIFO,AQS 是将每条请求共享资源的线程封装成一个 CLH队列的一个结点（Node）来实现锁的分配。
+  一般使用自旋锁spinLock
+  相比普通的双链队列有什么特点?
+  ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
 - 自定义子类实现AQS
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
