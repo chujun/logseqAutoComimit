@@ -1,8 +1,6 @@
 -
 - 公平锁和非公平锁
   默认为非公平锁，效率高
-  
-  
   ```java
   /** Synchronizer providing all implementation mechanics */
   private final Sync sync;
@@ -15,6 +13,9 @@
   }
   ```
   ReentrantLock源码实现公平锁和非公平锁
+  基于AQS实现公平锁的
+  ((62a01247-baa8-4152-b470-821a6ed112f5)) 
+  公平锁的实现
   ```java
   //ReentrantLock.FairSync
   static final class FairSync extends Sync {
