@@ -26,8 +26,12 @@
   
   请求释放锁的共享资源时，共享资源为为非锁定状态,则唤醒CLH队列锁的线程竞争共享资源
   ((62a005a5-bf25-40b9-a19d-41df701c9d49))
+- AQS 对资源的两种共享方式
+  1. Exclusive(独占方式）
+  同一时刻只有一个线程能执行, ReentrantLock
+  2. Share(共享方式)
+-
 - AQS原理
-  AbstractQueuedSynchronizer.Sync
 - AQS源码分析
   同步状态字段state
   使用volatitle int 成员变量来表示同步状态
@@ -54,6 +58,7 @@
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
 - JDK实现AQS的类
   CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
+  AbstractQueuedSynchronizer.Sync
 - 子类实现AQS
   要求:一般子类实现方法都需要操作共享状态变量state值
 - 自定义子类实现AQS
