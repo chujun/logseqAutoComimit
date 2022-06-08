@@ -22,14 +22,27 @@
 - AQS原理
   AbstractQueuedSynchronizer.Sync
 - AQS源码分析
-  同步状态字段
+  同步状态字段state
   使用volatitle int 成员变量来表示同步状态
   ```java
   private volatile int state;//共享变量，使用volatile修饰保证线程可见性
+  /返回同步状态的当前值
+  protected final int getState() {
+          return state;
+  }
+   // 设置同步状态的值
+  protected final void setState(int newState) {
+          state = newState;
+  }
+  //原子地（CAS操作）将同步状态值设置为给定值update如果当前同步状态的值等于expect（期望值）
+  protected final boolean compareAndSetState(int expect, int update) {
+          return unsafe.compareAndSwapInt(this, stateOffset, expect, update);
+  }
   ```
 - CLH队列
   定义:虚头节点的双链阻塞队列 ,FIFO
   一般使用自旋锁spinLock
+  相比普通的双链队列有什么
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
