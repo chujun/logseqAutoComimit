@@ -1,5 +1,6 @@
 -
 - 公平锁和非公平锁
+  ((62a01030-1752-4dfb-a54c-606c810eb3b3)) 
   默认为非公平锁，效率高
   ```java
   /** Synchronizer providing all implementation mechanics */
@@ -97,4 +98,5 @@
   ```
   公平锁和非公平锁实现区别
   1. 提高非公平锁在无锁竞争情况下的效率:非公平锁在调用 lock 后，首先就会调用 CAS 进行一次抢锁，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。
+  2. 非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态(通过调用AQS的hasQueuedPredecessors方法判断)，如果有则不去抢锁，乖乖排到后面。
 -
