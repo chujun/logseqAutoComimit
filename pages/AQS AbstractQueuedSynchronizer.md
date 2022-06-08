@@ -21,8 +21,14 @@
   自定义的同步器类继承AbstractQueuedSynchronizer，必须实现一下5个方法
 - AQS原理
   AbstractQueuedSynchronizer.Sync
+- AQS源码分析
+  同步状态字段
+  使用volatitle int 成员变量来表示同步状态
+  ```java
+  private volatile int state;//共享变量，使用volatile修饰保证线程可见性
+  ```
 - CLH队列
-  定义:虚头节点的双链阻塞队列 
+  定义:虚头节点的双链阻塞队列 ,FIFO
   一般使用自旋锁spinLock
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
 - 使用场景
