@@ -3,7 +3,7 @@
   CycliBarrier是基于ReentrantLock,
   
   我们自己也能利用 AQS 非常轻松容易地构造出符合我们自己需求的同步器。
-- 常见类
+- 基于AQS实现的常见线程类
   注意StampedLock jdk1.8不是基于AQS设计的
   ![截屏2022-06-05 下午9.04.20.png](../assets/截屏2022-06-05_下午9.04.20_1654434285393_0.png)
 - 核心类:
@@ -23,7 +23,7 @@
   AbstractQueuedSynchronizer.Sync
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
-  CycliBarrier是基于ReentrantLock,
+  CycliBarrier, SynchronousQueue是基于ReentrantLock,
   2. 我们自己也能利用 AQS 非常轻松容易地构造出符合我们自己需求的同步器。
 -
 -

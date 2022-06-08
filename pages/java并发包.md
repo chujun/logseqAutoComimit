@@ -13,7 +13,9 @@
   AbstractQueuedSynchronizer(AQS)
   [[AQS AbstractQueuedSynchronizer]]
   ReentrantLock
-  ReentrantReadWriteLock:读写锁的思想非常类似，也就是读读共享、写写互斥、读写互斥、写读互斥。
+  可重入锁
+  ReentrantReadWriteLock:
+  读写锁的思想非常类似，也就是读读共享、写写互斥、读写互斥、写读互斥。
   StampedLock(jdk1.8)
 - 原子类
   id:: 629985ca-1cb9-447c-9919-e0adac191863
