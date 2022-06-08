@@ -71,8 +71,10 @@
 - 子类实现AQS
   自定义同步器在实现时只需要实现共享资源 state 的获取与释放方式即可，至于具体线程等待队列的维护（如获取资源失败入队/唤醒出队等），AQS 已经在上层已经帮我们实现好了。
   要求:一般子类实现方法都需要操作共享状态变量state值
-	- 共享模式和独占模式
-	  自定义同步器是独占模式时一般覆盖tryAcquire和tryRelease即可,而是共享式模式时
+	- 利用AQS实现共享模式和独占模式
+	  自定义同步器是独占模式时一般覆盖tryAcquire和tryRelease即可,
+	  而是共享式模式时覆盖tryAcquireShared和tryReleaseShared方法即可
+	  特别的ReentrantReadWriteLock
 	- 利用AQS如何设计实现公平锁
 	  id:: 62a01247-baa8-4152-b470-821a6ed112f5
 	  AQS源码文档中提到一种实现公平锁的通常方式，再实现tryAcquire方法时,判断hasQueuedPredecessors方法如果返回true,则tryAcquire返回false。
