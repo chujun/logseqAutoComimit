@@ -61,6 +61,9 @@
   AbstractQueuedSynchronizer.Sync
 - 子类实现AQS
   要求:一般子类实现方法都需要操作共享状态变量state值
+  如何设计实现公平锁
+  AQS源码文档中提到一种实现公平锁的通常方式，再实现tryAcquire方法时,判断hasQueuedPredecessors方法如果返回true,则tryAcquire返回false。
+  ReentrantLock类就是这么实现公平锁的。
 - 自定义子类实现AQS
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
