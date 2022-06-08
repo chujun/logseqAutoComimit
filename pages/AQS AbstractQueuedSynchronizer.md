@@ -29,6 +29,9 @@
 - AQS 对资源的两种共享方式
   1. Exclusive(独占方式）
   同一时刻只有一个线程能执行, ReentrantLock
+  锁又分为公平锁和非公平锁
+  公平锁:先到先得,按照线程在队列中的排队顺序，先到者先拿到锁
+  
   2. Share(共享方式)
 -
 - AQS原理
@@ -61,9 +64,32 @@
   AbstractQueuedSynchronizer.Sync
 - 子类实现AQS
   要求:一般子类实现方法都需要操作共享状态变量state值
-  如何设计实现公平锁
+  
+  利用ASQ如何设计实现公平锁
   AQS源码文档中提到一种实现公平锁的通常方式，再实现tryAcquire方法时,判断hasQueuedPredecessors方法如果返回true,则tryAcquire返回false。
   ReentrantLock类就是这么实现公平锁的。
+  ```java
+  //ReentrantLock.FairSync
+  		protected final boolean tryAcquire(int acquires) {
+              final Thread current = Thread.currentThread();
+              int c = getState();
+              if (c == 0) {
+                  if (!hasQueuedPredecessors() &&
+                      compareAndSetState(0, acquires)) {
+                      setExclusiveOwnerThread(current);
+                      return true;
+                  }
+              }
+              else if (current == getExclusiveOwnerThread()) {
+                  int nextc = c + acquires;
+                  if (nextc < 0)
+                      throw new Error("Maximum lock count exceeded");
+                  setState(nextc);
+                  return true;
+              }
+              return false;
+          }
+  ```
 - 自定义子类实现AQS
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
