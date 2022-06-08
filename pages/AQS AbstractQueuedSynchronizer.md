@@ -40,13 +40,14 @@
   }
   ```
 - CLH队列
-  定义:虚头节点的双链阻塞队列 ,FIFO
+  定义:虚头节点的双链阻塞队列 ,FIFO,AQS 是将每条请求共享资源的线程封装成一个 CLH队列的一个结点（Node）来实现锁的分配。
   一般使用自旋锁spinLock
-  相比普通的双链队列有什么
+  相比普通的双链队列有什么特点?
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
+- 子类实现AQS
+- 自定义子类实现AQS
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
   CycliBarrier, SynchronousQueue是基于ReentrantLock,
   2. 我们自己也能利用 AQS 非常轻松容易地构造出符合我们自己需求的同步器。
--
 -
