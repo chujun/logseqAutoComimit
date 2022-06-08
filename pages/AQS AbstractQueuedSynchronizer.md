@@ -33,10 +33,12 @@
   公平锁:保证先到先得,按照线程在队列中的排队顺序，先到者先拿到锁
   非公平锁:不保证先到先得，当线程要获取锁时，先通过CAS 操作去抢锁，如果没抢到，当前线程再加入到队列中等待唤醒。
   ((62a0110a-97d3-4970-822d-38900c515148)) 
+  
   2. Share(共享方式)
   多个线程可同时执行，例如Semaphore,CountDownLatch,CyclicBarrier、ReadWriteLock
   
-  一般锁和同步器都是一种方式，而ReentrantReadWriteLock可以看成是组合式，因为 ReentrantReadWriteLock 也就是读写锁允许多个线程同时对某一资源进行读。
+  一般锁和同步器都是一种共享方式，
+  而ReentrantReadWriteLock可以看成是组合式，因为 ReentrantReadWriteLock 也就是读写锁允许多个线程同时对某一资源进行读。
 -
 - AQS原理
 - AQS源码分析
@@ -67,7 +69,10 @@
   CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
   AbstractQueuedSynchronizer.Sync
 - 子类实现AQS
+  自定义同步器在实现时只需要实现共享资源 state 的获取与释放方式即可，至于具体线程等待队列的维护（如获取资源失败入队/唤醒出队等），AQS 已经在上层已经帮我们实现好了。
   要求:一般子类实现方法都需要操作共享状态变量state值
+	- 共享模式和独占模式
+	  自定义同步器是独占模式时一般覆盖tryAcquire和tryRelease即可,而是共享式模式时
 	- 利用AQS如何设计实现公平锁
 	  id:: 62a01247-baa8-4152-b470-821a6ed112f5
 	  AQS源码文档中提到一种实现公平锁的通常方式，再实现tryAcquire方法时,判断hasQueuedPredecessors方法如果返回true,则tryAcquire返回false。
@@ -94,7 +99,7 @@
 	              return false;
 	          }
 	  ```
-- 自定义子类实现AQS
+- 自定义子类实现AQS实战
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
   CycliBarrier, SynchronousQueue是基于ReentrantLock,
