@@ -23,6 +23,8 @@
   如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。
   如果被请求的共享资源被占用，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，
   这个机制 AQS 是用 CLH 队列锁实现的，即将暂时获取不到锁的线程加入到队列中。
+  
+  请求释放锁的共享资源时
 - AQS原理
   AbstractQueuedSynchronizer.Sync
 - AQS源码分析
@@ -49,6 +51,7 @@
   相比普通的双链队列有什么特点?
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
 - 子类实现AQS
+  要求:一般子类实现方法都需要操作共享状态变量state值
 - 自定义子类实现AQS
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
