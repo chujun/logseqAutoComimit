@@ -21,6 +21,9 @@
   自定义的同步器类继承AbstractQueuedSynchronizer，必须实现一下5个方法
 - AQS原理
   AbstractQueuedSynchronizer.Sync
+- CLH队列
+  
+  ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
   CycliBarrier, SynchronousQueue是基于ReentrantLock,
