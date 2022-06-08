@@ -22,7 +22,8 @@
 - AQS原理
   AbstractQueuedSynchronizer.Sync
 - CLH队列
-  
+  定义:虚头节点的双链阻塞队列 
+  一般使用自旋锁spinLock
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
