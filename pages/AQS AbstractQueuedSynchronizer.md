@@ -52,12 +52,10 @@
   一般使用自旋锁spinLock
   相比普通的双链队列有什么特点?
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
-- CLH队列
-  id:: 62a005a5-bf25-40b9-a19d-41df701c9d49
-  定义:虚头节点的双链阻塞队列 ,FIFO,AQS 是将每条请求共享资源的线程封装成一个 CLH队列的一个结点（Node）来实现锁的分配。
-  一般使用自旋锁spinLock
-  相比普通的双链队列有什么特点?
-  ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
+- JDK实现AQS的类
+  CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
+- 子类实现AQS
+  要求:一般子类实现方法都需要操作共享状态变量state值
 - 自定义子类实现AQS
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
