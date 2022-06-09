@@ -1,6 +1,6 @@
 - AQS AbstractQueuedSynchronizer抽象队列同步器是一个用来构建锁和同步器的框架，使用 AQS 能简单且高效地构造出大量应用广泛的同步器
   id:: 629c90f3-3535-4e2e-8cc6-ff7e8bec315a
-  例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
+  例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch,ThreadPoolExecutor等
   CycliBarrier是基于ReentrantLock,
   
   我们自己也能利用 AQS 非常轻松容易地构造出符合我们自己需求的同步器/同步组件。
@@ -242,11 +242,10 @@
 	  |同步工具	|同步工具与 AQS 的关联|
 	  |---|---|
 	  |ReentrantLock|	使用 AQS 保存锁重复持有的次数。当一个线程获取锁时，ReentrantLock 记录当前获得锁的线程标识，用于检测是否重复获取，以及错误线程试图解锁操作时异常情况的处理。|
-	  |Semaphore|	使用 AQS 同步状态来保存信号量的当前计数。tryRelease 会增加计数，acquireShared 会减少计数。|
-	  |CountDownLatch	|使用 AQS 同步状态来表示计数。countDown减少计数为 0 时，所有的 Acquire 操作（CountDownLatch 的 await 方法）才可以通过。|
-	  ReentrantReadWriteLock	使用 AQS 同步状态中的 16 位保存写锁持有的次数，剩下的 16 位用于保存读锁的持有次数。
-	  ThreadPoolExecutor	Worker 利用 AQS 同步状态实现对独占线程变量的设置（tryAcquire 和 tryRelease）。
-	  #
+	  |Semaphore|	使用 AQS 同步状态来保存信号量的当前计数。tryRelease 会增加计数1，acquireShared 会减少计数1。|
+	  |CountDownLatch	|使用 AQS 同步状态来表示计数。countDown减少计数1,计数为 0 时，所有的 Acquire 操作（CountDownLatch 的 await 方法）才可以通过。|
+	  |ReentrantReadWriteLock	|使用 AQS 同步状态中的 16 位保存写锁持有的次数，剩下的 16 位用于保存读锁的持有次数。|
+	  |ThreadPoolExecutor	|Worker 利用 AQS 同步状态实现对独占线程变量的设置（tryAcquire 和 tryRelease）。|
 -
 - #
 - 子类实现AQS
