@@ -176,6 +176,13 @@
 	  CountDownLatch(1)，各个线程先await()，等待主线程的countDown()一声令下,多个线程在某一时刻同时开始执行。
 	  CountDownLauch不足
 	  CountDownLatch 是一次性的，计数器的值只能在构造方法中初始化一次，之后没有任何机制再次对其设置值，当 CountDownLatch 使用完毕后，它不能再次被使用。
+	- Semaphore
+	  允许多个线程同时访问同一个共享资源
+	  Semaphore使用说明
+	  Semaphore(permits)：表示允许同时执行的
+	  执行 acquire() 方法阻塞，直到有一个许可证可以获得然后拿走一个许可证；
+	  每个 release 方法增加一个许可证，这可能会释放一个队列锁阻塞的 acquire() 方法
+	  支持公平锁和非公平锁
 	- CyclicBarrier(循环栅栏)
 	  可循环使用（Cyclic）的屏障（Barrier）
 	  让一组线程到达一个屏障（也可以叫同步点）时被阻塞，直到最后一个线程到达屏障时，屏障才会开门，所有被屏障拦截的线程才会继续干活。然后下一组线程再循环开始。
