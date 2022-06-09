@@ -70,6 +70,10 @@
 - JDK实现AQS的类
   CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
   AbstractQueuedSynchronizer.Sync
+  ReentrantLock
+  ReentrantLock对state同步变量的解释
+  state初始化为0状态,表示未锁定状态,当A线程调用lock方法时,会调用 tryAcquire() 独占该锁并将 state+1。其他线程再 tryAcquire() 时就会失败，直到 A 线程 unlock() state-1到 state=0（即释放锁）为止，其它线程才有机会获取该锁。
+  CountDownLatch
 - 子类实现AQS
   自定义同步器在实现时只需要实现共享资源 state 的获取与释放方式即可，至于具体线程等待队列的维护（如获取资源失败入队/唤醒出队等），AQS 已经在上层已经帮我们实现好了。
   要求:一般子类实现方法都需要操作共享状态变量state值
