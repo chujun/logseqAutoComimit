@@ -315,29 +315,39 @@
       }
   }
   ```
+  上述代码每次运行结果都会是 20000。通过简单的几行代码就能实现同步功能，这就是 AQS 的强大之处。
   ```java
-  public class LeeMain {
-  
+  public class LeeMainTest {
       static int count = 0;
       static LeeLock leeLock = new LeeLock();
   
-      public static void main (String[] args) throws InterruptedException {
+      /**
+       * 运行结果:当然也可能Thread先执行,不过每次执行结果必然是20000
+       * start count:Thread-0
+       * end count:Thread-0
+       * start count:Thread-1
+       * end count:Thread-1
+       * 20000
+       *
+       * @throws InterruptedException
+       */
+      @Test
+      public void test() throws InterruptedException {
   
-          Runnable runnable = new Runnable() {
-              @Override
-              public void run () {
-                  try {
-                      leeLock.lock();
-                      for (int i = 0; i < 10000; i++) {
-                          count++;
-                      }
-                  } catch (Exception e) {
-                      e.printStackTrace();
-                  } finally {
-                      leeLock.unlock();
+          Runnable runnable = () -> {
+              try {
+                  leeLock.lock();
+                  System.out.println("start count:" + Thread.currentThread().getName());
+                  for (int i = 0; i < 10000; i++) {
+                      count++;
                   }
-  
+                  System.out.println("end count:" + Thread.currentThread().getName());
+              } catch (Exception e) {
+                  e.printStackTrace();
+              } finally {
+                  leeLock.unlock();
               }
+  
           };
           Thread thread1 = new Thread(runnable);
           Thread thread2 = new Thread(runnable);
@@ -349,7 +359,6 @@
       }
   }
   ```
-  上述代码每次运行结果都会是 20000。通过简单的几行代码就能实现同步功能，这就是 AQS 的强大之处。
 - 使用场景
   1. jdk源码例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
   CycliBarrier, SynchronousQueue是基于ReentrantLock,
