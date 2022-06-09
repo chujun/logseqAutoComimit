@@ -177,8 +177,9 @@
 	  CountDownLauch不足
 	  CountDownLatch 是一次性的，计数器的值只能在构造方法中初始化一次，之后没有任何机制再次对其设置值，当 CountDownLatch 使用完毕后，它不能再次被使用。
 	- CyclicBarrier(循环栅栏)
+	  可循环使用（Cyclic）的屏障（Barrier）
 	  CyclicBarrier实现原理
-	  CycliBarrier 是基于 ReentrantLock
+	  CycliBarrier 是基于 ReentrantLock和Condition
 -
 - #
 - 子类实现AQS

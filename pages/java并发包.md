@@ -200,7 +200,8 @@
   id:: 629986de-7a5f-4d94-9345-35be7b205ca6
 - ForkJoin框架 jdk7
 - [[CompletableFuture]]
-- CountDownLaunch,CyclicBarrier,Semaphore
+- 基于AQS实现的同步组件
+  CountDownLaunch,CyclicBarrier,Semaphore,ReentrantLock,ReentrantReadWriteLock
   类比理解
   CountDownLatch:F4赛车停下来等换好了4个轮胎后再跑，一直跑下去(countdown降为0后，永远不会reset回去)
   CyclicBarrier:王者5排发车，一波发车完，下一波继续等5排再发车
