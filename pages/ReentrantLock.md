@@ -115,8 +115,8 @@
   解锁过程描述:(按图说话)
   1. 通过 ReentrantLock 的解锁方法 Unlock 进行解锁。
   2. Unlock 会调用内部类 Sync 的 Release 方法，该方法继承于 AQS。
-  3. Release 中会调用 tryRelease 方法，tryRelease 需要自定义同步器实现，tryRelease 只在 ReentrantLock 中的 Sync 实现，因此可以看出，释放锁的过程，并不区分是否为公平锁。
-  释放成功后，所有处理由 AQS 框架完成，与自定义同步器无关。
+  3. Release 中会调用 tryRelease 方法，tryRelease 是钩子方法需要自定义同步器实现，tryRelease 只在 ReentrantLock 中的 Sync 实现，因此可以看出，释放锁的过程，并不区分是否为公平锁。
+  4. 释放成功后，所有后续处理由 AQS 框架完成(唤醒FIFO队列锁的线程来竞争锁资源)，与自定义同步器无关。
 - 资料
   [从ReentrantLock的实现看AQS的原理及应用-转自美团技术团队](https://javaguide.cn/java/concurrent/reentrantlock.html#%E5%89%8D%E8%A8%80)
 -
