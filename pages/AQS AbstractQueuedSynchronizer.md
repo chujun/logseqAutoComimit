@@ -77,27 +77,33 @@
   id:: 62a005a5-bf25-40b9-a19d-41df701c9d49
   定义:虚头节点的双链阻塞队列 ,FIFO,AQS 是将每条请求共享资源的线程封装成一个 CLH队列的一个结点（Node）来实现锁的分配。
   一般使用自旋锁spinLock
-  相比普通的双链队列有什么特点?
-  ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
-  AbstractQueuedSynchronizer.Node
-  CLH 变体队列中的节点
-  |属性|含义|
-  |---|---|
-  |waitStatus|当前节点在队列中的状态|
-  |thread	|表示处于该节点的线程|
-  |prev	|前驱指针|
-  |predecessor|	返回前驱节点，没有的话抛出 npe|
-  |nextWaiter|	指向下一个处于 CONDITION 状态的节点（ Condition Queue 队列|
-  |next|	后继指针|
-  线程节点两种模式
-  SHARED:表示线程以共享的模式等待锁
-  EXCLUSIVE:表示线程正在以独占的方式等待锁
-  waitStatus 有下面几个枚举值：
-  1. 0	当一个 Node 被初始化的时候的默认值
-  2. CANCELLED	为 1，表示线程获取锁的请求已经取消了
-  3. CONDITION	为-2，表示节点在等待队列中，节点线程等待唤醒
-  4. PROPAGATE	为-3，当前线程处在 SHARED 情况下，该字段才会使用
-  5. SIGNAL	为-1，表示线程已经准备好了，就等资源释放了
+	- 相比普通的双链队列有什么特点?
+	  ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
+	- AbstractQueuedSynchronizer.Node
+	  CLH 变体队列中的节点
+	  |属性|含义|
+	  |---|---|
+	  |waitStatus|当前节点在队列中的状态|
+	  |thread	|表示处于该节点的线程|
+	  |prev	|前驱指针|
+	  |predecessor|	返回前驱节点，没有的话抛出 npe|
+	  |nextWaiter|	指向下一个处于 CONDITION 状态的节点（ Condition Queue 队列|
+	  |next|	后继指针|
+	  线程节点两种模式
+	  SHARED:表示线程以共享的模式等待锁
+	  EXCLUSIVE:表示线程正在以独占的方式等待锁
+	  waitStatus 有下面几个枚举值：
+	  1. 0	当一个 Node 被初始化的时候的默认值
+	  2. CANCELLED	为 1，表示线程获取锁的请求已经取消了
+	  3. CONDITION	为-2，表示节点在等待队列中，节点线程等待唤醒
+	  4. PROPAGATE	为-3，当前线程处在 SHARED 情况下，该字段才会使用
+	  5. SIGNAL	为-1，表示线程已经准备好了，就等资源释放了
+	- 线程加入等待队列
+	  https://javaguide.cn/java/concurrent/reentrantlock.html#_2-3-1-%E7%BA%BF%E7%A8%8B%E5%8A%A0%E5%85%A5%E7%AD%89%E5%BE%85%E9%98%9F%E5%88%97
+	  TODO:后续再补充吧
+	- CANCEL状态节点生成
+	- 解锁后对等待队列的处理
+	- 中断恢复后的执行流程
 - JDK实现AQS的类
   CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
   AbstractQueuedSynchronizer.Sync
