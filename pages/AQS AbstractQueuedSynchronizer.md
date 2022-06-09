@@ -72,8 +72,10 @@
   AbstractQueuedSynchronizer.Sync
   ReentrantLock
   ReentrantLock对state同步变量的操作
-  tryAcquire,
-  state初始化为0状态,表示未锁定状态,当A线程调用lock方法时,会调用 tryAcquire() 独占该锁并将 state+1。其他线程再 tryAcquire() 时就会失败，直到 A 线程 unlock() 时,state-1，一直到 state=0（即释放锁）为止，其它线程才有机会获取该锁。
+  ReentrantLock加锁，释放锁state的变化
+  state初始化为0状态,表示未锁定状态,当A线程调用lock方法时,会调用 tryAcquire() 独占该锁并将 state+1。其他线程再 tryAcquire() 时就会失败，直到 A 线程 unlock() 时,会调用release方法底层调用tryRelease钩子方法将state-1(因为锁重入所以不会设置为0)，一直到 state=0（即释放锁）为止，其它线程才有机会获取该锁。
+  ReentrantLock锁重入对state同步变量的影响
+  释放锁之前，A 线程自己是可以重复获取此锁的（state 会累加），这就是可重入的概念
   
   CountDownLatch
 - 子类实现AQS
