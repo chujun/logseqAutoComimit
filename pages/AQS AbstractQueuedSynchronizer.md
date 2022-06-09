@@ -11,7 +11,7 @@
   同步器的设计是基于模板方法模式的,
   1. AbstractQueuedSynchronizer以下5个方法必须被子类实现，默认抛出UnsupportedOperationException异常
   其他方法都是final方法,无法修改。
-  这5个方法也叫钩子方法
+  这5个方法也叫钩子方法:模板设计模式通过钩子方法控制固定步骤的实现。
   2. 将 AQS 组合在自定义同步组件的实现中，并调用其模板方法，而这些模板方法会调用使用者重写的方法。
   ```java
   protected boolean tryAcquire(int)//独占方式。尝试获取资源，成功则返回true，失败则返回false。
