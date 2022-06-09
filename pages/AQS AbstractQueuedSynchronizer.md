@@ -70,112 +70,117 @@
 - JDK实现AQS的类
   CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
   AbstractQueuedSynchronizer.Sync
-  ReentrantLock
-  ReentrantLock对state同步变量的操作
-  ReentrantLock加锁，释放锁state的变化
-  state初始化为0状态,表示未锁定状态,当A线程调用lock方法时,会调用 tryAcquire() 独占该锁并将 state+1。其他线程再 tryAcquire() 时就会失败，直到 A 线程 unlock() 时,会调用release方法底层调用tryRelease钩子方法将state-1(因为锁重入所以不会设置为0)，一直到 state=0（即释放锁）为止，其它线程才有机会获取该锁。
-  ReentrantLock锁重入对state同步变量的影响
-  释放锁之前，A 线程自己是可以重复获取此锁的（state 会累加），这就是可重入的概念
-  
-  CountDownLatch(共享锁)
-  ReentrantLock对state同步变量的操作
-  state 也初始化为 N(CountDownLatch构造器参数),N 个子线程是并行执行的，每个子线程执行完后 countDown() 一次，底层AQS会调用钩子方法tryReleaseShared将state 会 CAS(Compare and Swap) 减 1。等到所有子线程都执行完后(即 state=0 )，会 unpark()唤醒 主调用线程，然后主调用线程就会从 await() 函数返回，继续后余动作。
-  主线程调用await方法调用AQS的acquireSharedInterruptibly方法，底层会调用钩子方法tryAcquireShared判断state同步值是否0,为0则表示获取锁成功,主线程可以继续下去，否则则会进入队列锁等待被唤醒。
-  ```java
-  //CountDownLatch所有源码,简洁
-  public class CountDownLatch {
-      private final Sync sync;
-  
-      public CountDownLatch(int count) {
-          if (count < 0) {
-              throw new IllegalArgumentException("count < 0");
-          }
-  
-          this.sync = new Sync(count);
-      }
-  
-      public void await() throws InterruptedException {
-          sync.acquireSharedInterruptibly(1);
-      }
-  
-      public boolean await(long timeout, TimeUnit unit)
-          throws InterruptedException {
-          return sync.tryAcquireSharedNanos(1, unit.toNanos(timeout));
-      }
-  
-      public void countDown() {
-          sync.releaseShared(1);
-      }
-  
-      /**
-            * Returns the current count.
-              *
-            * <p>This method is typically used for debugging and testing purposes.
-              *
-            * @return the current count
-              */
-      public long getCount() {
-          return sync.getCount();
-      }
-  
-      private static final class Sync extends AbstractQueuedSynchronizer {
-          private static final long serialVersionUID = 4982264981922014374L;
-  
-          Sync(int count) {
-              setState(count);
-          }
-  
-          int getCount() {
-              return getState();
-          }
-  
-          protected int tryAcquireShared(int acquires) {
-              return (getState() == 0) ? 1 : (-1);
-          }
-  
-          protected boolean tryReleaseShared(int releases) {
-              // Decrement count; signal when transition to zero
-              for (;;) {
-                  int c = getState();
-  
-                  if (c == 0) {
-                      return false;
-                  }
-  
-                  int nextc = c - 1;
-  
-                  if (compareAndSetState(c, nextc)) {
-                      return nextc == 0;
-                  }
-              }
-          }
-      }
-  }
-  
-  //AbstractQueuedSynchronizer start
-  public final void acquireSharedInterruptibly(int arg)
-              throws InterruptedException {
-          if (Thread.interrupted())
-              throw new InterruptedException();
-          if (tryAcquireShared(arg) < 0)
-              doAcquireSharedInterruptibly(arg);
-      }
-  
-  public final boolean releaseShared(int arg) {
-          if (tryReleaseShared(arg)) {
-              doReleaseShared();
-              return true;
-          }
-          return false;
-      }
-  //AbstractQueuedSynchronizer end
-  
-  ```
-  CountDownLauch典型使用场景
-  1. 某一线程在开始运行前等待 n 个线程执行完毕。
-  2. 实现多个线程开始执行任务的最大并行性。(这个在业务开发中还不太常见)
-  CountDownLatch(1)，各个线程先await()，等待主线程的countDown()一声令下,多个线程在某一时刻同时开始执行。
-  CountDownLauch不足:
+	- ReentrantLock
+	  ReentrantLock对state同步变量的操作
+	  ReentrantLock加锁，释放锁state的变化
+	  state初始化为0状态,表示未锁定状态,当A线程调用lock方法时,会调用 tryAcquire() 独占该锁并将 state+1。其他线程再 tryAcquire() 时就会失败，直到 A 线程 unlock() 时,会调用release方法底层调用tryRelease钩子方法将state-1(因为锁重入所以不会设置为0)，一直到 state=0（即释放锁）为止，其它线程才有机会获取该锁。
+	  ReentrantLock锁重入对state同步变量的影响
+	  释放锁之前，A 线程自己是可以重复获取此锁的（state 会累加），这就是可重入的概念
+	- CountDownLatch(共享锁)
+	  ReentrantLock对state同步变量的操作
+	  state 也初始化为 N(CountDownLatch构造器参数),N 个子线程是并行执行的，每个子线程执行完后 countDown() 一次，底层AQS会调用钩子方法tryReleaseShared将state 会 CAS(Compare and Swap) 减 1。等到所有子线程都执行完后(即 state=0 )，会 unpark()唤醒 主调用线程，然后主调用线程就会从 await() 函数返回，继续后余动作。
+	  主线程调用await方法调用AQS的acquireSharedInterruptibly方法，底层会调用钩子方法tryAcquireShared判断state同步值是否0,为0则表示获取锁成功,主线程可以继续下去，否则则会进入队列锁等待被唤醒。
+	  ```java
+	  //CountDownLatch所有源码,简洁
+	  public class CountDownLatch {
+	      private final Sync sync;
+	  
+	      public CountDownLatch(int count) {
+	          if (count < 0) {
+	              throw new IllegalArgumentException("count < 0");
+	          }
+	  
+	          this.sync = new Sync(count);
+	      }
+	  
+	      public void await() throws InterruptedException {
+	          sync.acquireSharedInterruptibly(1);
+	      }
+	  
+	      public boolean await(long timeout, TimeUnit unit)
+	          throws InterruptedException {
+	          return sync.tryAcquireSharedNanos(1, unit.toNanos(timeout));
+	      }
+	  
+	      public void countDown() {
+	          sync.releaseShared(1);
+	      }
+	  
+	      /**
+	            * Returns the current count.
+	              *
+	            * <p>This method is typically used for debugging and testing purposes.
+	              *
+	            * @return the current count
+	              */
+	      public long getCount() {
+	          return sync.getCount();
+	      }
+	  
+	      private static final class Sync extends AbstractQueuedSynchronizer {
+	          private static final long serialVersionUID = 4982264981922014374L;
+	  
+	          Sync(int count) {
+	              setState(count);
+	          }
+	  
+	          int getCount() {
+	              return getState();
+	          }
+	  
+	          protected int tryAcquireShared(int acquires) {
+	              return (getState() == 0) ? 1 : (-1);
+	          }
+	  
+	          protected boolean tryReleaseShared(int releases) {
+	              // Decrement count; signal when transition to zero
+	              for (;;) {
+	                  int c = getState();
+	  
+	                  if (c == 0) {
+	                      return false;
+	                  }
+	  
+	                  int nextc = c - 1;
+	  
+	                  if (compareAndSetState(c, nextc)) {
+	                      return nextc == 0;
+	                  }
+	              }
+	          }
+	      }
+	  }
+	  
+	  //AbstractQueuedSynchronizer start
+	  public final void acquireSharedInterruptibly(int arg)
+	              throws InterruptedException {
+	          if (Thread.interrupted())
+	              throw new InterruptedException();
+	          if (tryAcquireShared(arg) < 0)
+	              doAcquireSharedInterruptibly(arg);
+	      }
+	  
+	  public final boolean releaseShared(int arg) {
+	          if (tryReleaseShared(arg)) {
+	              doReleaseShared();
+	              return true;
+	          }
+	          return false;
+	      }
+	  //AbstractQueuedSynchronizer end
+	  
+	  ```
+	  CountDownLauch典型使用场景
+	  1. 某一线程在开始运行前等待 n 个线程执行完毕。
+	  2. 实现多个线程开始执行任务的最大并行性。(这个在业务开发中还不太常见)
+	  CountDownLatch(1)，各个线程先await()，等待主线程的countDown()一声令下,多个线程在某一时刻同时开始执行。
+	  CountDownLauch不足
+	  CountDownLatch 是一次性的，计数器的值只能在构造方法中初始化一次，之后没有任何机制再次对其设置值，当 CountDownLatch 使用完毕后，它不能再次被使用。
+	- CyclicBarrier(循环栅栏)
+	  CyclicBarrier实现原理
+	  CycliBarrier 是基于 ReentrantLock
+-
+- #
 - 子类实现AQS
   自定义同步器在实现时只需要实现共享资源 state 的获取与释放方式即可，至于具体线程等待队列的维护（如获取资源失败入队/唤醒出队等），AQS 已经在上层已经帮我们实现好了。
   要求:一般子类实现方法都需要操作共享状态变量state值
