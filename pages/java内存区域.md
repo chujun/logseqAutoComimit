@@ -35,15 +35,19 @@
 	  基本和虚拟机栈差不多
 	- 堆
 	  定义:java所有对象实例和数组对象绝大部分都在堆上分配
-	  这句话不绝对了，是因为一系列编译优化技术（逃逸分析技术等）的出现，例如栈上分配，标量替换
+	  这句话不绝对了，是因为一系列编译优化技术（逃逸分析技术等）的出现，例如对象栈上分配，标量替换等。
+	  内存结构:
+	  普通堆
+	  线程私有分配缓冲区 TLAB（Thread Local Allocation Buffer）:
+	  提高多线程下内存分配效率--->减少并发 分配锁竞争
 	- 方法区
 	- 直接内存
 	- java内存区域比较汇总表
 	  
-	  |内存区域|生命周期|内存错误异常|内存大小|
+	  |内存区域|生命周期|内存错误异常|内存大小|存储数据类型|
 	  |---|---|---|---|
 	  |程序计数器|线程私有|虚拟机规范唯一没有规定抛出内存异常|一般很小|
-	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError||
+	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError| -Xss128k栈空间大小|
 	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError||
 	  |堆|线程共有|OutOfMemoryError||
 	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError||
