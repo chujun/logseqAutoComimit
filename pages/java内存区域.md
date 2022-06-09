@@ -57,10 +57,19 @@
 	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|||动态分配|垃圾回收器|
 	  |直接内存|线程共享|OutOfMemoryError|||动态分配|垃圾回收器|
 	- 典型特征异常报错
-	  java堆
+	  java堆典型错误
 	  1. java.lang.OutOfMemoryError: Java heap space 
 	  假如在创建新的对象时, 堆内存中的空间不足以存放新创建的对象, 就会引发此错误。
 	  2. java.lang.OutOfMemoryError: GC Overhead Limit Exceeded 
 	  当 JVM 花太多时间执行垃圾回收并且只能回收很少的堆空间时，就会发生此错误。
+	  java方法栈和本地方法典型错误
+	  1. java.lang.StackOverflowError:
+	  当栈不支持动态扩展（hopspot虚拟机）线程栈空间无法容纳新栈帧时候
+	  2. java.lang.OutOfMemoryError:unable to create native thread:possiblyout of memory or process/resource limits reached
+	  线程申请内存空间不足时,可能需要在32位虚拟机上才可复现
+	  方法区典型错误
+	  1. java.lang.OutOfMemoryError: PermGen space
+	  jdk6
+	  2.
 - java堆
 -
