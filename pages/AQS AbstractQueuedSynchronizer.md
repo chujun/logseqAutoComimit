@@ -43,6 +43,7 @@
   而ReentrantReadWriteLock可以看成是组合式，因为 ReentrantReadWriteLock 也就是读写锁允许多个线程同时对某一资源进行读。
 -
 - AQS原理
+  图中有颜色的为方法，无颜色的为属性。
   ![image.png](../assets/image_1654757748883_0.png)
 - AQS源码分析
   同步状态字段state
