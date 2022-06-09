@@ -50,7 +50,7 @@
   AQS 使用一个 Volatile 的 int 类型的成员变量来表示同步状态，通过内置的 FIFO 队列来完成资源获取的线程排队工作，通过 CAS 完成对 State 值的修改。
   
   同步状态字段state
-  使用volatitle int 成员变量来表示同步状态
+  使用volatitle int 成员变量来表示同步状态,主要有三个方法
   ```java
   private volatile int state;//共享变量，使用volatile修饰保证线程可见性
   /返回同步状态的当前值
@@ -66,6 +66,7 @@
           return unsafe.compareAndSwapInt(this, stateOffset, expect, update);
   }
   ```
+  ![独占模式大体流程.png](../assets/image_1654758634181_0.png)
 - CLH队列
   id:: 62a005a5-bf25-40b9-a19d-41df701c9d49
   定义:虚头节点的双链阻塞队列 ,FIFO,AQS 是将每条请求共享资源的线程封装成一个 CLH队列的一个结点（Node）来实现锁的分配。
@@ -82,7 +83,9 @@
   |predecessor|	返回前驱节点，没有的话抛出 npe|
   |nextWaiter|	指向下一个处于 CONDITION 状态的节点（ Condition Queue 队列|
   |next|	后继指针|
-  
+  线程节点两种模式
+  SHARED:表示线程以共享的模式等待锁
+  EXCLUSIVE:表示线程正在以独占的方式等待锁
   waitStatus 有下面几个枚举值：
   1. 0	当一个 Node 被初始化的时候的默认值
   2. CANCELLED	为 1，表示线程获取锁的请求已经取消了
