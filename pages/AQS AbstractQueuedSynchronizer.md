@@ -78,6 +78,10 @@
   释放锁之前，A 线程自己是可以重复获取此锁的（state 会累加），这就是可重入的概念
   
   CountDownLatch
+  ReentrantLock对state同步变量的操作
+  state 也初始化为 N(CountDownLatch构造器参数),N 个子线程是并行执行的，每个子线程执行完后 countDown() 一次，state 会 CAS(Compare and Swap) 减 1
+  
+  CountDownLatch
 - 子类实现AQS
   自定义同步器在实现时只需要实现共享资源 state 的获取与释放方式即可，至于具体线程等待队列的维护（如获取资源失败入队/唤醒出队等），AQS 已经在上层已经帮我们实现好了。
   要求:一般子类实现方法都需要操作共享状态变量state值
