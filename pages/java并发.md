@@ -85,6 +85,17 @@
 	  而join方法底层是基于wait方法实现的,本质就是对wait方法使用的简化包装
 	- 为什么我们调用 start() 方法时会执行 run() 方法，为什么我们不能直接调用 run() 方法？
 	  start方法调用内核系统调用启动了新线程,这会有多个线程，而直接调用run方法不会产生新线程，就只是个普通方法调用。
+	- 中断相关方法
+	  ```java
+	  	public static boolean interrupted() {
+	          return currentThread().isInterrupted(true);
+	      }
+	  
+	  	public boolean isInterrupted() {
+	          return isInterrupted(false);
+	      }
+	  	private native boolean isInterrupted(boolean ClearInterrupted);
+	  ```
 - # [[synchronized关键字]]
 -
 - # volatile 关键字
