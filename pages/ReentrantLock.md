@@ -1,4 +1,5 @@
--
+- 可重入锁,基于AQS抽象队列同步器框架设计实现
+  [[AQS AbstractQueuedSynchronizer]]
 - ReentrantLock公平锁和非公平锁
   id:: 62a0110a-97d3-4970-822d-38900c515148
   ((62a01030-1752-4dfb-a54c-606c810eb3b3)) 
@@ -102,10 +103,10 @@
   公平锁和非公平锁实现区别
   1. 提高非公平锁在无锁竞争情况下的效率:非公平锁在调用 lock 后，首先就会调用 CAS 尝试进行一次抢锁动作，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。
   2. 非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态(通过调用AQS的hasQueuedPredecessors方法判断)，如果有则不去抢锁，乖乖排到后面。
-- ReentrantLock加锁过程分析
-  公平锁和非公平锁上锁大体流程图
+- ReentrantLock非公平锁加锁释放锁过程分析
+  非公平锁上锁大体流程图
   ![非公平锁上锁流程.png](../assets/image_1654762460693_0.png)
-- ReentrantLock释放锁过程分析
+  ![非公平锁加锁和解锁.png](../assets/image_1654762761409_0.png)
 - 资料
   [从ReentrantLock的实现看AQS的原理及应用-转自美团技术团队](https://javaguide.cn/java/concurrent/reentrantlock.html#%E5%89%8D%E8%A8%80)
 -

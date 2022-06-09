@@ -1,4 +1,5 @@
 - AQS AbstractQueuedSynchronizer抽象队列同步器是一个用来构建锁和同步器的框架，使用 AQS 能简单且高效地构造出大量应用广泛的同步器
+  id:: 629c90f3-3535-4e2e-8cc6-ff7e8bec315a
   例如ReentrantLock，Semaphore，ReentrantReadWriteLock,CountDownLatch等
   CycliBarrier是基于ReentrantLock,
   
