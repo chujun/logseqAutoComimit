@@ -70,6 +70,9 @@
 	  方法区典型错误
 	  1. java.lang.OutOfMemoryError: PermGen space
 	  jdk6
-	  2.
+	  2. java.lang.OutOfMemoryError: Metaspace
+	  jdk8
+	  本机直接内存异常
+	  1. java.lang.OutOfMemoryError
 - java堆
 -
