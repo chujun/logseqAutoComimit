@@ -46,6 +46,9 @@
   图中有颜色的为方法，无颜色的为属性。
   ![image.png](../assets/image_1654757748883_0.png)
 - AQS源码分析
+  整体:
+  AQS 使用一个 Volatile 的 int 类型的成员变量来表示同步状态，通过内置的 FIFO 队列来完成资源获取的线程排队工作，通过 CAS 完成对 State 值的修改。
+  
   同步状态字段state
   使用volatitle int 成员变量来表示同步状态
   ```java
@@ -69,6 +72,7 @@
   一般使用自旋锁spinLock
   相比普通的双链队列有什么特点?
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
+  AbstractQueuedSynchronizer.Node
 - JDK实现AQS的类
   CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
   AbstractQueuedSynchronizer.Sync
