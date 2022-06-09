@@ -99,7 +99,7 @@
 	  4. PROPAGATE	为-3，当前线程处在 SHARED 情况下，该字段才会使用
 	  5. SIGNAL	为-1，表示线程已经准备好了，就等资源释放了
 	- 线程加入等待队列
-	  https://javaguide.cn/java/concurrent/reentrantlock.html#_2-3-1-%E7%BA%BF%E7%A8%8B%E5%8A%A0%E5%85%A5%E7%AD%89%E5%BE%85%E9%98%9F%E5%88%97
+	  等待队列为空则放在
 	  TODO:后续再补充吧
 	- CANCEL状态节点生成
 	- 解锁后对等待队列的处理
