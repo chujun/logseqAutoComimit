@@ -178,6 +178,11 @@
 	  CountDownLatch 是一次性的，计数器的值只能在构造方法中初始化一次，之后没有任何机制再次对其设置值，当 CountDownLatch 使用完毕后，它不能再次被使用。
 	- CyclicBarrier(循环栅栏)
 	  可循环使用（Cyclic）的屏障（Barrier）
+	  让一组线程到达一个屏障（也可以叫同步点）时被阻塞，直到最后一个线程到达屏障时，屏障才会开门，所有被屏障拦截的线程才会继续干活。然后下一组线程再循环开始。
+	  CyclicBarrier使用方法
+	  CyclicBarrier(int parties)，其参数表示屏障拦截的线程数量
+	  每个线程调用 await() 方法告诉 CyclicBarrier 我已经到达了屏障，然后当前线程被阻塞，等待屏障打开的时候再被唤醒执行
+	  
 	  CyclicBarrier实现原理
 	  CycliBarrier 是基于 ReentrantLock和Condition
 -
