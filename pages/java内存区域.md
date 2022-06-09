@@ -22,7 +22,7 @@
 	  动态链接:动态链接的作用就是为了将符号引用转换为调用方法的直接引用。
 	  方法出口:
 	  操作数栈:
-	  ![java虚拟机栈-exceldraw画.png](../assets/java虚拟机栈_1654773214972_0.png){:height 521, :width 1072}
+	  ![java虚拟机栈结构图.png](../assets/java虚拟机栈结构图_1654775815697_0.png) 
 	  内存错误异常:
 	  OutOfMemoryError:
 	  1. 线程申请内存空间不足时
