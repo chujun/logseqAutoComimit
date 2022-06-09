@@ -44,12 +44,12 @@
 	- 直接内存
 	- java内存区域比较汇总表
 	  
-	  |内存区域|生命周期|内存错误异常|内存大小|存储数据类型|
-	  |---|---|---|---|
-	  |程序计数器|线程私有|虚拟机规范唯一没有规定抛出内存异常|一般很小|
-	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError| -Xss128k栈空间大小|
-	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError||
-	  |堆|线程共有|OutOfMemoryError||
-	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError||
-	  |直接内存|线程共享|OutOfMemoryError||
+	  |内存区域|生命周期|内存错误异常|内存大小|存储数据类型|内存回收|
+	  |---|---|---|---|---|---|
+	  |程序计数器|线程私有|虚拟机规范唯一没有规定抛出内存异常|一般很小||
+	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError| -Xss128k指定栈空间大小|局部变量,方法出口|
+	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError||局部变量,方法出口|
+	  |堆|线程共有|OutOfMemoryError||对象实例|
+	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|||
+	  |直接内存|线程共享|OutOfMemoryError|||
 -
