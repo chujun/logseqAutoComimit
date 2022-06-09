@@ -14,19 +14,19 @@
 	  2. 线程上下文切换需要标识线程当前执行指令位置
 	- 虚拟机栈
 	  定义：java方法执行的内存模型
-	  ![java虚拟机栈exceldraw画.png](../assets/java虚拟机栈_1654773214972_0.png)
+	  ![java虚拟机栈-exceldraw画.png](../assets/java虚拟机栈_1654773214972_0.png)
 	- 本地方法栈
 	- 堆
 	- 方法区
 	- 直接内存
 	- java内存区域比较汇总表
 	  
-	  |内存区域|生命周期|内存错误异常|
-	  |---|---|---|
-	  |程序计数器|线程私有|虚拟机规范唯一没有规定抛出内存异常|
-	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError|
-	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError|
-	  |堆|线程共有|OutOfMemoryError|
-	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|
-	  |直接内存|线程共享|OutOfMemoryError|
+	  |内存区域|生命周期|内存错误异常|内存大小|
+	  |---|---|---|---|
+	  |程序计数器|线程私有|虚拟机规范唯一没有规定抛出内存异常|一般很小|
+	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError||
+	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError||
+	  |堆|线程共有|OutOfMemoryError||
+	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError||
+	  |直接内存|线程共享|OutOfMemoryError||
 -
