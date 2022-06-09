@@ -87,14 +87,41 @@
 	  start方法调用内核系统调用启动了新线程,这会有多个线程，而直接调用run方法不会产生新线程，就只是个普通方法调用。
 	- 中断相关方法
 	  ```java
+	  	/**
+	  	* 中断线程
+	      */
+	  	public void interrupt() {
+	          if (this != Thread.currentThread())
+	              checkAccess();
+	  
+	          synchronized (blockerLock) {
+	              Interruptible b = blocker;
+	              if (b != null) {
+	                  interrupt0();           // Just to set the interrupt flag
+	                  b.interrupt(this);
+	                  return;
+	              }
+	          }
+	          interrupt0();
+	      }
+	  	/**
+	  	* 判断线程是否中断,不清除中断状态，
+	  	* 重载方法
+	      */
 	  	public static boolean interrupted() {
 	          return currentThread().isInterrupted(true);
 	      }
-	  
+	  	/**
+	  	*判断线程是否中断,不清除中断状态,
+	  	* 重载方法
+	      */
 	  	public boolean isInterrupted() {
 	          return isInterrupted(false);
 	      }
-	  	private native boolean isInterrupted(boolean ClearInterrupted);
+	  	/**
+	  	*判断线程是否中断，根据传入的Boolean值判断是否要清除中断状态
+	      */
+	  	private native boolean isInterrupted(boolean clearInterrupted);
 	  ```
 - # [[synchronized关键字]]
 -
