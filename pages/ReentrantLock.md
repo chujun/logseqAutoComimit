@@ -135,12 +135,31 @@
     	// 上边自定义的tryRelease如果返回true，说明该锁没有被任何线程持有
   	if (tryRelease(arg)) {
   		Node h = head;
-        // 头结点不为空并且头结点的waitStatus不是初始化节点情况，解除线程挂起状态
+    	    // 头结点不为空并且头结点的waitStatus不是初始化节点情况，解除线程挂起状态
   		if (h != null && h.waitStatus != 0)
   			unparkSuccessor(h);
   		return true;
   	}
   	return false;
+  }
+  private void unparkSuccessor(Node node) {
+  	// 获取头结点waitStatus
+  	int ws = node.waitStatus;
+  	if (ws < 0)
+  		compareAndSetWaitStatus(node, ws, 0);
+  	// 获取当前节点的下一个节点
+  	Node s = node.next;
+  	// 如果下个节点是null或者下个节点被cancelled，就找到队列最开始的非cancelled的节点
+  	if (s == null || s.waitStatus > 0) {
+  		s = null;
+  		// 就从尾部节点开始找，到队首，找到队列第一个waitStatus<0的节点。
+  		for (Node t = tail; t != null && t != node; t = t.prev)
+  			if (t.waitStatus <= 0)
+  				s = t;
+  	}
+  	// 如果当前节点的下个节点不为空，而且状态<=0，就把当前节点unpark
+  	if (s != null)
+  		LockSupport.unpark(s.thread);
   }
   ```
 - ReentrantLock非公平锁加锁解锁过程分析
