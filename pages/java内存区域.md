@@ -38,8 +38,9 @@
 	  定义:java所有对象实例和数组对象绝大部分都在堆上分配
 	  这句话不绝对了，是因为一系列编译优化技术（逃逸分析技术等）的出现，例如对象栈上分配，标量替换等。
 	  内存结构:
-	  普通堆：
-	  线程私有分配缓冲区 TLAB（Thread Local Allocation Buffer）:
+	  1. 普通堆:
+	  ![i堆内存结构.png](../assets/image_1654777019118_0.png) 
+	  2. 线程私有分配缓冲区 TLAB（Thread Local Allocation Buffer）:
 	  提高多线程下内存分配效率--->减少并发 分配锁竞争
 	  内存错误异常:
 	  OutOfMemoryError:当对象实例内存空间不够分配，且堆无法扩展时
