@@ -103,6 +103,46 @@
   公平锁和非公平锁实现区别
   1. 提高非公平锁在无锁竞争情况下的效率:非公平锁在调用 lock 后，首先就会调用 CAS 尝试进行一次抢锁动作，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。
   2. 非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态(通过调用AQS的hasQueuedPredecessors方法判断)，如果有则不去抢锁，乖乖排到后面。
+  
+  公平锁和非公平锁解锁是一样的
+  ```java
+  //ReentrantLock
+  public void unlock() {
+  	sync.release(1);
+  }
+  
+  // java.util.concurrent.locks.ReentrantLock.Sync
+  // 方法返回当前锁是不是没有被线程持有
+  protected final boolean tryRelease(int releases) {
+  	// 减少可重入次数
+  	int c = getState() - releases;
+  	// 当前线程不是持有锁的线程，抛出异常
+  	if (Thread.currentThread() != getExclusiveOwnerThread())
+  		throw new IllegalMonitorStateException();
+  	boolean free = false;
+  	// 如果持有线程全部释放，将当前独占锁所有线程设置为null，并更新state
+  	if (c == 0) {
+  		free = true;
+  		setExclusiveOwnerThread(null);
+  	}
+  	setState(c);
+  	return free;
+  }
+  
+  // java.util.concurrent.locks.AbstractQueuedSynchronizer
+  
+  public final boolean release(int arg) {
+    	// 上边自定义的tryRelease如果返回true，说明该锁没有被任何线程持有
+  	if (tryRelease(arg)) {
+  		Node h = head;
+        // 头结点不为空并且头结点的waitStatus不是初始化节点情况，解除线程挂起状态
+  		if (h != null && h.waitStatus != 0)
+  			unparkSuccessor(h);
+  		return true;
+  	}
+  	return false;
+  }
+  ```
 - ReentrantLock非公平锁加锁解锁过程分析
   非公平锁上锁大体流程图
   ![非公平锁上锁流程.png](../assets/image_1654762460693_0.png)
