@@ -103,15 +103,20 @@
   公平锁和非公平锁实现区别
   1. 提高非公平锁在无锁竞争情况下的效率:非公平锁在调用 lock 后，首先就会调用 CAS 尝试进行一次抢锁动作，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。
   2. 非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态(通过调用AQS的hasQueuedPredecessors方法判断)，如果有则不去抢锁，乖乖排到后面。
-- ReentrantLock非公平锁加锁释放锁过程分析
+- ReentrantLock非公平锁加锁解锁过程分析
   非公平锁上锁大体流程图
   ![非公平锁上锁流程.png](../assets/image_1654762460693_0.png)
   ![非公平锁加锁和解锁.png](../assets/image_1654762761409_0.png)
   加锁过程描述:(按图说话)
   1. 通过 ReentrantLock 的加锁方法 Lock 进行加锁操作。
   2. 会调用到内部类 Sync 的 Lock 方法，由于 Sync#lock 是抽象方法，根据 ReentrantLock 初始化选择的公平锁和非公平锁，执行相关内部类的 Lock 方法，本质上都会执行 AQS 的 Acquire 方法。
-  3. AQS 的 Acquire 方法会执行 tryAcquire 方法，但是由于 tryAcquire 需要自定义同步器实现，因此执行了 ReentrantLock 中的 tryAcquire 方法，由于 ReentrantLock 是通过公平锁和非公平锁内部类实现的 tryAcquire 方法，因此会根据锁类型不同，执行不同的 tryAcquire。
-  4. tryAcquire 是获取锁逻辑，获取失败后，会执行框架 AQS 的后续逻辑，跟 ReentrantLock 自定义同步器无关。
+  3. AQS 的 Acquire 方法会执行 tryAcquire 方法，但是由于 tryAcquire是钩子方法 需要自定义同步器实现，因此执行了 ReentrantLock 中的 tryAcquire 方法，由于 ReentrantLock 是通过公平锁和非公平锁内部类实现的 tryAcquire 方法，因此会根据锁类型不同，执行不同的 tryAcquire。
+  4. tryAcquire 是获取锁逻辑，获取失败后，会执行框架 AQS 的后续逻辑(将线程放到FIFO队列锁等待锁资源的释放来唤醒队列)跟 ReentrantLock 自定义同步器无关。
+  解锁过程描述:(按图说话)
+  1. 通过 ReentrantLock 的解锁方法 Unlock 进行解锁。
+  2. Unlock 会调用内部类 Sync 的 Release 方法，该方法继承于 AQS。
+  3. Release 中会调用 tryRelease 方法，tryRelease 需要自定义同步器实现，tryRelease 只在 ReentrantLock 中的 Sync 实现，因此可以看出，释放锁的过程，并不区分是否为公平锁。
+  释放成功后，所有处理由 AQS 框架完成，与自定义同步器无关。
 - 资料
   [从ReentrantLock的实现看AQS的原理及应用-转自美团技术团队](https://javaguide.cn/java/concurrent/reentrantlock.html#%E5%89%8D%E8%A8%80)
 -
