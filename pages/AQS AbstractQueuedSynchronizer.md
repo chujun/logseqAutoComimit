@@ -179,19 +179,19 @@
 	- Semaphore
 	  允许多个线程同时访问同一个共享资源
 	  Semaphore使用说明
-	  Semaphore(permits)：表示允许同时执行的
+	  Semaphore(permits)：表示允许同时执行的线程数量上限。
 	  执行 acquire() 方法阻塞，直到有一个许可证可以获得然后拿走一个许可证；
 	  每个 release 方法增加一个许可证，这可能会释放一个队列锁阻塞的 acquire() 方法
 	  支持公平锁和非公平锁
 	- CyclicBarrier(循环栅栏)
-	  可循环使用（Cyclic）的屏障（Barrier）
+	  定义:可循环使用（Cyclic）的屏障（Barrier）
 	  让一组线程到达一个屏障（也可以叫同步点）时被阻塞，直到最后一个线程到达屏障时，屏障才会开门，所有被屏障拦截的线程才会继续干活。然后下一组线程再循环开始。
 	  CyclicBarrier使用方法
 	  CyclicBarrier(int parties)，其参数表示屏障拦截的线程数量
 	  每个线程调用 await() 方法告诉 CyclicBarrier 我已经到达了屏障，然后当前线程被阻塞，等待屏障打开的时候再被唤醒执行
-	  
 	  CyclicBarrier实现原理
 	  CycliBarrier 是基于 ReentrantLock和Condition
+	  CyclicBarrier 的应用场景
 -
 - #
 - 子类实现AQS
