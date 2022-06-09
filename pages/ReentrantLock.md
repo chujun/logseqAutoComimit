@@ -107,6 +107,11 @@
   非公平锁上锁大体流程图
   ![非公平锁上锁流程.png](../assets/image_1654762460693_0.png)
   ![非公平锁加锁和解锁.png](../assets/image_1654762761409_0.png)
+  加锁过程描述:(按图说话)
+  1. 通过 ReentrantLock 的加锁方法 Lock 进行加锁操作。
+  2. 会调用到内部类 Sync 的 Lock 方法，由于 Sync#lock 是抽象方法，根据 ReentrantLock 初始化选择的公平锁和非公平锁，执行相关内部类的 Lock 方法，本质上都会执行 AQS 的 Acquire 方法。
+  3. AQS 的 Acquire 方法会执行 tryAcquire 方法，但是由于 tryAcquire 需要自定义同步器实现，因此执行了 ReentrantLock 中的 tryAcquire 方法，由于 ReentrantLock 是通过公平锁和非公平锁内部类实现的 tryAcquire 方法，因此会根据锁类型不同，执行不同的 tryAcquire。
+  4. tryAcquire 是获取锁逻辑，获取失败后，会执行框架 AQS 的后续逻辑，跟 ReentrantLock 自定义同步器无关。
 - 资料
   [从ReentrantLock的实现看AQS的原理及应用-转自美团技术团队](https://javaguide.cn/java/concurrent/reentrantlock.html#%E5%89%8D%E8%A8%80)
 -
