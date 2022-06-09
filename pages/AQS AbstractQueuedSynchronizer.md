@@ -71,8 +71,9 @@
   CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
   AbstractQueuedSynchronizer.Sync
   ReentrantLock
-  ReentrantLock对state同步变量的解释
-  state初始化为0状态,表示未锁定状态,当A线程调用lock方法时,会调用 tryAcquire() 独占该锁并将 state+1。其他线程再 tryAcquire() 时就会失败，直到 A 线程 unlock() 时state-1，一直到 state=0（即释放锁）为止，其它线程才有机会获取该锁。
+  ReentrantLock对state同步变量的操作
+  tryAcquire,
+  state初始化为0状态,表示未锁定状态,当A线程调用lock方法时,会调用 tryAcquire() 独占该锁并将 state+1。其他线程再 tryAcquire() 时就会失败，直到 A 线程 unlock() 时,state-1，一直到 state=0（即释放锁）为止，其它线程才有机会获取该锁。
   
   CountDownLatch
 - 子类实现AQS
