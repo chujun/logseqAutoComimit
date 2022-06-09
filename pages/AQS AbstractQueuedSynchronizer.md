@@ -73,6 +73,22 @@
   相比普通的双链队列有什么特点?
   ![AQS CLH队列.png](../assets/AQS_CLH队列_1654654446145_0.png)
   AbstractQueuedSynchronizer.Node
+  CLH 变体队列中的节点
+  |属性|含义|
+  |---|---|
+  |waitStatus|当前节点在队列中的状态|
+  |thread	|表示处于该节点的线程|
+  |prev	|前驱指针|
+  |predecessor|	返回前驱节点，没有的话抛出 npe|
+  |nextWaiter|	指向下一个处于 CONDITION 状态的节点（ Condition Queue 队列|
+  |next|	后继指针|
+  
+  waitStatus 有下面几个枚举值：
+  1. 0	当一个 Node 被初始化的时候的默认值
+  2. CANCELLED	为 1，表示线程获取锁的请求已经取消了
+  3. CONDITION	为-2，表示节点在等待队列中，节点线程等待唤醒
+  4. PROPAGATE	为-3，当前线程处在 SHARED 情况下，该字段才会使用
+  5. SIGNAL	为-1，表示线程已经准备好了，就等资源释放了
 - JDK实现AQS的类
   CountDownLauch的共享资源state数量由构造器指定,ReentrantLock的共享资源state数量为1
   AbstractQueuedSynchronizer.Sync
