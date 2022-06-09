@@ -102,3 +102,4 @@
   2. 非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态(通过调用AQS的hasQueuedPredecessors方法判断)，如果有则不去抢锁，乖乖排到后面。
 - 资料
   [从ReentrantLock的实现看AQS的原理及应用-转自美团技术团队](https://javaguide.cn/java/concurrent/reentrantlock.html#%E5%89%8D%E8%A8%80)
+-
