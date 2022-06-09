@@ -79,7 +79,8 @@
   
   CountDownLatch
   ReentrantLock对state同步变量的操作
-  state 也初始化为 N(CountDownLatch构造器参数),N 个子线程是并行执行的，每个子线程执行完后 countDown() 一次，state 会 CAS(Compare and Swap) 减 1
+  state 也初始化为 N(CountDownLatch构造器参数),N 个子线程是并行执行的，每个子线程执行完后 countDown() 一次，底层AQS会调用钩子方法tryReleaseShared将state 会 CAS(Compare and Swap) 减 1。等到所有子线程都执行完后(即 state=0 )，会 unpark()唤醒 主调用线程，然后主调用线程就会从 await() 函数返回，继续后余动作。
+  主线程调用await方法调用AQS的acquireSharedInterruptibly方法，底层会调用钩子方法tryAcquireShared
   
   CountDownLatch
 - 子类实现AQS
