@@ -189,6 +189,7 @@
 	  CyclicBarrier使用方法
 	  CyclicBarrier(int parties)，其参数表示屏障拦截的线程数量
 	  每个线程调用 await() 方法告诉 CyclicBarrier 我已经到达了屏障，然后当前线程被阻塞，等待屏障打开的时候再被唤醒执行
+	  CyclicBarrier(int parties, Runnable barrierAction)：更高级的构造器,用于在线程到达屏障时，优先执行 barrierAction，方便处理更复杂的业务场景。
 	  CyclicBarrier实现原理
 	  CycliBarrier 是基于 ReentrantLock和Condition
 	  CyclicBarrier 的应用场景
