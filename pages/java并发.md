@@ -186,6 +186,7 @@
 		    }
 		  ```
 		  手动lock，finally unlock实现，
+		  ![image.png](../assets/image_1654756996301_0.png)
 - 锁的分类
 	- 锁的升级:无锁状态,偏向锁,轻量级锁和重量级锁
 	- 自旋锁
