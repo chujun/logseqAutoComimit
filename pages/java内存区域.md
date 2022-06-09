@@ -56,5 +56,11 @@
 	  |堆|线程共有|OutOfMemoryError|-Xmx最大值,-Xms 最小值|对象实例|动态分配|垃圾回收器|
 	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|||动态分配|垃圾回收器|
 	  |直接内存|线程共享|OutOfMemoryError|||动态分配|垃圾回收器|
+	- 典型特征异常报错
+	  java堆
+	  1. java.lang.OutOfMemoryError: Java heap space 
+	  假如在创建新的对象时, 堆内存中的空间不足以存放新创建的对象, 就会引发此错误。
+	  2. java.lang.OutOfMemoryError: GC Overhead Limit Exceeded 
+	  当 JVM 花太多时间执行垃圾回收并且只能回收很少的堆空间时，就会发生此错误。
 - java堆
 -
