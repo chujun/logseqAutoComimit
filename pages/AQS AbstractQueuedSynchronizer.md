@@ -82,20 +82,65 @@
   state 也初始化为 N(CountDownLatch构造器参数),N 个子线程是并行执行的，每个子线程执行完后 countDown() 一次，底层AQS会调用钩子方法tryReleaseShared将state 会 CAS(Compare and Swap) 减 1。等到所有子线程都执行完后(即 state=0 )，会 unpark()唤醒 主调用线程，然后主调用线程就会从 await() 函数返回，继续后余动作。
   主线程调用await方法调用AQS的acquireSharedInterruptibly方法，底层会调用钩子方法tryAcquireShared判断state同步值是否0,为0则表示获取锁成功,主线程可以继续下去，否则则会进入队列锁等待被唤醒。
   ```java
-  
-  //CountDownLatch start
-  public void await() throws InterruptedException {
-          sync.acquireSharedInterruptibly(1);
-      }
-  
-  public void countDown() {
-          sync.releaseShared(1);
-      }
-  
-  private static final class Sync extends AbstractQueuedSynchronizer {
-    
-  }
-  //CountDownLatch end
+  public class CountDownLatch {
+    private static final class Sync extends AbstractQueuedSynchronizer {
+    private static final long serialVersionUID = 4982264981922014374L;
+      
+    Sync(int count) {
+    setState(count);
+    }
+      
+    int getCount() {
+    return getState();
+    }
+      
+    protected int tryAcquireShared(int acquires) {
+    return (getState() == 0) ? 1 : -1;
+    }
+      
+    protected boolean tryReleaseShared(int releases) {
+    // Decrement count; signal when transition to zero
+    for (;;) {
+    int c = getState();
+    if (c == 0)
+    return false;
+    int nextc = c-1;
+    if (compareAndSetState(c, nextc))
+    return nextc == 0;
+    }
+    }
+    }
+      
+    private final Sync sync;
+      
+    public CountDownLatch(int count) {
+    if (count < 0) throw new IllegalArgumentException("count < 0");
+    this.sync = new Sync(count);
+    }
+      
+    public void await() throws InterruptedException {
+    sync.acquireSharedInterruptibly(1);
+    }
+      
+    public boolean await(long timeout, TimeUnit unit)
+    throws InterruptedException {
+    return sync.tryAcquireSharedNanos(1, unit.toNanos(timeout));
+    }
+  	public void countDown() {
+    sync.releaseShared(1);
+    }
+      
+    /**
+  	* Returns the current count.
+  	  *
+  	* <p>This method is typically used for debugging and testing purposes.
+  	  *
+  	* @return the current count
+  	  */
+  	  public long getCount() {
+  	  return sync.getCount();
+  	  }
+  	  }
   //AbstractQueuedSynchronizer start
   public final void acquireSharedInterruptibly(int arg)
               throws InterruptedException {
