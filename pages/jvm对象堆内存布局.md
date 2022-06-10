@@ -43,4 +43,12 @@
   128个字节用于解决内存伪共享问题，64位字节的两倍
   实验
   实际验证，实验：通过Unsafe获取实例字段和静态字段的偏移量
+  @sun.misc.Contended处理伪共享问题的对齐
 - jvm对象堆内存布局相关jvm参数
+  FieldsAllocationStyle=0，1，2，默认为1,  0：先对象引用，再基本类型，1：先基本类型，再对象引用，jvm默认方式
+  +XX:CompactFields：默认为true，是否允许子类中较窄的字段插入到父类字段间隙中
+  -XX:-UseCompressedOops 普通对象指针压缩,默认没有开启
+  -XX:-UseCompressedClassPointers 类指针压缩,默认没有开启,只有在UseCompressedOops开启情况下，该参数才能生效
+- java对象内存布局分析工具
+  官网提供了一个分析java内存布局的工具利器 JOT
+  [openjdk jot](http://openjdk.java.net/projects/code-tools/jol/)
