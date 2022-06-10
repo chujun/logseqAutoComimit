@@ -1,5 +1,6 @@
 - 内存区域大小
   -Xss|栈空间大小(Stock Size) -Xss128k间接控制栈深度
+  -XX:StringTableSize|设置字符串常量池大小
   -XX:MaxMetaspaceSize| 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。
   -XX:MetaspaceSize| 调整标志定义元空间的初始大小如果未指定此标志，则 Metaspace 将根据运行时的应用程序需求动态地重新调整大小。
   
