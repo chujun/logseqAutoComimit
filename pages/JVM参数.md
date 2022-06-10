@@ -1,3 +1,14 @@
+- Java HotSpot VM的官方文档
+- HotSpot虚拟机两类参数类型
+  |参数类型|类型|描述|格式|
+  |---|---|---|---|
+  |-X|非标准参数|不是虚拟机规范规定的,不是所有其他虚拟机都支持这些参数|-Xms20m|
+  |-XX|稳定参数|是虚拟机规范规定的|-XX:+PrintFlagsInitial,-XX:FieldsAllocationStyle=0|
+  严格区分大小写，不合法的jvm参数，运行时会直接报错，无法识别该jvm参数
+  前者小写后者大写
+  
+  HotSpot虚拟机针对-XX类型参数
+  boolean类型:-XX:+/-arg,+表示开启，-表示关闭
 - 内存区域大小
   -Xss|栈空间大小(Stock Size) -Xss128k间接控制栈深度
   -XX:StringTableSize|设置字符串常量池大小
