@@ -1,3 +1,5 @@
+- 内存区域大小
+  -Xss栈空间大小(Stock Size) -Xss128k间接控制栈深度
 - 线程相关JVM参数
   id:: 6298a212-7591-4a6d-92e8-743494bfe3f4
   -XX:+UseSpinning|bool|true| 开启自旋锁 jdk1.6，默认true ((f6152514-a942-4aa1-8e61-de1116a30b3c))
