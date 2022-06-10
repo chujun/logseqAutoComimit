@@ -70,13 +70,16 @@
 		  解决方案
 		  2. java.lang.OutOfMemoryError:unable to create native thread:possiblyout of memory or process/resource limits reached
 		  线程申请内存空间不足时,可能需要在32位虚拟机上才可复现
-		-
+		  解决方案
 		- 方法区典型错误
 		  1. java.lang.OutOfMemoryError: PermGen space
 		  jdk6
+		  解决方案
 		  2. java.lang.OutOfMemoryError: Metaspace
 		  jdk8
+		  解决方案
 		- 本机直接内存异常
 		  1. java.lang.OutOfMemoryError
+		  解决方案
 - java堆
 -
