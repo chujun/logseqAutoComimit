@@ -85,7 +85,7 @@
 	  定义:不是java虚拟机内存区域部分，《《java虚拟机规范》》之外的内存区域
 	  JDK1.4 引入NIO,
 	  它可以直接使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆中的 DirectByteBuffer 对象作为这块内存的引用进行操作。
-	  不受java内存推大小限制，但受制于机器物理内存大小（这是毫无疑问的）
+	  不受java内存堆大小限制，但受制于机器物理内存大小
 	- java内存区域比较汇总表
 	  
 	  |内存区域|生命周期|内存错误异常|内存大小|存储数据类型|内存分配大小|内存回收|
@@ -95,7 +95,7 @@
 	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError||局部变量,方法出口|编译器可知|确定性|
 	  |堆|线程共有|OutOfMemoryError|-Xmx最大值,-Xms 最小值|对象实例|动态分配|垃圾回收器|
 	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|-XX:MaxMetaspaceSize最大值,-XX:MetaspaceSize，(jdk8之前:-XX:PermSize永久代大小，-XX:MaxPermSize永久代最大大小）|类信息、字段信息、方法信息、常量、静态变量、即时编译器编译后的代码缓存等数据|动态分配|垃圾回收器|
-	  |直接内存|线程共享|OutOfMemoryError|||动态分配|垃圾回收器|
+	  |直接内存|线程共享|OutOfMemoryError|不受java内存堆大小限制，但受制于机器物理内存大小|java堆的DirectByteBuffer对象指向堆外内存|动态分配|垃圾回收器|
 	- 典型特征异常报错及其解决方案
 		- java堆典型错误
 		  1. java.lang.OutOfMemoryError: Java heap space 
