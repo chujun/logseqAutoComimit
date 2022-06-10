@@ -55,8 +55,15 @@
 	  hotspot永久代实现（已废弃，自己都承认永久代是一个不合理的设计），其他虚拟机例如BEA jrocket，IBM J9没有永久代概念
 	  1.许多框架，机制存在动态类加载,可能会导致OutOfMemoryError内存异常（有上限 -XX：MaxPermSize）
 	  2.极少数方法（例如String.intern）因为会因为永久代的原因导致不同虚拟机下有不同的表现
-	  JVM参数
 	  
+	  运行时常量池（Runtime Constant Pool）
+	  存储数据类型:
+	  1. Class类文件结构中的常量池表
+	  存放编译期生成的各种字面量与符号引用,存入时机：类加载后存入运行时常量池
+	  2. 运行时也可以将常量存放入运行时常量池
+	  最典型场景：String.intern方法
+	  
+	  JVM参数
 	  -XX：MaxMetaspaceSize 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。
 	  -XX：MetaspaceSize 调整标志定义元空间的初始大小如果未指定此标志，则 Metaspace 将根据运行时的应用程序需求动态地重新调整大小。
 	  jdk8之前的永久代设置大小
