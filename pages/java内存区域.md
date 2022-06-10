@@ -72,7 +72,15 @@
 	- 字符串常量池
 	  目的:JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了避免字符串的重复创建。
 	  hotspot虚拟机实现
-	  JDK1.7 之前，字符串常量池存放在永久代。JDK1.7 字符串常量池和静态变量从永久代移动了 Java 堆中。
+	  HotSpot 虚拟机中字符串常量池的实现是 src/hotspot/share/classfile/stringTable.cpp ,
+	  StringTable 本质上就是一个HashSet<String> 
+	  StringTable 中保存的是字符串对象的引用，字符串对象的引用指向堆中的字符串对象。
+	  JVM参数
+	  -XX:StringTableSize 设置字符串常量池大小
+	  
+	  JDK1.7 之前，字符串常量池存放在永久代。
+	  JDK1.7 字符串常量池和静态变量从永久代移动了 Java 堆中。
+	-
 	- 直接内存
 	- java内存区域比较汇总表
 	  
