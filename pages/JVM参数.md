@@ -23,4 +23,5 @@
   -XX:PreBlockSpin|intx|10| 自选次数,默认10次
   -XX:+UseBiased Locking|bool|true|,开启偏向锁，jdk6默认开启，但是jdk15默认关闭 
   [JEP 374: Deprecate and Disable Biased Locking](https://openjdk.java.net/jeps/374)
--
+- TLAB
+  -XX:+/-UseTLAB|bool|true|默认开启TLAB
