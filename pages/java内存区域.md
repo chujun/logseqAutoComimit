@@ -35,12 +35,14 @@
 	  定义:native本地方法执行的内存模型
 	  基本和虚拟机栈差不多
 	- java堆(也叫GC堆 Garbage Collected Heap)
+	  id:: 62a1d414-b7ba-4c85-99c3-8a0f77190bc1
 	  定义:java所有对象实例和数组对象绝大部分都在堆上分配
 	  这句话不绝对了，是因为一系列编译优化技术（逃逸分析技术等）的出现，例如对象栈上分配，标量替换等。
 	  内存结构:
 	  1. 普通堆:
 	  ![i堆内存结构.png](../assets/image_1654777019118_0.png) 
-	  2. 线程私有分配缓冲区 TLAB（Thread Local Allocation Buffer）:
+	  2. 线程私有分配缓冲区 TLAB（Thread Local Allocation Buffer）
+	  定义:java堆内存为每个线程分配一块线程专用内存区域
 	  提高多线程下内存分配效率--->减少并发 分配锁竞争
 	  内存错误异常:
 	  OutOfMemoryError:当对象实例内存空间不够分配，且堆无法扩展时
