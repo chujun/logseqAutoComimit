@@ -38,6 +38,7 @@
   ```
   应用:
   ThreadLocal的ThreadLocalMap的Entry就是继承了WeakReference，导致可能存在的潜在内存泄漏问题。
+-
 - 优化
   逃逸分析技术
   应用 锁消除 ((6298a5bf-d69e-468c-816f-036e2d687654))
