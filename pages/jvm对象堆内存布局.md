@@ -2,6 +2,7 @@
 - 1. 对象头(Header)
   对象头主要有两部分,数组对象有第三部分
 	- a.MarkWord
+	  id:: 62a345a3-9053-4a22-a6a5-7110ec4b3ef5
 	  用于存储对象自身的运行时数据，如一致性哈希码（Identity HashCode）、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳等。
 	  一致性哈希码说明:这儿指的是对象的一致性哈希码(Identity HashCode),
 	  System.identityHashCode(obj)返回的值。而非对象的hashcode方法返回的值。
