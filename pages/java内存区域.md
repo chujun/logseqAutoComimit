@@ -47,20 +47,21 @@
 	- 方法区
 	  内存结构
 	  方法区和永久代和元空间的关系--->类似接口与实现类的关系
+	  ![方法区和永久代和元空间的关系.png](../assets/image_1654857588401_0.png)
 	  永久代: JDK 1.8 之前的方法区实现，
 	  元空间:JDK 1.8 及以后方法区实现,直接在本地内存中实现元空间
+	  与永久代很大的不同就是，如果不指定大小的话，随着更多类的创建，虚拟机会耗尽所有可用的系统内存。
 	  为什么要把永久代替换成元空间
 	  hotspot永久代实现（已废弃，自己都承认永久代是一个不合理的设计），其他虚拟机例如BEA jrocket，IBM J9没有永久代概念
 	  1.许多框架，机制存在动态类加载,可能会导致OutOfMemoryError内存异常（有上限 -XX：MaxPermSize）
+	  2.极少数方法（例如String.intern）因为会因为永久代的原因导致不同虚拟机下有不同的表现
 	  JVM参数
+	  
 	  -XX：MaxMetaspaceSize 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。
 	  -XX：MetaspaceSize 调整标志定义元空间的初始大小如果未指定此标志，则 Metaspace 将根据运行时的应用程序需求动态地重新调整大小。
 	  jdk8之前的永久代设置大小
 	  -XX:PermSize=N //方法区 (永久代) 初始大小
 	  -XX:MaxPermSize=N //方法区 (永久代) 最大大小
-	  
-	  2.极少数方法（例如String.intern）因为会因为永久代的原因导致不同虚拟机下有不同的表现
-	  ![方法区和永久代和元空间的关系.png](../assets/image_1654857588401_0.png)
 	- 直接内存
 	- java内存区域比较汇总表
 	  
@@ -70,7 +71,7 @@
 	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError| -Xss128k指定栈空间大小|局部变量,方法出口|编译器可知|确定性|
 	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError||局部变量,方法出口|编译器可知|确定性|
 	  |堆|线程共有|OutOfMemoryError|-Xmx最大值,-Xms 最小值|对象实例|动态分配|垃圾回收器|
-	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|-XX:MaxMetaspaceSize最大值,-XX:MetaspaceSize|类信息、字段信息、方法信息、常量、静态变量、即时编译器编译后的代码缓存等数据|动态分配|垃圾回收器|
+	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|-XX:MaxMetaspaceSize最大值,-XX:MetaspaceSize，(jdk8之前-XX:PermSize永久代大小，-XX:MaxPermSize永久代最大大小）|类信息、字段信息、方法信息、常量、静态变量、即时编译器编译后的代码缓存等数据|动态分配|垃圾回收器|
 	  |直接内存|线程共享|OutOfMemoryError|||动态分配|垃圾回收器|
 	- 典型特征异常报错及其解决方案
 		- java堆典型错误
