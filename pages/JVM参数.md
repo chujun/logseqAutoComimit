@@ -27,8 +27,8 @@
   id:: 6298ce15-1863-4aae-99c9-5d8d7ae4dfdb
   -XX:+/-UseTLAB|bool|true|默认开启TLAB
 - 垃圾回收相关
-  -XX:MaxTenuringThreshold|intx|15|对象进入老年代的阈值
+  -XX:MaxTenuringThreshold|intx|15|对象进入老年代的年龄阈值
 - 打印
-  -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 Threshold
+  -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 晋升老年代的年龄阈值
 - 内存异常
   -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时打印堆转储快照信息
