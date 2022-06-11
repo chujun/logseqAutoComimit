@@ -26,3 +26,5 @@
 - TLAB
   id:: 6298ce15-1863-4aae-99c9-5d8d7ae4dfdb
   -XX:+/-UseTLAB|bool|true|默认开启TLAB
+- 内存异常
+  -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时打印堆转储快照信息

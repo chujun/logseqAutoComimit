@@ -111,7 +111,11 @@
 		  1. java.lang.StackOverflowError:
 		  当栈不支持动态扩展（hopspot虚拟机）线程栈空间无法容纳新栈帧时候
 		  解决方案
-		  jvm打印堆转储快照信息，也就是堆栈信息 -XX:+HeapDumpOnOutOfMemoryError
+		  a. jvm打印堆转储快照信息，也就是堆栈信息 -XX:+HeapDumpOnOutOfMemoryError
+		  b. 用工具对堆转储快照文件hprof文件进行分析,例如 VisualVM，jprofile 等分析工具
+		  c. 分析判断是内存溢出还是内存泄漏
+		  内存泄漏:通过工具查询泄漏对象到GC Root引用链，查询分析出泄漏对象是如何泄漏出来的--->实战分析Thread Local泄漏场景
+		  内存溢出:如果没有内存泄漏问题，确实是内存溢出，检查java应用堆设置大小（-Xmx与-Xms等）是否满足应用需求，是否需要扩容
 		  2. java.lang.OutOfMemoryError:unable to create native thread:possiblyout of memory or process/resource limits reached
 		  线程申请内存空间不足时,可能需要在32位虚拟机上才可复现
 		  解决方案
