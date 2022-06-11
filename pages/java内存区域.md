@@ -100,10 +100,17 @@
 	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|-XX:MaxMetaspaceSize最大值,-XX:MetaspaceSize，(jdk8之前:-XX:PermSize永久代大小，-XX:MaxPermSize永久代最大大小）|类信息、字段信息、方法信息、常量、静态变量、即时编译器编译后的代码缓存等数据|动态分配|垃圾回收器|
 	  |直接内存|线程共享|OutOfMemoryError|不受java内存堆大小限制，但受制于机器物理内存大小|java堆的DirectByteBuffer对象指向堆外内存|动态分配|垃圾回收器|
 	- 典型特征异常报错及其解决方案
-		- java堆典型错误
+		- java堆典型错误特征
 		  1. java.lang.OutOfMemoryError: Java heap space 
 		  假如在创建新的对象时, 堆内存中的空间不足以存放新创建的对象, 就会引发此错误。
 		  解决方案
+		  a. jvm打印堆转储快照信息，也就是堆栈信息 -XX:+HeapDumpOnOutOfMemoryError
+		  b. 用工具对堆转储快照文件hprof文件进行分析,例如 VisualVM，jprofile 等分析工具
+		  c. 分析判断是内存溢出还是内存泄漏
+		  内存泄漏:通过工具查询泄漏对象到GC Root引用链，查询分析出泄漏对象是如何泄漏出来的--->实战分析Thread Local泄漏场景
+		  内存溢出:如果没有内存泄漏问题，确实是内存溢出，检查java应用堆设置大小（-Xmx与-Xms等）是否满足应用需求，是否需要扩容,
+		  需要进一步做各种具体分析:例如减少应用运行期内存消耗,某些对象生命周期是否过长,对象持有时间是否过长，存储结构是否合理等等。
+		  
 		  2. java.lang.OutOfMemoryError: GC Overhead Limit Exceeded 
 		  当 JVM 花太多时间执行垃圾回收并且只能回收很少的堆空间时，就会发生此错误。
 		  解决方案
@@ -111,13 +118,11 @@
 		  1. java.lang.StackOverflowError:
 		  当栈不支持动态扩展（hopspot虚拟机）线程栈空间无法容纳新栈帧时候
 		  解决方案
-		  a. jvm打印堆转储快照信息，也就是堆栈信息 -XX:+HeapDumpOnOutOfMemoryError
-		  b. 用工具对堆转储快照文件hprof文件进行分析,例如 VisualVM，jprofile 等分析工具
-		  c. 分析判断是内存溢出还是内存泄漏
-		  内存泄漏:通过工具查询泄漏对象到GC Root引用链，查询分析出泄漏对象是如何泄漏出来的--->实战分析Thread Local泄漏场景
-		  内存溢出:如果没有内存泄漏问题，确实是内存溢出，检查java应用堆设置大小（-Xmx与-Xms等）是否满足应用需求，是否需要扩容
+		  
 		  2. java.lang.OutOfMemoryError:unable to create native thread:possiblyout of memory or process/resource limits reached
 		  线程申请内存空间不足时,可能需要在32位虚拟机上才可复现
+		  原因分析:
+		  可分配栈容量大小=最大内存容量（32位系统单进程最大2GB）-堆容量上限+方法区容量上限+程序计数器容量（很小，可忽略不计）+直接内存+虚拟机进程本身内存消耗
 		  解决方案
 		- 方法区典型错误
 		  1. java.lang.OutOfMemoryError: PermGen space
