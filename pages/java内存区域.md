@@ -58,8 +58,11 @@
 	  hotspot永久代实现（已废弃，自己都承认永久代是一个不合理的设计），其他虚拟机例如BEA jrocket，IBM J9没有永久代概念
 	  1.许多框架，机制存在动态类加载,可能会导致OutOfMemoryError内存异常（有上限 -XX：MaxPermSize）
 	  2.极少数方法（例如String.intern）因为会因为永久代的原因导致不同虚拟机下有不同的表现
-	  
-	  运行时常量池（Runtime Constant Pool）
+	- 运行时常量池（Runtime Constant Pool）
+	  运行时常量池jdk变更
+	  a. JDK1.7 之前运行时常量池逻辑包含字符串常量池存放在方法区, 此时 hotspot 虚拟机对方法区的实现为永久代
+	  b. JDK1.7 字符串常量池被从方法区拿到了堆中, 这里没有提到运行时常量池,也就是说字符串常量池被单独拿到堆,运行时常量池剩下的东西还在方法区, 也就是 hotspot 中的永久代 。
+	  c. JDK1.8 hotspot 移除了永久代用元空间(Metaspace)取而代之, 这时候字符串常量池还在堆, 运行时常量池还在方法区, 只不过方法区的实现从永久代变成了元空间(Metaspace)
 	  存储数据类型:
 	  1. Class类文件结构中的常量池表
 	  存放编译期生成的各种字面量(Literal)与符号引用(Symbolic Referenc),存入时机：类加载后存入运行时常量池
