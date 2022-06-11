@@ -101,7 +101,34 @@
   }
   ```
   ```
-  //空
+  //空main函数执行gc结果如下
+  //jdk8 mac系统 main函数空运行gc信息如下 40960*8%=3276.8K=3.2M
+  Heap
+    par new generation   total 46080K, used 3277K [0x00000007b3800000, 0x00000007b6a00000, 0x00000007b6a00000)
+     eden space 40960K,   8% used [0x00000007b3800000, 0x00000007b3b33610, 0x00000007b6000000)
+     from space 5120K,   0% used [0x00000007b6000000, 0x00000007b6000000, 0x00000007b6500000)
+     to   space 5120K,   0% used [0x00000007b6500000, 0x00000007b6500000, 0x00000007b6a00000)
+    concurrent mark-sweep generation total 153600K, used 0K [0x00000007b6a00000, 0x00000007c0000000, 0x00000007c0000000)
+    Metaspace       used 3078K, capacity 4496K, committed 4864K, reserved 1056768K
+     class space    used 339K, capacity 388K, committed 512K, reserved 1048576K
+  ```
+  正常代码执行如下
+  ```
+  2022-06-11T21:47:13.514-0800: [GC (Allocation Failure) 2022-06-11T21:47:13.514-0800: [ParNew
+  Desired survivor size 3145728 bytes, new threshold 1 (max 3)
+  - age   1:    3685184 bytes,    3685184 total
+  : 40346K->3619K(46080K), 0.0130135 secs] 40346K->3619K(199680K), 0.0130725 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+  2022-06-11T21:47:13.529-0800: [GC (Allocation Failure) 2022-06-11T21:47:13.529-0800: [ParNew
+  Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+  : 13859K->0K(46080K), 0.0123505 secs] 13859K->13777K(199680K), 0.0124057 secs] [Times: user=0.02 sys=0.01, real=0.02 secs]
+  Heap
+   par new generation   total 46080K, used 35225K [0x00000007b3800000, 0x00000007b6a00000, 0x00000007b6a00000)
+    eden space 40960K,  86% used [0x00000007b3800000, 0x00000007b5a667e8, 0x00000007b6000000)
+    from space 5120K,   0% used [0x00000007b6000000, 0x00000007b6000000, 0x00000007b6500000)
+    to   space 5120K,   0% used [0x00000007b6500000, 0x00000007b6500000, 0x00000007b6a00000)
+   concurrent mark-sweep generation total 153600K, used 13777K [0x00000007b6a00000, 0x00000007c0000000, 0x00000007c0000000)
+   Metaspace       used 3080K, capacity 4496K, committed 4864K, reserved 1056768K
+    class space    used 339K, capacity 388K, committed 512K, reserved 1048576K
   ```
 - 判断对象是否”存活"
   ((6299ed85-5fab-4abb-ad7e-d901f1d30469)) 
