@@ -21,10 +21,9 @@
 	  年龄Age增加
 	  如果对象在 Eden 出生并经过第一次 Minor GC 后仍然能够存活，并且能被 Survivor 容纳的话，将被移动到 Survivor 空间中，并将对象年龄设为 1.对象在 Survivor 中每熬过一次 MinorGC,年龄就增加 1 岁，当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中。
 	- 对象新生代晋升到老年代的动态年龄阈值
-	  
 	  -XX:MaxTenuringThreshold 来设置晋升到老年代的年龄阈值默认值，默认15
 	  -XX: TargetSurvivorRatio,Survivor使用率,默认50
-	  这个值会在虚拟机运行过程中进行动态调整,
+	  这个年龄阈值会在虚拟机运行过程中进行动态调整
 	  实时动态年龄阈值:Hotspot 遍历所有对象时，按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了 survivor 区大小*TargetSurvivorRatio百分比(默认值50%)时，取这个年龄和 MaxTenuringThreshold 中更小的一个值，作为新的晋升年龄阈值
 	  ```
 	  uint ageTable::compute_tenuring_threshold(size_t survivor_capacity) {
@@ -143,6 +142,9 @@
 	   Metaspace       used 3080K, capacity 4496K, committed 4864K, reserved 1056768K
 	    class space    used 339K, capacity 388K, committed 512K, reserved 1048576K
 	  ```
+	- 空间分配担保机制
+	  空间分配担保是为了确保在 Minor GC 之前老年代本身还有容纳新生代所有对象的剩余空间。
+	-
 - 判断对象是否”存活"
   ((6299ed85-5fab-4abb-ad7e-d901f1d30469)) 
   两种方法判断对象是否存活
