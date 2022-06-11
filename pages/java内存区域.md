@@ -127,17 +127,24 @@
 		  解决方案
 		  从公式分析可知：简单数学分析就可知道（仅限32位虚拟机，64位虚拟机没有最大进程2GB限制）
 		  a. 减少线程数
-		  b. 减少堆容量上限大小和方法区容量上限大小,特别是减少堆容量上限这点有疑问
+		  b. 减少堆容量上限大小和方法区容量上限大小,特别是32位系统上减少堆容量上限这点可能有疑惑。
 		- 方法区典型错误
 		  1. java.lang.OutOfMemoryError: PermGen space
 		  jdk6
 		  解决方案
 		  2. java.lang.OutOfMemoryError: Metaspace
 		  jdk8
+		  常见原因:
+		  产生大量动态类
+		  a. 例如cglib等字节码库生成动态类
+		  b.  大量动态生成JSP（JSP第一次运行是需要编译为java类）
+		  c. 基于OSGi的应用（即使是同一个类，被不同类加载器加载也被视为不同的类）
 		  解决方案
+		  控制方法区大小：-XX:MetaspaceSize=10M -XX:MaxMetaspaceSize=10M
 		- 本机直接内存异常
 		  1. java.lang.OutOfMemoryError
-		  解决方案
+		  特征错误信息:同时HeapDump文件很小，没有明显异常
+		  解决方案：而程序中正好使用了DIrectMemory，就可以考虑检查直接内存部分了
 - java堆
 - 内存泄漏
 - 内存溢出
