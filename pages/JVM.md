@@ -63,6 +63,7 @@
 	  2. 本地线程分配缓冲区，TLAB（Thread Local Allocation Buffer)
 	  TLAB开启情况下（默认开启），如果TLAB分配完了，然后再采用同步CAS方式分配内存
 	  ((62a1d414-b7ba-4c85-99c3-8a0f77190bc1))
+- [[JVM垃圾回收]]
 - [[类加载机制]]
 - [[JVM参数]]
 - 四大引用类型
