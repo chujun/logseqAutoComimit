@@ -13,18 +13,19 @@
   大部分情况，对象都会首先在新生代Eden区域分配
   对象新生代晋升到老年代的年龄阈值
   -XX:MaxTenuringThreshold 来设置晋升到老年代的年龄阈值默认值，默认15
-  -XX: TargetSurvivorRatio,Survivor使用率,默认50%
+  -XX: TargetSurvivorRatio,Survivor使用率,默认50
   这个值会在虚拟机运行过程中进行动态调整,
-  
+  Hotspot 遍历所有对象时，按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了 survivor 区的一半时，取这个年龄和 MaxTenuringThreshold 中更小的一个值，作为新的晋升年龄阈值
   可以通过-XX:+PrintTenuringDistribution来打印出当次 GC 后的年龄阈值Threshold。
   ```
+  
   uint ageTable::compute_tenuring_threshold(size_t survivor_capacity) {
   //survivor_capacity是survivor空间的大小
   size_t desired_survivor_size = (size_t)((((double)survivor_capacity)*TargetSurvivorRatio)/100);
   size_t total = 0;
   uint age = 1;
   while (age < table_size) {
-    //sizes数组是每个年龄段对象大小
+    //JVM会将每个对象的年龄信息、各个年龄段对象的总大小记录在“age table”表中。
     total += sizes[age];
     if (total > desired_survivor_size) {
         break;
