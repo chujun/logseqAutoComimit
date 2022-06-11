@@ -93,9 +93,9 @@
 	  
 	  |内存区域|生命周期|内存错误异常|内存大小|存储数据类型|内存分配大小|内存回收|
 	  |---|---|---|---|---|---|---|
-	  |程序计数器|线程私有|虚拟机规范唯一没有规定抛出内存异常|一般很小||确定性|确定性|
-	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError| -Xss128k指定栈空间大小|局部变量,方法出口|编译器可知|确定性|
-	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError||局部变量,方法出口|编译器可知|确定性|
+	  |程序计数器|线程私有|虚拟机规范唯一没有规定抛出内存异常|一般很小||确定性|确定性,与线程生死相随,方法/线程结束，内存自然回收|
+	  |虚拟机栈|线程私有|OutOfMemoryError,StackOverFlowError| -Xss128k指定栈空间大小|局部变量,方法出口|编译器可知|确定性,与线程生死相随,方法/线程结束，内存自然回收|
+	  |本地方法栈|线程私有|OutOfMemoryError,StackOverFlowError||局部变量,方法出口|编译器可知|确定性,与线程生死相随,方法/线程结束，内存自然回收|
 	  |堆|线程共有|OutOfMemoryError|-Xmx最大值,-Xms 最小值|对象实例|动态分配|垃圾回收器|
 	  |方法区(逻辑概念上)|线程共享|OutOfMemoryError|-XX:MaxMetaspaceSize最大值,-XX:MetaspaceSize，(jdk8之前:-XX:PermSize永久代大小，-XX:MaxPermSize永久代最大大小）|类信息、字段信息、方法信息、常量、静态变量、即时编译器编译后的代码缓存等数据|动态分配|垃圾回收器|
 	  |直接内存|线程共享|OutOfMemoryError|不受java内存堆大小限制，但受制于机器物理内存大小|java堆的DirectByteBuffer对象指向堆外内存|动态分配|垃圾回收器|
@@ -111,6 +111,7 @@
 		  1. java.lang.StackOverflowError:
 		  当栈不支持动态扩展（hopspot虚拟机）线程栈空间无法容纳新栈帧时候
 		  解决方案
+		  jvm打印堆转储快照信息，也就是堆栈信息 -XX:+HeapDumpOnOutOfMemoryError
 		  2. java.lang.OutOfMemoryError:unable to create native thread:possiblyout of memory or process/resource limits reached
 		  线程申请内存空间不足时,可能需要在32位虚拟机上才可复现
 		  解决方案
@@ -125,4 +126,6 @@
 		  1. java.lang.OutOfMemoryError
 		  解决方案
 - java堆
+- 内存泄漏
+- 内存溢出
 -
