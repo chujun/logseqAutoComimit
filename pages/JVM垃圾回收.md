@@ -12,7 +12,29 @@
   TODO:cj 
   大部分情况，对象都会首先在新生代Eden区域分配
   对象新生代晋升到老年代的年龄阈值
-  -XX:MaxTenuringThreshold 来设置默认值
+  -XX:MaxTenuringThreshold 来设置晋升到老年代的年龄阈值默认值，默认15
+  -XX: TargetSurvivorRatio,Survivor使用率,默认50%
+  这个值会在虚拟机运行过程中进行动态调整,
+  
+  可以通过-XX:+PrintTenuringDistribution来打印出当次 GC 后的年龄阈值Threshold。
+  ```
+  uint ageTable::compute_tenuring_threshold(size_t survivor_capacity) {
+  //survivor_capacity是survivor空间的大小
+  size_t desired_survivor_size = (size_t)((((double)survivor_capacity)*TargetSurvivorRatio)/100);
+  size_t total = 0;
+  uint age = 1;
+  while (age < table_size) {
+    //sizes数组是每个年龄段对象大小
+    total += sizes[age];
+    if (total > desired_survivor_size) {
+        break;
+    }
+    age++;
+  }
+  uint result = age < MaxTenuringThreshold ? age : MaxTenuringThreshold;
+  ...
+  }
+  ```
 - 判断对象是否”存活"
   ((6299ed85-5fab-4abb-ad7e-d901f1d30469)) 
   两种方法判断对象是否存活
