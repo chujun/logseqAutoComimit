@@ -49,4 +49,13 @@
   主要步骤
   1. 第一次标记对象为不可达后
   2. 确定是否有必要执行finalize方法
+  一个对象finalize最多只能执行一次
+  2.1 如果有必要执行对象finalized方法
+  将对象移入F-Queue队列
+  --->Finalizer守护线程(虚拟机创建，优先级极低)顺序执行队列中对象的finalized方法
+  --->执行finalized方法后 垃圾收集器对F-Queue队列中的对象进行二次标记
+  2.2 没必要执行对象finalized方法
+  3. 下次垃圾回收时回收该对象
+  关于finalize方法，jdk9之后标记成废弃方法了
+  [是时候忘掉finalize方法了](https://mp.weixin.qq.com/s/LW-paZAMD08DP_3-XCUxmg)
 - 现在收集器基本都采用分代垃圾收集算法
