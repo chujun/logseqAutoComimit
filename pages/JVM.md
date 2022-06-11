@@ -67,12 +67,16 @@
 - [[类加载机制]]
 - [[JVM参数]]
 - 四大引用类型
+  id:: 6299ed85-5fab-4abb-ad7e-d901f1d30469
+  JDK1.2 之前，Java 中引用的定义很传统：如果 reference 类型的数据存储的数值代表的是另一块内存的起始地址，就称这块内存代表一个引用。
+  JDK1.2 以后，Java 对引用的概念进行了扩充，将引用分为强引用、软引用、弱引用、虚引用四种
   
   强引用
   软引用(SoftReference)
   弱引用(WeakReference)
   虚引用(PhantomReference)
   ![截屏2022-06-03 下午7.21.04.png](../assets/截屏2022-06-03_下午7.21.04_1654255291803_0.png)
+  引用队列(ReferenceQueue)
   Reference
   当引用类型Reference构造器传入的类型referent对象被gc垃圾回收器回收时，再调用Reference的get方法会返回null。
   ```java
@@ -102,8 +106,8 @@
   ```
   应用:
   ThreadLocal的ThreadLocalMap的Entry就是继承了WeakReference，导致可能存在的潜在内存泄漏问题。
-- JDK1.2 之前，Java 中引用的定义很传统：如果 reference 类型的数据存储的数值代表的是另一块内存的起始地址，就称这块内存代表一个引用。
-- JDK1.2 以后，Java 对引用的概念进行了扩充，将引用分为强引用、软引用、弱引用、虚引用四种（引用强度逐渐减弱）
+-
+-
 -
 - 优化
   逃逸分析技术
