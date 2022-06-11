@@ -146,7 +146,8 @@
 	   Metaspace       used 3080K, capacity 4496K, committed 4864K, reserved 1056768K
 	    class space    used 339K, capacity 388K, committed 512K, reserved 1048576K
 	  ```
-	- 空间分配担保机制
+	- 老年代空间分配担保机制
+	  空间担保指的是老年代进行空间分配担保
 	  空间分配担保是为了确保在 Minor GC 之前老年代本身还有容纳新生代所有对象的剩余空间。
 	  
 	  只要老年代的连续空间大于新生代对象总大小或者历次晋升的平均大小，就会进行 Minor GC，否则(考虑到空间不足问题)将进行 Full GC。
