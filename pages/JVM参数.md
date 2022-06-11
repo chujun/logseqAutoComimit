@@ -28,6 +28,7 @@
   -XX:+/-UseTLAB|bool|true|默认开启TLAB
 - 垃圾回收相关
   -XX:MaxTenuringThreshold|intx|15|对象进入老年代的年龄阈值
+  -XX:TargetSurvivorRatio|intx|50|
 - 打印
   -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 晋升老年代的年龄阈值
 - 内存异常
