@@ -15,10 +15,8 @@
   -XX:MaxTenuringThreshold 来设置晋升到老年代的年龄阈值默认值，默认15
   -XX: TargetSurvivorRatio,Survivor使用率,默认50
   这个值会在虚拟机运行过程中进行动态调整,
-  动态年龄阈值=Max(MaxTenuringThreshold,)
-  可以通过-XX:+PrintTenuringDistribution来打印出当次 GC 后的年龄阈值Threshold。
+  实时动态年龄阈值:Hotspot 遍历所有对象时，按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了 survivor 区大小*TargetSurvivorRatio百分比(默认值50%)时，取这个年龄和 MaxTenuringThreshold 中更小的一个值，作为新的晋升年龄阈值
   ```
-  
   uint ageTable::compute_tenuring_threshold(size_t survivor_capacity) {
   //survivor_capacity是survivor空间的大小
   size_t desired_survivor_size = (size_t)((((double)survivor_capacity)*TargetSurvivorRatio)/100);
@@ -36,6 +34,7 @@
   ...
   }
   ```
+  可以通过-XX:+PrintTenuringDistribution来打印出当次 GC 后的年龄阈值Threshold。
 - 判断对象是否”存活"
   ((6299ed85-5fab-4abb-ad7e-d901f1d30469)) 
   两种方法判断对象是否存活
