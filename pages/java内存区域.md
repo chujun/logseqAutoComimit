@@ -132,6 +132,7 @@
 		  1. java.lang.OutOfMemoryError: PermGen space
 		  jdk6
 		  解决方案
+		  控制永久代大小-XX:PermSize,-XX:MaxPermSize(jdk8已废弃永久代)
 		  2. java.lang.OutOfMemoryError: Metaspace
 		  jdk8
 		  常见原因:
