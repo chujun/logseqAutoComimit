@@ -15,7 +15,7 @@
   -XX:MaxTenuringThreshold 来设置晋升到老年代的年龄阈值默认值，默认15
   -XX: TargetSurvivorRatio,Survivor使用率,默认50
   这个值会在虚拟机运行过程中进行动态调整,
-  Hotspot 遍历所有对象时，按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了 survivor 区的一半时，取这个年龄和 MaxTenuringThreshold 中更小的一个值，作为新的晋升年龄阈值
+  动态年龄阈值=Max(MaxTenuringThreshold,)
   可以通过-XX:+PrintTenuringDistribution来打印出当次 GC 后的年龄阈值Threshold。
   ```
   
