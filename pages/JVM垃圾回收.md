@@ -25,7 +25,7 @@
 	  年龄Age增加
 	  如果对象在 Eden 出生并经过第一次 Minor GC 后仍然能够存活，并且能被 Survivor 容纳的话，将被移动到 Survivor 空间中，并将对象年龄设为 1.对象在 Survivor 中每熬过一次 MinorGC,年龄就增加 1 岁，当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中。
 	- 当MinorGC发现Survivor区无法存储eden区的对象时,对象就直接放到老年代
-	  JVM实验
+	  JVM小实验
 	  ```java
 	  /**
 	   *
@@ -49,7 +49,7 @@
 	       */
 	      public static void main(String[] args) {
 	          byte[] allocation1, allocation2, allocation3, allocation4, allocation5;
-	  		//38912*0.92/1024=34.96M
+	  		//38912*0.92/1024=34.96M,eden区34M够分配,35M不够分配
 	          allocation1 = new byte[34 * 1024 * 1024];
 	          System.out.println("------start Allocation Failure------");
 	          allocation2 = new byte[1024 * 1024];
