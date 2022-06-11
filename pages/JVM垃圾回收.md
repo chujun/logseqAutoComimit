@@ -49,6 +49,7 @@
 	       */
 	      public static void main(String[] args) {
 	          byte[] allocation1, allocation2, allocation3, allocation4, allocation5;
+	  		//38912*0.92/1024=34.96M
 	          allocation1 = new byte[34 * 1024 * 1024];
 	          System.out.println("------start Allocation Failure------");
 	          allocation2 = new byte[1024 * 1024];
