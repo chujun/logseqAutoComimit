@@ -53,8 +53,8 @@
   ~~-XX:+UseParNewGC|bool|false|使用ParNew垃圾回收器,jdk9废弃，jdk10移除|~~
   [GC -UseParallelGC和UseParallelOldGC的区别](https://www.cnblogs.com/kelthuzadx/p/10924117.html)
 - 内存异常
-  -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时
-  打印堆转储快照信息
+  -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时,打印堆转储快照信息
+  -XX:HeapDumpPath=你要输出的日志路径|ccstr||堆转储快照文件存储路径
 - GC文件记录
   -XX:+UseGCLogFileRotation 
   -XX:NumberOfGCLogFiles=< number of log files > 
