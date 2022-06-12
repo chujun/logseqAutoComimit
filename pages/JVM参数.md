@@ -16,13 +16,13 @@
   -XX:MaxMetaspaceSize| 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。
   -XX:MetaspaceSize| 调整标志定义元空间的初始大小如果未指定此标志，则 Metaspace 将根据运行时的应用程序需求动态地重新调整大小。
   
-  -XX:PermSize|jdk8废弃,方法区 (永久代) 初始大小
-  -XX:MaxPermSize| jdk8废弃，方法区 (永久代) 最大大小
+  ~~-XX:PermSize|jdk8废弃,方法区 (永久代) 初始大小~~
+  ~~-XX:MaxPermSize| jdk8废弃，方法区 (永久代) 最大大小~~
 - 线程相关JVM参数
   id:: 6298a212-7591-4a6d-92e8-743494bfe3f4
   -XX:+UseSpinning|bool|true| 开启自旋锁 jdk1.6，默认true ((f6152514-a942-4aa1-8e61-de1116a30b3c))
   -XX:PreBlockSpin|intx|10| 自选次数,默认10次
-  -XX:+UseBiased Locking|bool|true|,开启偏向锁，jdk6后默认开启，但是jdk15默认关闭 
+  ~~-XX:+UseBiased Locking|bool|true|,开启偏向锁，jdk6后默认开启，但是jdk15默认关闭~~
   [JEP 374: Deprecate and Disable Biased Locking](https://openjdk.java.net/jeps/374)
 - TLAB
   id:: 6298ce15-1863-4aae-99c9-5d8d7ae4dfdb
@@ -35,8 +35,8 @@
 - 垃圾回收器
   -XX:+UseParallelGC|bool|false|使用Parallel Scavenge垃圾回收器处理新生代,对老生代不生效，默认禁用|
   -XX:+UseParallelOldGC|bool|true|使用Parallel Old垃圾回收器，默认启用
-  
-  [GC - UseParallelGC和UseParallelOldGC的区别](https://www.cnblogs.com/kelthuzadx/p/10924117.html)
+  ~~-XX:+UseParNewGC|bool|false|使用ParNew垃圾回收器,jdk9废弃，jdk10移除|~~
+  [GC -UseParallelGC和UseParallelOldGC的区别](https://www.cnblogs.com/kelthuzadx/p/10924117.html)
 - 内存异常
   -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时
   打印堆转储快照信息
