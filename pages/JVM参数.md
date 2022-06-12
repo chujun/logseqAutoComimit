@@ -24,21 +24,26 @@
   ~~-XX:MaxPermSize| jdk8废弃，方法区 (永久代) 最大大小~~
   
   -XX:NewRatio|intx||新生代和老年代内存的比值
-  -XX:SurvivorRatio||Eden区与Survivor区的大小比值
+  -XX:SurvivorRatio|intx|8|Eden区与Survivor区的大小比值
 - 线程相关JVM参数
   id:: 6298a212-7591-4a6d-92e8-743494bfe3f4
   -XX:+UseSpinning|bool|true| 开启自旋锁 jdk1.6，默认true ((f6152514-a942-4aa1-8e61-de1116a30b3c))
   -XX:PreBlockSpin|intx|10| 自选次数,默认10次
   ~~-XX:+UseBiased Locking|bool|true|,开启偏向锁，jdk6后默认开启，但是jdk15默认关闭~~
   [JEP 374: Deprecate and Disable Biased Locking](https://openjdk.java.net/jeps/374)
+  
+  -XX:ParallelGCThreads|intx||
 - TLAB
   id:: 6298ce15-1863-4aae-99c9-5d8d7ae4dfdb
   -XX:+/-UseTLAB|bool|true|默认开启TLAB
 - 垃圾回收相关
   -XX:MaxTenuringThreshold|intx|15|对象进入老年代的年龄阈值
   -XX:TargetSurvivorRatio|intx|50|设定survivor区的目标使用率。默认50，即survivor区对象目标使用率为50%。
+  
+  -XX:MaxGCPauseMillis|intx||每次年轻代垃圾回收的最长时间(最大暂停时间),G1垃圾收集器,如果无法满足此时间,JVM会自动调整年轻代大小,以满足此值
 - 打印
   -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 晋升老年代的年龄阈值
+-
 - 垃圾回收器
   id:: 62a559d4-27ed-4e29-8986-a9f261be6713
   -XX:+UseSerialGC|bool|false|使用Serial垃圾回收器
