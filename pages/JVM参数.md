@@ -49,8 +49,10 @@
 - 内存异常
   -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时
   打印堆转储快照信息
-- GC记录
+- GC文件记录
   -XX:+UseGCLogFileRotation 
   -XX:NumberOfGCLogFiles=< number of log files > 
   -XX:GCLogFileSize=< file size >[ unit ]
   -Xloggc:/path/to/gc.log
+- 资料
+  [JavaGuide 最重要的JVM 参数总结](https://javaguide.cn/java/jvm/jvm-parameters-intro.html#_1-%E6%A6%82%E8%BF%B0)
