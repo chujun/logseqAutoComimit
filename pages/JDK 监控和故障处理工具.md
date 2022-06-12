@@ -54,7 +54,7 @@
 	  jstat -gcoldcapacity vmid ：显示老年代的大小；
 	  jstat -gcutil vmid ：显示垃圾收集信息；
 	  
-	  
+	  [jstat对各个options的输出列有说明含义](http://blog.itpub.net/31543790/viewspace-2657093/)
 	  
 	  
 	  
@@ -70,4 +70,7 @@
 	  用于分析 heapdump 文件，它会建立一个 HTTP/HTML 服务器，让用户可以在浏览器上查看分析结果;
 	- 6. jstack (Stack Trace for Java)
 	  生成虚拟机当前时刻的线程快照，线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合。
--
+- JDK可视化分析工具
+  JConsole
+  Visual VM
+  JProfile(强大，商业proflie分析工具)
