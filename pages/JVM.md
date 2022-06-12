@@ -106,8 +106,7 @@
   ```
   应用:
   ThreadLocal的ThreadLocalMap的Entry就是继承了WeakReference，导致可能存在的潜在内存泄漏问题。
--
--
+- [[类文件结构]]
 -
 - 优化
   逃逸分析技术
