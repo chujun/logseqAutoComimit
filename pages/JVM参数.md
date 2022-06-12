@@ -17,6 +17,7 @@
   -XX:MaxNewSize|uintx||最大新生代内存大小
   -Xmn|uintx||新生代内存大小，NewSize与MaxNewSize设为一致
   -Xss|栈空间大小(Stock Size) -Xss128k间接控制栈深度
+  在相同物理内存下,减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。
   -XX:StringTableSize|设置字符串常量池大小
   -XX:MaxMetaspaceSize| 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。
   -XX:MetaspaceSize| 调整标志定义元空间的初始大小如果未指定此标志，则 Metaspace 将根据运行时的应用程序需求动态地重新调整大小。
@@ -25,6 +26,8 @@
   
   -XX:NewRatio|intx||新生代和老年代内存的比值
   -XX:SurvivorRatio|intx|8|Eden区与Survivor区的大小比值
+-
+-
 - 线程相关JVM参数
   id:: 6298a212-7591-4a6d-92e8-743494bfe3f4
   -XX:+UseSpinning|bool|true| 开启自旋锁 jdk1.6，默认true ((f6152514-a942-4aa1-8e61-de1116a30b3c))
@@ -36,6 +39,7 @@
 - TLAB
   id:: 6298ce15-1863-4aae-99c9-5d8d7ae4dfdb
   -XX:+/-UseTLAB|bool|true|默认开启TLAB
+  -XX:TLABWasteTargetPercent|intx|1|设置TLAB占eden区的百分比，默认值是1%
 - 垃圾回收相关
   -XX:MaxTenuringThreshold|intx|15|对象进入老年代的年龄阈值
   -XX:TargetSurvivorRatio|intx|50|设定survivor区的目标使用率。默认50，即survivor区对象目标使用率为50%。
