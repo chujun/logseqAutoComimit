@@ -21,6 +21,7 @@
   -XX:MaxMetaspaceSize| 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。
   -XX:MetaspaceSize| 调整标志定义元空间的初始大小如果未指定此标志，则 Metaspace 将根据运行时的应用程序需求动态地重新调整大小。
   
+  -XX:NewRatio|intx||新生代和老年代内存的比值
   ~~-XX:PermSize|jdk8废弃,方法区 (永久代) 初始大小~~
   ~~-XX:MaxPermSize| jdk8废弃，方法区 (永久代) 最大大小~~
 - 线程相关JVM参数
