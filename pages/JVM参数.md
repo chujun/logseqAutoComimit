@@ -33,6 +33,7 @@
 - 打印
   -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 晋升老年代的年龄阈值
 - 垃圾回收器
+  id:: 62a559d4-27ed-4e29-8986-a9f261be6713
   -XX:+UseParallelGC|bool|false|使用Parallel Scavenge垃圾回收器处理新生代，默认禁用|
   -XX:+UseParallelOldGC|bool|true|使用Parallel Old垃圾回收器处理老年代，默认启用，如果指定了-XX:+UseParallelGC 参数，则默认指定了-XX:+UseParallelOldGC|
   ~~-XX:+UseParNewGC|bool|false|使用ParNew垃圾回收器,jdk9废弃，jdk10移除|~~
