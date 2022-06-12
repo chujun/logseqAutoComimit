@@ -1,4 +1,5 @@
 - Java HotSpot VM的官方文档
+  没有说明的情况下特指jdk8情况下
 - HotSpot虚拟机两类参数类型
   |参数类型|类型|描述|格式|
   |---|---|---|---|
@@ -21,7 +22,7 @@
   id:: 6298a212-7591-4a6d-92e8-743494bfe3f4
   -XX:+UseSpinning|bool|true| 开启自旋锁 jdk1.6，默认true ((f6152514-a942-4aa1-8e61-de1116a30b3c))
   -XX:PreBlockSpin|intx|10| 自选次数,默认10次
-  -XX:+UseBiased Locking|bool|true|,开启偏向锁，jdk6默认开启，但是jdk15默认关闭 
+  -XX:+UseBiased Locking|bool|true|,开启偏向锁，jdk6后默认开启，但是jdk15默认关闭 
   [JEP 374: Deprecate and Disable Biased Locking](https://openjdk.java.net/jeps/374)
 - TLAB
   id:: 6298ce15-1863-4aae-99c9-5d8d7ae4dfdb
@@ -33,6 +34,6 @@
   -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 晋升老年代的年龄阈值
 - 垃圾回收器
   -XX:+UseParallelGC|bool|false|使用Parallel Scavenge垃圾回收器，默认禁用|
-    -XX:+UseParallelOldGC|
+  -XX:+UseParallelOldGC|bool|true|使用Parallel Old垃圾回收器，默认启用
 - 内存异常
   -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时打印堆转储快照信息
