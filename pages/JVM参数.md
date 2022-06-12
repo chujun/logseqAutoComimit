@@ -40,11 +40,17 @@
   -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 晋升老年代的年龄阈值
 - 垃圾回收器
   id:: 62a559d4-27ed-4e29-8986-a9f261be6713
-  -XX:+UseSerialGC|bool|false|使用
+  -XX:+UseSerialGC|bool|false|使用Serial垃圾回收器
   -XX:+UseParallelGC|bool|false|使用Parallel Scavenge垃圾回收器处理新生代，默认禁用|
   -XX:+UseParallelOldGC|bool|true|使用Parallel Old垃圾回收器处理老年代，默认启用，如果指定了-XX:+UseParallelGC 参数，则默认指定了-XX:+UseParallelOldGC|
+  -XX:+UseG1GC|bool|false|使用G1垃圾回收器
   ~~-XX:+UseParNewGC|bool|false|使用ParNew垃圾回收器,jdk9废弃，jdk10移除|~~
   [GC -UseParallelGC和UseParallelOldGC的区别](https://www.cnblogs.com/kelthuzadx/p/10924117.html)
 - 内存异常
   -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时
   打印堆转储快照信息
+- GC记录
+  -XX:+UseGCLogFileRotation 
+  -XX:NumberOfGCLogFiles=< number of log files > 
+  -XX:GCLogFileSize=< file size >[ unit ]
+  -Xloggc:/path/to/gc.log
