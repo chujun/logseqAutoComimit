@@ -43,6 +43,9 @@
 	  -gcutil
 	  -printcompilation
 	  ```
+	  说明
+	  jstat -class vmid ：显示 ClassLoader 的相关信息；
+	  
 	  举例
 	  1. 比如 jstat -gc -h3 31736 1000 10表示分析进程 id 为 31736 的 gc 情况，每隔 1000ms 打印一次记录，打印 10 次停止，每 3 行后打印指标头部。
 	  ![jstat gc示例.png](../assets/jstat_gc示例_1655044774239_0.png)
