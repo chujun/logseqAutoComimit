@@ -52,6 +52,8 @@
 	  jstat -gcnewcapacity vmid ：显示新生代大小与使用情况；
 	  jstat -gcold vmid ：显示老年代和永久代的行为统计，从jdk1.8开始,该选项仅表示老年代，因为永久代被移除了；
 	  jstat -gcoldcapacity vmid ：显示老年代的大小；
+	  jstat -gcutil vmid ：显示垃圾收集信息；
+	  
 	  
 	  
 	  
