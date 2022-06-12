@@ -33,7 +33,7 @@
 - 打印
   -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 晋升老年代的年龄阈值
 - 垃圾回收器
-  -XX:+UseParallelGC|bool|false|使用Parallel Scavenge垃圾回收器，默认禁用|
+  -XX:+UseParallelGC|bool|false|使用Parallel Scavenge垃圾回收器处理新生代,对老生代不生效，默认禁用|
   -XX:+UseParallelOldGC|bool|true|使用Parallel Old垃圾回收器，默认启用
 - 内存异常
   -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时打印堆转储快照信息
