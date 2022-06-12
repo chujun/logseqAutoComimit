@@ -14,10 +14,14 @@
   进一步划分的目的是更好地回收内存，或者更快地分配内存。
   ![堆空间结构.png](../assets/image_1654932510373_0.png)
   
+  GC类型
   针对 HotSpot VM 的实现，它里面的 GC 其实准确分类只有两大种：
   部分收集 (Partial GC)：
--
--
+  新生代收集（Minor GC / Young GC）：只对新生代进行垃圾收集；
+  老年代收集（Major GC / Old GC）：只对老年代进行垃圾收集。需要注意的是 Major GC 在有的语境中也用于指代整堆收集；
+  混合收集（Mixed GC）：对整个新生代和部分老年代进行垃圾收集。
+  整堆收集 (Full GC)：收集整个 Java 堆和方法区。
+  ![GC类型说明.png](../assets/image_1654997265256_0.png)
 -
 - 对象内存分配
   
@@ -289,4 +293,6 @@
 	  2. 一个对象至多只能执行一次
 	  3. 必要执行条件：a对象类实现了finalize方法，b对象finalized方法没有执行过
 	  [是时候忘掉finalize方法了](https://mp.weixin.qq.com/s/LW-paZAMD08DP_3-XCUxmg)
--
+- 垃圾回收算法
+  垃圾-清楚
+- 垃圾回收器
