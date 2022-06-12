@@ -32,7 +32,7 @@
   ~~-XX:+UseBiased Locking|bool|true|,开启偏向锁，jdk6后默认开启，但是jdk15默认关闭~~
   [JEP 374: Deprecate and Disable Biased Locking](https://openjdk.java.net/jeps/374)
   
-  -XX:ParallelGCThreads|intx||
+  -XX:ParallelGCThreads|intx||并行收集器的线程数,此值最好配置与处理器数目相等 同样适用于CMS
 - TLAB
   id:: 6298ce15-1863-4aae-99c9-5d8d7ae4dfdb
   -XX:+/-UseTLAB|bool|true|默认开启TLAB
