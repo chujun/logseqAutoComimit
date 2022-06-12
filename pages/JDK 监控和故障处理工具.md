@@ -64,6 +64,24 @@
 	  ![jstat gc示例.png](../assets/jstat_gc示例_1655044774239_0.png)
 	- 3. jinfo(Configuration Info for Java)
 	  Configuration Info for Java,显示虚拟机配置信息;
+	  ```shell
+	  Usage:
+	      jinfo [option] <pid>
+	          (to connect to running process)
+	      jinfo [option] <executable <core>
+	          (to connect to a core file)
+	      jinfo [option] [server_id@]<remote server IP or hostname>
+	          (to connect to remote debug server)
+	  
+	  where <option> is one of:
+	      -flag <name>         to print the value of the named VM flag
+	      -flag [+|-]<name>    to enable or disable the named VM flag
+	      -flag <name>=<value> to set the named VM flag to the given value
+	      -flags               to print VM flags
+	      -sysprops            to print Java system properties
+	      <no option>          to print both of the above
+	      -h | -help           to print this help message
+	  ```
 	- 4. jmap (Memory Map for Java)
 	  生成堆转储快照;
 	- 5. jhat (JVM Heap Dump Browser) 
