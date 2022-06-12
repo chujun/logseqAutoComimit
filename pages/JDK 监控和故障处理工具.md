@@ -45,6 +45,11 @@
 	  ```
 	  说明
 	  jstat -class vmid ：显示 ClassLoader 的相关信息；
+	  jstat -compiler vmid ：显示 JIT 编译的相关信息；
+	  jstat -gc vmid ：显示与 GC 相关的堆信息；
+	  jstat -gccapacity vmid ：显示各个代的容量及使用情况；
+	  jstat -gcnew vmid ：显示新生代信息；
+	  
 	  
 	  举例
 	  1. 比如 jstat -gc -h3 31736 1000 10表示分析进程 id 为 31736 的 gc 情况，每隔 1000ms 打印一次记录，打印 10 次停止，每 3 行后打印指标头部。
