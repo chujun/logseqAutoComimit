@@ -13,6 +13,8 @@
 - 内存区域大小
   -Xms|intx||堆最小内存大小，单位可以是g,m,k
   -Xmx|intx||堆最大内存大小
+  -XX:NewSize|uintx||新生代内存大小
+  -XX:MaxNewSize|uintx||最大新生代内存大小
   -Xss|栈空间大小(Stock Size) -Xss128k间接控制栈深度
   -XX:StringTableSize|设置字符串常量池大小
   -XX:MaxMetaspaceSize| 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。
