@@ -35,5 +35,8 @@
 - 垃圾回收器
   -XX:+UseParallelGC|bool|false|使用Parallel Scavenge垃圾回收器处理新生代,对老生代不生效，默认禁用|
   -XX:+UseParallelOldGC|bool|true|使用Parallel Old垃圾回收器，默认启用
+  
+  [GC - UseParallelGC和UseParallelOldGC的区别](https://www.cnblogs.com/kelthuzadx/p/10924117.html)
 - 内存异常
-  -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时打印堆转储快照信息
+  -XX:+HeapDumpOnOutOfMemoryError|bool|false|内存溢出异常时
+  打印堆转储快照信息
