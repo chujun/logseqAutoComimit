@@ -59,7 +59,7 @@
 	  # 插入数据
 	  insert into test_gap(id,age)values
 	  (10,10),(20,20),(30,30),(70,30),(80,31),(40,50);
-	  # 关闭自动提交事务功能
+	  
 	  ```
 	- 查询数据
 	  
@@ -200,11 +200,19 @@
 	- 继续试验3
 	  第二个窗口也执行悲观锁
 	  ```
+	  select * from  test_gap where age=31 for update;
+	  ```
+	  执行结果如下
+	  ```
 	  mysql root@localhost:lock_test> begin;
 	                               -> select * from  test_gap where age=31 for update;
 	  Query OK, 0 rows affected
 	  Time: 0.001s
 	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+	  mysql root@localhost:lock_test> begin;
+	                               -> select * from  test_gap where age=50 for update;
+	  Query OK, 0 rows affected
+	  Time: 0.001s
 	  mysql root@localhost:lock_test> begin;
 	                               -> select * from  test_gap where age=50 for update;
 	  Query OK, 0 rows affected
