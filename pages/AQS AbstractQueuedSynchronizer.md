@@ -238,6 +238,7 @@
 	  CyclicBarrier 的应用场景
 	- ReentrantLock
 	- ReentrantReadWriteLock
+	  可冲入锁
 	- AQS在jdk中的应用场景
 	  |同步工具	|同步工具与 AQS 的关联|
 	  |---|---|
