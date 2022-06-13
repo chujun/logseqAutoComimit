@@ -44,4 +44,11 @@
   | REPEATABLE-READ         |
   +-------------------------+
   ```
+  修改mysql事务隔离级别命令
+  ```
+  //修改事务隔离级别为已提交读
+  set session transaction isolation level read committed;
+  //修改mysql事务隔离级别为可重复读
+  set session transaction isolation level repeatable read; 
+  ```
 -
