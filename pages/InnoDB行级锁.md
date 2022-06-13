@@ -59,13 +59,9 @@
 	  # 插入数据
 	  insert into test_gap(id,age)values
 	  (10,10),(20,20),(30,30),(70,30),(80,31),(40,50);
-	  
+	  # 关闭自动提交事务功能
 	  ```
-	  
-	  
-	  
-	  查询数据
-	  
+	- 查询数据
 	  
 	  ```
 	  select * from test_gap order by age;
@@ -82,7 +78,6 @@
 	  6 rows in set
 	  Time: 0.010s
 	  ```
-	- 查询数据
 	- 运行实验
 	- 实验结果
 	- 分析
