@@ -4,6 +4,14 @@
 	- 1. jps(JVM Process Status）
 	  jps (JVM Process Status）: 类似 UNIX 的 ps 命令。用于查看所有 Java 进程的启动类、传入参数和 Java 虚拟机参数等信息；
 	  jps：显示虚拟机执行主类名称以及这些进程的本地虚拟机唯一 ID（Local Virtual Machine Identifier,LVMID）
+	  ```
+	  //mac jdk8
+	  usage: jps [-help]
+	         jps [-q] [-mlvV] [<hostid>]
+	  
+	  Definitions:
+	      <hostid>:      <hostname>[:<port>]
+	  ```
 	  jps -q ：只输出进程的本地虚拟机唯一 ID
 	  jps -l:输出主类的全名，如果进程执行的是 Jar 包，输出 Jar 路径。
 	  jps -v：输出虚拟机进程启动时 JVM 参数。
@@ -19,6 +27,7 @@
 	- 2. jstat（JVM Statistics Monitoring Tool）
 	  用于收集 HotSpot 虚拟机各方面的运行数据,类信息、内存、垃圾收集、JIT 编译等运行数据
 	  ```
+	  //mac jdk8
 	  Usage: jstat -help|-options
 	         jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]
 	  ```
@@ -65,6 +74,7 @@
 	- 3. jinfo(Configuration Info for Java)
 	  Configuration Info for Java,显示虚拟机配置信息;
 	  ```shell
+	  //mac jdk8
 	  Usage:
 	      jinfo [option] <pid>
 	          (to connect to running process)
@@ -122,6 +132,7 @@
 	  生成堆转储快照;
 	  jmap 的作用并不仅仅是为了获取 dump 文件，它还可以查询 finalizer 执行队列、Java 堆和永久代的详细信息，如空间使用率、当前使用的是哪种收集器等。
 	  ```
+	  //mac jdk8
 	  Usage:
 	      jmap [option] <pid>
 	          (to connect to running process)
