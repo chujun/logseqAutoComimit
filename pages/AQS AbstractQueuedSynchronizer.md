@@ -238,7 +238,9 @@
 	  CyclicBarrier 的应用场景
 	- ReentrantLock
 	- ReentrantReadWriteLock
-	  可冲入锁
+	  可重入锁
+	  问题：读锁效率低
+	  如果有线程正在读，写线程需要等待读线程释放锁后才能获取写锁，即读的过程中不允许写，这是一种悲观的读锁。
 	- AQS在jdk中的应用场景
 	  |同步工具	|同步工具与 AQS 的关联|
 	  |---|---|
