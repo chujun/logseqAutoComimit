@@ -42,6 +42,10 @@
   ```
   MySQL 当前默认的存储引擎是 InnoDB
   所有的存储引擎中只有 InnoDB 是事务性存储引擎，也就是说只有 InnoDB 支持事务。
+  
+  MySQL命令
+  1. 通过 show variables like '%storage_engine%' 命令直接查看 MySQL 当前默认的存储引擎。
+  如果你只想查看数据库中某个表使用的存储引擎的话，可以使用 show table status from db_name where name='table_name'命令。
 - 开发建议
   1.【强制】不得使用外键与级联，一切外键概念必须在应用层解决。
   说明: 以学生和成绩的关系为例，学生表中的 student_id 是主键，那么成绩表中的 student_id 则为外键。如果更新学生表中的 student_id，同时触发成绩表中的 student_id 更新，即为级联更新。外键与级联更新适用于单机低并发，不适合分布式、高并发集群; 级联更新是强阻塞，存在数据库更新风暴的风 险; 外键影响数据库的插入速度
