@@ -202,6 +202,8 @@
 	  ```
 	  begin;
 	  select * from  test_gap where age=31 for update;
+	  select * from  test_gap where age=30 for update;
+	  select * from  test_gap where age=32 for update;
 	  select * from  test_gap where age=50 for update;
 	  ```
 	  执行结果如下
@@ -211,15 +213,34 @@
 	  Query OK, 0 rows affected
 	  Time: 0.001s
 	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
-	  mysql root@localhost:lock_test> begin;
-	                               -> select * from  test_gap where age=50 for update;
-	  Query OK, 0 rows affected
-	  Time: 0.001s
-	  mysql root@localhost:lock_test> begin;
-	                               -> select * from  test_gap where age=30 for update;
-	  Query OK, 0 rows affected
-	  Time: 0.001s
+	  mysql root@localhost:lock_test> select * from  test_gap where age=30 for update;
+	  +----+-----+--------+
+	  | id | age | name   |
+	  +----+-----+--------+
+	  | 30 | 30  | <null> |
+	  | 70 | 30  | <null> |
+	  +----+-----+--------+
+	  2 rows in set
+	  Time: 0.008s
+	  mysql root@localhost:lock_test> select * from  test_gap where age=32 for update;
+	  +----+-----+------+
+	  | id | age | name |
+	  +----+-----+------+
+	  0 rows in set
+	  Time: 0.008s
+	  mysql root@localhost:lock_test> select * from  test_gap where age=50 for update;
+	  +----+-----+--------+
+	  | id | age | name   |
+	  +----+-----+--------+
+	  | 40 | 50  | <null> |
+	  +----+-----+--------+
+	  1 row in set
+	  Time: 0.010s
 	  ```
+	  TODO:cj 思考 为什么会有这样子的执行结果呢？
+	  31:
+	  30,50:两个gap边界都可以
+	  32:没有满足条件的数据
 	- 分析
 	- 结论
 	-
