@@ -44,5 +44,14 @@
   系统准备：mysql5.8
   脚本准备
   ```sql
+  CREATE DATABASE IF NOT EXISTS lock_test DEFAULT CHARSET utf8mb4;
+  use lock_test;
+  CREATE TABLE IF NOT EXISTS `test_gap`(
+  	`id` int(11) NOT NULL AUTO_INCREMENT, 
+  	`age` int(11) DEFAULT NULL, 
+  	`name` varchar(10) DEFAULT NULL, 
+  	PRIMARY KEY (`id`), 
+  	KEY `ix age` (`age`) 
+  )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
   ```
   准备
