@@ -41,24 +41,50 @@
   innodb索引是基于B+树实现的,
 - 临键锁实验
   [InnoDB的next-key lock 为什么是左开右闭的？](https://www.zhihu.com/question/334081090/answer/1882156445)
-  系统准备：mysql5.8
-  
-  脚本准备:初始化数据库和表，并插入实验数据
-  ```sql
-  # 建库
-  CREATE DATABASE IF NOT EXISTS lock_test DEFAULT CHARSET utf8mb4;
-  use lock_test;
-  drop table if exists test_gap;
-  # 建表
-  CREATE TABLE IF NOT EXISTS `test_gap`(
-  	`id` int(11) NOT NULL AUTO_INCREMENT, 
-  	`age` int(11) DEFAULT NULL, 
-  	`name` varchar(10) DEFAULT NULL, 
-  	PRIMARY KEY (`id`), 
-  	KEY `ix age` (`age`) 
-  )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
-  # 插入数据
-  insert into test_gap(id,age)values
-  (10,10),(20,20),(30,30),(70,30),(80,31),(40,50);
-  
-  ```
+	- 系统准备：mysql5.8
+	- 脚本准备:初始化数据库和表，并插入实验数据
+	  ```sql
+	  # 建库
+	  CREATE DATABASE IF NOT EXISTS lock_test DEFAULT CHARSET utf8mb4;
+	  use lock_test;
+	  drop table if exists test_gap;
+	  # 建表
+	  CREATE TABLE IF NOT EXISTS `test_gap`(
+	  	`id` int(11) NOT NULL AUTO_INCREMENT, 
+	  	`age` int(11) DEFAULT NULL, 
+	  	`name` varchar(10) DEFAULT NULL, 
+	  	PRIMARY KEY (`id`), 
+	  	KEY `ix age` (`age`) 
+	  )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
+	  # 插入数据
+	  insert into test_gap(id,age)values
+	  (10,10),(20,20),(30,30),(70,30),(80,31),(40,50);
+	  
+	  ```
+	  
+	  
+	  
+	  查询数据
+	  
+	  
+	  ```
+	  select * from test_gap order by age;
+	  +----+-----+--------+
+	  | id | age | name   |
+	  +----+-----+--------+
+	  | 10 | 10  | <null> |
+	  | 20 | 20  | <null> |
+	  | 30 | 30  | <null> |
+	  | 70 | 30  | <null> |
+	  | 80 | 31  | <null> |
+	  | 40 | 50  | <null> |
+	  +----+-----+--------+
+	  6 rows in set
+	  Time: 0.010s
+	  ```
+	- 查询数据
+	- 运行实验
+	- 实验结果
+	- 分析
+	- 结论
+	-
