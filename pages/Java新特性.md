@@ -107,9 +107,23 @@
       at Prog.main(Prog.java:5)
   ```
   
+  JVM
+  移除了 CMS(Concurrent Mark Sweep) 垃圾收集器（功成而退）
+  
   预览新特性
-  record 关键字
+  java语法
+  record 关键字:数据类（一个 Java 类一旦实例化就不能再修改）的定义方式
 -
 - jdk15
+  JVM
+  ZGC(转正)
+  禁用和废弃偏向锁（Biased Locking）
+  
+  java语法
+  文本块(转正)
+  
+  预览新特性
+  java语法
+  密封类（Sealed Classes）
 - jdk16
 - jdk17
