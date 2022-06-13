@@ -38,7 +38,19 @@
 -
 -
 - jdk10
-- jdk11
+  java语法
+  支持局部变量类型推断(var)
+  
+  jvm
+  垃圾回收器接口
+- jdk11(LTS)
+  (Long-Term-Support)版本
+  
+  api实现优化
+  HTTP Client 标准化
+  
+  JVM
+  ZGC
 - jdk12
 - jdk13
 - jdk14
