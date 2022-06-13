@@ -69,8 +69,47 @@
   }
   ```
   instanceof 模式匹配
+  ```java
+  Object obj = "我是字符串";
+  if(obj instanceof String str){
+  	System.out.println(str);
+  }
+  ```
 - jdk13
+  jdk api实现优化
+  SocketAPI 重构
 - jdk14
+  java语法
+  switch 的增强(转正)
+  ```java
+  String result = switch (day) {
+              case "M", "W", "F" -> "MWF";
+              case "T", "TH", "S" -> "TTS";
+              default -> {
+                  if(day.isEmpty())
+                      yield "Please insert a valid day.";
+                  else
+                      yield "Looks like a Sunday.";
+              }
+  
+          };
+  System.out.println(result);
+  ```
+  
+  空指针异常精准提示
+  a.b.c.i = 99; // 假设这段代码会发生空指针
+  -XX:+ShowCodeDetailsInExceptionMessages
+  可以在空指针异常中获取更为详细的调用信息，更快的定位和解决问题。
+  ```java
+  // 增加参数后提示的异常中很明确的告知了哪里为空导致
+  Exception in thread "main" java.lang.NullPointerException:
+          Cannot read field 'c' because 'a.b' is null.
+      at Prog.main(Prog.java:5)
+  ```
+  
+  预览新特性
+  record 关键字
+-
 - jdk15
 - jdk16
 - jdk17
