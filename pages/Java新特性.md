@@ -58,6 +58,10 @@
   安全:
   TLS1.3 协议
 - jdk12
+  JVM
+  G1 收集器优化
+  Shenandoah GC新垃圾收集器
+  预览新特性
   java语法
   增强 Switch
   ```java
@@ -78,6 +82,10 @@
 - jdk13
   jdk api实现优化
   SocketAPI 重构
+  
+  预览新特性
+  文本块
+  增强 Switch(引入 yield 关键字到 Switch 中)
 - jdk14
   java语法
   switch 的增强(转正)
