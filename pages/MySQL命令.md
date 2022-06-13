@@ -4,6 +4,14 @@
   主要例子
   查询存储引擎
   show variables like '%storage_engine%'
+- select version() 命令查看你的 MySQL 版本
+  ```
+  +-----------+
+  | version() |
+  +-----------+
+  | 8.0.22    |
+  +-----------+
+  ```
 - 查看字符集
   SHOW CHARSET
   ![SHOW CHARSET.png](../assets/image_1655106043207_0.png)
@@ -24,12 +32,16 @@
   | CSV                | YES     | CSV storage engine                                             | NO           | NO     | NO         |
   +--------------------+---------+----------------------------------------------------------------+--------------+--------+------------+
   ```
-- select version() 命令查看你的 MySQL 版本
-  ```
-  +-----------+
-  | version() |
-  +-----------+
-  | 8.0.22    |
-  +-----------+
+- 查询MySQL隔离级别命令
+  id:: 62a704aa-f1a1-478d-a685-adc86f7be7d9
+  MySQL8之前：SELECT @@tx_isolation;
+  MySQL 8.0 该命令改为SELECT @@transaction_isolation;
+  ```shell
+  mysql root@localhost:(none)> SELECT @@transaction_isolation;
+  +-------------------------+
+  | @@transaction_isolation |
+  +-------------------------+
+  | REPEATABLE-READ         |
+  +-------------------------+
   ```
 -
