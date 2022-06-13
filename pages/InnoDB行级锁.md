@@ -140,7 +140,7 @@
 	  前二个值是能插入的，第三个不行，原因很简单，29、51不在age范围内，39在范围内。
 	  看上去都是二级索引的边界值，主键索引按顺序排序，在gap边界外的应该是可以插入的
 	  (69,30),(41,50)在gap边界外可以插入，而(71,30),(39,50)在gap边界之内不可以插入
-	- 继续实验
+	- 继续实验1
 	  再开第二个session窗口执行如下插入数据
 	  ```
 	  insert into test_gap(id,age)values(null,29);
@@ -176,13 +176,25 @@
 	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(39,50);
 	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
 	  ```
-	- 继续实验
+	- 继续实验2
 	  第二个窗口插入如下数据
 	  ```
 	  insert into test_gap(id,age)values(null,30);
 	  insert into test_gap(id,age)values(null,31);
 	  insert into test_gap(id,age)values(null,50);
 	  ```
-	-
+	  实验结果
+	  ```
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(null,30);
+	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(null,31);
+	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(null,50);
+	  Query OK, 1 row affected
+	  Time: 0.002s
+	  ```
+	  实验结果分析,插入的数据没有设置主键，默认是递增的主键id,
+	  所有(null,30)>(70,30)
+	- 分析
 	- 结论
 	-
