@@ -2,8 +2,12 @@
   函数式编程
   Lambda 表达式
   Interface default方法
+  Stream
   Optional
-  Completa
+  Date-Time API
+  LocalDateTime，LocalDate，LocalTime
+  CompletableFuture
+  StampedLock
 - jdk9
 - jdk10
 - jdk11
