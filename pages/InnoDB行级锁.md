@@ -194,7 +194,22 @@
 	  Time: 0.002s
 	  ```
 	  实验结果分析,插入的数据没有设置主键，默认是递增的主键id,
-	  所有(null,30)>(70,30)
+	  (null,30)>(70,30)在gap边界之内,所以插入失败
+	  (null,31)很明显在gap边界之内，所以插入失败
+	  (null,50)>(40,50)在边界之外，所以插入成功
+	- 继续试验3
+	  第二个窗口也执行悲观锁
+	  ```
+	  mysql root@localhost:lock_test> begin;
+	                               -> select * from  test_gap where age=31 for update;
+	  Query OK, 0 rows affected
+	  Time: 0.001s
+	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+	  mysql root@localhost:lock_test> begin;
+	                               -> select * from  test_gap where age=50 for update;
+	  Query OK, 0 rows affected
+	  Time: 0.001s
+	  ```
 	- 分析
 	- 结论
 	-
