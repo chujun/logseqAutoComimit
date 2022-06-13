@@ -8,11 +8,17 @@
   [[AQS AbstractQueuedSynchronizer]]
   ReentrantLock
   可重入锁
+  写锁与读锁的降级策略，需要遵循“获取写锁，获取读锁再释放写锁”的次序，写锁能够降级成为读锁，但是反之不可以，即读锁不可以升级为写锁。
+  ReentrantReadWriteLock有个潜在的问题：如果有线程正在读，写线程需要等待读线程释放锁后才能获取写锁，即读的过程中不允许写，这是一种悲观的读锁。
   ReentrantReadWriteLock:
   可重入锁，悲观锁,读写锁的思想非常类似，也就是读读共享、写写互斥、读写互斥、写读互斥。
   
+  
   StampedLock(jdk1.8)
   乐观锁，不可重入锁
+  相比较于ReentrantReadWriteLock而言，改改进之处在于：读的过程中也允许获取写锁后写入，如此，读取的数据就可能不一致，所以，需要一点额外的代码来判断读的过程中是否有写入，这种读锁是一种乐观读锁。
+  ReentrantReadWriteLock VS StampedLock
+  悲观锁则是读的过程中拒绝有写入，也就是写入必须等待。
 - 原子类
   id:: 629985ca-1cb9-447c-9919-e0adac191863
 	- 定义:原子类说简单点就是具有原子/原子操作特征的类。
