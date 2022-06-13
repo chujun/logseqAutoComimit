@@ -21,31 +21,32 @@
   执行器： 执行语句，然后从存储引擎返回数据。 执行语句之前会先判断是否有权限，如果没有权限的话，就会报错。
   插件式存储引擎 ： 主要负责数据的存储和读取，采用的是插件式架构，支持 InnoDB、MyISAM、Memory 等多种存储引擎。
 - MySQL 存储引擎
-  
-  MySQL主要存储引擎类型
-  [[InnoDB]]
-  MyISAM:MySQL 5.5.5 之前的默认存储引擎.
-  ```
-  +--------------------+---------+----------------------------------------------------------------+--------------+--------+------------+
-  | Engine             | Support | Comment                                                        | Transactions | XA     | Savepoints |
-  +--------------------+---------+----------------------------------------------------------------+--------------+--------+------------+
-  | ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO     | NO         |
-  | BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO     | NO         |
-  | MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO     | NO         |
-  | FEDERATED          | NO      | Federated MySQL storage engine                                 | <null>       | <null> | <null>     |
-  | MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO     | NO         |
-  | PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO     | NO         |
-  | InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES    | YES        |
-  | MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO     | NO         |
-  | CSV                | YES     | CSV storage engine                                             | NO           | NO     | NO         |
-  +--------------------+---------+----------------------------------------------------------------+--------------+--------+------------+
-  ```
-  MySQL 当前默认的存储引擎是 InnoDB
-  所有的存储引擎中只有 InnoDB 是事务性存储引擎，也就是说只有 InnoDB 支持事务。
-  
-  MySQL命令
-  1. 通过 show variables like '%storage_engine%' 命令直接查看 MySQL 当前默认的存储引擎。
-  如果你只想查看数据库中某个表使用的存储引擎的话，可以使用 show table status from db_name where name='table_name'命令。
+  MySQL 存储引擎采用的是插件式架构，支持多种存储引擎
+  存储引擎是基于表的，而不是数据库。设置可以为表设置不同的存储引擎，当然实际业务开发中不可能这么使用。
+	- MySQL主要存储引擎类型
+	  [[InnoDB]]
+	  MyISAM:MySQL 5.5.5 之前的默认存储引擎.
+	  ```
+	  +--------------------+---------+----------------------------------------------------------------+--------------+--------+------------+
+	  | Engine             | Support | Comment                                                        | Transactions | XA     | Savepoints |
+	  +--------------------+---------+----------------------------------------------------------------+--------------+--------+------------+
+	  | ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO     | NO         |
+	  | BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO     | NO         |
+	  | MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO     | NO         |
+	  | FEDERATED          | NO      | Federated MySQL storage engine                                 | <null>       | <null> | <null>     |
+	  | MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO     | NO         |
+	  | PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO     | NO         |
+	  | InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES    | YES        |
+	  | MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO     | NO         |
+	  | CSV                | YES     | CSV storage engine                                             | NO           | NO     | NO         |
+	  +--------------------+---------+----------------------------------------------------------------+--------------+--------+------------+
+	  ```
+	  MySQL 当前默认的存储引擎是 InnoDB
+	  所有的存储引擎中只有 InnoDB 是事务性存储引擎，也就是说只有 InnoDB 支持事务。
+	- MySQL查看存储引擎命令
+	  1. 通过 show variables like '%storage_engine%' 命令直接查看 MySQL 当前默认的存储引擎。
+	  2. 如果你只想查看数据库中某个表使用的存储引擎的话，可以使用 show table status from db_name where name='table_name'命令。
+	- MyISAM与InnoDB区别
 - 开发建议
   1.【强制】不得使用外键与级联，一切外键概念必须在应用层解决。
   说明: 以学生和成绩的关系为例，学生表中的 student_id 是主键，那么成绩表中的 student_id 则为外键。如果更新学生表中的 student_id，同时触发成绩表中的 student_id 更新，即为级联更新。外键与级联更新适用于单机低并发，不适合分布式、高并发集群; 级联更新是强阻塞，存在数据库更新风暴的风 险; 外键影响数据库的插入速度
