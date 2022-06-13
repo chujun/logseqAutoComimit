@@ -200,7 +200,9 @@
 	- 继续试验3
 	  第二个窗口也执行悲观锁
 	  ```
+	  begin;
 	  select * from  test_gap where age=31 for update;
+	  select * from  test_gap where age=50 for update;
 	  ```
 	  执行结果如下
 	  ```
@@ -214,7 +216,7 @@
 	  Query OK, 0 rows affected
 	  Time: 0.001s
 	  mysql root@localhost:lock_test> begin;
-	                               -> select * from  test_gap where age=50 for update;
+	                               -> select * from  test_gap where age=30 for update;
 	  Query OK, 0 rows affected
 	  Time: 0.001s
 	  ```
