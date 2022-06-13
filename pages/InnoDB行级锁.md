@@ -244,4 +244,5 @@
 	- 分析
 	- 结论
 - 临键锁实验B
-  TODO
+  [深入理解数据库行锁与表锁](https://zhuanlan.zhihu.com/p/52678870)
+  TODO:继续实验
