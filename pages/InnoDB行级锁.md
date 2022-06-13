@@ -44,8 +44,11 @@
   系统准备：mysql5.8
   脚本准备
   ```sql
+  # 建库
   CREATE DATABASE IF NOT EXISTS lock_test DEFAULT CHARSET utf8mb4;
   use lock_test;
+  # drop table if exists test_gap;
+  # 建表
   CREATE TABLE IF NOT EXISTS `test_gap`(
   	`id` int(11) NOT NULL AUTO_INCREMENT, 
   	`age` int(11) DEFAULT NULL, 
@@ -53,5 +56,9 @@
   	PRIMARY KEY (`id`), 
   	KEY `ix age` (`age`) 
   )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
+  # 插入数据
+  insert into test_gap(id,age)values
+  (10,10),(20,20),(30,30),(70,30),(80,31),(40,50);
+  
   ```
   准备
