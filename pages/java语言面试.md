@@ -126,5 +126,5 @@
 - [[java并发]]
   CopyOnWrite,COW写时复制机制
 - [[JVM]]
-- 新特性
+- [[Java新特性]]
 - [[java权威资料]]
