@@ -140,7 +140,42 @@
 	  前二个值是能插入的，第三个不行，原因很简单，29、51不在age范围内，39在范围内。
 	  看上去都是二级索引的边界值，主键索引按顺序排序，在gap边界外的应该是可以插入的
 	  (69,30),(41,50)在gap边界外可以插入，而(71,30),(39,50)在gap边界之内不可以插入
+	- 继续实验
+	  再开第二个session窗口执行如下插入数据
+	  ```
+	  insert into test_gap(id,age)values(null,29);
+	  insert into test_gap(id,age)values(null,51);
+	  insert into test_gap(id,age)values(null,39);
+	  
+	  insert into test_gap(id,age)values(69,30);
+	  insert into test_gap(id,age)values(41,50);
+	  insert into test_gap(id,age)values(71,30);
+	  insert into test_gap(id,age)values(39,50);
+	  ```
 	- 实验结果
+	  第二个session窗口执行结果如下
+	  ```
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(null,29);
+	  Query OK, 1 row affected
+	  Time: 0.043s
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(null,51);
+	  Query OK, 1 row affected
+	  Time: 0.003s
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(null,39);
+	  - (1205, 'Lock wait timeout exceeded; try restarting transaction')
+	  mysql root@localhost:lock_test>
+	  mysql root@localhost:lock_test>
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(69,30);
+	  Query OK, 1 row affected
+	  Time: 0.008s
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(41,50);
+	  Query OK, 1 row affected
+	  Time: 0.009s
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(71,30);
+	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(39,50);
+	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+	  ```
 	- 分析
 	- 结论
 	-
