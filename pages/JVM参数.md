@@ -46,6 +46,9 @@
   
   -XX:MaxGCPauseMillis|intx||每次年轻代垃圾回收的最长时间(最大暂停时间),G1垃圾收集器,如果无法满足此时间,JVM会自动调整年轻代大小,以满足此值
 - 打印
+  打印gc信息
+  -XX:PrintGCDetails|bool|false|打印详细GC日志模式
+  
   -XX:+PrintTenuringDistribution|bool|false|打印出当次 GC 后的 晋升老年代的年龄阈值
 -
 - 垃圾回收器
