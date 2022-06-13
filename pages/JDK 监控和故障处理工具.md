@@ -1,6 +1,9 @@
 - 背景知识
   LVMID:进程的本地虚拟机唯一 ID（Local Virtual Machine Identifier,LVMID）
 - 命令行工具
+	- 帮助选项
+	  <command> -help
+	  通用帮助参数查看jdk命令行工具帮助手册
 	- 1. jps(JVM Process Status）
 	  jps (JVM Process Status）: 类似 UNIX 的 ps 命令。用于查看所有 Java 进程的启动类、传入参数和 Java 虚拟机参数等信息；
 	  jps：显示虚拟机执行主类名称以及这些进程的本地虚拟机唯一 ID（Local Virtual Machine Identifier,LVMID）
@@ -207,6 +210,24 @@
 	  生成虚拟机当前时刻的线程快照，线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合。
 	  生成线程快照的作用:
 	  定位线程长时间出现停顿的原因，如线程间死锁、死循环、请求外部资源导致的长时间等待等都是导致线程长时间停顿的原因
+	  ```
+	  //mac jdk8
+	  Usage:
+	      jstack [-l] <pid>
+	          (to connect to running process)
+	      jstack -F [-m] [-l] <pid>
+	          (to connect to a hung process)
+	      jstack [-m] [-l] <executable> <core>
+	          (to connect to a core file)
+	      jstack [-m] [-l] [server_id@]<remote server IP or hostname>
+	          (to connect to a remote debug server)
+	  
+	  Options:
+	      -F  to force a thread dump. Use when jstack <pid> does not respond (process is hung)
+	      -m  to print both java and native frames (mixed mode)
+	      -l  long listing. Prints additional information about locks
+	      -h or -help to print this help message
+	  ```
 - JDK可视化分析工具
   JConsole
   Visual VM
