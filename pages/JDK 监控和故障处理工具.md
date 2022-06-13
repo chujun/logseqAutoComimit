@@ -120,6 +120,37 @@
 	-
 	- 4. jmap (Memory Map for Java)
 	  生成堆转储快照;
+	  jmap 的作用并不仅仅是为了获取 dump 文件，它还可以查询 finalizer 执行队列、Java 堆和永久代的详细信息，如空间使用率、当前使用的是哪种收集器等。
+	  ```
+	  Usage:
+	      jmap [option] <pid>
+	          (to connect to running process)
+	      jmap [option] <executable <core>
+	          (to connect to a core file)
+	      jmap [option] [server_id@]<remote server IP or hostname>
+	          (to connect to remote debug server)
+	  
+	  where <option> is one of:
+	      <none>               to print same info as Solaris pmap
+	      -heap                to print java heap summary
+	      -histo[:live]        to print histogram of java object heap; if the "live"
+	                           suboption is specified, only count live objects
+	      -clstats             to print class loader statistics
+	      -finalizerinfo       to print information on objects awaiting finalization
+	      -dump:<dump-options> to dump java heap in hprof binary format
+	                           dump-options:
+	                             live         dump only live objects; if not specified,
+	                                          all objects in the heap are dumped.
+	                             format=b     binary format
+	                             file=<file>  dump heap to <file>
+	                           Example: jmap -dump:live,format=b,file=heap.bin <pid>
+	      -F                   force. Use with -dump:<dump-options> <pid> or -histo
+	                           to force a heap dump or histogram when <pid> does not
+	                           respond. The "live" suboption is not supported
+	                           in this mode.
+	      -h | -help           to print this help message
+	      -J<flag>             to pass <flag> directly to the runtime system
+	  ```
 	- 5. jhat (JVM Heap Dump Browser) 
 	  用于分析 heapdump 文件，它会建立一个 HTTP/HTML 服务器，让用户可以在浏览器上查看分析结果;
 	- 6. jstack (Stack Trace for Java)
