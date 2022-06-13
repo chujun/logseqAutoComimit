@@ -54,12 +54,15 @@
 - 事务
   查询当前运行的所有事务
   ```
-  select * from information_schema.innodb_trx\G;
+  select * from information_schema.innodb_trx;
   ```
 - 锁
   查询锁信息
   ```
-  
+  # mysql8之前
    SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS;
+  # mysql8之后
+  select * from performance_schema.data_locks;
+  
   
   ```
