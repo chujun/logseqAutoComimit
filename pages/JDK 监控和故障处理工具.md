@@ -83,6 +83,11 @@
 	      -h | -help           to print this help message
 	  ```
 	  jinfo vmid :输出当前 jvm 进程的全部参数和系统属性 (第一部分是系统的属性，第二部分是 JVM 的参数)。
+	  jinfo -flag name vmid :输出对应名称的参数的具体值
+	  jinfo -flag [+|-]name vmid: 开启或者关闭对应名称的参数。
+	  jinfo     -flag <name>=<value>  vimid:动态设置对应名称的参数
+	  jinfo -flags vmid:打印jvm参数
+	  jinfo -sysprops：打印java系统属性
 	  
 	  ```
 	  //mac jdk8 ,网上建议升级jdk9版本以上
@@ -112,6 +117,7 @@
 	  	at sun.jvm.hotspot.debugger.bsd.BsdDebuggerLocal$1AttachTask.doit(BsdDebuggerLocal.java:278)
 	  	at sun.jvm.hotspot.debugger.bsd.BsdDebuggerLocal$BsdDebuggerLocalWorkerThread.run(BsdDebuggerLocal.java:144)
 	  ```
+	-
 	- 4. jmap (Memory Map for Java)
 	  生成堆转储快照;
 	- 5. jhat (JVM Heap Dump Browser) 
