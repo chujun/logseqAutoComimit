@@ -176,6 +176,13 @@
 	  mysql root@localhost:lock_test> insert into test_gap(id,age)values(39,50);
 	  (1205, 'Lock wait timeout exceeded; try restarting transaction')
 	  ```
-	- 分析
+	- 继续实验
+	  第二个窗口插入如下数据
+	  ```
+	  insert into test_gap(id,age)values(null,30);
+	  insert into test_gap(id,age)values(null,31);
+	  insert into test_gap(id,age)values(null,50);
+	  ```
+	-
 	- 结论
 	-
