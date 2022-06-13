@@ -51,4 +51,8 @@
   //修改mysql事务隔离级别为可重复读
   set session transaction isolation level repeatable read; 
   ```
--
+- 事务
+  查询当前运行的所有事务
+  ```
+  select * from information_schema.innodb_trx\G;
+  ```
