@@ -1,6 +1,8 @@
 - MVCC机制
 - InnoDB锁
-  InnoDB三种行级锁
+  表级锁和行级锁
+  ((62a706f1-751d-47c8-821a-eba8ed64715c)) 
+  InnoDB三种行级锁实现
   1.记录锁（Record Lock） ：也被称为记录锁，属于单个行记录上的锁。
   2. 间隙锁（Gap Lock） ：锁定一个范围，不包括记录本身。
   3. 临键锁（Next-key Lock） ：Record Lock+Gap Lock，锁定一个范围，包含记录本身。记录锁只能锁住已经存在的记录，为了避免插入新记录，需要依赖间隙锁。
