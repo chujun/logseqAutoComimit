@@ -65,9 +65,6 @@
 	  
 	  [jstat对各个options的输出列有说明含义](http://blog.itpub.net/31543790/viewspace-2657093/)
 	  
-	  
-	  
-	  
 	  举例
 	  1. 比如 jstat -gc -h3 31736 1000 10表示分析进程 id 为 31736 的 gc 情况，每隔 1000ms 打印一次记录，打印 10 次停止，每 3 行后打印指标头部。
 	  ![jstat gc示例.png](../assets/jstat_gc示例_1655044774239_0.png)
@@ -164,8 +161,52 @@
 	  ```
 	- 5. jhat (JVM Heap Dump Browser) 
 	  用于分析 heapdump 文件，它会建立一个 HTTP/HTML 服务器，让用户可以在浏览器上查看分析结果;
+	  ```
+	  //mac jdk8
+	  Usage:  jhat [-stack <bool>] [-refs <bool>] [-port <port>] [-baseline <file>] [-debug <int>] [-version] [-h|-help] <file>
+	  
+	  	-J<flag>          Pass <flag> directly to the runtime system. For
+	  			  example, -J-mx512m to use a maximum heap size of 512MB
+	  	-stack false:     Turn off tracking object allocation call stack.
+	  	-refs false:      Turn off tracking of references to objects
+	  	-port <port>:     Set the port for the HTTP server.  Defaults to 7000
+	  	-exclude <file>:  Specify a file that lists data members that should
+	  			  be excluded from the reachableFrom query.
+	  	-baseline <file>: Specify a baseline object dump.  Objects in
+	  			  both heap dumps with the same ID and same class will
+	  			  be marked as not being "new".
+	  	-debug <int>:     Set debug level.
+	  			    0:  No debug output
+	  			    1:  Debug hprof file parsing
+	  			    2:  Debug hprof file parsing, no server
+	  	-version          Report version number
+	  	-h|-help          Print this help and exit
+	  	<file>            The file to read
+	  
+	  For a dump file that contains multiple heap dumps,
+	  you may specify which dump in the file
+	  by appending "#<number>" to the file name, i.e. "foo.hprof#3".
+	  
+	  All boolean options default to "true"
+	  ```
+	  
+	  
+	  ```
+	  C:\Users\SnailClimb>jhat C:\Users\SnailClimb\Desktop\heap.hprof
+	  Reading from C:\Users\SnailClimb\Desktop\heap.hprof...
+	  Dump file created Sat May 04 12:30:31 CST 2019
+	  Snapshot read, resolving...
+	  Resolving 131419 objects...
+	  Chasing references, expect 26 dots..........................
+	  Eliminating duplicate references..........................
+	  Snapshot resolved.
+	  Started HTTP server on port 7000
+	  Server is ready.
+	  ```
 	- 6. jstack (Stack Trace for Java)
 	  生成虚拟机当前时刻的线程快照，线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合。
+	  生成线程快照的作用:
+	  定位线程长时间出现停顿的原因，如线程间死锁、死循环、请求外部资源导致的长时间等待等都是导致线程长时间停顿的原因
 - JDK可视化分析工具
   JConsole
   Visual VM
