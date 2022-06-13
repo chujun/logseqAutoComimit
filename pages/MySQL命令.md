@@ -56,3 +56,10 @@
   ```
   select * from information_schema.innodb_trx\G;
   ```
+- 锁
+  查询锁信息
+  ```
+  
+   SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS;
+  
+  ```

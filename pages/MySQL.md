@@ -165,7 +165,11 @@
   存储过程难以调试和扩展，更没有可迁移性。
   
   100. 【强制】使用utf8mb4编码方式
-- [[MySQL命令]]
+- 事务
+  查询当前运行的所有事务
+  ```
+  select * from information_schema.innodb_trx\G;
+  ```
 - 资料
   [深入理解数据库行锁与表锁](https://zhuanlan.zhihu.com/p/52678870)
   书籍
