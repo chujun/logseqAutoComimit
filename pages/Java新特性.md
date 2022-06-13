@@ -50,8 +50,25 @@
   HTTP Client 标准化
   
   JVM
-  ZGC
+  ZGC实验性质
+  
+  功能
+  启动单文件源代码程序
+  
+  安全:
+  TLS1.3 协议
 - jdk12
+  java语法
+  增强 Switch
+  ```java
+  switch (day) {
+      case MONDAY, FRIDAY, SUNDAY -> System.out.println(6);
+      case TUESDAY                -> System.out.println(7);
+      case THURSDAY, SATURDAY     -> System.out.println(8);
+      case WEDNESDAY              -> System.out.println(9);
+  }
+  ```
+  instanceof 模式匹配
 - jdk13
 - jdk14
 - jdk15
