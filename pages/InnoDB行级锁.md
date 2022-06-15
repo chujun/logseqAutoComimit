@@ -298,7 +298,7 @@
   Time: 0.003s
   ```
   第二个实验:表锁实验
-  第一个窗口session更新非索引字段的记录
+  第一个窗口session更新记录，条件是非索引字段，不提交事务。
   ```
   begin;
   update innodb_lock_test set money=500 where money =500;
