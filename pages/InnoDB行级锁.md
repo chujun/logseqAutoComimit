@@ -243,6 +243,7 @@
 	  32:没有满足条件的数据
 	- 分析
 	- 结论
-- 临键锁实验B
+- InnoDB锁实验
   [深入理解数据库行锁与表锁](https://zhuanlan.zhihu.com/p/52678870)
+  系统准备：mac mysql
   TODO:继续实验
