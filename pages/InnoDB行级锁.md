@@ -296,4 +296,4 @@
   Query OK, 0 rows affected
   Time: 0.003s
   ```
-  第二个实验:间隙锁实验
+  第二个实验:表锁实验
