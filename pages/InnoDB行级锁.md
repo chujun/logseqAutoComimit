@@ -257,13 +257,14 @@
   	`id` int(11) NOT NULL AUTO_INCREMENT, 
   	`user_id` int(11) NOT NULL, 
       `money` int(11) DEFAULT NULL, 
-  	`user_name` varchar(10) NOT NULL, 
+  	`user_name` varchar(30) NOT NULL, 
       `email` varchar(30) NOT NULL, 
   	PRIMARY KEY (`id`), 
-  	KEY `idx age` (`user_id`),
+  	KEY `idx_age` (`user_id`),
       KEY `idx_email` (`email`),
   )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
   # 插入数据
-  insert into test_gap(id,_id,money,user_name,email)values
-  (1,2628,100,'zhangsan','123456@qq.com'),(3,2629,200,'lisi','2345@qq.com'),(5,),(70,30),(80,31),(40,50);
+  insert into test_gap(id,user_id,money,user_name,email)values
+  (1,2628,100,'zhangsan','123456@qq.com'),(3,2629,200,'lisi','2345@qq.com'),
+  (5,2630,100,'wangwu','123456@qq.com'),(7,1,500,'zhaoliu','5678@qq.com');
   ```
