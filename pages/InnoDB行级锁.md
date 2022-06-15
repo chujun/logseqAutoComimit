@@ -367,7 +367,7 @@
   
   ```
   begin;
-  update innodb_lock_test set user_name='mdofy' where email='123456@qq.com';
+  update innodb_lock_test sxet user_name='mdofy' where email='123456@qq.com';
   ```
   
   查看事务对应的锁信息
