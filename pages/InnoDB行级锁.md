@@ -359,6 +359,7 @@
   (1205, 'Lock wait timeout exceeded; try restarting transaction')
   ```
   第三个实验:间隙锁
+  间隙锁的区间范围是左开右闭区间。
   
   
   第四个实验:临键锁
