@@ -5,4 +5,5 @@
 - 间隙锁
   间隙锁是锁在索引记录间隙上的锁，或者锁在第一个索引记录之前的间隙，最后一个索引记录之后的间隙。
   间隙区间:(negative infinity,第一个索引记录),(第一个索引记录，第二个索引记录)。。。。(最后一个索引记录，positive infinity)
+  SELECT c1 FROM t WHERE c1 BETWEEN 10 and 20 FOR UPDATE; 会锁住区间(10,20),会阻止c1=15的插入
 - 临键锁
