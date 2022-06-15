@@ -286,3 +286,13 @@
   | INNODB | 140233293675848:353:4:3:140233568248352 | 66238                 | 71        | 38       | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248352       | RECORD    | X,REC_NOT_GAP | GRANTED     | 3         |
   +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+---------------+-------------+-----------+
   ```
+  从中可以看出存在一个意向排他锁和一个记录锁(非间隙排他锁，也就是记录锁)，只锁住了id为3的一行记录。
+  此时打开第二个session窗口执行如下命令
+  ```
+  begin;
+  update innodb_lock_test set money=500 where id=3;
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  update innodb_lock_test set money=500 where id=2;
+  Query OK, 0 rows affected
+  Time: 0.003s
+  ```
