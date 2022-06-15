@@ -95,6 +95,11 @@
 	  SELECT ... FOR UPDATE;
 	  ```
 	- 乐观锁和悲观锁
+	  id:: 62a71f54-d41b-4777-bdf7-3111e710015b
+	  select语句添加悲观锁
+	  ```
+	  select * from innodb_lock_test where id=1 for update;
+	  ```
 	  ![image.png](../assets/image_1655119789523_0.png){:height 285, :width 698}
 	- 表级锁和行级锁
 	  id:: 62a706f1-751d-47c8-821a-eba8ed64715c

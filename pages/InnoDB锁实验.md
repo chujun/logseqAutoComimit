@@ -34,15 +34,25 @@
   ```
   select * from performance_schema.data_locks;
   ```
-  3.关闭自动提交事务
+  3.select语句添加悲观锁
+  select * from innodb_lock_test where id=1 for update;
+  4.关闭自动提交事务
   ```
   
   ```
-  select * from innodb_lock_test where id=1 
+  select * from innodb_lock_test where id=1 for update;
   update innodb_lock_test set money=10000 where id=1;
   insert into innodb_lock_test(id,user_id,money,user_name)values(1,5,100,'aa');
 - 唯一索引字段实验
   单个等值匹配
+  第一个session窗口执行如下命令,
+  ```
+  begin;
+  update innodb_lock_test set money=10000 where id=1;
+  ```
+  ```
+  
+  ```
   多个等值匹配
   范围匹配不存在满足条件数据
   范围匹配存在满足条件数据
