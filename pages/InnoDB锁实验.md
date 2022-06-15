@@ -52,11 +52,20 @@
   sql语句;
   11. 实验结果
   12. 实验结果分析
-  a. (1205, 'Lock wait timeout exceeded; try restarting transaction') 表示
+  a结果一 
+  (1205, 'Lock wait timeout exceeded; try restarting transaction') 
+  表示锁资源已经被第一个session锁住，等待锁资源超时
+  b.结果二
+  ```
+   update innodb_lock_test set money=500 where id=1;
+  6 rows in set
+  Time: 0.009s
+  ```
+  锁资源没有被第一个session锁住,sql语句可以正常执行
   13. 实验结论
 - 唯一索引字段实验
   单个等值匹配
-  第一个session窗口执行如下命令,
+  
   ```
   begin;
   update innodb_lock_test set money=10000 where id=1;
