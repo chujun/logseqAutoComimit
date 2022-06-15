@@ -69,6 +69,10 @@
    SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS;
   # mysql8之后
   select * from performance_schema.data_locks;
-  
-  
   ```
+  
+  LOCK_MODE列说明
+  IX:意向排他锁
+  X:
+  X,REC_NOT_GAP:非间隙排他锁
+  X,GAP:间隙排他锁
