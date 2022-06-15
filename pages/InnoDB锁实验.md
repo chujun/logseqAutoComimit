@@ -246,19 +246,53 @@
   范围匹配存在满足条件数据包含左节点
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10000 where id>=10 and id<55;
   ```
   2. 查看事务锁信息
   ```
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+---------------+-------------+-----------+
+  | ENGINE | ENGINE_LOCK_ID                          | ENGINE_TRANSACTION_ID | THREAD_ID | EVENT_ID | OBJECT_SCHEMA | OBJECT_NAME      | PARTITION_NAME | SUBPARTITION_NAME | INDEX_NAME | OBJECT_INSTANCE_BEGIN | LOCK_TYPE | LOCK_MODE     | LOCK_STATUS | LOCK_DATA |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+---------------+-------------+-----------+
+  | INNODB | 140233293675848:1622:140233557539392    | 66692                 | 79        | 105      | lock_test     | innodb_lock_test | <null>         | <null>            | <null>     | 140233557539392       | TABLE     | IX            | GRANTED     | <null>    |
+  | INNODB | 140233293675848:365:4:3:140233568248352 | 66692                 | 79        | 105      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248352       | RECORD    | X,REC_NOT_GAP | GRANTED     | 10        |
+  | INNODB | 140233293675848:365:4:4:140233568248696 | 66692                 | 79        | 105      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248696       | RECORD    | X             | GRANTED     | 50        |
+  | INNODB | 140233293675848:365:4:5:140233568249040 | 66692                 | 79        | 105      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568249040       | RECORD    | X,GAP         | GRANTED     | 70        |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+---------------+-------------+-----------+
   ```
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(11,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(52,5,100,'aa');
+  update innodb_lock_test set money=10001 where id=10;
+  update innodb_lock_test set money=10001 where id=50;
+  
+  # 容易出错区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(65,5,100,'aa');
+  
+  # 成功区
+  update innodb_lock_test set money=10001 where id=1;
+  update innodb_lock_test set money=10001 where id=70;
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(2,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(71,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(81,5,100,'aa');
   ```
-  11. 实验结果截图12. 实验结果分析13. 实验结论
+  11. 实验结果截图
+  12. 实验结果分析
+  13. 实验结论
   
   范围匹配存在满足条件数据包含右节点
-  1. 第一个session窗口关闭自动提交事务，执行如下sql语句``````2. 查看事务锁信息``````3. 分析sql语句锁10. 第二个session窗口进行实验，执行如下sql语句```#失败区#成功区```11. 实验结果截图12. 实验结果分析13. 实验结论
+  1. 第一个session窗口关闭自动提交事务，执行如下sql语句
+  ```
+  ```
+  2. 查看事务锁信息
+  ```
+  ```
+  3. 分析sql语句锁10. 第二个session窗口进行实验，执行如下sql语句
+  ```#失败区#成功区```11. 实验结果截图12. 实验结果分析13. 实验结论
   
   范围匹配存在满足条件数据右区间无限大
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
