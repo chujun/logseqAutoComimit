@@ -328,14 +328,41 @@
   范围匹配存在满足条件数据右区间无限大
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10000 where id>15 and id<=100;
+  
   ```
   2. 查看事务锁信息
   ```
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+-----------+-------------+------------------------+
+  | ENGINE | ENGINE_LOCK_ID                          | ENGINE_TRANSACTION_ID | THREAD_ID | EVENT_ID | OBJECT_SCHEMA | OBJECT_NAME      | PARTITION_NAME | SUBPARTITION_NAME | INDEX_NAME | OBJECT_INSTANCE_BEGIN | LOCK_TYPE | LOCK_MODE | LOCK_STATUS | LOCK_DATA              |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+-----------+-------------+------------------------+
+  | INNODB | 140233293675848:1624:140233557539392    | 66780                 | 79        | 115      | lock_test     | innodb_lock_test | <null>         | <null>            | <null>     | 140233557539392       | TABLE     | IX        | GRANTED     | <null>                 |
+  | INNODB | 140233293675848:367:4:1:140233568248352 | 66780                 | 79        | 115      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248352       | RECORD    | X         | GRANTED     | supremum pseudo-record |
+  | INNODB | 140233293675848:367:4:4:140233568248352 | 66780                 | 79        | 115      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248352       | RECORD    | X         | GRANTED     | 50                     |
+  | INNODB | 140233293675848:367:4:5:140233568248352 | 66780                 | 79        | 115      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248352       | RECORD    | X         | GRANTED     | 70                     |
+  | INNODB | 140233293675848:367:4:6:140233568248352 | 66780                 | 79        | 115      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248352       | RECORD    | X         | GRANTED     | 80                     |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+-----------+-------------+------------------------+
   ```
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(11,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(95,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(105,5,100,'aa');
+  
+  
+  update innodb_lock_test set money=10001 where id=50;
+  
+  
+  # 成功区
+  
+  update innodb_lock_test set money=10001 where id=1;
+  update innodb_lock_test set money=10001 where id=10;
+  
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(2,5,100,'aa');
   ```
   11. 实验结果截图
   12. 实验结果分析
