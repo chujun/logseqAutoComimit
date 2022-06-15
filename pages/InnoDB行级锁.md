@@ -359,6 +359,31 @@
   (1205, 'Lock wait timeout exceeded; try restarting transaction')
   ```
   第三个实验:间隙锁
+  
+  第四个实验:临键锁
+  临键锁=记录锁+间隙锁
+  
+  第一个session窗口执行如下命令,更新记录，条件是索引字段，命中记录1和5。
+  
+  ```
+  begin;
+  update innodb_lock_test set user_name='mdofy' where email='123456@qq.com';
+  ```
+  
+  查看事务对应的锁信息
+  ```
+  select * from performance_schema.data_locks;
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+---------------+-------------+--------------------+
+  | ENGINE | ENGINE_LOCK_ID                          | ENGINE_TRANSACTION_ID | THREAD_ID | EVENT_ID | OBJECT_SCHEMA | OBJECT_NAME      | PARTITION_NAME | SUBPARTITION_NAME | INDEX_NAME | OBJECT_INSTANCE_BEGIN | LOCK_TYPE | LOCK_MODE     | LOCK_STATUS | LOCK_DATA          |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+---------------+-------------+--------------------+
+  | INNODB | 140233293675848:1612:140233557539392    | 66320                 | 79        | 9        | lock_test     | innodb_lock_test | <null>         | <null>            | <null>     | 140233557539392       | TABLE     | IX            | GRANTED     | <null>             |
+  | INNODB | 140233293675848:355:6:2:140233568248352 | 66320                 | 79        | 9        | lock_test     | innodb_lock_test | <null>         | <null>            | idx_email  | 140233568248352       | RECORD    | X             | GRANTED     | '123456@qq.com', 1 |
+  | INNODB | 140233293675848:355:6:4:140233568248352 | 66320                 | 79        | 9        | lock_test     | innodb_lock_test | <null>         | <null>            | idx_email  | 140233568248352       | RECORD    | X             | GRANTED     | '123456@qq.com', 5 |
+  | INNODB | 140233293675848:355:4:2:140233568248696 | 66320                 | 79        | 9        | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248696       | RECORD    | X,REC_NOT_GAP | GRANTED     | 1                  |
+  | INNODB | 140233293675848:355:4:4:140233568248696 | 66320                 | 79        | 9        | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248696       | RECORD    | X,REC_NOT_GAP | GRANTED     | 5                  |
+  | INNODB | 140233293675848:355:6:3:140233568249040 | 66320                 | 79        | 9        | lock_test     | innodb_lock_test | <null>         | <null>            | idx_email  | 140233568249040       | RECORD    | X,GAP         | GRANTED     | '2345@qq.com', 3   |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+---------------+-------------+--------------------+
+  ```
 -
 -
 -
