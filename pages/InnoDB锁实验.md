@@ -204,6 +204,8 @@
   范围匹配存在满足条件数据
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10000 where id>5 and id<55;
   ```
   2. 查看事务锁信息
   ```
@@ -219,7 +221,22 @@
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(11,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(52,5,100,'aa');
+  update innodb_lock_test set money=10001 where id=10;
+  update innodb_lock_test set money=10001 where id=50;
+  
+  # 容易出错区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(2,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(65,5,100,'aa');
+  
+  # 成功区
+  update innodb_lock_test set money=10001 where id=1;
+  update innodb_lock_test set money=10001 where id=70;
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(71,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(81,5,100,'aa');
   ```
   11. 实验结果截图
   12. 实验结果分析
@@ -281,3 +298,5 @@
   
   范围匹配存在满足条件数据右区间无限大
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句``````2. 查看事务锁信息``````3. 分析sql语句锁10. 第二个session窗口进行实验，执行如下sql语句```#失败区#成功区```11. 实验结果截图12. 实验结果分析13. 实验结论
+- 实验结论
+  间隙锁锁住的GAP间隙范围不是索引值对应的范围
