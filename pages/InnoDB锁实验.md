@@ -392,7 +392,28 @@
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  update innodb_lock_test set money=10001 where id=50;
+  
+  update innodb_lock_test set money=10001 where user_name='cc';
+  
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(2,5,100,'cc');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(49,5,100,'cd');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(51,5,100,'cd');
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(49,5,100,'bc');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(51,5,100,'bc');
+  
+  
+  # 成功区
+  update innodb_lock_test set money=10001 where id=10;
+  update innodb_lock_test set money=10001 where id=70;
+  update innodb_lock_test set money=10001 where user_name='bb';
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(11,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(55,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(56,5,100,'ee');
   ```
   11. 实验结果截图
   12. 实验结果分析
