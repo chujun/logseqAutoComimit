@@ -245,5 +245,23 @@
 	- 结论
 - InnoDB锁实验
   [深入理解数据库行锁与表锁](https://zhuanlan.zhihu.com/p/52678870)
-  系统准备：mac mysql
-  TODO:继续实验
+  系统准备：mac mysql8
+  建库建表脚本
+  ```shell
+  # 建库
+  CREATE DATABASE IF NOT EXISTS lock_test DEFAULT CHARSET utf8mb4;
+  use lock_test;
+  drop table if exists innodb_lock_test;
+  # 建表
+  CREATE TABLE IF NOT EXISTS `innodb_lock_test`(
+  	`id` int(11) NOT NULL AUTO_INCREMENT, 
+  	`user_id` int(11) NOT NULL, 
+      `money` int(11) DEFAULT NULL, 
+  	`name` varchar(10) DEFAULT NULL, 
+  	PRIMARY KEY (`id`), 
+  	KEY `ix age` (`age`) 
+  )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
+  # 插入数据
+  insert into test_gap(id,age)values
+  (10,10),(20,20),(30,30),(70,30),(80,31),(40,50);
+  ```
