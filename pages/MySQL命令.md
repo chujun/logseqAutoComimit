@@ -76,3 +76,6 @@
   X:
   X,REC_NOT_GAP:非间隙排他锁
   X,GAP:间隙排他锁
+  LOCK_DATA列说明
+  supremum pseudo-record :表示MySQL决定锁定最大间隙范围
+  这儿的表锁相当于对所有记录加了记录锁和最大范围的间隙锁。
