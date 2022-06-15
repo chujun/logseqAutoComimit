@@ -11,10 +11,11 @@
   性能和并发之间的平衡
   适用的事务隔离级别:可重复读，(已提交读不适用)
   
-  SELECT * FROM child WHERE uid = 100;
+  SELECT * FROM child WHERE uid = 100 for update;
   等值匹配
   uid是唯一索引，则触发的是记录锁
   uid存在非唯一索引，则触发间隙锁。
+  uid不是索引字段，也则触发间隙锁，全表扫描
 - 临键锁
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
