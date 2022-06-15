@@ -56,6 +56,11 @@
   ```
   select * from information_schema.innodb_trx;
   ```
+  
+  session窗口关闭自动提交事务
+  ```
+  set autocommit=0;
+  ```
 - 锁
   查询锁信息
   ```

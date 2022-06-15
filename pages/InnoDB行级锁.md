@@ -257,9 +257,11 @@
   	`id` int(11) NOT NULL AUTO_INCREMENT, 
   	`user_id` int(11) NOT NULL, 
       `money` int(11) DEFAULT NULL, 
-  	`name` varchar(10) DEFAULT NULL, 
+  	`user_name` varchar(10) NOT NULL, 
+      `email` varchar(30) NOT NULL, 
   	PRIMARY KEY (`id`), 
-  	KEY `ix age` (`age`) 
+  	KEY `idx age` (`user_id`),
+      KEY `idx_email` (`email`),
   )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
   # 插入数据
   insert into test_gap(id,age)values
