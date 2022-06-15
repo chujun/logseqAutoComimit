@@ -259,12 +259,12 @@
       `money` int(11) DEFAULT NULL, 
   	`user_name` varchar(30) NOT NULL, 
       `email` varchar(30) NOT NULL, 
-  	PRIMARY KEY (`id`), 
-  	KEY `idx_age` (`user_id`),
-      KEY `idx_email` (`email`),
+  	PRIMARY KEY(`id`), 
+  	KEY `idx_uid`(`user_id`),
+      KEY `idx_email`(`email`)
   )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
   # 插入数据
-  insert into test_gap(id,user_id,money,user_name,email)values
+  insert into innodb_lock_test(id,user_id,money,user_name,email)values
   (1,2628,100,'zhangsan','123456@qq.com'),(3,2629,200,'lisi','2345@qq.com'),
   (5,2630,100,'wangwu','123456@qq.com'),(7,1,500,'zhaoliu','5678@qq.com');
   ```
