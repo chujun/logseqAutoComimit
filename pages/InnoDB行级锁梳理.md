@@ -12,4 +12,4 @@
   适用的事务隔离级别:可重复读，(已提交读不适用)
 - 临键锁
 - 资料
-  [官网文档mysql](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
+  [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
