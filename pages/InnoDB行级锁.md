@@ -16,7 +16,7 @@
   ```
   //设置事务隔离级别为不可重复读
   set session transaction isolation level read committed;
-  //查看当前事务级别
+  //my5.7查看当前事务级别
   SELECT @@tx_isolation
   ```
   打开两个窗口，在窗口A中我们根据id做一个范围更改操作，不提交事务，然后在范围B中插入一条记录，该记录的id值位于窗口A中的条件范围内
@@ -268,7 +268,15 @@
   (1,2628,100,'zhangsan','123456@qq.com'),(3,2629,200,'lisi','2345@qq.com'),
   (5,2630,100,'wangwu','123456@qq.com'),(7,1,500,'zhaoliu','5678@qq.com');
   ```
-  
+  session隔离级别是可重复读
+  ```
+  SELECT @@transaction_isolation;
+  +-------------------------+
+  | @@transaction_isolation |
+  +-------------------------+
+  | REPEATABLE-READ         |
+  +-------------------------+
+  ```
   第一个实验:行锁实验
   第一个session窗口执行如下命令
   
