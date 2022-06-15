@@ -173,12 +173,26 @@
   ```
   2. 查看事务锁信息
   ```
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+-----------+-------------+-----------+
+  | ENGINE | ENGINE_LOCK_ID                          | ENGINE_TRANSACTION_ID | THREAD_ID | EVENT_ID | OBJECT_SCHEMA | OBJECT_NAME      | PARTITION_NAME | SUBPARTITION_NAME | INDEX_NAME | OBJECT_INSTANCE_BEGIN | LOCK_TYPE | LOCK_MODE | LOCK_STATUS | LOCK_DATA |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+-----------+-------------+-----------+
+  | INNODB | 140233293675848:1619:140233557539392    | 66582                 | 79        | 95       | lock_test     | innodb_lock_test | <null>         | <null>            | <null>     | 140233557539392       | TABLE     | IX        | GRANTED     | <null>    |
+  | INNODB | 140233293675848:362:4:4:140233568248352 | 66582                 | 79        | 95       | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248352       | RECORD    | X,GAP     | GRANTED     | 50        |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+-----------+-------------+-----------+
   ```
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区
-  #成功区
+  # 失败区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(11,5,100,'aa');
+  
+  
+  # 成功区
+  update innodb_lock_test set money=10001 where id=1;
+  update innodb_lock_test set money=10000 where id=10;
+  update innodb_lock_test set money=10001 where id=50;
+  insert into innodb_lock_test(id,user_id,money,user_name)values(2,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(71,5,100,'aa');
   ```
   11. 实验结果
   截图
