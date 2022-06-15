@@ -438,4 +438,5 @@
   实验结果正如我们分析的一样
 -
 -
--
+- 资料
+  [mysql8官网文档资料](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
