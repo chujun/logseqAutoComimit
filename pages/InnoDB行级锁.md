@@ -264,6 +264,6 @@
       KEY `idx_email` (`email`),
   )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
   # 插入数据
-  insert into test_gap(id,age)values
-  (10,10),(20,20),(30,30),(70,30),(80,31),(40,50);
+  insert into test_gap(id,_id,money,user_name,email)values
+  (1,2628,100,'zhangsan','123456@qq.com'),(3,2629,200,'lisi','2345@qq.com'),(5,),(70,30),(80,31),(40,50);
   ```
