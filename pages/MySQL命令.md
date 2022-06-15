@@ -62,6 +62,7 @@
   set autocommit=0;
   ```
 - 锁
+  id:: 62a743b4-a95b-4cde-ad09-cbe414c22306
   查询锁信息
   ```
   # mysql8之前

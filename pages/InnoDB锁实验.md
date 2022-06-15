@@ -23,31 +23,39 @@
   (1,5,100,'aa'),(10,15,200,'bb'),
   (50,55,200,'cc'),(70,70,500,'dd'),(80,85,150,'bb');
   ```
-- 前置学习
+- 背景知识
   1. 查看mysql session事务隔离级别命令
    ((62a704aa-f1a1-478d-a685-adc86f7be7d9))
   ```
   SELECT @@transaction_isolation;
   ```
   2. 查询mysql事务对应锁信息命令
+  ((62a743b4-a95b-4cde-ad09-cbe414c22306)) 
   ```
   select * from performance_schema.data_locks;
   ```
-- 唯一索引字段
+  3.关闭自动提交事务
+  ```
+  
+  ```
+  select * from innodb_lock_test where id=1 
+  update innodb_lock_test set money=10000 where id=1;
+  insert into innodb_lock_test(id,user_id,money,user_name)values(1,5,100,'aa');
+- 唯一索引字段实验
   单个等值匹配
   多个等值匹配
   范围匹配不存在满足条件数据
   范围匹配存在满足条件数据
   范围匹配存在满足条件数据包含左节点
   范围匹配存在满足条件数据包含右节点
-- 非唯一索引字段
+- 非唯一索引字段实验
   单个等值匹配
   多个等值匹配
   范围匹配不存在满足条件数据
   范围匹配存在满足条件数据
   范围匹配存在满足条件数据包含左节点
   范围匹配存在满足条件数据包含右节点
-- 非索引字段
+- 非索引字段实验
   单个等值匹配
   多个等值匹配
   范围匹配不存在满足条件数据
