@@ -301,10 +301,25 @@
   +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+-----------+-------------+-----------+
   ```
   3. 分析sql语句锁
-  TODO疑问：这个锁信息就有点奇怪
+  TODO疑问：这个锁信息就有点奇怪,实际执行结果有间隙锁，但是锁信息里面看不出来
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(11,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(65,5,100,'aa');
+  
+  
+  update innodb_lock_test set money=10001 where id=50;
+  update innodb_lock_test set money=10001 where id=70;
+  
+  # 成功区
+  
+  update innodb_lock_test set money=10001 where id=1;
+  update innodb_lock_test set money=10001 where id=10;
+  
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(2,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(71,5,100,'aa');
   ```
   11. 实验结果截图
   12. 实验结果分析
