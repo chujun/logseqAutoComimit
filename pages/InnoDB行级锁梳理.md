@@ -18,5 +18,6 @@
   uid存在非唯一索引，则触发间隙锁。
   uid不是索引字段，也则触发间隙锁，全表扫描
 - 临键锁
+  临键锁是记录锁和间隙锁的组合
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
