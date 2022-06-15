@@ -413,7 +413,7 @@
   Query OK, 1 row affected
   Time: 0.003s
   ```
-  实验结果正如
+  实验结果正如我们分析的一样
 -
 -
 -
