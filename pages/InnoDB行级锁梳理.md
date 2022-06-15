@@ -9,6 +9,7 @@
   SELECT c1 FROM t WHERE c1 BETWEEN 10 and 20 FOR UPDATE; 会锁住区间(10,20),会阻止c1=15的插入,无论列是否存在这个值
   为什么引入间隙锁？
   性能和并发之间的平衡
+  阻止其他事务插入数据到这个间隙当中
   适用的事务隔离级别:可重复读，(已提交读不适用)
   
   SELECT * FROM child WHERE uid = 100 for update;
