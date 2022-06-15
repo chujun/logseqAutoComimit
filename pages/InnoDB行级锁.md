@@ -384,7 +384,17 @@
   2. 行锁排他间隙锁，锁定范围基于id=3的区间
   第二个session窗口执行如下命令
   ```
-  
+  无法获取锁
+  insert into innodb_lock_test values(2,2,100,'wangqi','111@qq.com');
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  # 可以获取锁
+  update innodb_lock_test set money=200 where id=1;
+  Query OK, 0 rows affected
+  Time: 0.001s
+  # 锁定左开右闭区间意味着无法获取锁，然后实际上可以获取到锁
+  update innodb_lock_test set money=200 where id=3;
+  Query OK, 0 rows affected
+  Time: 0.001s
   ```
   
   第四个实验:临键锁
