@@ -132,6 +132,8 @@
   多个等值匹配
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10000 where id in(10,70);
   ```
   2. 查看事务锁信息
   ```
@@ -144,10 +146,21 @@
   +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+---------------+-------------+-----------+
   ```
   3. 分析sql语句锁
+  
+  
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区
-  #成功区
+  # 失败区
+  update innodb_lock_test set money=10000 where id=10;
+  update innodb_lock_test set money=10000 where id=70;
+  
+  # 成功区
+  update innodb_lock_test set money=10001 where id=1;
+  update innodb_lock_test set money=10001 where id=50;
+  insert into innodb_lock_test(id,user_id,money,user_name)values(2,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(11,5,100,'aa');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(71,5,100,'aa');
+  
   ```
   11. 实验结果
   截图
