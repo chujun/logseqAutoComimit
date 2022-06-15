@@ -28,6 +28,11 @@
    ((62a704aa-f1a1-478d-a685-adc86f7be7d9))
   ```
   SELECT @@transaction_isolation;
+  +-------------------------+
+  | @@transaction_isolation |
+  +-------------------------+
+  | REPEATABLE-READ         |
+  +-------------------------+
   ```
   2. 查询mysql事务对应锁信息命令
   ((62a743b4-a95b-4cde-ad09-cbe414c22306)) 
@@ -38,12 +43,22 @@
   select * from innodb_lock_test where id=1 for update;
   4.关闭自动提交事务
   ```
-  
+  begin;
+  sql语句;
   ```
   select * from innodb_lock_test where id=1 for update;
   update innodb_lock_test set money=10000 where id=1;
   insert into innodb_lock_test(id,user_id,money,user_name)values(1,5,100,'aa');
 - 实验步骤说明
+  0. 前置条件:所有实验均处在可重复读事务隔离级别下
+  ```
+  SELECT @@transaction_isolation;
+  +-------------------------+
+  | @@transaction_isolation |
+  +-------------------------+
+  | REPEATABLE-READ         |
+  +-------------------------+
+  ```
   1. 第一个session窗口关闭自动提交事务，
   begin;
   更新语句;
