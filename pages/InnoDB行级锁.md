@@ -318,8 +318,28 @@
   | INNODB | 140233293675848:354:4:5:140233568248352 | 66271                 | 71        | 47       | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY    | 140233568248352       | RECORD    | X         | GRANTED     | 7                      |
   +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+------------+-----------------------+-----------+-----------+-------------+------------------------+
   ```
-  什么是supremum pseudo-record？
-  supremum pseudo-record :相当于比索引中所有值都大，但却不存在索引中，相当于最后一行之后的间隙锁
+  什么是LOCK DATA supremum pseudo-record？
+  supremum pseudo-record :表示MySQL决定锁定最大间隙范围
+  
   第二个session窗口执行如下命令
+  ```
+  update innodb_lock_test set money=500 where id=1;
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  
+  # 因为没有对应2的记录，不需要加锁，直接返回了
+  update innodb_lock_test set money=500 where id=2;
+  Query OK, 0 rows affected
+  Time: 0.001s
+  
+  update innodb_lock_test set money=500 where id=3;
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  
+  insert into innodb_lock_test values(8,2,100,'wangqi','545@qq.com');
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  
+  insert into innodb_lock_test values(2,2,100,'wangqi','545@qq.com');
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  ```
+-
 -
 -
