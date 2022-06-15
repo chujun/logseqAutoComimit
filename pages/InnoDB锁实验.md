@@ -19,11 +19,20 @@
       KEY `idx_user_name`(`user_name`)
   )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
   # 插入数据
-  insert into innodb_lock_test(id,user_id,money,user_name,email)values
+  insert into innodb_lock_test(id,user_id,money,user_name)values
   (1,5,100,'aa'),(10,15,200,'bb'),
   (50,55,200,'cc'),(70,70,500,'dd'),(80,85,150,'bb');
   ```
--
+- 前置学习
+  1. 查看mysql session事务隔离级别命令
+   ((62a704aa-f1a1-478d-a685-adc86f7be7d9))
+  ```
+  SELECT @@transaction_isolation;
+  ```
+  2. 查询mysql事务对应锁信息命令
+  ```
+  select * from performance_schema.data_locks;
+  ```
 - 唯一索引字段
   单个等值匹配
   多个等值匹配
