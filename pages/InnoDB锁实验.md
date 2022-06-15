@@ -43,6 +43,17 @@
   select * from innodb_lock_test where id=1 for update;
   update innodb_lock_test set money=10000 where id=1;
   insert into innodb_lock_test(id,user_id,money,user_name)values(1,5,100,'aa');
+- 实验步骤说明
+  1. 第一个session窗口关闭自动提交事务，
+  begin;
+  更新语句;
+  2. 查看事务锁信息
+  10. 第二个session窗口进行实验
+  sql语句;
+  11. 实验结果
+  12. 实验结果分析
+  a. (1205, 'Lock wait timeout exceeded; try restarting transaction') 表示
+  13. 实验结论
 - 唯一索引字段实验
   单个等值匹配
   第一个session窗口执行如下命令,
