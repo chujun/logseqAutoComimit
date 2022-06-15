@@ -10,6 +10,11 @@
   为什么引入间隙锁？
   性能和并发之间的平衡
   适用的事务隔离级别:可重复读，(已提交读不适用)
+  
+  SELECT * FROM child WHERE uid = 100;
+  等值匹配
+  uid是唯一索引，则触发的是记录锁
+  uid存在非唯一索引，则触发间隙锁。
 - 临键锁
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
