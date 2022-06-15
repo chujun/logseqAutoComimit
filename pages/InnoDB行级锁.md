@@ -320,6 +320,7 @@
   ```
   什么是LOCK DATA supremum pseudo-record？
   supremum pseudo-record :表示MySQL决定锁定最大间隙范围
+  这儿的表锁相当于对所有记录加了记录锁和最大范围的间隙锁。
   
   第二个session窗口执行如下命令
   ```
@@ -340,6 +341,7 @@
   insert into innodb_lock_test values(2,2,100,'wangqi','545@qq.com');
   (1205, 'Lock wait timeout exceeded; try restarting transaction')
   ```
+  第三个实验:间隙锁
 -
 -
 -
