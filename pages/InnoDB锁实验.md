@@ -113,11 +113,15 @@
   ```
   # 失败区
   select * from innodb_lock_test where id=10 for update;
+  update innodb_lock_test set money=10000 where id=10;
   
   # 成功区
-  update innodb_lock_test set money=10000 where id=1;
+  update innodb_lock_test set money=10001 where id=1;
+  update innodb_lock_test set money=10001 where id=50;
+  
   ```
   11. 实验结果
+  ![唯一索引字段单值匹配实验.png](../assets/唯一索引字段单值匹配实验_1655296184732_0.png) 
   
   12. 实验结果分析
   
