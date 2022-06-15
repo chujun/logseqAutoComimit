@@ -390,7 +390,30 @@
   3. 两个记录锁，非间隙排他锁，id=1和5
   4. 间隙锁，锁定基于'2345@qq.com', 3'的间隙范围(包含前后)
   ![image.png](../assets/image_1655265058494_0.png)
-  根据上图分析可知:另一个session窗口此时唯一可插入的数据是(8,'2345@qq.com'),可以更新id=3的记录
+  
+  根据上图分析可知:另一个session窗口此时唯一可插入的数据是(8,'2345@qq.com'),可以更新id=3的记录(因为并没有id=3的记录锁)
+  实际另一个窗口执行效果如下
+  ```
+  begin;
+  insert into innodb_lock_test values(8,2,100,'wangqi','111@qq.com');
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  insert into innodb_lock_test values(8,2,100,'wangqi','123456@qq.com');
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  insert into innodb_lock_test values(8,2,100,'wangqi','123457@qq.com');
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  insert into innodb_lock_test values(2,2,100,'wangqi','2345@qq.com');
+  (1205, 'Lock wait timeout exceeded; try restarting transaction')
+  
+  #我可以插入进去的记录
+  insert into innodb_lock_test values(8,2,100,'wangqi','2345@qq.com');
+  Query OK, 1 row affected
+  Time: 45.290s
+  #可以修改的记录
+  update innodb_lock_test set user_name='modify' where id=3;
+  Query OK, 1 row affected
+  Time: 0.003s
+  ```
+  实验结果正如
 -
 -
 -
