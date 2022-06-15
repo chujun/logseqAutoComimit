@@ -4,7 +4,26 @@
   mysql8，mac
 - 建库建表语句，初始化数据
   ```
+  # 建库
+  CREATE DATABASE IF NOT EXISTS lock_test DEFAULT CHARSET utf8mb4;
+  use lock_test;
+  drop table if exists innodb_lock_test;
+  # 建表
+  CREATE TABLE IF NOT EXISTS `innodb_lock_test`(
+  	`id` int(11) NOT NULL AUTO_INCREMENT, 
+  	`user_id` int(11) NOT NULL, 
+      `money` int(11) DEFAULT NULL, 
+  	`user_name` varchar(30) NOT NULL, 
+  	PRIMARY KEY(`id`), 
+  	KEY `idx_uid`(`user_id`),
+      KEY `idx_user_name`(`user_name`)
+  )ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
+  # 插入数据
+  insert into innodb_lock_test(id,user_id,money,user_name,email)values
+  (1,5,100,'aa'),(10,15,200,'bb'),
+  (50,55,200,'cc'),(70,70,500,'dd'),(80,85,150,'bb');
   ```
+-
 - 唯一索引字段
   单个等值匹配
   多个等值匹配
