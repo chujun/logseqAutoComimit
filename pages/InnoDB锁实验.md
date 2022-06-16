@@ -724,3 +724,6 @@
 	  update innodb_lock_test set money=10001 where user_name='cc';
 	  
 	  ```
+- 资料
+  对innodb锁的解释比较透彻
+  [求你了，别再说数据库的锁，锁的只是索引了](https://z.itpub.net/article/detail/C7F237F542D0CDE8DF85E172ABED8BF6)
