@@ -60,17 +60,23 @@
   user_name>'bb' and user_name<='bd'》》》锁定区间：(('bb',80),('cc',50)]
   user_name>'bb' and user_name<'cc'》》》锁定区间：(('bb',80),('cc',50)]
   user_name>'bb' and user_name<='cc'》》》锁定区间：(('bb',80),('dd',70)]
-  
+  user_name>'bb' and user_name<='ff'》》》锁定区间：(('bb',80),(正无穷大))
   #关注左边界
-  user_name>'cc' and user_name<'cd'》》》锁定区间：(('cc',50),('dd',70)]
-  user_name>='cc' and user_name<'cd'》》》锁定区间：(('cc',50),('dd',70)]
+  user_name>'cc' and user_name<'cz'》》》锁定区间：(('cc',50),('dd',70)]
+  user_name>='cc' and user_name<'cz'》》》锁定区间：(('bb',80),('dd',70)]
+  user_name>'cd' and user_name<'cz'》》》锁定区间：(('cc',50),('dd',70)]
+  user_name>='cd' and user_name<'cz'》》》锁定区间：(('cc',50),('dd',70)]
+  user_name>='a' and user_name<'cz'》》》锁定区间：((负无穷大),('dd',70)]
   ```
   2.2 等值查询
   临键锁降级成间隙锁，锁定范围左开右开区间
   a. 首先分别找到左右两边第一个不满足条件的索引节点作为区间边界，如果没有找到则用正负无穷大替换
   区间内满足条件的的索引节点会加记录锁
   b. 确定左右节点包含关系:左开右开
-  
+  例如
+  ```
+  user_name = 'bb'》》》
+  ```
   
   3. 唯一索引字段条件查询
   对唯一索引字段条件查询做了充分的优化
@@ -92,9 +98,14 @@
   
   3.2 等值查询
   a. 存在满足条件的记录，临键锁降级成记录锁，不再锁两边的间隙了。
+  ```
   例如 id =50》》》锁定区间:[50]
+  ```
+  
   b. 不存在满足条件的记录, 临键锁降级成间隙锁，锁间隙
+  ```
   例如 id=60 》》》 锁定区间:(50,70)
+  ```
 - [[InnoDB锁实验]]
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
