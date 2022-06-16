@@ -832,7 +832,6 @@
   insert into innodb_lock_test(id,user_id,money,user_name)values(69,5,100,'zz');
   
   # 成功区
-  # 不存在满足条件数据,不需要加锁
   update innodb_lock_test set money=10001 where user_name='bc';
   ```
   11. 实验结果截图
