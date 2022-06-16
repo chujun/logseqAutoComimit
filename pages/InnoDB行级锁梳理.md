@@ -54,10 +54,16 @@
   b. 确定左右节点包含关系:左开右闭
   例如
   ```
+  #关注右边界
+  # 不存在满足条件的索引节点
   user_name>'bb' and user_name<'bd'》》》锁定区间：(('bb',80),('cc',50)]
   user_name>'bb' and user_name<='bd'》》》锁定区间：(('bb',80),('cc',50)]
   user_name>'bb' and user_name<'cc'》》》锁定区间：(('bb',80),('cc',50)]
   user_name>'bb' and user_name<='cc'》》》锁定区间：(('bb',80),('dd',70)]
+  
+  #关注左边界
+  user_name>'cc' and user_name<'cd'》》》锁定区间：(('cc',50),('dd',70)]
+  user_name>='cc' and user_name<'cd'》》》锁定区间：(('cc',50),('dd',70)]
   ```
   2.2 等值查询
   临键锁降级成间隙锁，锁定范围左开右开区间
