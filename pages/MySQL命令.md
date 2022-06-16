@@ -32,7 +32,21 @@
   | CSV                | YES     | CSV storage engine                                             | NO           | NO     | NO         |
   +--------------------+---------+----------------------------------------------------------------+--------------+--------+------------+
   ```
-- 查询线程运行情况
+- 查询线程运行情况命令
+  SHOW PROCESSLIST;
+  ```
+  +----+-----------------+-----------------+-----------+---------+---------+------------------------+------------------+
+  | Id | User            | Host            | db        | Command | Time    | State                  | Info             |
+  +----+-----------------+-----------------+-----------+---------+---------+------------------------+------------------+
+  | 5  | event_scheduler | localhost       | <null>    | Daemon  | 1300612 | Waiting on empty queue | <null>           |
+  | 38 | root            | localhost:64172 | lock_test | Query   | 0       | init                   | SHOW PROCESSLIST |
+  | 49 | root            | localhost:57735 | lock_test | Sleep   | 16622   |                        | <null>           |
+  | 52 | root            | localhost:57774 | lock_test | Sleep   | 16625   |                        | <null>           |
+  | 85 | root            | localhost:63834 | lock_test | Sleep   | 16523   |                        | <null>           |
+  | 86 | root            | localhost:63836 | lock_test | Sleep   | 16503   |                        | <null>           |
+  | 87 | root            | localhost:63841 | lock_test | Sleep   | 16597   |                        | <null>           |
+  +----+-----------------+-----------------+-----------+---------+---------+------------------------+------------------+
+  ```
 - 查询MySQL隔离级别命令
   id:: 62a704aa-f1a1-478d-a685-adc86f7be7d9
   MySQL8之前：SELECT @@tx_isolation;
