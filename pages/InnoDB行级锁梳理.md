@@ -54,7 +54,10 @@
   b. 确定左右节点包含关系:左开右闭
   例如
   ```
-  
+  user_name>'bb' and user_name<'bd'》》》锁定区间：(('bb',80),('cc',50)]
+  user_name>'bb' and user_name<='bd'》》》锁定区间：(('bb',80),('cc',50)]
+  user_name>'bb' and user_name<'cc'》》》锁定区间：(('bb',80),('cc',50)]
+  user_name>'bb' and user_name<='cc'》》》锁定区间：(('bb',80),('dd',70)]
   ```
   2.2 等值查询
   临键锁降级成间隙锁，锁定范围左开右开区间
