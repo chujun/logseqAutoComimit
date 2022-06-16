@@ -689,8 +689,8 @@
   ```
   11. 实验结果截图
   12. 实验结果分析
+  TODO:cj 竟然执行失败了？ 在等值情况下，比预想的临键锁范围扩大了，左边扩大了一个范围
   insert into innodb_lock_test(id,user_id,money,user_name)values(85,5,100,'bb');
-  
   13. 实验结论
   
   范围匹配存在满足条件数据包含右节点
