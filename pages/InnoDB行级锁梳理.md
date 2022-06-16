@@ -55,7 +55,8 @@
   
   3.2 等值查询
   a. 存在满足条件的记录，临键锁降级成记录锁，不再锁两边的间隙了。
-  b. 不存在满足条件的记录,
+  b. 不存在满足条件的记录, 临键锁降级成间隙锁
+  id=
 - [[InnoDB锁实验]]
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
