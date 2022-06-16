@@ -623,5 +623,16 @@
 	  ```
 	  第一个session sql语句的间隙锁范围是(bb,80)到(cc,50)
 	  而第二个session sql语句的间隙锁范围同样是(bb,80)到(cc,50)
-- 实验疑问区
-  1. 唯一索引字段和非唯一索引字段
+- 实验存疑区
+  1. 唯一索引字段和非唯一索引字段在范围匹配不存在满足条件数据实验下呈现不同表现形式
+  唯一索引字段锁定区间不包含右区间节点，但是非唯一索引字段锁定区间包含了右区间节点
+  ```
+  # 唯一索引字段
+  # 第一个窗口
+  begin;
+  update innodb_lock_test set money=10000 where id>10 and id<50;
+  
+  # 第一个窗口
+  #成功区
+  update innodb_lock_test set money=10001 where id=50;
+  ```
