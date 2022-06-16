@@ -644,6 +644,8 @@
   范围匹配存在满足条件数据包含左节点
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10001 where user_name>='cc' and user_name<'cz';
   ```
   2. 查看事务锁信息
   ```
@@ -660,10 +662,35 @@
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  update innodb_lock_test set money=10001 where id=50;
+  # 解释:临键锁锁定区间:左开右闭区间
+  update innodb_lock_test set money=10001 where id=70;
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(51,5,100,'cc');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(69,5,100,'dd');
+  
+  update innodb_lock_test set money=10001 where user_name='cc';
+  update innodb_lock_test set money=10001 where user_name='dd';
+  
+  # 失败疑惑区
+  # 竟然执行失败???
+  insert into innodb_lock_test(id,user_id,money,user_name)values(45,5,100,'cc');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(85,5,100,'bb');
+  
+  # 成功区
+  update innodb_lock_test set money=10001 where id=80;
+  
+  update innodb_lock_test set money=10001 where user_name='bb';
+  update innodb_lock_test set money=10001 where user_name='bc';
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(75,5,100,'dd');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(101,5,100,'ee');
   ```
   11. 实验结果截图
   12. 实验结果分析
+  insert into innodb_lock_test(id,user_id,money,user_name)values(85,5,100,'bb');
+  
   13. 实验结论
   
   范围匹配存在满足条件数据包含右节点
