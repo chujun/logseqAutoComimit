@@ -116,3 +116,4 @@
 - [[InnoDB锁实验]]
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
+  [求你了，别再说数据库的锁，锁的只是索引了](https://z.itpub.net/article/detail/C7F237F542D0CDE8DF85E172ABED8BF6)
