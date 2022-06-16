@@ -787,6 +787,8 @@
   单个等值匹配
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10001 where money=500;
   ```
   2. 查看事务锁信息
   ```
@@ -805,14 +807,28 @@
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  update innodb_lock_test set money=10001 where id=50;
+  update innodb_lock_test set money=10001 where id=70;
+  
+  update innodb_lock_test set money=10001 where user_name='cc';
+  update innodb_lock_test set money=10001 where user_name='dd';
+  
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(85,5,100,'bb');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(69,5,100,'zz');
+  
+  # 成功区
+  # 不存在满足条件数据,不需要加锁
+  update innodb_lock_test set money=10001 where user_name='bc';
   ```
   11. 实验结果截图
   12. 实验结果分析
   13. 实验结论
   
   多个等值匹配
-  1. 第一个session窗口关闭自动提交事务，执行如下sql语句``````2. 查看事务锁信息``````3. 分析sql语句锁10. 第二个session窗口进行实验，执行如下sql语句```#失败区#成功区```11. 实验结果截图12. 实验结果分析13. 实验结论
+  1. 第一个session窗口关闭自动提交事务，执行如下sql语句
+  ``````2. 查看事务锁信息``````3. 分析sql语句锁10. 第二个session窗口进行实验，执行如下sql语句```#失败区#成功区```11. 实验结果截图12. 实验结果分析13. 实验结论
   
   范围匹配不存在满足条件数据
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句``````2. 查看事务锁信息``````3. 分析sql语句锁10. 第二个session窗口进行实验，执行如下sql语句```#失败区#成功区```11. 实验结果截图12. 实验结果分析13. 实验结论
