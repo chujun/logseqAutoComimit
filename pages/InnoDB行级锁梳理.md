@@ -23,6 +23,9 @@
 - 临键锁
   临键锁是记录锁和间隙锁的组合
   临键锁的锁定区间是左开右闭区间。
+  锁定范围:锁住一个范围，同时锁定记录本身.
+  
+  临键锁的降级
 - [[InnoDB锁实验]]
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
