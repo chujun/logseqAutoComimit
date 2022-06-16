@@ -430,6 +430,7 @@
   insert into innodb_lock_test(id,user_id,money,user_name)values(85,5,100,'bb');
   insert into innodb_lock_test(id,user_id,money,user_name)values(47,5,100,'bc');
   insert into innodb_lock_test(id,user_id,money,user_name)values(51,5,100,'bc');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(55,5,100,'bcd');
   
   
   # 成功区
@@ -441,6 +442,7 @@
   update innodb_lock_test set money=10001 where id=70;
   update innodb_lock_test set money=10001 where user_name='bb';
   update innodb_lock_test set money=10001 where user_name='cc';
+  
   
   insert into innodb_lock_test(id,user_id,money,user_name)values(75,5,100,'bb');
   insert into innodb_lock_test(id,user_id,money,user_name)values(49,5,100,'cd');
