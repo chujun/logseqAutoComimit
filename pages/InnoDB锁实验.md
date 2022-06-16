@@ -550,6 +550,8 @@
   范围匹配不存在满足条件数据
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10001 where user_name>'bb' and user_name<'bd';
   ```
   2. 查看事务锁信息
   ```
@@ -564,10 +566,34 @@
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(90,5,100,'bb');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(45,5,100,'cc');
+  
+  # 失败疑惑区
+  update innodb_lock_test set money=10001 where id=50;
+  update innodb_lock_test set money=10001 where user_name='cc';
+  
+  # 成功区
+  update innodb_lock_test set money=10001 where id=10;
+  update innodb_lock_test set money=10001 where id=80;
+  
+  
+  update innodb_lock_test set money=10001 where user_name='bb';
+  
+  
+  
+  update innodb_lock_test set money=10001 where user_name='bc';
+  update innodb_lock_test set money=10001 where user_name='ca';
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(75,5,100,'bb');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(51,5,100,'cc');
   ```
   11. 实验结果截图
   12. 实验结果分析
+  实验结果存疑:
+  为什么非唯一索引字段情况下
+   ((62aa9995-9d52-4b9a-8a36-56d9c3431ae7)) 
   13. 实验结论
   
   范围匹配存在满足条件数据
@@ -624,7 +650,9 @@
 	  第一个session sql语句的间隙锁范围是(bb,80)到(cc,50)
 	  而第二个session sql语句的间隙锁范围同样是(bb,80)到(cc,50)
 - 实验存疑区
-	- 1. 唯一索引字段和非唯一索引字段在范围匹配不存在满足条件数据实验下呈现不同表现形式
+  TODO:后续再思考
+	- id:: 62aa9995-9d52-4b9a-8a36-56d9c3431ae7
+	  1. 唯一索引字段和非唯一索引字段在范围匹配不存在满足条件数据实验下呈现不同表现形式
 	  唯一索引字段锁定区间不包含右区间节点，但是非唯一索引字段锁定区间包含了右区间节点
 	  实验结果如下
 	  ```
