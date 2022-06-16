@@ -406,6 +406,8 @@
   单个等值匹配不存在满足条件数据
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10001 where user_name='bc';
   ```
   2. 查看事务锁信息
   ```
@@ -419,7 +421,25 @@
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  insert into innodb_lock_test(id,user_id,money,user_name)values(48,5,100,'cc');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(85,5,100,'bb');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(47,5,100,'bc');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(51,5,100,'bc');
+  
+  
+  # 成功区
+  # 间隙锁之间相互兼容
+  update innodb_lock_test set money=10001 where user_name='bcd';
+  
+  update innodb_lock_test set money=10001 where id=10;
+  update innodb_lock_test set money=10001 where id=50;
+  update innodb_lock_test set money=10001 where id=70;
+  update innodb_lock_test set money=10001 where user_name='bb';
+  update innodb_lock_test set money=10001 where user_name='cc';
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(75,5,100,'bb');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(49,5,100,'cd');
   ```
   11. 实验结果截图
   12. 实验结果分析
@@ -518,6 +538,18 @@
 	  举例:表t有主键id1，10，20，30记录，update t where id>15 and id <25，则实际GAP范围不是(15,25),而是(10,20),(20,30)
 	  基于基于B+tree树分析
 	  ![image.png](../assets/image_1655300319725_0.png)
-	- 2.间隙锁的锁定范围和表索引的数据分布有关系,锁定范围是由索引数据决定
-	- 3.
+	- 2. 间隙锁的锁定范围和表索引的数据分布有关系,锁定范围是由索引数据决定
+	- 3. 间隙锁和间隙锁之间是互相兼容的
+	  实验示例：非唯一索引字段单个等值匹配不存在满足条件数据实验
+	  ```
+	  # 第一个session窗口
+	  begin;
+	  update innodb_lock_test set money=10001 where user_name='bc';
+	  
+	  # 第二个session窗口
+	  # 成功区
+	  update innodb_lock_test set money=10001 where user_name='bb';
+	  update innodb_lock_test set money=10001 where user_name='bcd';
+	  ```
+	  第一个session sql语句的间隙锁范围是()
 -
