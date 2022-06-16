@@ -19,6 +19,7 @@
   uid不是索引字段，也则触发间隙锁，全表扫描
 - 临键锁
   临键锁是记录锁和间隙锁的组合
+  临键锁的锁定区间是左开右闭区间。
 - [[InnoDB锁实验]]
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
