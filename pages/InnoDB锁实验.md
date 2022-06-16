@@ -857,8 +857,7 @@
 	  举例:表t有主键id1，10，20，30记录，update t where id>15 and id <25，则实际GAP范围不是(15,25),而是(10,20),(20,30)
 	  基于基于B+tree树分析
 	  ![image.png](../assets/image_1655300319725_0.png)
-	- 2. 间隙锁的锁定范围和表索引的数据分布有关系,锁定范围是由索引数据决定
-	- 3. 间隙锁和间隙锁之间是互相兼容的
+	- 2. 间隙锁和间隙锁之间是互相兼容的
 	  实验示例：非唯一索引字段单个等值匹配不存在满足条件数据实验
 	  ```
 	  # 第一个session窗口
@@ -873,37 +872,6 @@
 	  而第二个session sql语句的间隙锁范围同样是(bb,80)到(cc,50)
 	- 4. 临键锁锁定区间左开右闭区间
 - 实验存疑区
-  TODO:后续再思考
-	- id:: 62aa9995-9d52-4b9a-8a36-56d9c3431ae7
-	  1. 唯一索引字段和非唯一索引字段在范围匹配不存在满足条件数据实验下呈现不同表现形式
-	  非唯一索引字段锁定区间包含了右区间节点--->临键锁锁定区域左开右闭区间
-	  唯一索引字段锁定区间不包含右区间节点，解释？临键锁降级成间隙锁？左开右开区间
-	  实验结果如下
-	  ```
-	  # 非唯一索引字段实验
-	  # 第一个窗口
-	  begin;
-	  update innodb_lock_test set money=10001 where user_name>'bb' and user_name<'bd';
-	  
-	  # 第二个窗口
-	  # 失败区(右区间节点不能正常更新)
-	  update innodb_lock_test set money=10001 where id=50;
-	  update innodb_lock_test set money=10001 where user_name='cc';
-	  
-	  ```
-	  
-	  ```
-	  # 非唯一索引字段实验
-	  # 第一个窗口
-	  begin;
-	  update innodb_lock_test set money=10001 where user_name>'bb' and user_name<'bd';
-	  
-	  # 第二个窗口
-	  # 失败区(右区间节点不能正常更新)
-	  update innodb_lock_test set money=10001 where id=50;
-	  update innodb_lock_test set money=10001 where user_name='cc';
-	  
-	  ```
 - 资料
   对innodb锁的解释比较透彻
   [求你了，别再说数据库的锁，锁的只是索引了](https://z.itpub.net/article/detail/C7F237F542D0CDE8DF85E172ABED8BF6)
