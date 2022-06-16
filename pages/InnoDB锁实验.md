@@ -616,7 +616,9 @@
   | INNODB | 140233293675848:378:4:6:140233568248696 | 67191                 | 79        | 170      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY       | 140233568248696       | RECORD    | X,REC_NOT_GAP | GRANTED     | 80        |
   +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+---------------+-----------------------+-----------+---------------+-------------+-----------+
   ```
-  3. 分析sql语句锁10. 第二个session窗口进行实验，执行如下sql语句
+  3. 分析sql语句锁
+  锁定区间范围: ((aa,1) --- (cc,50)]
+  10. 第二个session窗口进行实验，执行如下sql语句
   ```
   # 失败区
   insert into innodb_lock_test(id,user_id,money,user_name)values(2,5,100,'aa');
@@ -674,7 +676,6 @@
   update innodb_lock_test set money=10001 where user_name='cc';
   update innodb_lock_test set money=10001 where user_name='dd';
   
-  # 失败疑惑区
   insert into innodb_lock_test(id,user_id,money,user_name)values(45,5,100,'cc');
   insert into innodb_lock_test(id,user_id,money,user_name)values(85,5,100,'bb');
   
