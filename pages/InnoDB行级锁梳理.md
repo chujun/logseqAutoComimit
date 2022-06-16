@@ -28,7 +28,10 @@
   临键锁的降级
 - innodb加锁过程
   主要需要考虑如下因素
-  1. 字段类型：唯一索引字段，非唯一索引字段，普通字段
+  1.  字段类型：唯一索引字段，非唯一索引字段，普通字段
+  2. 查询类型: 范围查询还是等值查询
+  3. 是否存在满足条件的记录
+  InnoDB基于临键锁
 - [[InnoDB锁实验]]
 - 资料
   [官网文档mysql8锁](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html#innodb-next-key-locks)
