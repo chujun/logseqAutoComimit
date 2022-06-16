@@ -696,14 +696,44 @@
   范围匹配存在满足条件数据包含右节点
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10001 where user_name>'bc' and user_name<='cc';
   ```
   2. 查看事务锁信息
   ```
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+---------------+-----------------------+-----------+---------------+-------------+-----------+
+  | ENGINE | ENGINE_LOCK_ID                          | ENGINE_TRANSACTION_ID | THREAD_ID | EVENT_ID | OBJECT_SCHEMA | OBJECT_NAME      | PARTITION_NAME | SUBPARTITION_NAME | INDEX_NAME    | OBJECT_INSTANCE_BEGIN | LOCK_TYPE | LOCK_MODE     | LOCK_STATUS | LOCK_DATA |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+---------------+-----------------------+-----------+---------------+-------------+-----------+
+  | INNODB | 140233293675848:1638:140233557539392    | 67310                 | 79        | 185      | lock_test     | innodb_lock_test | <null>         | <null>            | <null>        | 140233557539392       | TABLE     | IX            | GRANTED     | <null>    |
+  | INNODB | 140233293675848:381:6:4:140233568248352 | 67310                 | 79        | 185      | lock_test     | innodb_lock_test | <null>         | <null>            | idx_user_name | 140233568248352       | RECORD    | X             | GRANTED     | 'cc', 50  |
+  | INNODB | 140233293675848:381:6:5:140233568248352 | 67310                 | 79        | 185      | lock_test     | innodb_lock_test | <null>         | <null>            | idx_user_name | 140233568248352       | RECORD    | X             | GRANTED     | 'dd', 70  |
+  | INNODB | 140233293675848:381:4:4:140233568248696 | 67310                 | 79        | 185      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY       | 140233568248696       | RECORD    | X,REC_NOT_GAP | GRANTED     | 50        |
+  | INNODB | 140233293675848:381:4:5:140233568248696 | 67310                 | 79        | 185      | lock_test     | innodb_lock_test | <null>         | <null>            | PRIMARY       | 140233568248696       | RECORD    | X,REC_NOT_GAP | GRANTED     | 70        |
+  +--------+-----------------------------------------+-----------------------+-----------+----------+---------------+------------------+----------------+-------------------+---------------+-----------------------+-----------+---------------+-------------+-----------+
   ```
   3. 分析sql语句锁
   10. 第二个session窗口进行实验，执行如下sql语句
   ```
-  #失败区#成功区
+  # 失败区
+  update innodb_lock_test set money=10001 where id=50;
+  # 解释:临键锁锁定区间:左开右闭区间
+  update innodb_lock_test set money=10001 where id=70;
+  
+  update innodb_lock_test set money=10001 where user_name='cc';
+  update innodb_lock_test set money=10001 where user_name='dd';
+  
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(85,5,100,'bb');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(69,5,100,'dd');
+  
+  # 成功区
+  update innodb_lock_test set money=10001 where id=80;
+  
+  update innodb_lock_test set money=10001 where user_name='bb';
+  update innodb_lock_test set money=10001 where user_name='bc';
+  
+  insert into innodb_lock_test(id,user_id,money,user_name)values(75,5,100,'bb');
+  insert into innodb_lock_test(id,user_id,money,user_name)values(101,5,100,'dd');
   ```
   11. 实验结果截图
   12. 实验结果分析
