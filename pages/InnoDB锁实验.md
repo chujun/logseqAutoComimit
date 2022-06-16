@@ -599,6 +599,8 @@
   范围匹配存在满足条件数据
   1. 第一个session窗口关闭自动提交事务，执行如下sql语句
   ```
+  begin;
+  update innodb_lock_test set money=10001 where user_name>'b' and user_name<'c';
   ```
   2. 查看事务锁信息
   ```
