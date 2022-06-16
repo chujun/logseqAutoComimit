@@ -26,7 +26,7 @@
   ```
 - 背景知识
   0. mysq B+tree索引存储结构
-   
+  ![image.png](../assets/image_1655345174428_0.png) 
   1. 查看mysql session事务隔离级别命令
    ((62a704aa-f1a1-478d-a685-adc86f7be7d9))
   ```
