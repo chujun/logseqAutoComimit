@@ -560,8 +560,7 @@
 	  update innodb_lock_test set money=10001 where user_name='bc';
 	  
 	  # 第二个session窗口
-	  # 成功区
-	  update innodb_lock_test set money=10001 where user_name='bb';
+	  # 成功区 ’bcd'没有满足条件的数据
 	  update innodb_lock_test set money=10001 where user_name='bcd';
 	  ```
 	  第一个session sql语句的间隙锁范围是(bb,80)到(cc,50)
