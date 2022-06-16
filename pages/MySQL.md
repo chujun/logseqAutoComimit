@@ -181,10 +181,8 @@
   
   100. 【强制】使用utf8mb4编码方式
 - 事务
-  查询当前运行的所有事务
-  ```
-  select * from information_schema.innodb_trx\G;
-  ```
+- [[MySQL常见操作命令]]
+- [[MySQL命令]]
 - 资料
   [深入理解数据库行锁与表锁](https://zhuanlan.zhihu.com/p/52678870)
   书籍
