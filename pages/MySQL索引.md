@@ -75,6 +75,11 @@
   # 需要回表
   SELECT * FROM table WHERE name='guang19';
   ```
+- 覆盖索引
+- 联合索引
+- 索引最左前缀匹配原则
+  还是基于B+tree存储数据结构上得出来的
+- 索引下推
 - innodb文件
   .ibd文件就包含了表的索引和数据
 - mysql一张表到底能存多少数据行？
