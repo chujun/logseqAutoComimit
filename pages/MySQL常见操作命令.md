@@ -20,4 +20,7 @@
       DROP DATABASE[ IF EXISTS] 数据库名
           同时删除该数据库相关的目录及其目录内容
   ```
--
+- 在线快速查询手册网站
+- 参考资料
+  类似于一种在线快速查询手册网站
+  [一千行 MySQL 学习笔记](https://javaguide.cn/database/mysql/a-thousand-lines-of-mysql-study-notes.html#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C)
