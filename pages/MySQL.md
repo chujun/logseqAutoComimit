@@ -287,6 +287,7 @@
   VARCHAR(N) 中的 N 代表的是字符数，而不是字节数，使用 UTF8 存储 255 个汉字 Varchar(255)=765 个字节。
 - [[MySQL常见操作命令]]
 - [[MySQL命令]]
+- [[MySQL开发建议]]
 - 资料
   [深入理解数据库行锁与表锁](https://zhuanlan.zhihu.com/p/52678870)
   书籍
