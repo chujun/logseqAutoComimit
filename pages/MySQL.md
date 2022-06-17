@@ -173,6 +173,8 @@
 	  记录锁，间隙锁，临键锁见InnoDB行级锁实现 [[InnoDB行级锁梳理]]
 - [[MySQL索引]]
   id:: 62a6d7db-9526-44ab-83a7-5bfeb0476eae
+- explain执行计划
+  Extra的值为Using index condition，表示已经使用了索引下推。
 - 事务
 - 数据类型
   对VARCHAR长度的认知
