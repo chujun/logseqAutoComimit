@@ -29,7 +29,7 @@
 -
 - 索引类型
 - [mysql一张表到底能存多少数据？](https://segmentfault.com/a/1190000039239998)
-  1. 查看innodb数据页有多大，2^14=16384KB
+  1. 查看innodb数据页有多大，2^14=16K=16384bytes
   ```
   mysql> SHOW GLOBAL STATUS LIKE 'innodb_page_size';
   +------------------+-------+
@@ -41,5 +41,8 @@
   ```
   2. 计算每个节点大小
   ![image.png](../assets/image_1655467470670_0.png)
+  ![image.png](../assets/image_1655467551735_0.png) 
+  主键大小如果是bigint的话，占有8bytes
+  节点大小=主键大小+指向下一页索引的地址大小(6bytes)=8+6=14bytes
 -
 -
