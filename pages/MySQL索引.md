@@ -29,5 +29,17 @@
 -
 - 索引类型
 - [mysql一张表到底能存多少数据？](https://segmentfault.com/a/1190000039239998)
+  1. 查看innodb数据页有多大，2^14=16384KB
+  ```
+  mysql> SHOW GLOBAL STATUS LIKE 'innodb_page_size';
+  +------------------+-------+
+  | Variable_name    | Value |
+  +------------------+-------+
+  | Innodb_page_size | 16384 |
+  +------------------+-------+
+  1 row in set (0.00 sec)
+  ```
+  2. 计算每个节点大小
+  ![image.png](../assets/image_1655467470670_0.png)
 -
 -
