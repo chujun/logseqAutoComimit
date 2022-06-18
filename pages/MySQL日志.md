@@ -20,8 +20,9 @@
   statement
   记录的内容是SQL语句原文,比如执行一条update T set update_time=now() where id=1，记录的内容如下。
   ![image.png](../assets/image_1655516461053_0.png) 
-  statement问题:有时原始sql语句可能导致数据不一致性，例如now()
+  statement缺点:原始sql语句数据同步时可能导致不一致性，例如now()
   row
+  记录的内容不再是简单的SQL语句了，还包含操作的具体数据
   mixed
   binlog和redolog比较
   redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
