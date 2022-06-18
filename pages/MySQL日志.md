@@ -97,8 +97,6 @@
 	  >图片笔误提示：第 4 步 “清空 redo log buffe 刷盘到 redo 日志中”这句话中的 buffe 应该是 buffer。
 	- redolog刷盘时机
 		- 1. 每次事务提交时
-		  
-		  
 		  InnoDB 存储引擎为 redo log 的刷盘策略提供了 innodb_flush_log_at_trx_commit 参数，它支持三种策略：0,1,2
 		  0 ：设置为 0 的时候，表示每次事务提交时不进行刷盘操作
 		  1 ：设置为 1 的时候，表示每次事务提交时都将进行刷盘操作（默认值）,也就是说当事务提交时会调用 fsync 对 redo log 进行刷盘
@@ -124,6 +122,18 @@
 		  因为在事务执行过程 redo log 记录是会写入redo log buffer 中，这些 redo log 记录会被后台线程刷盘。
 		  ![image.png](../assets/image_1655537358382_0.png)
 		- 3. 当 redo log buffer 占用的空间即将达到 innodb_log_buffer_size 一半的时候，后台线程会主动刷盘
+		  innodb_log_buffer_size默认大小为16M
+		  ```
+		  mysql root@localhost:lock_test> show variables like 'innodb_log_buffer_size';
+		  +------------------------+----------+
+		  | Variable_name          | Value    |
+		  +------------------------+----------+
+		  | innodb_log_buffer_size | 16777216 |
+		  +------------------------+----------+
+		  1 row in set
+		  Time: 0.010s
+		  ```
+		- redolog不同刷盘策略流程图
 	-
 	-
 	-
