@@ -93,6 +93,7 @@
 	  ![image.png](../assets/image_1655523287327_0.png)
 	  >图片笔误提示：第 4 步 “清空 redo log buffe 刷盘到 redo 日志中”这句话中的 buffe 应该是 buffer。
 	- redolog刷盘时机
+		- 问题:为什么要弄出不同的刷盘策略，直接就每次把修改后的数据页直接同步刷盘不香吗
 		- id:: 62ad7e70-8a63-44bc-b1d2-8cde70e6df5f
 		  1. 每次事务提交时
 		  InnoDB 存储引擎为 redo log 的刷盘策略提供了 innodb_flush_log_at_trx_commit 参数，它支持三种策略：0,1,2
@@ -149,7 +150,8 @@
 		  如果仅仅只是MySQL挂了不会有任何数据丢失，--->操作系统没挂，内核会把page cache刷盘，针对的是缓存IO
 		  但是宕机可能会有1秒数据的丢失。
 		-
-	- 日志文件组
+	- redolog日志存储方式
+	  日志文件组
 	  硬盘上存储的 redo log 日志文件不只一个，而是以一个日志文件组的形式出现的，每个的redo日志文件大小都是一样的。
 	  比如可以配置为一组4个文件，每个文件的大小是 1GB，整个 redo log 日志文件组可以记录4G的内容。
 	  它采用的是环形数组数据结构，从头开始写，写到末尾又回到头循环写，如下图所示。
@@ -165,6 +167,7 @@
 	  write pos 和 checkpoint 之间的还空着的部分可以用来写入新的 redo log 记录。
 	  ![image.png](../assets/image_1655540323530_0.png)
 	  如果 write pos 追上 checkpoint ，表示日志文件组满了，这时候不能再写入新的 redo log 记录，MySQL 得停下来，清空一些记录，把 checkpoint 推进一下。
+	  ![image.png](../assets/image_1655540364500_0.png)
 	-
 	-
 	-
