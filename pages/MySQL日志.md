@@ -1,5 +1,8 @@
 - MySQL日志主要包括错误日志、查询日志、慢查询日志、事务日志、二进制日志几大类。
   其中，比较重要的还要属二进制日志 binlog（归档日志）和事务日志 redo log（重做日志）和 undo log（回滚日志）。
+  使用 redo log(重做日志) 保证事务的持久性。
+  使用 undo log(回滚日志) 来保证事务的原子性。
+  使用binlog(二进制日志)来保证数据的一致性。
   ![image.png](../assets/image_1655515764255_0.png)
 - MySQL逻辑日志和物理日志
   逻辑日志： 可以简单理解为记录的就是sql语句 。
@@ -226,7 +229,7 @@
 	  2. 写入binlog时发生异常场景
 	  MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且没有对应binlog日志，就会回滚该事务。
 	  3. 写入redolog commit日志时发生异常场景
-	  MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，但是有对应binlog日志，就会回滚该事务。
+	  MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，但是有对应binlog日志，MySQL就认为这个事务是合法的,就会提交事务恢复数据。
 -
 - 数据库恢复数据机制
   id:: 3a9a070b-8998-4966-b726-14738ca77d97
@@ -235,8 +238,8 @@
   
   MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且没有对应binlog日志，就会回滚该事务。
   ![image.png](../assets/image_1655544539588_0.png) 
-  MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且有对应binlog日志，认为该redo log日志是合法的,
-  则会提交该事务，并补偿添加redolog commit日志。
+  MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且有对应binlog日志，认为该redo log日志事务是合法的,
+  则会提交该事务恢复数据，并补偿添加redolog commit日志。
   ![image.png](../assets/image_1655544545816_0.png)
 -
 - undolog回滚日志
