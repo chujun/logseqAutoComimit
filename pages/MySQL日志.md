@@ -165,6 +165,7 @@
 	  ![image.png](../assets/image_1655539955885_0.png)
 	  
 	  在个日志文件组中还有几个重要的属性，分别是 write pos、checkpoint
+	  LSN (逻辑序列号)
 	  write pos 是当前记录的位置，一边写一边后移
 	  checkpoint 是当前要擦除的位置，也是往后推移
 	  --->和Disruptor的生产者下标和消费者下标
@@ -232,6 +233,7 @@
 -
 - 数据库恢复数据机制
   id:: 3a9a070b-8998-4966-b726-14738ca77d97
+  不管上次是正常关闭还是异常关闭，MySQL总是会进行恢复操作
   原库源库根据redolog日志恢复数据
   从库根据binlog日志同步恢复数据,不依赖源库的redolog日志
   
