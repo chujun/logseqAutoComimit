@@ -192,8 +192,7 @@
 	  redo log（重做日志）让InnoDB存储引擎拥有了崩溃恢复能力。
 	  binlog（归档日志）保证了MySQL集群架构的数据一致性。
 	  虽然它们都属于持久化的保证，但是侧重点不同。
-	  
-	  redolog和binlog执行流程
+	- redolog和binlog执行流程
 	  在执行更新语句过程，会记录redo log与binlog两块日志，以基本的事务为单位，redo log在事务执行过程中可以不断写入，而binlog只有在提交事务(commit)时才写入，所以redo log与binlog的写入时机不一样。
 	  ![image.png](../assets/image_1655541639262_0.png)
 	- redolog日志和binlog日志两份日志之间的逻辑不一致问题
@@ -212,7 +211,11 @@
 	  b. 假设先执行binlog日志再执行redolog日志发生的问题
 	  想象一下，如果数据库系统在写完一个事务的binlog时发生crash，而此时这个事务的redo log还没有持久化，或者说此事务的redo log还没记录完（至少没有记录commit log）。
 	  在数据库恢复后，从库会根据主库中记录的binlog去回放此事务的数据修改。
-	  但是，由于此事务并没有产生完整提交的redo log，主库在恢复后会回滚该事务，这样也会产生主从不一致的错误。
+	  但是，由于此事务并没有产生完整提交的redo log，主库在恢复后会回滚该事务，这样也会产生主从不一致问题。
+	- MySQL两阶段提交方案原理
+	  简单来说就是将redo log的写入拆成了两个步骤prepare和commit。
+	  写入redolog日志 prepare--->写入binlog日志--->
+	  ![image.png](../assets/image_1655543904780_0.png)
 -
 - 数据库恢复数据机制
   id:: 3a9a070b-8998-4966-b726-14738ca77d97
