@@ -251,7 +251,8 @@
   
   undolog日志作用
   1. 实现事务的原子性,实现事务回滚功能
-  2. InnoDB MCVV实现依赖undolog日志
+  2. InnoDB MVCC实现依赖undolog日志
+  ((62ad9d9a-a979-4ad4-9323-502232fa9241))
 - 慢查询日志
 -
 - 资料
