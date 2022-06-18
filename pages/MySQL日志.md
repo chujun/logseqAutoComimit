@@ -30,14 +30,15 @@
   举例:update_time=now()变成了具体的时间update_time=1627112756247，条件后面的@1、@2、@3 都是该行数据第 1 个~3 个字段的原始值（假设这张表只有 3 个字段）。
   row格式优点缺点:需要更大的容量来记录，比较占用空间;恢复与同步时会更消耗IO资源，影响执行速度。
   一条sql也可能产生大量日志
-  例如 update T set show=1 where id<1000000,id小于1000000
+  例如 update T set show=1 where id<1000000,id小于1000000的记录都记录下来了。
   mixed格式
+  记录的内容是前两者的混合
+  MySQL会判断这条SQL语句是否可能引起数据不一致，如果是，就用row格式，否则就用statement格式。
+  
   
   binlog和redolog比较
   redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
    binlog 是逻辑日志，记录内容是语句的原始逻辑，类似于“给 ID=2 这一行的 c 字段加 1”，属于MySQL Server 层。不管用什么存储引擎，只要发生了表数据更新，都会产生 binlog 日志。
--
--
 -
 -
 - redolog重做日志
