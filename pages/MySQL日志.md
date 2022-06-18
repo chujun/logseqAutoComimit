@@ -193,10 +193,12 @@
 	  在执行更新语句过程，会记录redo log与binlog两块日志，以基本的事务为单位，redo log在事务执行过程中可以不断写入，而binlog只有在提交事务(commit)时才写入，所以redo log与binlog的写入时机不一样。
 	  ![image.png](../assets/image_1655541639262_0.png)
 	- redolog日志和binlog日志两份日志之间的逻辑不一致问题
-	  
-	  没有引入两阶段提交方案前的问题
-	  先执行redolog日志再执行binlog日志存在的问题
-	  先执行binlog日志再执行redolog日志存在的问题
+	  redolog日志和binlog日志执行先后顺序
+	  a. 假设先执行redolog日志再执行binlog日志发生的问题
+	  我们以update语句为例，假设id=2的记录，字段c值是0，把字段c值更新成1，SQL语句为update T set c=1 where id=2。
+	  假设执行过程中写完redo log日志后，binlog日志写期间发生了异常，此时会发生什么情况呢？
+	  ![image.png](../assets/image_1655541952407_0.png) 
+	  b. 假设先执行binlog日志再执行redolog日志发生的问题
 -
 -
 -
