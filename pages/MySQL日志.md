@@ -86,6 +86,7 @@
   redo log（重做日志）是InnoDB存储引擎独有的，它让MySQL拥有了崩溃恢复能力。
 	- 作用:保证数据的持久性与完整性。
 	  比如 MySQL 实例挂了或宕机了，重启时，InnoDB存储引擎会使用redo log恢复数据。
+	  ![image.png](../assets/image_1655522731742_0.png)
 	-
 -
 -
