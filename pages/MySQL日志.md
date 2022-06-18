@@ -7,9 +7,23 @@
   binlog作用
   MySQL数据库的数据备份、主备、主主、主从都离不开binlog，需要依靠binlog来同步数据，保证数据一致性。
   ![image.png](../assets/image_1655516219834_0.png) 
+  binlog记录格式
+  binlog 日志有三种格式，可以通过binlog_format参数指定。statement，row，mixed
+  ```
+  show variables like 'binlog_format';
+  +---------------+-------+
+  | Variable_name | Value |
+  +---------------+-------+
+  | binlog_format | ROW   |
+  +---------------+-------+
+  ```
+  statement
+  row
+  mixed
   binlog和redolog比较
   redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
    binlog 是逻辑日志，记录内容是语句的原始逻辑，类似于“给 ID=2 这一行的 c 字段加 1”，属于MySQL Server 层。不管用什么存储引擎，只要发生了表数据更新，都会产生 binlog 日志。
+-
 -
 -
 - redolog重做日志
