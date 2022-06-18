@@ -223,7 +223,7 @@
 	  写入redolog日志 prepare--->写入binlog日志--->写入redolog日志commit
 	  两阶段提交方案过程描述
 	  第一阶段： InnoDB Prepare阶段。此时SQL已经成功执行，并生成事务ID(xid)信息及redo和undo的内存日志。此阶段InnoDB会写事务的redo log，但要注意的是，此时redo log只是记录了事务的所有操作日志，并没有记录提交（commit）日志，因此事务此时的状态为Prepare。此阶段对binlog不会有任何操作。
-	  第二阶段：commit 阶段，这个阶段又分成两个步骤。第一步写binlog（先调用write()将binlog内存日志数据写入文件系统缓存，再调用fsync()将binlog文件系统缓存日志数据永久写入磁盘）；第二步完成事务的提交（commit），此时在redo log中记录此事务的提交日志（增加commit 标签）。 还要注意的是，在这个过程中是以第二阶段中binlog的写入与否作为事务是否成功提交的标志。第一步写binlog完成 ，第二步redo log的commit未提交未完成，也算完成。(数据库恢复时补偿redo log的提交日志)
+	  第二阶段：commit 阶段，这个阶段又分成两个步骤。第一步写binlog日志；第二步完成事务的提交（commit），此时在redo log中记录此事务的提交日志（增加commit 标签）。 还要注意的是，在这个过程中是以第二阶段中binlog的写入与否作为事务是否成功提交的标志。第一步写binlog完成 ，第二步redo log的commit未提交未完成，也算完成。(数据库恢复时补偿redo log的提交日志)
 	  
 	  ![image.png](../assets/image_1655543904780_0.png)
 	  
