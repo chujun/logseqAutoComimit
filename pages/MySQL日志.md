@@ -22,12 +22,12 @@
 	  | binlog_format | ROW   |
 	  +---------------+-------+
 	  ```
-	  statement格式
+	  statement格式:基于 SQL 语句的复制( statement-based replication, SBR )
 	  记录的内容是SQL语句原文,比如执行一条update T set update_time=now() where id=1，记录的内容如下。
 	  ![image.png](../assets/image_1655516461053_0.png) 
 	  statement格式缺点:数据库同步时可能导致数据不一致性，例如now()
 	  
-	  row格式
+	  row格式:基于行的复制( row-based replication, RBR )
 	  记录的内容不再是简单的SQL语句了，还包含操作的具体数据
 	  ![image.png](../assets/image_1655516800445_0.png) 
 	  row格式记录的内容看不到详细信息，要通过mysqlbinlog工具解析出来。
@@ -36,9 +36,9 @@
 	  row格式优点缺点:需要更大的容量来记录，比较占用空间;恢复与同步时会更消耗IO资源，影响执行速度。
 	  一条sql也可能产生大量日志
 	  例如 update T set show=1 where id<1000000,id小于1000000的记录都记录下来了。
-	  mixed格式
+	  mixed格式:基于 STATMENT 和 ROW 两种模式的混合复制( mixed-based replication, MBR )
 	  记录的内容是前两者的混合
-	  MySQL会判断这条SQL语句是否可能引起数据不一致，如果是，就用row格式，否则就用statement格式。
+	  一般的复制使用 STATEMENT 模式保存 binlog ，对于 STATEMENT 模式无法复制的操作使用 ROW 模式保存 binlog
 	- binlog写入机制
 	  事务执行过程中，先把日志写到binlog cache，事务提交时再把binlog cache写到binlog文件中。
 	  因为一个事务的binlog不能被拆开，无论这个事务多大，也要确保一次性写入，所以系统会给每个线程分配一个块内存作为binlog cache。
