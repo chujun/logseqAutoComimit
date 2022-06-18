@@ -61,6 +61,9 @@
   ```
   修改mysql事务隔离级别命令
   ```
+  SET [SESSION|GLOBAL] TRANSACTION ISOLATION LEVEL [READ UNCOMMITTED|READ COMMITTED|REPEATABLE READ|SERIALIZABLE]
+  ```
+  ```
   //修改事务隔离级别为已提交读
   set session transaction isolation level read committed;
   //修改mysql事务隔离级别为可重复读
@@ -71,7 +74,11 @@
   ```
   select * from information_schema.innodb_trx;
   ```
-  
+  ```
+  START TRANSACTION |BEGIN：显式地开启一个事务。
+  COMMIT：提交事务，使得对数据库做的所有修改成为永久性。
+  ROLLBACK：回滚会结束用户的事务，并撤销正在进行的所有未提交的修改。
+  ```
   session窗口关闭自动提交事务
   ```
   set autocommit=0;
