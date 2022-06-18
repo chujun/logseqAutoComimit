@@ -197,7 +197,7 @@
 	  在执行更新语句过程，会记录redo log与binlog两块日志，以基本的事务为单位，redo log在事务执行过程中可以不断写入，而binlog只有在提交事务(commit)时才写入，所以redo log与binlog的写入时机不一样。
 	  ![image.png](../assets/image_1655541639262_0.png)
 	- redolog日志和binlog日志两份日志之间的逻辑不一致问题
-	  redolog日志和binlog日志执行先后顺序
+	  redolog日志和binlog日志执行先后顺序问题
 	  a. 假设先执行redolog日志再执行binlog日志发生的问题
 	  我们以update语句为例，假设id=2的记录，字段c值是0，把字段c值更新成1，SQL语句为update T set c=1 where id=2。
 	  假设执行过程中写完redo log日志后，binlog日志写期间发生了异常，此时会发生什么情况呢？
@@ -207,9 +207,12 @@
 	  (源库不会再补偿这条binlog日志，也没法补偿binlog日志，因为没法不知道原始sql是什么)
 	  因此，数据库从库同步用binlog日志恢复数据时，就会少这一次更新，恢复出来的这一行c值是0。
 	  而原库因为redo log日志恢复，这一行c值是1
-	  最终发生数据不一致问题。
+	  最终发生主从数据库数据不一致问题。
 	  ![image.png](../assets/image_1655542356762_0.png) 
 	  b. 假设先执行binlog日志再执行redolog日志发生的问题
+	  想象一下，如果数据库系统在写完一个事务的binlog时发生crash，而此时这个事务的redo log还没有持久化，或者说此事务的redo log还没记录完（至少没有记录commit log）。
+	  在数据库恢复后，从库会根据主库中记录的binlog去回放此事务的数据修改。
+	  但是，由于此事务并没有产生完整提交的redo log，主库在恢复后会回滚该事务，这样也会产生主从不一致的错误。
 -
 - 数据库恢复数据机制
   id:: 3a9a070b-8998-4966-b726-14738ca77d97
