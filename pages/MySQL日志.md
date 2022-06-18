@@ -1,4 +1,4 @@
-- MySQL日志主要包括错误日志、查询日志、慢查询日志(slow query log)、事务日志、二进制日志几大类。
+- MySQL日志主要包括错误日志(errorlog)、查询日志、慢查询日志(slow query log)、事务日志、二进制日志几大类。
   其中，比较重要的还要属二进制日志 binlog（归档日志）和事务日志 redo log（重做日志）和 undo log（回滚日志）。
   使用 redo log(重做日志) 保证事务的持久性。
   使用 undo log(回滚日志) 来保证事务的原子性。
@@ -10,7 +10,8 @@
 - binlog二进制日志
   binlog会记录所有涉及更新数据的逻辑操作，并且是顺序写。
 	- binlog作用
-	  MySQL数据库的数据备份、主备、主主、主从都离不开binlog，需要依靠binlog来同步数据，保证数据一致性。
+	  1. MySQL数据库的数据备份、主备、主主、主从都离不开binlog，需要依靠binlog来同步数据，保证数据一致性。
+	  2. 也可以用作数据恢复 
 	  ![image.png](../assets/image_1655516219834_0.png)
 	- binlog记录格式
 	  binlog 日志有三种格式，可以通过binlog_format参数指定。statement，row，mixed
@@ -82,6 +83,7 @@
 	  redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
 	   binlog 是逻辑日志，记录内容是语句的原始逻辑，类似于“给 ID=2 这一行的 c 字段加 1”，属于MySQL Server 层。不管用什么存储引擎，只要发生了表数据更新，都会产生 binlog 日志。
 	  写入时机不一样:redolog在事务执行中就不断写入，而binlog在事务提交(commit)时才写入
+	  binlog是MySQL Server层面上的，而redo log是InnoDB存储引擎层面的
 -
 - redolog重做日志
   物理日志：记录“在某个数据页上做了什么修改“
