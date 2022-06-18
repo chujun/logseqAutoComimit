@@ -145,7 +145,10 @@
 		  innodb_flush_log_at_trx_commit=1
 		  ![image.png](../assets/image_1655538158372_0.png) 
 		  安全性最高，性能最低
+		  为1时， 只要事务提交成功，redo log记录就一定在硬盘里，不会有任何数据丢失。
 		  innodb_flush_log_at_trx_commit=2
+		  ![image.png](../assets/image_1655538342250_0.png)
+		-
 		-
 	-
 	-
