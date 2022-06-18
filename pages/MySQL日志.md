@@ -37,7 +37,7 @@
 	  记录的内容是前两者的混合
 	  MySQL会判断这条SQL语句是否可能引起数据不一致，如果是，就用row格式，否则就用statement格式。
 	- binlog写入机制
-	  事务执行过程中，先把日志写到binlog cache，事务提交的时候，再把binlog cache写到binlog文件中。
+	  事务执行过程中，先把日志写到binlog cache，事务提交时再把binlog cache写到binlog文件中。
 	  因为一个事务的binlog不能被拆开，无论这个事务多大，也要确保一次性写入，所以系统会给每个线程分配一个块内存作为binlog cache。
 	  我们可以通过binlog_cache_size参数控制单个线程 binlog cache 大小，如果存储内容超过了这个参数，就要暂存到磁盘（Swap）。
 	  ```
@@ -78,6 +78,7 @@
 	- binlog和redolog比较
 	  redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
 	   binlog 是逻辑日志，记录内容是语句的原始逻辑，类似于“给 ID=2 这一行的 c 字段加 1”，属于MySQL Server 层。不管用什么存储引擎，只要发生了表数据更新，都会产生 binlog 日志。
+	  写入时机不一样:redolog在事务执行中就不断写入，而binlog在事务提交(commit)时才写入
 -
 - redolog重做日志
   物理日志：记录“在某个数据页上做了什么修改“
