@@ -149,7 +149,7 @@
 		  innodb_flush_log_at_trx_commit=2
 		  ![image.png](../assets/image_1655538342250_0.png)
 		  为2时， 只要事务提交成功，redo log buffer中的内容只写入文件系统缓存（page cache）。
-		  如果仅仅只是MySQL挂了不会有任何数据丢失，--->操作系统内核会把page cache刷新到文件中去？？？
+		  如果仅仅只是MySQL挂了不会有任何数据丢失，--->操作系统没挂，内核会把page cache刷盘，针对的是缓存IO
 		  但是宕机可能会有1秒数据的丢失。
 		-
 		-
