@@ -38,6 +38,17 @@
   binlog写入机制
   事务执行过程中，先把日志写到binlog cache，事务提交的时候，再把binlog cache写到binlog文件中。
   因为一个事务的binlog不能被拆开，无论这个事务多大，也要确保一次性写入，所以系统会给每个线程分配一个块内存作为binlog cache。
+  我们可以通过binlog_cache_size参数控制单个线程 binlog cache 大小，如果存储内容超过了这个参数，就要暂存到磁盘（Swap）。
+  ```
+  mysql root@localhost:lock_test> show variables like 'binlog_cache_size';
+  +-------------------+-------+
+  | Variable_name     | Value |
+  +-------------------+-------+
+  | binlog_cache_size | 32768 |
+  +-------------------+-------+
+  1 row in set
+  Time: 0.024s
+  ```
   
   
   binlog和redolog比较
