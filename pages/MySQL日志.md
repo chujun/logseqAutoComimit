@@ -118,11 +118,12 @@
 		- 2. 后台线程定时任务刷盘
 		  每隔1 秒，就会把 redo log buffer 中的内容写到文件系统缓存（page cache），然后调用 fsync 刷盘。
 		  ![image.png](../assets/image_1655537222272_0.png)
-		  后台线程定时任务的存在,导致持久化到磁盘里的redo log不一定是事务已提交状态，也就是不是完整的
+		  后台线程定时任务的存在,导致持久化到磁盘里的redo log不一定是事务已提交状态，也就是说可能不是完整的redo log
+		  不过MySQL的两阶段提交会处理好这个问题 ((62ad2aa1-9be8-46b6-b8de-bfdf40c67729)) 
 		  可能导致一个还没有提交事务的redo log被后台线程刷盘
 		  因为在事务执行过程 redo log 记录是会写入redo log buffer 中，这些 redo log 记录会被后台线程刷盘。
 		  ![image.png](../assets/image_1655537358382_0.png)
-		- 3.
+		- 3. 当 redo log buffer 占用的空间即将达到 innodb_log_buffer_size 一半的时候，后台线程会主动刷盘
 	-
 	-
 	-
@@ -130,6 +131,7 @@
 -
 -
 - MySQL两阶段提交
+  id:: 62ad2aa1-9be8-46b6-b8de-bfdf40c67729
   没有两阶段提交前的问题
 - undolog回滚日志
 - 慢查询日志
