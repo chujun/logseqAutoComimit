@@ -79,9 +79,6 @@
 	  redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
 	   binlog 是逻辑日志，记录内容是语句的原始逻辑，类似于“给 ID=2 这一行的 c 字段加 1”，属于MySQL Server 层。不管用什么存储引擎，只要发生了表数据更新，都会产生 binlog 日志。
 -
--
--
--
 - redolog重做日志
   物理日志：记录“在某个数据页上做了什么修改“
   redo log（重做日志）是InnoDB存储引擎独有的，它让MySQL拥有了崩溃恢复能力。
@@ -96,6 +93,7 @@
 	  ![image.png](../assets/image_1655523287327_0.png)
 	  >图片笔误提示：第 4 步 “清空 redo log buffe 刷盘到 redo 日志中”这句话中的 buffe 应该是 buffer。
 	- redolog刷盘时机
+	  collapsed:: true
 		- id:: 62ad7e70-8a63-44bc-b1d2-8cde70e6df5f
 		  1. 每次事务提交时
 		  InnoDB 存储引擎为 redo log 的刷盘策略提供了 innodb_flush_log_at_trx_commit 参数，它支持三种策略：0,1,2
@@ -152,8 +150,7 @@
 		  如果仅仅只是MySQL挂了不会有任何数据丢失，--->操作系统没挂，内核会把page cache刷盘，针对的是缓存IO
 		  但是宕机可能会有1秒数据的丢失。
 		-
-		-
-	-
+	- 日志文件组
 	-
 	-
 	-
