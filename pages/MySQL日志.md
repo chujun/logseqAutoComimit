@@ -82,7 +82,7 @@
 - redolog重做日志
   物理日志：记录“在某个数据页上做了什么修改“
   redo log（重做日志）是InnoDB存储引擎独有的，它让MySQL拥有了崩溃恢复能力。
-	- 作用:保证数据的持久性与完整性。
+	- 作用:让MySQL拥有了崩溃恢复能力，保证数据的持久性与完整性。
 	  比如 MySQL 实例挂了或宕机了，重启时，InnoDB存储引擎会使用redo log恢复数据。
 	  ![image.png](../assets/image_1655522731742_0.png)
 	- 和Buffer Pool的交互
@@ -168,6 +168,7 @@
 	  ![image.png](../assets/image_1655540323530_0.png)
 	  如果 write pos 追上 checkpoint ，表示日志文件组满了，这时候不能再写入新的 redo log 记录，MySQL 得停下来，清空一些记录，把 checkpoint 推进一下。
 	  ![image.png](../assets/image_1655540364500_0.png)
+	- MySQL实例重启基于redo log恢复数据机制
 	- 一个疑问:只要每次把修改后的数据页直接刷盘不就好了，还有 redo log 什么事？
 	  innodb数据页大小默认是16KB，可能就修改了数据页里的几 Byte 数据，刷盘比较耗时，没有必要把完整的数据页刷盘。(Buffer Pool批量写)
 	  数据页刷盘是随机写，因为一个数据页对应的位置可能在硬盘文件的随机位置，所以性能是很差。
@@ -178,11 +179,14 @@
 	  单次写--->批量写
 	  >其实内存的数据页在一定时机也会刷盘，我们把这称为页合并，讲 Buffer Pool的时候会对这块细说
 	-
-- MySQL两阶段提交
+- MySQL两阶段提交方案
   id:: 62ad2aa1-9be8-46b6-b8de-bfdf40c67729
   redo log（重做日志）让InnoDB存储引擎拥有了崩溃恢复能力。
   binlog（归档日志）保证了MySQL集群架构的数据一致性。
   没有两阶段提交前的问题
+  
+  引入两阶段提交方案原因
+  为了解决两份日志之间的逻辑一致问题，InnoDB存储引擎使用两阶段提交方案。
 -
 -
 - undolog回滚日志
