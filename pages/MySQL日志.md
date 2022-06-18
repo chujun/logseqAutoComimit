@@ -101,7 +101,6 @@
 	  ![image.png](../assets/image_1655523287327_0.png)
 	  >图片笔误提示：第 4 步 “清空 redo log buffe 刷盘到 redo 日志中”这句话中的 buffe 应该是 buffer。
 	- redolog刷盘时机
-	  collapsed:: true
 		- id:: 62ad7e70-8a63-44bc-b1d2-8cde70e6df5f
 		  1. 每次事务提交时
 		  InnoDB 存储引擎为 redo log 的刷盘策略提供了 innodb_flush_log_at_trx_commit 参数，它支持三种策略：0,1,2
@@ -241,7 +240,13 @@
   MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且有对应binlog日志，认为该redo log日志事务是合法的,
   则会提交该事务恢复数据，并补偿添加redolog commit日志。
   ![image.png](../assets/image_1655544545816_0.png)
--
 - undolog回滚日志
+  undolog保证事务的原子性
+  保证事务的原子性，就需要在异常发生时，对已经执行的操作进行回滚，在 MySQL 中，回滚机制是通过 回滚日志（undo log） 实现的。
+  
+  undolog日志作用
+  1. 实现事务的原子性,实现事务回滚功能
 - 慢查询日志
 -
+- 资料
+  [MySQL三大日志(binlog、redo log和undo log)详解](https://javaguide.cn/database/mysql/mysql-logs.html#undo-log)
