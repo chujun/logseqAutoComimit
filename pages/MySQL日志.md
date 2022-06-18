@@ -18,6 +18,9 @@
   +---------------+-------+
   ```
   statement
+  记录的内容是SQL语句原文,比如执行一条update T set update_time=now() where id=1，记录的内容如下。
+  ![image.png](../assets/image_1655516461053_0.png) 
+  statement问题:有时原始sql语句可能导致数据不一致性，例如now()
   row
   mixed
   binlog和redolog比较
