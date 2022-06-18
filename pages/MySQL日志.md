@@ -17,16 +17,23 @@
   | binlog_format | ROW   |
   +---------------+-------+
   ```
-  statement
+  statement格式
   记录的内容是SQL语句原文,比如执行一条update T set update_time=now() where id=1，记录的内容如下。
   ![image.png](../assets/image_1655516461053_0.png) 
-  statement缺点:原始sql语句数据同步时可能导致不一致性，例如now()
-  row
+  statement格式缺点:数据库同步时可能导致数据不一致性，例如now()
+  
+  row格式
   记录的内容不再是简单的SQL语句了，还包含操作的具体数据
-  mixed
+  ![image.png](../assets/image_1655516800445_0.png) 
+  row格式记录的内容看不到详细信息，要通过mysqlbinlog工具解析出来。
+  解决了statement格式数据不一致性的问题，为数据库的恢复与同步带来更好的可靠性。
+  举例:update_time=now()变成了具体的时间update_time=1627112756247，条件后面的@1、@2、@3 都是该行数据第 1 个~3 个字段的原始值（假设这张表只有 3 个字段）。
+  mixed格式
+  
   binlog和redolog比较
   redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
    binlog 是逻辑日志，记录内容是语句的原始逻辑，类似于“给 ID=2 这一行的 c 字段加 1”，属于MySQL Server 层。不管用什么存储引擎，只要发生了表数据更新，都会产生 binlog 日志。
+-
 -
 -
 -
