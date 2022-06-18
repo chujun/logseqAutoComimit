@@ -214,11 +214,16 @@
 	  但是，由于此事务并没有产生完整提交的redo log，主库在恢复后会回滚该事务，这样也会产生主从不一致问题。
 	- MySQL两阶段提交方案原理
 	  简单来说就是将redo log的写入拆成了两个步骤prepare和commit。
+	  先后顺序关系:先写入日志再执行事务
 	  写入redolog日志 prepare--->写入binlog日志--->写入redolog日志commit
+	  
 	  ![image.png](../assets/image_1655543904780_0.png)
 	  
 	  引入MySQL两阶段提交异常场景分析
+	  0. 写入redolog prepare日志时发生异常
+	  MySQL根据redo log日志恢复数据时，既没有redolog，也没有binlog日志
 	  1. 写入binlog时发生异常
+	  MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且没有对应binlog日志，就会回滚该事务。
 -
 - 数据库恢复数据机制
   id:: 3a9a070b-8998-4966-b726-14738ca77d97
