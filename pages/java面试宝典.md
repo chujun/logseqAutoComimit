@@ -19,12 +19,13 @@
   [[数据结构]]
 - # 分布式
   分布式理论：CAP理论，Base理论
-  WAL(Write-Ahead Logging) ：先写日志，再写磁盘 ，MySQL先写redolog，再执行事务，保证事务一致性。
+  
   一致性算法::paxos,raft
   一致性哈希算法
   分布式配置中心
   分布式id
   分布式事务
+  WAL(Write-Ahead Logging) ：先写日志，再写磁盘 ，MySQL先写redolog，再执行事务，保证事务一致性。
   分布式协调：zookeeper
   分布式缓存
   分布式锁
