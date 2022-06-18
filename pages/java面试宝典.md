@@ -19,8 +19,7 @@
   [[数据结构]]
 - # 分布式
   分布式理论：CAP理论，Base理论
-  这种 先写日志，再写磁盘 的技术就是 MySQL
-  里经常说到的 WAL(Write-Ahead Logging) 技术。
+  WAL(Write-Ahead Logging) ：先写日志，再写磁盘 ，MySQL先写redolog，再执行事务，保证事务一致性。
   一致性算法::paxos,raft
   一致性哈希算法
   分布式配置中心
