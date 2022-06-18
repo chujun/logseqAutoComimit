@@ -198,6 +198,8 @@
 	  我们以update语句为例，假设id=2的记录，字段c值是0，把字段c值更新成1，SQL语句为update T set c=1 where id=2。
 	  假设执行过程中写完redo log日志后，binlog日志写期间发生了异常，此时会发生什么情况呢？
 	  ![image.png](../assets/image_1655541952407_0.png) 
+	  
+	  由于binlog没写完就异常，这时候binlog里面没有对应的修改记录。因此，数据库同步时用binlog日志恢复数据时，就会少这一次更新，恢复出来的这一行c值是0，而原库因为redo log日志恢复，这一行c值是1，最终数据不一致。
 	  b. 假设先执行binlog日志再执行redolog日志发生的问题
 -
 -
