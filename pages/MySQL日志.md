@@ -93,7 +93,6 @@
 	  ![image.png](../assets/image_1655523287327_0.png)
 	  >图片笔误提示：第 4 步 “清空 redo log buffe 刷盘到 redo 日志中”这句话中的 buffe 应该是 buffer。
 	- redolog刷盘时机
-		- 问题:为什么要弄出不同的刷盘策略，直接就每次把修改后的数据页直接同步刷盘不香吗
 		- id:: 62ad7e70-8a63-44bc-b1d2-8cde70e6df5f
 		  1. 每次事务提交时
 		  InnoDB 存储引擎为 redo log 的刷盘策略提供了 innodb_flush_log_at_trx_commit 参数，它支持三种策略：0,1,2
