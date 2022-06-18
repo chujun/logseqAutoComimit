@@ -189,7 +189,7 @@
 	  大数据页写--->小文件顺序写
 	  >其实内存的数据页在一定时机也会刷盘，我们把这称为页合并，讲 Buffer Pool的时候会对这块细说
 	-
-- MySQL两阶段提交方案
+- MySQL两阶段提交方案(two phase commit or 2pc）
   id:: 62ad2aa1-9be8-46b6-b8de-bfdf40c67729
 	- 引入MySQL两阶段提交方案原因:
 	  解决redolog日志和binlog日志两份日志之间的逻辑不一致问题
