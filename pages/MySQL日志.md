@@ -68,6 +68,8 @@
 	  虽然性能得到提升，但是机器宕机，page cache里面的 binlog 会丢失。
 	  b. 安全起见，可以设置为1，表示每次提交事务都会执行fsync，就如同 redo log 日志刷盘流程 一样。
 	  c. 第三种折中方案，可以设置为N(N>1)，表示每次提交事务都write，但累积N个事务后才fsync。
+	  ![image.png](../assets/image_1655519680853_0.png)
+	  如果机器宕机，会丢失最近N个事务的binlog日志。
 	-
 	-
 	- binlog和redolog比较
