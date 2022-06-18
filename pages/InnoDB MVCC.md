@@ -1,3 +1,4 @@
+- MVCC()多版本并发控制，Multi-Version Concurrency Control
 - 当前读(current read)也叫锁定读(Locking Reads)
   如下sql操作
   ```
