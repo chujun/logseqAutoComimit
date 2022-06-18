@@ -220,11 +220,13 @@
 	  ![image.png](../assets/image_1655543904780_0.png)
 	  
 	  引入MySQL两阶段提交异常场景分析
-	  1. 写入redolog prepare日志时发生异常
-	  MySQL根据redo log日志恢复数据时，既没有redolog，也没有binlog日志
-	  2. 写入binlog时发生异常
+	  ((3a9a070b-8998-4966-b726-14738ca77d97)) 
+	  1. 写入redolog prepare日志时发生异常场景
+	  MySQL根据redo log日志恢复数据时，既没有redolog，也没有binlog日志，所以没有影响
+	  2. 写入binlog时发生异常场景
 	  MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且没有对应binlog日志，就会回滚该事务。
-	  3. 写入redolog commit日志
+	  3. 写入redolog commit日志时发生异常场景
+	  MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，但是有对应binlog日志，就会回滚该事务。
 -
 - 数据库恢复数据机制
   id:: 3a9a070b-8998-4966-b726-14738ca77d97
@@ -232,8 +234,10 @@
   从库根据binlog日志同步恢复数据,不依赖源库的redolog日志
   
   MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且没有对应binlog日志，就会回滚该事务。
+  ![image.png](../assets/image_1655544539588_0.png) 
   MySQL根据redo log日志恢复数据时，发现redo log还处于prepare阶段，并且有对应binlog日志，认为该redo log日志是合法的,
   则会提交该事务，并补偿添加redolog commit日志。
+  ![image.png](../assets/image_1655544545816_0.png)
 -
 - undolog回滚日志
 - 慢查询日志
