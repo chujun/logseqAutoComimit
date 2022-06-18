@@ -5,4 +5,5 @@
   select ... for update
   insert、update、delete 操作
   ```
-- 快照读(snapshot read)也叫 一致性非锁定读（Consistent Nonlocking Reads）
+- 快照读(snapshot read)也叫一致性非锁定读(Consistent Nonlocking Reads)
+-
