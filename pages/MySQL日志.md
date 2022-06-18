@@ -49,11 +49,18 @@
   1 row in set
   Time: 0.024s
   ```
+  binlog日志刷盘流程如下
+  ![binlog日志刷盘流程.png](../assets/image_1655518970381_0.png) 
+  上图的 write，是指把日志写入到文件系统的 page cache，并没有把数据持久化到磁盘，所以速度比较快
+  上图的 fsync，才是将数据持久化到磁盘的操作
+  binlog sync同步时机
+  
   
   
   binlog和redolog比较
   redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
    binlog 是逻辑日志，记录内容是语句的原始逻辑，类似于“给 ID=2 这一行的 c 字段加 1”，属于MySQL Server 层。不管用什么存储引擎，只要发生了表数据更新，都会产生 binlog 日志。
+-
 -
 -
 - redolog重做日志
