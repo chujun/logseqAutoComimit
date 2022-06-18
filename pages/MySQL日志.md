@@ -96,6 +96,20 @@
 	  ![image.png](../assets/image_1655523287327_0.png)
 	  >图片笔误提示：第 4 步 “清空 redo log buffe 刷盘到 redo 日志中”这句话中的 buffe 应该是 buffer。
 	- redolog刷盘时机
+	  InnoDB 存储引擎为 redo log 的刷盘策略提供了 innodb_flush_log_at_trx_commit 参数，它支持三种策略：0,1,2
+	  0 ：设置为 0 的时候，表示每次事务提交时不进行刷盘操作
+	  1 ：设置为 1 的时候，表示每次事务提交时都将进行刷盘操作（默认值）
+	  2 ：设置为 2 的时候，表示每次事务提交时都只把 redo log buffer 内容写入 page cache
+	  ```
+	  mysql root@localhost:lock_test> show variables like 'innodb_flush_log_at_trx_commit';
+	  +--------------------------------+-------+
+	  | Variable_name                  | Value |
+	  +--------------------------------+-------+
+	  | innodb_flush_log_at_trx_commit | 1     |
+	  +--------------------------------+-------+
+	  1 row in set
+	  Time: 0.133s
+	  ```
 	-
 	-
 	-
