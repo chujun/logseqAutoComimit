@@ -181,12 +181,17 @@
 	-
 - MySQL两阶段提交方案
   id:: 62ad2aa1-9be8-46b6-b8de-bfdf40c67729
+  引入MySQL两阶段提交方案原因:
+  解决redolog日志和binlog日志两份日志之间的逻辑不一致问题
+  
   redo log（重做日志）让InnoDB存储引擎拥有了崩溃恢复能力。
   binlog（归档日志）保证了MySQL集群架构的数据一致性。
-  没有两阶段提交前的问题
   
-  引入两阶段提交方案原因
-  为了解决两份日志之间的逻辑一致问题，InnoDB存储引擎使用两阶段提交方案。
+  redolog日志和binlog日志两份日志之间的逻辑不一致问题
+  
+  没有引入两阶段提交方案前的问题
+  先执行redolog日志再执行binlog日志存在的问题
+  先执行binlog日志再执行redolog日志存在的问题
 -
 -
 - undolog回滚日志
