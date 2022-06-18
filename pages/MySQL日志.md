@@ -35,6 +35,9 @@
   记录的内容是前两者的混合
   MySQL会判断这条SQL语句是否可能引起数据不一致，如果是，就用row格式，否则就用statement格式。
   
+  binlog写入机制
+  事务执行过程中，先把日志写到binlog cache，事务提交的时候，再把binlog cache写到binlog文件中。
+  
   
   binlog和redolog比较
   redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
