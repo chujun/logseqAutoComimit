@@ -140,8 +140,13 @@
 		  ((62ad7e70-8a63-44bc-b1d2-8cde70e6df5f))
 		  innodb_flush_log_at_trx_commit=0
 		  ![image.png](../assets/image_1655537895300_0.png)
+		  问题:性能最高,
+		  为0时不做任何动作,但如果MySQL挂了或宕机可能会有1秒数据的丢失(依靠后台线程定时刷盘，默认1秒)。
 		  innodb_flush_log_at_trx_commit=1
+		  ![image.png](../assets/image_1655538158372_0.png) 
+		  安全性最高，性能最低
 		  innodb_flush_log_at_trx_commit=2
+		-
 	-
 	-
 	-
