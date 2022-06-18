@@ -1,3 +1,0 @@
-- binlog二进制日志
-- redolog重做日志
-- undolog回滚日志
