@@ -51,8 +51,8 @@
 	  ![binlog日志刷盘流程.png](../assets/image_1655518970381_0.png) 
 	  上图的 write，是指把日志写入到文件系统的 page cache，并没有把数据持久化到磁盘，所以速度比较快
 	  上图的 fsync，才是将数据持久化到磁盘的操作
-	- binlog sync同步时机
-	  write和fsync的时机，可以由参数sync_binlog控制，0,1,2,mysq8默认是1。
+	- binlog刷盘sync同步时机
+	  write和fsync的时机，可以由参数sync_binlog控制，0,1,N,mysq8默认是1。
 	  ```
 	  mysql root@localhost:lock_test> show variables like 'sync_binlog';
 	  +---------------+-------+
@@ -63,8 +63,12 @@
 	  1 row in set
 	  Time: 0.067s
 	  ```
-	  为0的时候，表示每次提交事务都只write，由系统自行判断什么时候执行fsync。
+	  a. 为0的时候，表示每次提交事务都只write，由系统自行判断什么时候执行fsync。
 	  ![image.png](../assets/image_1655519475620_0.png)
+	  虽然性能得到提升，但是机器宕机，page cache里面的 binlog 会丢失。
+	  b. 安全起见，可以设置为1，表示每次提交事务都会执行fsync，就如同 redo log 日志刷盘流程 一样。
+	  c. 第三种折中方案，可以设置为N(N>1)，表示每次提交事务都write，但累积N个事务后才fsync。
+	-
 	-
 	- binlog和redolog比较
 	  redolog是物理日志，记录内容是“在某个数据页上做了什么修改”，属于 InnoDB 存储引擎。
