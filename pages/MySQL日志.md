@@ -156,9 +156,16 @@
 	  ![image.png](../assets/image_1655539955885_0.png)
 	  
 	  在个日志文件组中还有几个重要的属性，分别是 write pos、checkpoint
+	  write pos 是当前记录的位置，一边写一边后移
+	  checkpoint 是当前要擦除的位置，也是往后推移
 	  --->和Disruptor的生产者下标和消费者下标
-		- write pos 是当前记录的位置，一边写一边后移
-		- checkpoint 是当前要擦除的位置，也是往后推移
+	  write pos和checkpoint 
+	  每次刷盘 redo log 记录到日志文件组中，write pos 位置就会后移更新
+	  每次 MySQL 加载redolog日志文件组恢复数据时，会清空加载过的 redo log 记录，并把 checkpoint 后移更新
+	  write pos 和 checkpoint 之间的还空着的部分可以用来写入新的 redo log 记录。
+	  ![image.png](../assets/image_1655540323530_0.png)
+	  如果 write pos 追上 checkpoint ，表示日志文件组满了，这时候不能再写入新的 redo log 记录，MySQL 得停下来，清空一些记录，把 checkpoint 推进一下。
+	-
 	-
 	-
 	-
