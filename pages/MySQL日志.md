@@ -93,6 +93,7 @@
 	  ![image.png](../assets/image_1655523287327_0.png)
 	  >图片笔误提示：第 4 步 “清空 redo log buffe 刷盘到 redo 日志中”这句话中的 buffe 应该是 buffer。
 	- redolog刷盘时机
+	  collapsed:: true
 		- id:: 62ad7e70-8a63-44bc-b1d2-8cde70e6df5f
 		  1. 每次事务提交时
 		  InnoDB 存储引擎为 redo log 的刷盘策略提供了 innodb_flush_log_at_trx_commit 参数，它支持三种策略：0,1,2
@@ -167,7 +168,12 @@
 	  ![image.png](../assets/image_1655540323530_0.png)
 	  如果 write pos 追上 checkpoint ，表示日志文件组满了，这时候不能再写入新的 redo log 记录，MySQL 得停下来，清空一些记录，把 checkpoint 推进一下。
 	  ![image.png](../assets/image_1655540364500_0.png)
-	-
+	- 一个疑问:只要每次把修改后的数据页直接刷盘不就好了，还有 redo log 什么事？
+	  innodb数据页大小默认是16KB，可能就修改了数据页里的几 Byte 数据，刷盘比较耗时，没有必要把完整的数据页刷盘。(Buffer Pool批量写)
+	  数据页刷盘是随机写，因为一个数据页对应的位置可能在硬盘文件的随机位置，所以性能是很差。
+	  数据页刷盘是随机IO写--->性能很低
+	  如果是写 redo log，一行记录可能就占几十 Byte，只包含表空间号、数据页号、磁盘文件偏移 量、更新值，
+	- 再加上是顺序写，所以刷盘速度很快。
 	-
 	-
 	-
