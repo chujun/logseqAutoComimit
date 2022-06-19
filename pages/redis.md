@@ -16,15 +16,19 @@
 - 支持的数据类型
   对各种数据结构的极致优化
   String
+  String数据结构
+  并没有使用C语言的字符串表示
   List
   Hash
   Set
   Sorted Set
   bitmap
-- 使用redis缓存好处
+  Stream(redis5.0新增数据类型)
+- redis三高分析
   高性能
   高并发
   一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。
+  高可用
 - redis内存管理
 - redis持久化机制
   RDB(快照 snapshotting)
