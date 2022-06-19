@@ -33,6 +33,8 @@
 	- 隐藏字段
 	  InnoDB 存储引擎为每行数据添加了三个 隐藏字段
 	  DB_TRX_ID（6字节）：表示最后一次插入或更新该数据行的事务 id。此外，delete 操作在内部被视为更新，只不过会在记录头 Record header 中的 deleted_flag 字段将其标记为已删除
+	  DB_ROLL_PTR（7字节） 回滚指针，指向该数据行的 undo log 。如果该行未被更新，则为空
+	  注意:数据行首次插入时,DB_ROLL_PTR为空.后面每次更新该数据行时，
 	- Read View
 	- undo log
 - MVCC数据可见性算法
