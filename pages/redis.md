@@ -14,7 +14,7 @@
   7. Redis 支持发布订阅模型、Lua 脚本、事务等功能，而 Memcached 不支持。并且，Redis 支持更多的编程语言。
   8. Memcached 过期数据的删除策略只用了惰性删除，而 Redis 同时使用了惰性删除与定期删除。
 - 支持的数据类型
-  
+  对各种数据结构的极致优化
   String
   List
   Hash
