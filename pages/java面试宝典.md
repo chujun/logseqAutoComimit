@@ -25,6 +25,7 @@
   WAL(Write-Ahead Logging) ：先写日志，再写磁盘 ，MySQL先写redolog，再执行事务，保证事务一致性。
   分布式协调：zookeeper
   分布式缓存
+  Memcached，Redis，现在基本都是用Redis了
   分布式锁
   分布式存储
 - # 高性能，高可用
