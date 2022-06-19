@@ -32,7 +32,7 @@
   2. 减少死锁
   RR这种事务隔离级别会增加Gap Lock和 Next-Key Lock，这就使得锁的粒度变大，那么就会使得死锁的概率增大。
   3。幻读问题
-  虽然RC相对RR存在幻读问题，
+  虽然RC相对RR存在幻读问题，但是这个其实还好，很多时候幻读问题其实是可以忽略的，或者可以用其他手段解决。
   所有的技术方案的选择，都是一种权衡的艺术！
 - 资料
   [MySQL 8InnoDB 官方文档](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)
