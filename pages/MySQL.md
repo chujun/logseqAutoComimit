@@ -176,6 +176,9 @@
 - explain执行计划
   Extra的值为Using index condition，表示已经使用了索引下推。
 - 事务
+  
+  在 RC 中，只会对索引增加Record Lock，不会添加Gap Lock和Next-Key Lock。
+  在 RR 中，为了解决幻读的问题，在支持Record Lock的同时，还支持Gap Lock和Next-Key Lock；
 - 数据类型
   对VARCHAR长度的认知
   VARCHAR(N) 中的 N 代表的是字符数，而不是字节数，使用 UTF8 存储 255 个汉字 Varchar(255)=765 个字节。

@@ -162,6 +162,5 @@
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。
   并且在 Repeatable Read 下 MVCC 实现了可重复读和防止部分幻读.
 - RC 这种隔离级别中，还支持"半一致读"
-  在 RC 中，只会对索引增加Record Lock，不会添加Gap Lock和Next-Key Lock。
-  在 RR 中，为了解决幻读的问题，在支持Record Lock的同时，还支持Gap Lock和Next-Key Lock；
+  一条update语句，如果 where 条件匹配到的记录已经加锁，那么InnoDB会返回记录最近提交的版本，由MySQL上层判断此是否需要真的加锁。
   [MySQL 默认隔离级别是RR，为什么阿里等大厂会改成RC？](https://mp.weixin.qq.com/s/mIz0T0v68_dvUgCrj-qdug)
