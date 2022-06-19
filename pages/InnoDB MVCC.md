@@ -87,6 +87,8 @@
 	  不同事务或者相同事务的对同一记录行的修改，会使该记录行的 undo log 成为一条链表，链首就是最新的记录，链尾就是最早的旧记录。
 	-
 - MVCC数据可见性算法
+  具体算法源码分析如下
+  ![image.png](../assets/image_1655608054107_0.png)
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。
   并且在 Repeatable Read 下 MVCC 实现了可重复读和防止部分幻读.
