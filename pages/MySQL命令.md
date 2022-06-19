@@ -12,6 +12,19 @@
   | 8.0.22    |
   +-----------+
   ```
+- 时区相关命令
+  ```
+  # 查看当前会话时区
+  SELECT @@session.time_zone;
+  # 设置当前会话时区
+  SET time_zone = 'Europe/Helsinki';
+  SET time_zone = "+00:00";
+  # 数据库全局时区设置
+  SELECT @@global.time_zone;
+  # 设置全局时区
+  SET GLOBAL time_zone = '+8:00';
+  SET GLOBAL time_zone = 'Europe/Helsinki';
+  ```
 - 查看字符集
   SHOW CHARSET
   ![SHOW CHARSET.png](../assets/image_1655106043207_0.png)
