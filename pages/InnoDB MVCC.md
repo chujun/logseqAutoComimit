@@ -24,6 +24,7 @@
   select ... lock in share mode：对记录加 S 锁，其它事务也可以加S锁，如果加 x 锁则会被阻塞。
   select ... for update、insert、update、delete：对记录加 X 锁，且其它事务不能加任何锁。
 - "半一致读"
+  id:: 62aecb9c-c423-4636-ad3a-07acad0a46bb
   官方解释:
   是一种用在 Update 语句中的读操作（一致性读）的优化，是在 RC 事务隔离级别下与一致性读的结合。
   当 Update 语句的 where 条件中匹配到的记录已经上锁，会再次去 InnoDB 引擎层读取对应的行记录，判断是否真的需要上锁（第一次需要由 InnoDB 先返回一个最新的已提交版本）。
