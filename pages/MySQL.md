@@ -71,7 +71,7 @@
   MySQL 的隔离级别基于锁和 MVCC 机制共同实现的。
   SERIALIZABLE 隔离级别，是通过锁来实现的。
   其他的隔离级别都是基于 MVCC 实现,不过也需要锁机制配合。
-  比如 REPEATABLE-READ 在当前读情况下需要使用加锁读来保证不会出现幻读。
+  比如 REPEATABLE-READ 在当前读情况下需要使用加临键锁读来保证不会出现幻读。
 - MySQL锁
   ![MySQL锁分类.png](../assets/image_1655119720821_0.png)
 	-
