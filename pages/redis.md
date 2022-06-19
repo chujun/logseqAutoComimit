@@ -28,6 +28,35 @@
 	  C 语言并没有实现链表，所以 Redis 实现了自己的链表数据结构。Redis 的 list 的实现为一个 双向链表，即可以支持反向查找和遍历，更方便操作，不过带来了部分额外的内存开销。
 	  ![image.png](../assets/image_1655647082164_0.png)
 	  常用命令: rpush,lpop,lpush,rpop,lrange,llen 等。
+	  ```
+	  27.0.0.1:6379> rpush myList value1 # 向 list 的头部（右边）添加元素
+	  (integer) 1
+	  127.0.0.1:6379> rpush myList value2 value3 # 向list的头部（最右边）添加多个元素
+	  (integer) 3
+	  127.0.0.1:6379> lpop myList # 将 list的尾部(最左边)元素取出
+	  "value1"
+	  127.0.0.1:6379> lrange myList 0 1 # 查看对应下标的list列表， 0 为 start,1为 end
+	  1) "value2"
+	  2) "value3"
+	  127.0.0.1:6379> lrange myList 0 -1 # 查看列表中的所有元素，-1表示倒数第一
+	  1) "value2"
+	  2) "value3"
+	  
+	  127.0.0.1:6379> rpush myList2 value1 value2 value3
+	  (integer) 3
+	  127.0.0.1:6379> rpop myList2 # 将 list的头部(最右边)元素取出
+	  "value3"
+	  
+	  127.0.0.1:6379> rpush myList3 value1 value2 value3
+	  (integer) 3
+	  127.0.0.1:6379> lrange myList3 0 1 # 查看对应下标的list列表， 0 为 start,1为 end
+	  1) "value1"
+	  2) "value2"
+	  127.0.0.1:6379> lrange myList3 0 -1 # 查看列表中的所有元素，-1表示倒数第一
+	  1) "value1"
+	  2) "value2"
+	  3) "value3"
+	  ```
 	- Hash
 	  hash 类似于 JDK1.8 前的 HashMap
 	  数据结构:跳跃表(数组 + 链表)。
@@ -118,6 +147,9 @@
 	  2) "value2"
 	  ```
 	- bitmap
+	  bitmap 存储的是连续的二进制数字（0 和 1），通过 bitmap, 只需要一个 bit 位来表示某个元素对应的值或者状态，key 就是对应元素本身 。我们知道 8 个 bit 可以组成一个 byte，所以 bitmap 本身会极大的节省储存空间。
+	  常用命令： setbit 、getbit 、bitcount、bitop
+	  应用场景： 适合需要保存状态信息（比如是否签到、是否登录...）并需要进一步对这些信息进行分析的场景。比如用户签到情况、活跃用户情况、用户行为统计（比如是否点赞过某个视频）。
 	- Stream(redis5.0新增数据类型)
 - redis常见命令
 - redis三高分析
