@@ -22,9 +22,12 @@
 	  优势：
 	  1. 相比于 C 的原生字符串，Redis 的 SDS 不光可以保存文本数据还可以保存二进制数据，并且获取字符串长度复杂度为 O(1)（C 字符串为 O(N))
 	  2. 除此之外，Redis 的 SDS API 是安全的，不会造成缓冲区溢出。
+	  常用命令： set,get,strlen,exists,decr,incr,setex 等等。
 	- List
 	  数据结构
 	  C 语言并没有实现链表，所以 Redis 实现了自己的链表数据结构。Redis 的 list 的实现为一个 双向链表，即可以支持反向查找和遍历，更方便操作，不过带来了部分额外的内存开销。
+	  ![image.png](../assets/image_1655647082164_0.png)
+	  常用命令: rpush,lpop,lpush,rpop,lrange,llen 等。
 	- Hash
 	- Set
 	- Sorted Set
