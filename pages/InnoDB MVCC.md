@@ -149,6 +149,10 @@
 	  ![image.png](../assets/image_1655618084099_0.png)
 	  在 RR 级别下只会生成一次Read View，所以此时依然沿用 m_ids ：[101,102] ，m_low_limit_id为：104，m_up_limit_id为：101，m_creator_trx_id 为：103
 	  a。最新记录的 DB_TRX_ID 为 102，m_up_limit_id <= 102 < m_low_limit_id，所以要在 m_ids 列表中查找，发现 DB_TRX_ID 存在列表中，那么这个记录不可见
+	  b。根据 DB_ROLL_PTR 找到 undo log 中的上一版本记录，上一条记录的 DB_TRX_ID 为 101，不可见
+	  c。继续根据 DB_ROLL_PTR 找到 undo log 中的上一版本记录，上一条记录的 DB_TRX_ID 还是 101，不可见
+	  d。继续找上一条 DB_TRX_ID为 1，满足 1 < m_up_limit_id，可见，所以事务 103 查询到数据为 name = 菜花
+	  3. 时间点 T9 情况下：
 -
 -
 - 事务隔离级别和快照读，当前读的关系
