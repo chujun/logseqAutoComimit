@@ -26,7 +26,15 @@
 - InnoDB实现机制:MVCC
   如果读取的行正在执行 DELETE 或 UPDATE 操作(事务加了X锁)，这时读取操作不会去等待行上锁的释放。相反地，InnoDB 存储引擎会去读取行的一个快照数据。
 - MVCC实现机制
-  简单描述:MVCC 的实现依赖于：隐藏字段、Read View、undo log。在内部实现中，InnoDB 通过数据行的 DB_TRX_ID 和 Read View 来判断数据的可见性，如不可见，则通过数据行的 DB_ROLL_PTR 找到 undo log 中的历史版本。每个事务读到的数据版本可能是不一样的，在同一个事务中，用户只能看到该事务创建 Read View 之前已经提交的修改和该事务本身做的修改。
+  简单描述:MVCC 的实现依赖于：隐藏字段、Read View、undo log。
+  1. 在内部实现中，InnoDB 通过数据行的 DB_TRX_ID 和 Read View 来判断数据的可见性，
+  2. 如不可见，则通过数据行的 DB_ROLL_PTR 找到 undo log 中的历史版本。
+  每个事务读到的数据版本可能是不一样的，在同一个事务中，用户只能看到该事务创建 Read View 之前已经提交的修改和该事务本身做的修改。
+	- 隐藏字段
+	  InnoDB 存储引擎为每行数据添加了三个 隐藏字段
+	  DB_TRX_ID（6字节）：表示最后一次插入或更新该数据行的事务 id。此外，delete 操作在内部被视为更新，只不过会在记录头 Record header 中的 deleted_flag 字段将其标记为已删除
+	- Read View
+	- undo log
 - MVCC数据可见性算法
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。
