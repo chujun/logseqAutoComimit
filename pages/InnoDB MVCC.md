@@ -92,6 +92,7 @@
   判断某个记录行是否满足可见性条件：根据记录行的 DB_TRX_ID与Read View 和当前事务ID进行比较
   当用户在这个事务中要读取某个记录行的时候，InnoDB 会将该记录行的 DB_TRX_ID 与 Read View 中的一些变量及当前事务 ID 进行比较，判断是否满足可见性条件。
   具体算法源码分析如下
+  函数入参中的trx_id id表示记录行的 DB_TRX_ID。
   ![image.png](../assets/image_1655608054107_0.png)
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。
