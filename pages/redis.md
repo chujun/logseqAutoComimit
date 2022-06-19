@@ -15,18 +15,19 @@
   8. Memcached 过期数据的删除策略只用了惰性删除，而 Redis 同时使用了惰性删除与定期删除。
 - 支持的数据类型
   对各种数据结构的极致优化
-  String
-  String数据结构
-  并没有使用C语言的字符串表示，而是自己实现了一种 简单动态字符串（simple dynamic string，SDS）
-  优势：
-  1. 相比于 C 的原生字符串，Redis 的 SDS 不光可以保存文本数据还可以保存二进制数据，并且获取字符串长度复杂度为 O(1)（C 字符串为 O(N))
-  2. 除此之外，Redis 的 SDS API 是安全的，不会造成缓冲区溢出。
-  List
-  Hash
-  Set
-  Sorted Set
-  bitmap
-  Stream(redis5.0新增数据类型)
+	- String
+	  String数据结构
+	  并没有使用C语言的字符串表示，而是自己实现了一种 简单动态字符串（simple dynamic string，SDS）
+	  ![截屏2022-06-19 下午9.53.37.png](../assets/截屏2022-06-19_下午9.53.37_1655646832344_0.png) 
+	  优势：
+	  1. 相比于 C 的原生字符串，Redis 的 SDS 不光可以保存文本数据还可以保存二进制数据，并且获取字符串长度复杂度为 O(1)（C 字符串为 O(N))
+	  2. 除此之外，Redis 的 SDS API 是安全的，不会造成缓冲区溢出。
+	- List
+	- Hash
+	- Set
+	- Sorted Set
+	- bitmap
+	- Stream(redis5.0新增数据类型)
 - redis三高分析
   高性能
   高并发
