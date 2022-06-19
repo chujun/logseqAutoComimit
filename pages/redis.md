@@ -20,6 +20,7 @@
   Hash
   Set
   Sorted Set
+  bitmap
 - 使用redis缓存好处
   高性能
   高并发
