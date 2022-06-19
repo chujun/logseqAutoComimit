@@ -71,6 +71,15 @@
 	  undo log 主要有两个作用：
 	  1. 当事务回滚时用于将数据恢复到修改前的样子
 	  2. 另一个作用是 MVCC ，当读取记录时，若该记录被其他事务占用或当前版本对该事务不可见，则可以通过 undo log 读取之前的版本数据，以此实现快照读。
+	  
+	  undo log两种类型
+	  在 InnoDB 存储引擎中 undo log 分为两种： insert undo log 和 update undo log：
+	  1. insert undo log ：指在 insert 操作中产生的 undo log。因为 insert 操作的记录只对事务本身可见，对其他事务不可见，故该 undo log 可以在事务提交后直接删除。不需要进行 purge 操作.
+	  insert 时的数据初始状态：
+	  ![image.png](../assets/image_1655607546232_0.png)
+	  
+	  2. update undo log ：update 或 delete 操作中产生的 undo log。该 undo log可能需要提供 MVCC 机制，因此不能在事务提交时就进行删除。提交时放入 undo log 链表，等待 purge线程 进行最后的删除.
+	-
 - MVCC数据可见性算法
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。

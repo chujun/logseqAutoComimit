@@ -259,7 +259,7 @@
   
   undolog日志作用
   1. 实现事务的原子性,实现事务回滚功能
-  2. InnoDB MVCC实现依赖undolog日志
+  2. InnoDB MVCC实现依赖undolog日志,当读取记录时，若该记录被其他事务占用或当前版本对该事务不可见，则可以通过 undo log 读取之前的版本数据，以此实现快照读。
   具体描述见MVCC的undo log描述
   ((62ae8bd1-4ccb-4ef7-9ac8-d7026d687a1b)) 
   ((62ad9d9a-a979-4ad4-9323-502232fa9241))
