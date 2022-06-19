@@ -1,6 +1,8 @@
 - MVCC(多版本并发控制，Multi-Version Concurrency Control)
 - 快照读(snapshot read)也叫一致性非锁定读(Consistent Nonlocking Reads)
   id:: 62ae83ab-0d03-4ba3-83a5-65b55e03f2ae
+  只能读取到第一次查询之前所插入的数据（根据 Read View 判断数据可见性，Read View 在第一次查询时生成）
+  --->因为普通select没有加锁所以叫非锁定读
   sql操作
   ```
   普通的select语句
@@ -10,6 +12,8 @@
   通常做法是加一个版本号或者时间戳字段，在更新数据的同时版本号 + 1 或者更新时间戳。查询时，将当前可见的版本号与对应记录的版本号进行比对，如果记录的版本小于可见版本，则表示该记录可见.
 - 当前读(current read)也叫锁定读(Locking Reads)
   id:: 62adc7f8-ae50-4d50-b05d-faeeb20db459
+  每次读取的都是最新数据，
+  --->因为select for update加锁所以叫锁定读
   如下sql操作
   ```
   select ... lock in share mode
