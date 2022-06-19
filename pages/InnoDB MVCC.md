@@ -71,7 +71,8 @@
 	  在 RC 隔离级别下的 每次select 查询前都生成一个Read View (m_ids 列表)
 	  在 RR 隔离级别下只在事务开始后 第一次select 数据前生成一个Read View（m_ids 列表）
 	  b. 当前读
-	  TODO:cj
+	  RC:
+	  RR: 通过添加临键锁
 	- MVCC中的undo log
 	  id:: 62ae8bd1-4ccb-4ef7-9ac8-d7026d687a1b
 	  ((889ad45e-5c8d-45d5-8569-2da7a975e8a8))
@@ -114,6 +115,7 @@
   这些情况下，这个记录行的值对当前事务都是不可见的。跳到步骤 5
   4.2 在活跃事务列表中找不到，则表明“id 为 trx_id 的事务”在修改“该记录行的值”后，在“当前事务”创建快照前就已经提交了，所以记录行对当前事务可见(步骤3一致)
   5. 在该记录行的 DB_ROLL_PTR 指针所指向的 undo log 取出快照记录，用快照记录的 DB_TRX_ID 跳到步骤 1 重新开始判断，直到找到满足的快照版本或返回空。(循环递归找到满足的快照版本)
+- InnoDB MVCC解决不可重复读实验
 -
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。
