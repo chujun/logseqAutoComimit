@@ -150,6 +150,28 @@
 	  bitmap 存储的是连续的二进制数字（0 和 1），通过 bitmap, 只需要一个 bit 位来表示某个元素对应的值或者状态，key 就是对应元素本身 。我们知道 8 个 bit 可以组成一个 byte，所以 bitmap 本身会极大的节省储存空间。
 	  常用命令： setbit 、getbit 、bitcount、bitop
 	  应用场景： 适合需要保存状态信息（比如是否签到、是否登录...）并需要进一步对这些信息进行分析的场景。比如用户签到情况、活跃用户情况、用户行为统计（比如是否点赞过某个视频）。
+	  ```
+	  # SETBIT 会返回之前位的值（默认是 0）这里会生成 7 个位
+	  127.0.0.1:6379> setbit mykey 7 1
+	  (integer) 0
+	  127.0.0.1:6379> setbit mykey 7 0
+	  (integer) 1
+	  127.0.0.1:6379> getbit mykey 7
+	  (integer) 0
+	  127.0.0.1:6379> setbit mykey 6 1
+	  (integer) 0
+	  127.0.0.1:6379> setbit mykey 8 1
+	  (integer) 0
+	  # 通过 bitcount 统计被被设置为 1 的位的数量。
+	  127.0.0.1:6379> bitcount mykey
+	  (integer) 2
+	  ```
+	  使用场景一：用户行为分析 很多网站为了分析你的喜好，需要研究你点赞过的内容。
+	  ```
+	  # 记录你喜欢过 001 号小姐姐
+	  127.0.0.1:6379> setbit beauty_girl_001 uid 1
+	  ```
+	  使用场景二：统计活跃用户
 	- Stream(redis5.0新增数据类型)
 - redis常见命令
 - redis三高分析
