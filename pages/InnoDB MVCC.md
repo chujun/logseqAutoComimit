@@ -116,6 +116,17 @@
   4.2 在活跃事务列表中找不到，则表明“id 为 trx_id 的事务”在修改“该记录行的值”后，在“当前事务”创建快照前就已经提交了，所以记录行对当前事务可见(步骤3一致)
   5. 在该记录行的 DB_ROLL_PTR 指针所指向的 undo log 取出快照记录，用快照记录的 DB_TRX_ID 跳到步骤 1 重新开始判断，直到找到满足的快照版本或返回空。(循环递归找到满足的快照版本)
 - InnoDB MVCC解决不可重复读实验
+  快照读:RC 和 RR 都通过 MVCC 来读取快照数据，但由于 生成 Read View 时机不同，从而在 RR 级别下实现可重复读.
+  ![image.png](../assets/image_1655617636784_0.png)
+	- 1. 在RC下ReadView 生成情况
+	  1. 假设时间线来到 T4 ，那么此时数据行 id = 1 的版本链为：
+	  ![image.png](../assets/image_1655617684631_0.png)
+	  由于 RC 级别下每次查询都会生成Read View ，并且事务 101、102 并未提交，
+	  此时 103 事务生成的 Read View 中活跃的事务 m_ids 为：[101,102] ，m_low_limit_id为：104，m_up_limit_id为：101，m_creator_trx_id 为：103
+	  a。此时最新记录的 DB_TRX_ID 为 101，m_up_limit_id <= 101 < m_low_limit_id，所以要在 m_ids 列表中查找，发现 DB_TRX_ID 存在列表中，那么这个记录不可见
+	  b。根据 DB_ROLL_PTR 找到 undo log 中的上一版本记录，上一条记录的 DB_TRX_ID 还是 101，不可见
+	- 2. 在RR下ReadView 生成情况
+-
 -
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。
