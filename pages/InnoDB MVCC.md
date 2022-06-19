@@ -65,8 +65,13 @@
 	  
 	  数据行DB_TRX_ID与m_low_limit_id,m_up_limit_id,m_ids关系理解如下图，
 	  ![MVCC事务可见性示意图.png](../assets/image_1655606638392_0.png)
-	  不同事务隔离级别下Read View
-	  在事务隔离级别 RC 和 RR （InnoDB 存储引擎的默认事务隔离级别）下，InnoDB 存储引擎使用 MVCC（非锁定一致性读），但它们生成 Read View 的时机却不同
+	  
+	  不同事务隔离级别下Read View生成时机
+	  a. 快照读:
+	  在 RC 隔离级别下的 每次select 查询前都生成一个Read View (m_ids 列表)
+	  在 RR 隔离级别下只在事务开始后 第一次select 数据前生成一个Read View（m_ids 列表）
+	  b. 当前读
+	  在 RR 隔离级别下只在事务开始后 第一次select 数据前生成一个Read View（m_ids 列表）
 	- MVCC中的undo log
 	  id:: 62ae8bd1-4ccb-4ef7-9ac8-d7026d687a1b
 	  ((889ad45e-5c8d-45d5-8569-2da7a975e8a8))
