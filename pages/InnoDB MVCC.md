@@ -32,10 +32,34 @@
   每个事务读到的数据版本可能是不一样的，在同一个事务中，用户只能看到该事务创建 Read View 之前已经提交的修改和该事务本身做的修改。
 	- 隐藏字段
 	  InnoDB 存储引擎为每行数据添加了三个 隐藏字段
-	  DB_TRX_ID（6字节）：表示最后一次插入或更新该数据行的事务 id。此外，delete 操作在内部被视为更新，只不过会在记录头 Record header 中的 deleted_flag 字段将其标记为已删除
-	  DB_ROLL_PTR（7字节） 回滚指针，指向该数据行的 undo log 。如果该行未被更新，则为空
-	  注意:数据行首次插入时,DB_ROLL_PTR为空.后面每次更新该数据行时，
+	  DB_TRX_ID（6字节）：表示最后一次插入或更新该数据行的事务 id。
+	  此外，delete 操作在内部被视为更新，只不过会在记录头 Record header 中的 deleted_flag 字段将其标记为已删除。
+	  
+	  DB_ROLL_PTR（7字节） 回滚指针，指向该数据行的 undo log 。如果该行未被更新，则为空。
+	  注意:数据行首次插入时,DB_ROLL_PTR为空.后面每次更新该数据行时，DB_ROLL_PTR都更新
+	  
+	  DB_ROW_ID（6字节）：如果没有设置主键且该表没有唯一非空索引时，InnoDB 会使用该 id 来生成聚簇索引。
 	- Read View
+	  数据结构
+	  ```
+	  class ReadView {
+	    /* ... */
+	  private:
+	    trx_id_t m_low_limit_id;      /* 大于等于这个 ID 的事务均不可见 */
+	  
+	    trx_id_t m_up_limit_id;       /* 小于这个 ID 的事务均可见 */
+	  
+	    trx_id_t m_creator_trx_id;    /* 创建该 Read View 的事务ID */
+	  
+	    trx_id_t m_low_limit_no;      /* 事务 Number, 小于该 Number 的 Undo Logs 均可以被 Purge */
+	  
+	    ids_t m_ids;                  /* 创建 Read View 时的活跃事务列表 */
+	  
+	    m_closed;                     /* 标记 Read View 是否 close */
+	  }
+	  ```
+	  m_low_limit_id,m_up_limit_id,m_ids关系理解如下图
+	  ![MVCC事务可见性示意图.png](../assets/image_1655606638392_0.png)
 	- undo log
 - MVCC数据可见性算法
 - 事务隔离级别和快照读，当前读的关系
