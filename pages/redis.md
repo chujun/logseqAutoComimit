@@ -33,6 +33,43 @@
 	  数据结构:跳跃表(数组 + 链表)。
 	  常用命令： hset,hmset,hexists,hget,hgetall,hkeys,hvals 等。
 	  应用场景: 系统中对象数据的存储。
+	  Ha
+	  ```
+	  127.0.0.1:6379> hmset userInfoKey name "guide" description "dev" age "24"
+	  OK
+	  127.0.0.1:6379> hexists userInfoKey name # 查看 key 对应的 value中指定的字段是否存在。
+	  (integer) 1
+	  127.0.0.1:6379> hget userInfoKey name # 获取存储在哈希表中指定字段的值。
+	  "guide"
+	  127.0.0.1:6379> hget userInfoKey age
+	  "24"
+	  127.0.0.1:6379> hgetall userInfoKey # 获取在哈希表中指定 key 的所有字段和值
+	  1) "name"
+	  2) "guide"
+	  3) "description"
+	  4) "dev"
+	  5) "age"
+	  6) "24"
+	  127.0.0.1:6379> hkeys userInfoKey # 获取 key 列表
+	  1) "name"
+	  2) "description"
+	  3) "age"
+	  127.0.0.1:6379> hvals userInfoKey # 获取 value 列表
+	  1) "guide"
+	  2) "dev"
+	  3) "24"
+	  127.0.0.1:6379> hset userInfoKey name "GuideGeGe" # 修改某个字段对应的值
+	  127.0.0.1:6379> hget userInfoKey name
+	  "GuideGeGe"
+	  127.0.0.1:6379>hset userInfoKey name "GuideGeGe" age "100"
+	  127.0.0.1:6379> HGETALL userInfoKey
+	  1) "name"
+	  2) "GuideGeGe"
+	  3) "description"
+	  4) "dev"
+	  5) "age"
+	  6) "100"
+	  ```
 	- Set
 	- Sorted Set
 	- bitmap
