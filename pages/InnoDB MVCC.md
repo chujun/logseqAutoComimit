@@ -67,6 +67,10 @@
 	  ![MVCC事务可见性示意图.png](../assets/image_1655606638392_0.png)
 	- MVCC中的undo log
 	  id:: 62ae8bd1-4ccb-4ef7-9ac8-d7026d687a1b
+	  ((889ad45e-5c8d-45d5-8569-2da7a975e8a8))
+	  undo log 主要有两个作用：
+	  1. 当事务回滚时用于将数据恢复到修改前的样子
+	  2. 另一个作用是 MVCC ，当读取记录时，若该记录被其他事务占用或当前版本对该事务不可见，则可以通过 undo log 读取之前的版本数据，以此实现快照读。
 - MVCC数据可见性算法
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。

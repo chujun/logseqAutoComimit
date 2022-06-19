@@ -248,6 +248,7 @@
   则会提交该事务恢复数据，并补偿添加redolog commit日志。
   ![image.png](../assets/image_1655544545816_0.png)
 - undolog回滚日志
+  id:: 889ad45e-5c8d-45d5-8569-2da7a975e8a8
   undolog保证事务的原子性
   保证事务的原子性，就需要在异常发生时，对已经执行的操作进行回滚，在 MySQL 中，回滚机制是通过 回滚日志（undo log） 实现的。
   
@@ -259,7 +260,7 @@
   undolog日志作用
   1. 实现事务的原子性,实现事务回滚功能
   2. InnoDB MVCC实现依赖undolog日志
-  具体
+  具体描述见MVCC的undo log描述
   ((62ae8bd1-4ccb-4ef7-9ac8-d7026d687a1b)) 
   ((62ad9d9a-a979-4ad4-9323-502232fa9241))
 - 慢查询日志
