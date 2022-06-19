@@ -33,7 +33,7 @@
 	  数据结构:跳跃表(数组 + 链表)。
 	  常用命令： hset,hmset,hexists,hget,hgetall,hkeys,hvals 等。
 	  应用场景: 系统中对象数据的存储。
-	  Ha
+	  Hash命令简单使用
 	  ```
 	  127.0.0.1:6379> hmset userInfoKey name "guide" description "dev" age "24"
 	  OK
@@ -71,6 +71,9 @@
 	  6) "100"
 	  ```
 	- Set
+	  set 类似于 Java 中的 HashSet.可以基于 set 轻易实现交集、并集、差集的操作。
+	  常用命令： sadd,spop,smembers,sismember,scard,sinterstore,sunion 等。
+	  应用场景: 需要存放的数据不能重复以及需要获取多个数据源交集和并集等场景.例如你可以将一个用户所有的关注人存在一个集合中，将其所有粉丝存在一个集合。Redis 可以非常方便的实现如共同关注、共同粉丝、共同喜好等功能.
 	- Sorted Set
 	- bitmap
 	- Stream(redis5.0新增数据类型)
