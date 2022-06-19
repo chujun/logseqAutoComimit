@@ -27,9 +27,14 @@
   一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。
 - redis内存管理
 - redis持久化机制
-  RDB(快照 snapshotting，RDB)
-  AOF(append only file)
--
+  RDB(快照 snapshotting)
+  AOF(只追加文件，append only file)
+- redis事务
+- redis生产问题
+  缓存穿透
+  缓存雪崩
+- redis集群
+- redis性能优化
 - 用途
   1. 最主要方向:分布式缓存
   2. 分布式锁:
