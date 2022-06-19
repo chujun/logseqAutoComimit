@@ -22,7 +22,9 @@
 - MySQL 默认隔离级别是RR，为什么阿里等大厂会改成RC？
   原因
   1. MySQL在主从复制的过程是通过bin log 进行数据同步的。
-  MySQL早期只有statement这种bin log格式，
+  MySQL早期只有statement这种bin log格式，而这种格式记录的是原始sql，可能导致主从数据不一致问题。
+  *当出现事务乱序的时候，就会导致备库在 SQL 回放之后，结果和主库内容不一致。*
+  为了解决这个问题，MySQL默认采用了Repetable Read这种隔离级别
 - 资料
   [MySQL 8InnoDB 官方文档](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)
   书籍
