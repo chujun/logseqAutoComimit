@@ -74,6 +74,25 @@
 	  set 类似于 Java 中的 HashSet.可以基于 set 轻易实现交集、并集、差集的操作。
 	  常用命令： sadd,spop,smembers,sismember,scard,sinterstore,sunion 等。
 	  应用场景: 需要存放的数据不能重复以及需要获取多个数据源交集和并集等场景.例如你可以将一个用户所有的关注人存在一个集合中，将其所有粉丝存在一个集合。Redis 可以非常方便的实现如共同关注、共同粉丝、共同喜好等功能.
+	  ```
+	  127.0.0.1:6379> sadd mySet value1 value2 # 添加元素进去
+	  (integer) 2
+	  127.0.0.1:6379> sadd mySet value1 # 不允许有重复元素
+	  (integer) 0
+	  127.0.0.1:6379> smembers mySet # 查看 set 中所有的元素
+	  1) "value1"
+	  2) "value2"
+	  127.0.0.1:6379> scard mySet # 查看 set 的长度
+	  (integer) 2
+	  127.0.0.1:6379> sismember mySet value1 # 检查某个元素是否存在set 中，只能接收单个元素
+	  (integer) 1
+	  127.0.0.1:6379> sadd mySet2 value2 value3
+	  (integer) 2
+	  127.0.0.1:6379> sinterstore mySet3 mySet mySet2 # 获取 mySet 和 mySet2 的交集并存放在 mySet3 中
+	  (integer) 1
+	  127.0.0.1:6379> smembers mySet3
+	  1) "value2"
+	  ```
 	- Sorted Set
 	- bitmap
 	- Stream(redis5.0新增数据类型)
