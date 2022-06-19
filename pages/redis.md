@@ -97,6 +97,26 @@
 	  和 set 相比，sorted set 增加了一个权重参数 score，使得集合中的元素能够按 score 进行有序排列，还可以通过 score 的范围来获取元素的列表。
 	  常用命令： zadd,zcard,zscore,zrange,zrevrange,zrem 等。
 	  应用场景： 需要对数据根据某个权重进行排序的场景。比如在直播系统中，实时排行信息包含直播间在线用户列表，各种礼物排行榜，弹幕消息（可以理解为按消息维度的消息排行榜）等信息。
+	  ```
+	  127.0.0.1:6379> zadd myZset 3.0 value1 # 添加元素到 sorted set 中 3.0 为权重
+	  (integer) 1
+	  127.0.0.1:6379> zadd myZset 2.0 value2 1.0 value3 # 一次添加多个元素
+	  (integer) 2
+	  127.0.0.1:6379> zcard myZset # 查看 sorted set 中的元素数量
+	  (integer) 3
+	  127.0.0.1:6379> zscore myZset value1 # 查看某个 value 的权重
+	  "3"
+	  127.0.0.1:6379> zrange  myZset 0 -1 # 顺序输出某个范围区间的元素，0 -1 表示输出所有元素
+	  1) "value3"
+	  2) "value2"
+	  3) "value1"
+	  127.0.0.1:6379> zrange  myZset 0 1 # 顺序输出某个范围区间的元素，0 为 start  1 为 stop
+	  1) "value3"
+	  2) "value2"
+	  127.0.0.1:6379> zrevrange  myZset 0 1 # 逆序输出某个范围区间的元素，0 为 start  1 为 stop
+	  1) "value1"
+	  2) "value2"
+	  ```
 	- bitmap
 	- Stream(redis5.0新增数据类型)
 - redis常见命令
