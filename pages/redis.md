@@ -14,12 +14,13 @@
   7. Redis 支持发布订阅模型、Lua 脚本、事务等功能，而 Memcached 不支持。并且，Redis 支持更多的编程语言。
   8. Memcached 过期数据的删除策略只用了惰性删除，而 Redis 同时使用了惰性删除与定期删除。
 - 支持的数据类型
+  
   String
   List
   Hash
   Set
   Sorted Set
-- 是用redis缓存好处
+- 使用redis缓存好处
   高性能
   高并发
   一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。
