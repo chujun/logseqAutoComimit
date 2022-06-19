@@ -29,6 +29,10 @@
 	  ![image.png](../assets/image_1655647082164_0.png)
 	  常用命令: rpush,lpop,lpush,rpop,lrange,llen 等。
 	- Hash
+	  hash 类似于 JDK1.8 前的 HashMap
+	  数据结构:跳跃表(数组 + 链表)。
+	  常用命令： hset,hmset,hexists,hget,hgetall,hkeys,hvals 等。
+	  应用场景: 系统中对象数据的存储。
 	- Set
 	- Sorted Set
 	- bitmap
