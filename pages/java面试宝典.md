@@ -48,10 +48,11 @@
   [[redis]]
 - # mq
 - # 中间件
-  一个优秀的中间件必要要分析他的高并发，高性能，高可用的原因所在
+  一个优秀的中间件必要要分析他的分布式,高并发，高性能，高可用的原因所在
   ES
   zookeeper
-  [[Netty]]
+  [[redis]]
+  [[kafka]]
 - # 源码阅读
 - 参考资料
   [JavaGuide 在线阅读网站](https://javaguide.cn/java/basis/java-basic-questions-01.html#%E5%BF%85%E7%9C%8B%E4%B8%93%E6%A0%8F)
