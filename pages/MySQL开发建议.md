@@ -1,12 +1,14 @@
--
 - 开发建议
   【强制】，【推荐】，【建议】三个级别
+- 问题
+  索引失效
+  1.隐式转换造成的索引失效。
+  [MySQL中的隐式转换造成的索引失效](https://javaguide.cn/database/mysql/index-invalidation-caused-by-implicit-conversion.html#%E5%89%8D%E8%A8%80)
 - 开发设计规范
   1. 【强制】禁止使用存储过程。
   存储过程难以调试和扩展，更没有可迁移性。
   2. 【建议】避免数据类型的隐式转换
   隐式转换会导致索引失效如: select name,phone from customer where id = '111';
-  [MySQL中的隐式转换造成的索引失效](https://javaguide.cn/database/mysql/index-invalidation-caused-by-implicit-conversion.html#%E5%89%8D%E8%A8%80)
   3.【强制】 建议使用预编译语句进行数据库操作
   预编译语句可以重复使用这些计划，减少 SQL 编译所需要的时间，还可以解决动态 SQL 所带来的 SQL 注入的问题。
   只传参数，比传递 SQL 语句更高效。
