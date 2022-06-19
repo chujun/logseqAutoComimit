@@ -94,6 +94,9 @@
 	  1) "value2"
 	  ```
 	- Sorted Set
+	  和 set 相比，sorted set 增加了一个权重参数 score，使得集合中的元素能够按 score 进行有序排列，还可以通过 score 的范围来获取元素的列表。
+	  常用命令： zadd,zcard,zscore,zrange,zrevrange,zrem 等。
+	  应用场景： 需要对数据根据某个权重进行排序的场景。比如在直播系统中，实时排行信息包含直播间在线用户列表，各种礼物排行榜，弹幕消息（可以理解为按消息维度的消息排行榜）等信息。
 	- bitmap
 	- Stream(redis5.0新增数据类型)
 - redis常见命令
