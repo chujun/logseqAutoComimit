@@ -176,9 +176,15 @@
 - explain执行计划
   Extra的值为Using index condition，表示已经使用了索引下推。
 - 事务
+  在 RC 中，每次读取都会重新生成一个快照，总是读取行的最新版本。
+  在 RR 中，快照会在事务中第一次SELECT语句执行时生成，只有在本事务中对数据进行更改才会更新快照。
+  在 RC 这种隔离级别中，还支持"半一致读" ，一条update语句，如果 where 条件匹配到的记录已经加锁，那么InnoDB会返回记录最近提交的版本，由MySQL上层判断此是否需要真的加锁。
   
-  在 RC 中，只会对索引增加Record Lock，不会添加Gap Lock和Next-Key Lock。
-  在 RR 中，为了解决幻读的问题，在支持Record Lock的同时，还支持Gap Lock和Next-Key Lock；
+  在 RC事务隔离级别 中，只会对索引增加Record Lock，不会添加Gap Lock和Next-Key Lock。
+  在 RR事务隔离级别 中，为了解决幻读的问题，在支持Record Lock的同时，还支持Gap Lock和Next-Key Lock；
+  
+  RC 隔离级别只支持row格式的binlog。如果指定了mixed作为 binlog 格式，那么如果使用RC，服务器会自动使用基于row 格式的日志记录。
+  而 RR 的隔离级别同时支持statement、row以及mixed三种。
 - 数据类型
   对VARCHAR长度的认知
   VARCHAR(N) 中的 N 代表的是字符数，而不是字节数，使用 UTF8 存储 255 个汉字 Varchar(255)=765 个字节。
