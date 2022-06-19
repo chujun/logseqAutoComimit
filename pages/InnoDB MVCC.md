@@ -79,6 +79,12 @@
 	  ![image.png](../assets/image_1655607546232_0.png)
 	  
 	  2. update undo log ：update 或 delete 操作中产生的 undo log。该 undo log可能需要提供 MVCC 机制，因此不能在事务提交时就进行删除。提交时放入 undo log 链表，等待 purge线程 进行最后的删除.
+	  数据第一次被修改时：
+	  ![image.png](../assets/image_1655607609385_0.png)
+	  数据第二次被修改时：
+	  ![image.png](../assets/image_1655607624156_0.png)
+	  undo log链表数据结构
+	  不同事务或者相同事务的对同一记录行的修改，会使该记录行的 undo log 成为一条链表，链首就是最新的记录，链尾就是最早的旧记录。
 	-
 - MVCC数据可见性算法
 - 事务隔离级别和快照读，当前读的关系
