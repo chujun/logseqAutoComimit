@@ -65,6 +65,8 @@
 	  
 	  数据行DB_TRX_ID与m_low_limit_id,m_up_limit_id,m_ids关系理解如下图，
 	  ![MVCC事务可见性示意图.png](../assets/image_1655606638392_0.png)
+	  不同事务隔离级别下Read View
+	  在事务隔离级别 RC 和 RR （InnoDB 存储引擎的默认事务隔离级别）下，InnoDB 存储引擎使用 MVCC（非锁定一致性读），但它们生成 Read View 的时机却不同
 	- MVCC中的undo log
 	  id:: 62ae8bd1-4ccb-4ef7-9ac8-d7026d687a1b
 	  ((889ad45e-5c8d-45d5-8569-2da7a975e8a8))
@@ -94,7 +96,9 @@
   具体算法源码分析如下
   函数入参中的trx_id id表示记录行的 DB_TRX_ID。
   ![image.png](../assets/image_1655608054107_0.png)
-  快照：指的是Read View
+  
+  MVCC记录行数据可见性步骤
+  名词快照：指的是Read View
   1. 如果记录 DB_TRX_ID < m_up_limit_id，那么表明最新修改该行的事务（DB_TRX_ID）在当前事务创建快照之前就提交了，所以该记录行的值对当前事务是可见的。
   2. 如果 DB_TRX_ID >= m_low_limit_id，那么表明最新修改该行的事务（DB_TRX_ID）在当前事务创建快照之后才修改该行，所以该记录行的值对当前事务不可见。跳到步骤 5。
   3. m_ids 为空，则表明在当前事务(提交事务后）创建快照Read View之前，修改该行的事务就已经提交了，所以该记录行的值对当前事务是可见的。
@@ -105,6 +109,7 @@
   这些情况下，这个记录行的值对当前事务都是不可见的。跳到步骤 5
   4.2 在活跃事务列表中找不到，则表明“id 为 trx_id 的事务”在修改“该记录行的值”后，在“当前事务”创建快照前就已经提交了，所以记录行对当前事务可见(步骤3一致)
   5. 在该记录行的 DB_ROLL_PTR 指针所指向的 undo log 取出快照记录，用快照记录的 DB_TRX_ID 跳到步骤 1 重新开始判断，直到找到满足的快照版本或返回空。(循环递归找到满足的快照版本)
+-
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。
   并且在 Repeatable Read 下 MVCC 实现了可重复读和防止部分幻读.
