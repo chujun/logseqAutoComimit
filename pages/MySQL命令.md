@@ -74,14 +74,20 @@
   ```
   select * from information_schema.innodb_trx;
   ```
+  
   ```
   START TRANSACTION |BEGIN：显式地开启一个事务。
   COMMIT：提交事务，使得对数据库做的所有修改成为永久性。
   ROLLBACK：回滚会结束用户的事务，并撤销正在进行的所有未提交的修改。
   ```
-  session窗口关闭自动提交事务
+  
+  
   ```
+  # 自动提交事务
   set autocommit=0;
+  # 开启自动提交
+  SET AUTOCOMMIT=1;
+  
   ```
 - 查询锁信息
   id:: 62a743b4-a95b-4cde-ad09-cbe414c22306
