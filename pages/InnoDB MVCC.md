@@ -6,7 +6,11 @@
   select ... for update
   insert、update、delete 操作
   ```
+  常规实现思路
+  记录版本:指的是表数据行记录的版本
+  通常做法是加一个版本号或者时间戳字段，在更新数据的同时版本号 + 1 或者更新时间戳。查询时，将当前可见的版本号与对应记录的版本号进行比对，如果记录的版本小于可见版本，则表示该记录可见.
 - 快照读(snapshot read)也叫一致性非锁定读(Consistent Nonlocking Reads)
+  普通的select语句
 - RC 这种隔离级别中，还支持"半一致读"
   在 RC 中，只会对索引增加Record Lock，不会添加Gap Lock和Next-Key Lock。
   在 RR 中，为了解决幻读的问题，在支持Record Lock的同时，还支持Gap Lock和Next-Key Lock；
