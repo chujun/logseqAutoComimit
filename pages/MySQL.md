@@ -182,9 +182,6 @@
   
   在 RC事务隔离级别 中，只会对索引增加Record Lock，不会添加Gap Lock和Next-Key Lock。
   在 RR事务隔离级别 中，为了解决幻读的问题，在支持Record Lock的同时，还支持Gap Lock和Next-Key Lock；
-  
-  RC 隔离级别只支持row格式的binlog。如果指定了mixed作为 binlog 格式，那么如果使用RC，服务器会自动使用基于row 格式的日志记录。
-  而 RR 的隔离级别同时支持statement、row以及mixed三种。
 - 数据类型
   对VARCHAR长度的认知
   VARCHAR(N) 中的 N 代表的是字符数，而不是字节数，使用 UTF8 存储 255 个汉字 Varchar(255)=765 个字节。
@@ -192,6 +189,11 @@
 - MySQL集群
 - 主从同步
   并行复制乱序提交引起的同步异常
+  
+  在数据主从同步时，不同格式的 binlog 也对事务隔离级别有要求。
+  MySQL的binlog主要支持三种格式，分别是statement、row以及mixed。
+  RC 隔离级别只支持row格式的binlog。如果指定了mixed作为 binlog 格式，那么如果使用RC，服务器会自动使用基于row 格式的日志记录。
+  RR 的隔离级别同时支持statement、row以及mixed三种。
 - [[MySQL常见操作命令]]
 - [[MySQL命令]]
 - [[MySQL开发建议]]

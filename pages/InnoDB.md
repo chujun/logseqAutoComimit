@@ -19,12 +19,14 @@
   每次读取的都是最新数据，这时如果两次查询中间有其它事务插入数据，就会产生幻读。
   InnoDB 在实现Repeatable Read 时，如果执行的是当前读，则会对读取的记录使用 Next-key Lock ，来防止其它事务在间隙间插入数据
 - 为什么MySQL选择REPEATABLE READ作为默认隔离级别？
-- MySQL 默认隔离级别是RR，为什么阿里等大厂会改成RC？
-  MySQL为什么默认事务隔离是RR
   MySQL在主从复制的过程是通过bin log 进行数据同步的。
   MySQL早期只有statement这种bin log格式，而这种格式记录的是原始sql，可能导致主从数据不一致问题。
   *当并行复制乱序提交引起的同步异常的时候，就会导致备库在 SQL 回放之后，结果和主库内容不一致。*
   为了解决这个问题，MySQL默认采用了Repetable Read这种隔离级别
+- MySQL 默认隔离级别是RR，为什么阿里等大厂会改成RC？
+  互联网公司和传统企业最大的区别是什么？高并发
+  原因
+  1. 提升并发：RC 比 RR 的并发度要好
 - 资料
   [MySQL 8InnoDB 官方文档](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)
   书籍
