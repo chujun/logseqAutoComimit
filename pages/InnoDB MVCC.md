@@ -94,6 +94,14 @@
   具体算法源码分析如下
   函数入参中的trx_id id表示记录行的 DB_TRX_ID。
   ![image.png](../assets/image_1655608054107_0.png)
+  1. 如果记录 DB_TRX_ID < m_up_limit_id，那么表明最新修改该行的事务（DB_TRX_ID）在当前事务创建快照之前就提交了，所以该记录行的值对当前事务是可见的。
+  2. 如果 DB_TRX_ID >= m_low_limit_id，那么表明最新修改该行的事务（DB_TRX_ID）在当前事务创建快照之后才修改该行，所以该记录行的值对当前事务不可见。跳到步骤 5。
+  3. m_ids 为空，则表明在当前事务(提交事务后，创建Read View之前)创建快照Read View之前，修改该行的事务就已经提交了，所以该记录行的值对当前事务是可见的。
+  4. 如果 m_up_limit_id <= DB_TRX_ID < m_low_limit_id，表明最新修改该行的事务（DB_TRX_ID）在当前事务创建快照的时候可能处于“活动状态”或者“已提交状态”；所以就要对活跃事务列表 m_ids 进行查找（源码中是用的二分查找，因为是有序的）
+  4.1 如果在活跃事务列表 m_ids 中能找到 DB_TRX_ID，表明：
+  ① 在当前事务创建快照前，该记录行的值被事务 ID 为 DB_TRX_ID 的事务修改了，但没有提交；
+  或者 ② 在当前事务创建快照后，该记录行的值被事务 ID 为 DB_TRX_ID 的事务修改了。
+  这些情况下，这个记录行的值对当前事务都是不可见的。跳到步骤 5
 - 事务隔离级别和快照读，当前读的关系
   在 Repeatable Read 和 Read Committed 两个隔离级别下，如果是执行普通的 select 语句（不包括 select ... lock in share mode ,select ... for update）则会使用 一致性非锁定读（MVCC）。
   并且在 Repeatable Read 下 MVCC 实现了可重复读和防止部分幻读.
