@@ -10,7 +10,7 @@
   常规实现思路
   记录版本:指的是表数据行记录的版本
   通常做法是加一个版本号或者时间戳字段，在更新数据的同时版本号 + 1 或者更新时间戳。查询时，将当前可见的版本号与对应记录的版本号进行比对，如果记录的版本小于可见版本，则表示该记录可见.
-- 当前读(current read)也叫锁定读(Locking Reads)
+- 当前读(current read)也叫一致性锁定读(Locking Reads)
   id:: 62adc7f8-ae50-4d50-b05d-faeeb20db459
   每次读取的都是最新数据.
   --->因为select for update加锁所以叫锁定读
@@ -28,6 +28,8 @@
   是一种用在 Update 语句中的读操作（一致性读）的优化，是在 RC 事务隔离级别下与一致性读的结合。
   当 Update 语句的 where 条件中匹配到的记录已经上锁，会再次去 InnoDB 引擎层读取对应的行记录，判断是否真的需要上锁（第一次需要由 InnoDB 先返回一个最新的已提交版本）。
   只在 RC 事务隔离级别下或者是设置了 innodb_locks_unsafe_for_binlog=1 (mysql8已经废弃了)的情况下才会发生。
+  TODO:cj 后续可以再看
+  [技术分享 | 什么是半一致性读？](https://cloud.tencent.com/developer/article/1651628)
 - 当前读(current read)也叫锁定读(Locking Reads)
   id:: 62adc7f8-ae50-4d50-b05d-faeeb20db459
   每次读取的都是最新数据，
