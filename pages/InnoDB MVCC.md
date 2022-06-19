@@ -124,8 +124,20 @@
 	  由于 RC 级别下每次查询都会生成Read View ，并且事务 101、102 并未提交，
 	  此时 103 事务生成的 Read View 中活跃的事务 m_ids 为：[101,102] ，m_low_limit_id为：104，m_up_limit_id为：101，m_creator_trx_id 为：103
 	  a。此时最新记录的 DB_TRX_ID 为 101，m_up_limit_id <= 101 < m_low_limit_id，所以要在 m_ids 列表中查找，发现 DB_TRX_ID 存在列表中，那么这个记录不可见
-	  b。根据 DB_ROLL_PTR 找到 undo log 中的上一版本记录，上一条记录的 DB_TRX_ID 还是 101，不可见
+	  b。根据 DB_ROLL_PTR 找到 undo log 中的上一版本记录，上一条记录的 DB_TRX_ID 还是 101，不可见。
+	  c。继续找上一条 DB_TRX_ID为 1，满足 1 < m_up_limit_id，可见，所以事务 103 查询到数据为 name = 菜花。
+	  2. 时间线来到 T6 ，数据的版本链为：
+	  ![image.png](../assets/image_1655617798687_0.png)
+	  因为在 RC 级别下，重新生成 Read View，这时事务 101 已经提交，102 并未提交，
+	  所以此时 Read View 中活跃的事务 m_ids：[102] ，m_low_limit_id为：104，m_up_limit_id为：102，m_creator_trx_id为：103
+	  a。此时最新记录的 DB_TRX_ID 为 102，m_up_limit_id <= 102 < m_low_limit_id，所以要在 m_ids 列表中查找，发现 DB_TRX_ID 存在列表中，那么这个记录不可见
+	  b。根据 DB_ROLL_PTR 找到 undo log 中的上一版本记录，上一条记录的 DB_TRX_ID 为 101，满足 101 < m_up_limit_id，记录可见，所以在 T6 时间点查询到数据为 name = 李四，与时间 T4 查询到的结果不一致，不可重复读！
+	  3. 时间线来到 T9 ，数据的版本链为：
+	  ![image.png](../assets/image_1655617878186_0.png)
+	  重新生成 Read View， 这时事务 101 和 102 都已经提交，所以 m_ids 为空，则 m_up_limit_id = m_low_limit_id = 104，最新版本事务 ID 为 102，满足 102 < m_low_limit_id，可见，查询结果为 name = 赵六
+	  总结： 在 RC 隔离级别下，事务在每次查询开始时都会生成并设置新的 Read View，所以导致不可重复读
 	- 2. 在RR下ReadView 生成情况
+	  在可重复读级别下，只会在事务开始后第一次读取数据时生成一个 Read View（m_ids 列表）
 -
 -
 - 事务隔离级别和快照读，当前读的关系
