@@ -43,7 +43,8 @@
   mybatis，tkmybatis，mybatisplus
 - # 数据库
   mysql
-- # redis
+- 缓存系统
+  [[redis]]
 - # mq
 - # 中间件
   ES
