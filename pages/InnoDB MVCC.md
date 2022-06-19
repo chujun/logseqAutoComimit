@@ -58,7 +58,7 @@
 	    m_closed;                     /* 标记 Read View 是否 close */
 	  }
 	  ```
-	  m_low_limit_id,m_up_limit_id,m_ids关系理解如下图
+	  数据行DB_TRX_ID与m_low_limit_id,m_up_limit_id,m_ids关系理解如下图，
 	  ![MVCC事务可见性示意图.png](../assets/image_1655606638392_0.png)
 	- undo log
 - MVCC数据可见性算法
