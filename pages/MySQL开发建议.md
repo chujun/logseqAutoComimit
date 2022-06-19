@@ -1,7 +1,7 @@
 - 开发建议
   【强制】，【推荐】，【建议】三个级别
 - 问题
-  索引失效
+  索引失效触发全表扫描，引发性能问题
   1.隐式转换造成的索引失效。
   [MySQL中的隐式转换造成的索引失效](https://javaguide.cn/database/mysql/index-invalidation-caused-by-implicit-conversion.html#%E5%89%8D%E8%A8%80)
 - 开发设计规范
