@@ -71,7 +71,7 @@
 	  在 RC 隔离级别下的 每次select 查询前都生成一个Read View (m_ids 列表)
 	  在 RR 隔离级别下只在事务开始后 第一次select 数据前生成一个Read View（m_ids 列表）
 	  b. 当前读
-	  在 RR 隔离级别下只在事务开始后 第一次select 数据前生成一个Read View（m_ids 列表）
+	  TODO:cj
 	- MVCC中的undo log
 	  id:: 62ae8bd1-4ccb-4ef7-9ac8-d7026d687a1b
 	  ((889ad45e-5c8d-45d5-8569-2da7a975e8a8))
