@@ -1,4 +1,5 @@
 - 需要考虑的问题
+  Lua脚本保证多个redis指令执行的原子性。
   分布式集群
   原子性:Lua脚本，或者扩展的SET NX EX命令
   
@@ -7,9 +8,13 @@
   引入锁超时机制，引入另一个问题:在加锁和释放锁之间的逻辑执行得太长，以至于超出了锁的超时限制--->
   解决这个办法：
   1. Redis 分布式锁不要用于较长时间的任务
-  2. 
+  2. WatchDog锁续期
   
   锁释放：
-  A线程上锁,但是其他线程释放锁
+  问题A线程上锁,但是被其他线程释放
+  场景A线程上锁超期了,redis超期释放锁了，B线程此时可以获取锁了，然后A线程此时来释放锁了。
+  
+  
+  GC 可能引发的安全问题
 - 资料
   [Distributed Locks with Redis 官方资料](https://redis.io/docs/reference/patterns/distributed-locks/)
