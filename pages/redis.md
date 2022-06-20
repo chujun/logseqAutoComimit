@@ -28,10 +28,10 @@
 - redis生产问题
   缓存穿透
   缓存雪崩
--
 - redis事件处理模型
   Redis 基于 Reactor 模式来设计开发了自己的一套高效的事件处理模型 （Netty 的线程模型也基于 Reactor 模式，Reactor 模式不愧是高性能 IO 的基石）
-  TODO:cj 
+  这套事件处理模型对应的是 Redis 中的文件事件处理器（file event handler）。
+  由于文件事件处理器（file event handler）是单线程方式运行的，所以我们一般都说 Redis 是单线程模型。
   ![文件事件处理器的四个组成部分.png](../assets/文件事件处理器的四个组成部分_1655714939019_0.png)
 - redis单线程和多线程
   redis为什么采用单线程？
