@@ -14,9 +14,11 @@
   
   锁释放：
   5. 问题A线程上锁,但是被其他线程释放
-  场景A线程上锁超期了,redis超期释放锁了，B线程此时可以获取锁了，然后A线程此时来释放锁了。
+  场景A线程上锁超期了,redis超期释放锁了，B线程此时可以获取锁了，(此时A,B同时获取到锁了)然后A线程此时来释放锁了。
   --->线程释放锁时先验证锁是否该线程所有
   
   6. GC 可能引发的安全问题
+  服务 A 和服务 B 同时获取到了锁，分布式锁就不安全了。
+  ![image.png](../assets/image_1655732036767_0.png)
 - 资料
   [Distributed Locks with Redis 官方资料](https://redis.io/docs/reference/patterns/distributed-locks/)
