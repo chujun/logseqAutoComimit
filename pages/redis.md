@@ -13,50 +13,10 @@
   6. Memcached 是多线程，非阻塞 IO 复用的网络模型；Redis 使用单线程的多路 IO 复用模型。 （Redis 6.0 引入了多线程 IO ）
   7. Redis 支持发布订阅模型、Lua 脚本、事务等功能，而 Memcached 不支持。并且，Redis 支持更多的编程语言。
   8. Memcached 过期数据的删除策略只用了惰性删除，而 Redis 同时使用了惰性删除与定期删除。
+- [[redis数据类型]]
 - 支持的数据类型
-  对各种数据结构的极致优化
-	- String
-	  String数据结构
-	  并没有使用C语言的字符串表示，而是自己实现了一种 简单动态字符串（simple dynamic string，SDS）
-	  ![截屏2022-06-19 下午9.53.37.png](../assets/截屏2022-06-19_下午9.53.37_1655646832344_0.png) 
-	  优势：
-	  1. 相比于 C 的原生字符串，Redis 的 SDS 不光可以保存文本数据还可以保存二进制数据，并且获取字符串长度复杂度为 O(1)（C 字符串为 O(N))
-	  2. 除此之外，Redis 的 SDS API 是安全的，不会造成缓冲区溢出。
-	  常用命令： set,get,strlen,exists,decr,incr,setex 等等。
-	- List
-	  数据结构
-	  C 语言并没有实现链表，所以 Redis 实现了自己的链表数据结构。Redis 的 list 的实现为一个 双向链表，即可以支持反向查找和遍历，更方便操作，不过带来了部分额外的内存开销。
-	  ![image.png](../assets/image_1655647082164_0.png)
-	  常用命令: rpush,lpop,lpush,rpop,lrange,llen 等。
-	  ```
-	  27.0.0.1:6379> rpush myList value1 # 向 list 的头部（右边）添加元素
-	  (integer) 1
-	  127.0.0.1:6379> rpush myList value2 value3 # 向list的头部（最右边）添加多个元素
-	  (integer) 3
-	  127.0.0.1:6379> lpop myList # 将 list的尾部(最左边)元素取出
-	  "value1"
-	  127.0.0.1:6379> lrange myList 0 1 # 查看对应下标的list列表， 0 为 start,1为 end
-	  1) "value2"
-	  2) "value3"
-	  127.0.0.1:6379> lrange myList 0 -1 # 查看列表中的所有元素，-1表示倒数第一
-	  1) "value2"
-	  2) "value3"
-	  
-	  127.0.0.1:6379> rpush myList2 value1 value2 value3
-	  (integer) 3
-	  127.0.0.1:6379> rpop myList2 # 将 list的头部(最右边)元素取出
-	  "value3"
-	  
-	  127.0.0.1:6379> rpush myList3 value1 value2 value3
-	  (integer) 3
-	  127.0.0.1:6379> lrange myList3 0 1 # 查看对应下标的list列表， 0 为 start,1为 end
-	  1) "value1"
-	  2) "value2"
-	  127.0.0.1:6379> lrange myList3 0 -1 # 查看列表中的所有元素，-1表示倒数第一
-	  1) "value1"
-	  2) "value2"
-	  3) "value3"
-	  ```
+	-
+	-
 	- Hash
 	  hash 类似于 JDK1.8 前的 HashMap
 	  数据结构:跳跃表(数组 + 链表)。
@@ -234,15 +194,20 @@
 - redis生产问题
   缓存穿透
   缓存雪崩
-- redis单线程和多线程
-  redis为什么采用单线程？
-  官方回复：**使用Redis时，几乎不存在CPU成为瓶颈的情况， Redis主要受限于内存和网络。** 例如在一个普通的Linux系统上，Redis通过使用pipelining每秒可以处理100万个请求，所以如果应用程序主要使用O(N)或O(log(N))的命令，它几乎不会占用太多CPU。
-  1. 
-  2. 代码可维护性高，实现复杂度降低.单线程机制使得 Redis 内部实现的复杂度大大降低，Hash 的惰性 Rehash、Lpush 等等 “线程不安全” 的命令都可以无锁进行。
+-
 - redis事件处理模型
   Redis 基于 Reactor 模式来设计开发了自己的一套高效的事件处理模型 （Netty 的线程模型也基于 Reactor 模式，Reactor 模式不愧是高性能 IO 的基石）
   TODO:cj 
   ![文件事件处理器的四个组成部分.png](../assets/文件事件处理器的四个组成部分_1655714939019_0.png)
+- redis单线程和多线程
+  redis为什么采用单线程？
+  1. 官方类似回复:**使用Redis时，几乎不存在CPU成为瓶颈的情况， Redis主要受限于内存和网络。**
+   例如在一个普通的Linux系统上，Redis通过使用pipelining每秒可以处理100万个请求，所以如果应用程序主要使用O(N)或O(log(N))的命令，它几乎不会占用太多CPU。
+  2. 代码可维护性高，实现复杂度降低.单线程机制使得 Redis 内部实现的复杂度大大降低，Hash 的惰性 Rehash、Lpush 等等 “线程不安全” 的命令都可以无锁进行。
+  多线程模型虽然在某些方面表现优异，但是它却引入了程序执行顺序的不确定性，带来了并发读写的一系列问题，增加了系统复杂度、同时可能存在线程切换、甚至加锁解锁、死锁造成的性能损耗。
+  为什么redis6引入了多线程？
+  命令处理器还是单线程，对IO处理引入了多线程，
+  TODO:cj
 - redis集群
 - redis性能优化
 - 用途
