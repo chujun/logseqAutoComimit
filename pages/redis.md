@@ -76,7 +76,8 @@
 	  c。如果套接字的写事件正在被监听，那么函数返回AE_WRITABLE。
 	  d。如果套接字的读事件和写事件正在被监听，那么函数返回AE_READABLE|AE_WRITABLE。
 	- 一次完整的客户端与服务器连接事件示例
-	  ![image.png](../assets/image_1655728131723_0.png)
+	  ![image.png](../assets/image_1655728494013_0.png)
+	-
 - redis单线程和多线程
   redis为什么采用单线程？
   1. 官方类似回复:**使用Redis时，几乎不存在CPU成为瓶颈的情况， Redis主要受限于内存和网络。**
