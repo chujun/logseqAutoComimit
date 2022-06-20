@@ -234,6 +234,11 @@
 - redis生产问题
   缓存穿透
   缓存雪崩
+- redis单线程和多线程
+  redis为什么采用单线程？
+  官方回复：**使用Redis时，几乎不存在CPU成为瓶颈的情况， Redis主要受限于内存和网络。** 例如在一个普通的Linux系统上，Redis通过使用pipelining每秒可以处理100万个请求，所以如果应用程序主要使用O(N)或O(log(N))的命令，它几乎不会占用太多CPU。
+  1. 
+  2. 代码可维护性高，实现复杂度降低.单线程机制使得 Redis 内部实现的复杂度大大降低，Hash 的惰性 Rehash、Lpush 等等 “线程不安全” 的命令都可以无锁进行。
 - redis事件处理模型
   Redis 基于 Reactor 模式来设计开发了自己的一套高效的事件处理模型 （Netty 的线程模型也基于 Reactor 模式，Reactor 模式不愧是高性能 IO 的基石）
   TODO:cj 
