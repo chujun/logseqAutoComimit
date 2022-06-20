@@ -47,3 +47,8 @@
   基于Hash数据结构实现
 - 资料
   [Distributed Locks with Redis 官方资料](https://redis.io/docs/reference/patterns/distributed-locks/)
+  
+  三太子敖丙博客
+  [Redis—分布式锁深入探究](https://mp.weixin.qq.com/s/49hgH3COla3wU0rgyiUVgg)
+  [Redis分布式锁到底安全吗？](https://mp.weixin.qq.com/s/RnSokJxYxYDeenOP_JE3fQ)
+  [姗姗来迟的Redis分布式锁](https://mp.weixin.qq.com/s/Z_xriP-jc2Bnmdcm0l5xzg)
