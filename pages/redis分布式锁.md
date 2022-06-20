@@ -17,8 +17,23 @@
   场景A线程上锁超期了,redis超期释放锁了，B线程此时可以获取锁了，(此时A,B同时获取到锁了)然后A线程此时来释放锁了。
   --->线程释放锁时先验证锁是否该线程所有
   
-  6. GC 可能引发的安全问题
+  6. GC 可能引发的安全问题(其实可以和5类似)
   服务 A 和服务 B 同时获取到了锁，分布式锁就不安全了。
   ![image.png](../assets/image_1655732036767_0.png)
+  10. 分布式集群下的问题
+  如果采用主从模式部署，我们想象一个这样的场景：服务 A 申请到一把锁之后，如果作为主机的 Redis 宕机了，那么 服务 B 在申请锁的时候就会从从机那里获取到这把锁，为了解决这个问题，Redis 作者提出了一种 RedLock 红锁 的算法 (Redission 同 Jedis)：
+  ```
+  // 三个 Redis 集群
+  RLock lock1 = redissionInstance1.getLock("lock1");
+  RLock lock2 = redissionInstance2.getLock("lock2");
+  RLock lock3 = redissionInstance3.getLock("lock3");
+  
+  RedissionRedLock lock = new RedissionLock(lock1, lock2, lock2);
+  lock.lock();
+  // do something....
+  lock.unlock();
+  ```
+-
+- redisson分布式锁解决方案
 - 资料
   [Distributed Locks with Redis 官方资料](https://redis.io/docs/reference/patterns/distributed-locks/)
