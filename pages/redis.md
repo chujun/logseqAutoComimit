@@ -247,6 +247,7 @@
   通过 Redis 以及 Redis 扩展（比如 Redisson）提供的数据结构，我们可以很方便地完成很多复杂的业务场景比如通过 bitmap 统计活跃用户、通过 sorted set 维护排行榜。
 - [[redis命令]]
 - [[redisson]]
+- [[redis分布式锁]]
 - 资料
   网站
   [redis 官网提供的在线 redis 环境](https://try.redis.io/)
