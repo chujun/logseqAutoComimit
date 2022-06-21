@@ -35,6 +35,8 @@
   ![image.png](../assets/image_1655800487990_0.png)
   
   redis键过期删除策略
+  1. 惰性删除 ：只会在取出 key 的时候才对数据进行过期检查。这样对 CPU 最友好，对内存不友好,但是可能会造成太多过期 key 没有被删除。
+  2. 定期删除 ： 每隔一段时间抽取一批 key 执行删除过期 key 操作。并且，Redis 底层会通过限制删除操作执行的时长和频率来减少删除操作对 CPU 时间的影响。对内存更加友好，对CPU不友好
   
   redis内存淘汰机制
   1. volatile-lru（least recently used）：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
