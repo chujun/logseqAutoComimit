@@ -39,76 +39,80 @@
 - AOF 重写
   目的:为了解决AOF文件体积膨胀的问题，Redis提供了AOF文件重写（rewrite）功能。
   Redis服务器可以创建一个新的AOF文件来替代现有的AOF文件，新旧两个AOF文件所保存的数据库状态相同，但新AOF文件不会包含任何浪费空间的冗余命令，
-  好处:新AOF文件的体积通常会比旧AOF文件的体积要小得多。
-  功能:AOF文件重写并不需要对现有的AOF文件进行任何读取、分析或者写入操作，这个功能是通过读取服务器当前的数据库状态来实现的。
-  实现原理:
-  AOF重写缓冲区
-  在执行 BGREWRITEAOF 命令时，Redis 服务器会维护一个 AOF 重写缓冲区，该缓冲区会在子进程创建新 AOF 文件期间，记录服务器执行的所有写命令。当子进程完成创建新 AOF 文件的工作之后，服务器会将重写缓冲区中的所有内容追加到新 AOF 文件的末尾，使得新的 AOF 文件保存的数据库状态与现有的数据库状态一致。最后，服务器用新的 AOF 文件替换旧的 AOF 文件，以此来完成 AOF 文件重写操作。
-  简化命令demo
-  ![截屏2022-06-21 下午9.39.55.png](../assets/截屏2022-06-21_下午9.39.55_1655818881493_0.png)
-  如果服务器想要用尽量少的命令来记录list键的状态，那么最简单高效的办法不是去读取和分析现有AOF文件的内容，
-  而是直接从数据库中读取键list的值，然后用一条RPUSH list"C""D""E""F""G"命令来代替保存在AOF文件中的六条命令，
-  这样就可以将保存list键所需的命令从六条减少为一条了。
-  AOF重写过程伪代码
-  ```
-  def aof_rewrite(new_aof_file_name):
-      #创建新 AOF文件
-      f = create_file(new_aof_file_name)
-      #遍历数据库
-      for db in redisServer.db:
-          #忽略空数据库
-          if db.is_empty(): continue
-          #写入SELECT命令，指定数据库号码
-          f.write_command("SELECT" + db.id)
-          #遍历数据库中的所有键
-          for key in db:
-              #忽略已过期的键
-              if key.is_expired(): continue
-              #根据键的类型对键进行重写
-              if key.type == String:
-                  rewrite_string(key)
-              elif key.type == List:
-                  rewrite_list(key)
-              elif key.type == Hash:
-                  rewrite_hash(key)
-              elif key.type == Set:
-                  rewrite_set(key)
-              elif key.type == SortedSet:
-                  rewrite_sorted_set(key)
-              #如果键带有过期时间，那么过期时间也要被重写
-              if key.have_expire_time():
-                  rewrite_expire_time(key)
-          #写入完毕，关闭文件
-          f.close()
-      def rewrite_string(key):
-          #使用GET命令获取字符串键的值
-          value = GET(key)
-          #使用SET命令重写字符串键
-          f.write_command(SET, key, value)
-      def rewrite_list(key):
-          #使用LRANGE命令获取列表键包含的所有元素
-          item1, item2, ..., itemN = LRANGE(key, 0, -1)
-          #使用RPUSH命令重写列表键
-          f.write_command(RPUSH, key, item1, item2, ..., itemN)
-      def rewrite_hash(key):
-          #使用HGETALL命令获取哈希键包含的所有键值对
-          field1, value1, field2, value2, ..., fieldN, valueN = HGETALL(key)
-          #使用HMSET命令重写哈希键
-          f.write_command(HMSET, key, field1, value1, field2, value2, ..., fieldN, valueN)
-      def rewrite_set(key);
-          #使用SMEMBERS命令获取集合键包含的所有元素
-          elem1, elem2, ..., elemN = SMEMBERS(key)
-          #使用SADD命令重写集合键
-          f.write_command(SADD, key, elem1, elem2, ..., elemN)
-      def rewrite_sorted_set(key):
-          #使用ZRANGE命令获取有序集合键包含的所有元素
-          member1, score1, member2, score2, ..., memberN, scoreN = ZRANGE(key, 0, -1, "WITHSCORES")
-          #使用ZADD命令重写有序集合键
-          f.write_command(ZADD, key, score1, member1, score2, member2, ..., scoreN, memberN)
-      def rewrite_expire_time(key):
-          #获取毫秒精度的键过期时间戳
-          timestamp = get_expire_time_in_unixstamp(key)
-          #使用PEXPIREAT命令重写键的过期时间
-          f.write_command(PEXPIREAT, key, timestamp)
-  ```
+	- 好处:新AOF文件的体积通常会比旧AOF文件的体积要小得多。
+	- 功能:AOF文件重写并不需要对现有的AOF文件进行任何读取、分析或者写入操作，这个功能是通过读取服务器当前的数据库状态来实现的。
+	- 实现原理:
+	  AOF重写缓冲区
+	  在执行 BGREWRITEAOF 命令时，Redis 服务器会维护一个 AOF 重写缓冲区，该缓冲区会在子进程创建新 AOF 文件期间，记录服务器执行的所有写命令。当子进程完成创建新 AOF 文件的工作之后，服务器会将重写缓冲区中的所有内容追加到新 AOF 文件的末尾，使得新的 AOF 文件保存的数据库状态与现有的数据库状态一致。最后，服务器用新的 AOF 文件替换旧的 AOF 文件，以此来完成 AOF 文件重写操作。
+	- redis主进程状态
+	  AOF重写：redis会派生出一个子进程，然后由子进程负责AOF重写，服务器进程（父进程）继续处理命令请求。
+	- 解决数据不一致的办法
+	  ![截屏2022-06-21 下午9.52.42.png](../assets/截屏2022-06-21_下午9.52.42_1655819579043_0.png)
+	- 简化命令demo
+	  ![截屏2022-06-21 下午9.39.55.png](../assets/截屏2022-06-21_下午9.39.55_1655818881493_0.png)
+	  如果服务器想要用尽量少的命令来记录list键的状态，那么最简单高效的办法不是去读取和分析现有AOF文件的内容，
+	  而是直接从数据库中读取键list的值，然后用一条RPUSH list"C""D""E""F""G"命令来代替保存在AOF文件中的六条命令，
+	  这样就可以将保存list键所需的命令从六条减少为一条了。
+	- AOF重写过程伪代码
+	  ```
+	  def aof_rewrite(new_aof_file_name):
+	      #创建新 AOF文件
+	      f = create_file(new_aof_file_name)
+	      #遍历数据库
+	      for db in redisServer.db:
+	          #忽略空数据库
+	          if db.is_empty(): continue
+	          #写入SELECT命令，指定数据库号码
+	          f.write_command("SELECT" + db.id)
+	          #遍历数据库中的所有键
+	          for key in db:
+	              #忽略已过期的键
+	              if key.is_expired(): continue
+	              #根据键的类型对键进行重写
+	              if key.type == String:
+	                  rewrite_string(key)
+	              elif key.type == List:
+	                  rewrite_list(key)
+	              elif key.type == Hash:
+	                  rewrite_hash(key)
+	              elif key.type == Set:
+	                  rewrite_set(key)
+	              elif key.type == SortedSet:
+	                  rewrite_sorted_set(key)
+	              #如果键带有过期时间，那么过期时间也要被重写
+	              if key.have_expire_time():
+	                  rewrite_expire_time(key)
+	          #写入完毕，关闭文件
+	          f.close()
+	      def rewrite_string(key):
+	          #使用GET命令获取字符串键的值
+	          value = GET(key)
+	          #使用SET命令重写字符串键
+	          f.write_command(SET, key, value)
+	      def rewrite_list(key):
+	          #使用LRANGE命令获取列表键包含的所有元素
+	          item1, item2, ..., itemN = LRANGE(key, 0, -1)
+	          #使用RPUSH命令重写列表键
+	          f.write_command(RPUSH, key, item1, item2, ..., itemN)
+	      def rewrite_hash(key):
+	          #使用HGETALL命令获取哈希键包含的所有键值对
+	          field1, value1, field2, value2, ..., fieldN, valueN = HGETALL(key)
+	          #使用HMSET命令重写哈希键
+	          f.write_command(HMSET, key, field1, value1, field2, value2, ..., fieldN, valueN)
+	      def rewrite_set(key);
+	          #使用SMEMBERS命令获取集合键包含的所有元素
+	          elem1, elem2, ..., elemN = SMEMBERS(key)
+	          #使用SADD命令重写集合键
+	          f.write_command(SADD, key, elem1, elem2, ..., elemN)
+	      def rewrite_sorted_set(key):
+	          #使用ZRANGE命令获取有序集合键包含的所有元素
+	          member1, score1, member2, score2, ..., memberN, scoreN = ZRANGE(key, 0, -1, "WITHSCORES")
+	          #使用ZADD命令重写有序集合键
+	          f.write_command(ZADD, key, score1, member1, score2, member2, ..., scoreN, memberN)
+	      def rewrite_expire_time(key):
+	          #获取毫秒精度的键过期时间戳
+	          timestamp = get_expire_time_in_unixstamp(key)
+	          #使用PEXPIREAT命令重写键的过期时间
+	          f.write_command(PEXPIREAT, key, timestamp)
+	  ```
 -
