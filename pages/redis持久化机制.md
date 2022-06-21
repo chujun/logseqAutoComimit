@@ -11,6 +11,9 @@
   save 60 10000        #在60秒(1分钟)之后，如果至少有10000个key发生变化，Redis就会自动触发BGSAVE命令创建快照。
   ```
   RDB 文件保存位置都是通过 dir 参数设置的，默认的文件名是 dump.rdb。
+  执行方式
+  手动执行
+  定时执行
 - AOF持久化(只追加文件，append only file)
   方案：开启 AOF 持久化后每执行一条会更改 Redis 中的数据的命令，Redis 就会将该命令写入到内存缓存 server.aof_buf 中，然后再根据 appendfsync 配置来决定何时将其同步到硬盘中的 AOF 文件。
   与快照持久化相比
