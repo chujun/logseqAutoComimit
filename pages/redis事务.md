@@ -49,9 +49,10 @@
   因此，Redis 事务是不建议在日常开发中使用的。
 - 为什么redis开发者不支持完备的事务
   Redis 官网也解释了自己为啥不支持回滚。简单来说就是 Redis 开发者们觉得没必要支持回滚，这样更简单便捷并且性能更好。Redis 开发者觉得即使命令执行错误也应该在开发过程中就被发现而不是生产过程中。
-  ![image.png](../assets/image_1655820969412_0.png)
+  ![image.png](../assets/image_1655820969412_0.png){:height 468, :width 1102}
 - 如何解决redis事务问题
   Redis 从 2.6 版本开始支持执行 Lua 脚本，它的功能和事务非常类似。我们可以利用 Lua 脚本来批量执行多条 Redis 命令，这些 Redis 命令会被提交到 Redis 服务器一次性执行完成，大幅减小了网络开销。
   一段 Lua 脚本可以视作一条命令执行，一段 Lua 脚本执行过程中不会有其他脚本或 Redis 命令同时执行，保证了操作不会被其他指令插入或打扰。
-  如果 Lua 脚本运行时出错并中途结束，出错之后的命令是不会被执行的.但是，Lua脚本**出错之前执行的命令是无法被撤销的。**
+  如果 Lua 脚本运行时出错并中途结束，出错之后的命令是不会被执行的.但是，**Lua脚本出错之前执行的命令是无法被撤销的。**
   因此，严格来说，通过 Lua 脚本来批量执行 Redis 命令也是不满足原子性的。
+  另外，Redis 7.0 新增了 [Redis functions 特性](https://redis.io/docs/manual/programmability/functions-intro/)，你可以将 Redis functions 看作是比 Lua 更强大的脚本。
