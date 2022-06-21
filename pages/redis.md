@@ -75,9 +75,7 @@
 	  8. allkeys-lfu（least frequently used）：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的 key
 	- redis大key删除
 	  redis4之后异步线程删除，不影响主线程的执行
-- redis持久化机制
-  RDB(快照 snapshotting)
-  AOF(只追加文件，append only file)
+- [[redis持久化机制]]
 - redis事务
 - redis生产问题
   缓存穿透
