@@ -34,7 +34,12 @@
   ```
   ![image.png](../assets/image_1655800487990_0.png)
   
-  redis过期键删除策略
+  redis键过期删除策略
+  
+  redis内存淘汰机制
+  
+  redis大key删除
+  redis4之后异步线程删除，不影响主线程的执行
 - redis持久化机制
   RDB(快照 snapshotting)
   AOF(只追加文件，append only file)
