@@ -13,4 +13,5 @@
   2) "no"
   ```
   临时设置：config set
-  永久设置：config rewrite，将目前服务器的参数配置写入redis conf.
+  永久设置：config rewrite，将目前服务器的参数配置写入redis conf。
+-
