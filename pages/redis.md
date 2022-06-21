@@ -21,6 +21,11 @@
   一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。
   高可用
 - redis内存管理
+  redis键过期实现
+  Redis 通过一个叫做过期字典（可以看作是 hash 表）来保存数据过期的时间。过期字典的键指向 Redis 数据库中的某个 key(键)，过期字典的值是一个 long long 类型的整数，这个整数保存了 key 所指向的数据库键的过期时间（毫秒精度的 UNIX 时间戳）。
+  ```
+  ```
+  ![image.png](../assets/image_1655800487990_0.png)
 - redis持久化机制
   RDB(快照 snapshotting)
   AOF(只追加文件，append only file)
