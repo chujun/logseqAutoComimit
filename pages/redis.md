@@ -173,6 +173,41 @@
   bigkey 有什么危害？
   1. 消耗更多的内存空间
   2. bigkey 对性能也会有比较大的影响,因为redis是单线程，执行效率慢的话，就会阻塞其他请求命令
+  如何发现 bigkey？
+  1、使用 Redis 自带的 --bigkeys 参数来查找。
+  ```
+  redis-cli -p 6379 --bigkeys
+  
+  # Scanning the entire keyspace to find biggest keys as well as
+  # average sizes per key type.  You can use -i 0.1 to sleep 0.1 sec
+  # per 100 SCAN commands (not usually needed).
+  
+  [00.00%] Biggest string found so far 'hello' with 5 bytes
+  [00.00%] Biggest set    found so far 'mySet' with 2 members
+  [00.00%] Biggest hash   found so far 'userInfoKey' with 3 fields
+  [00.00%] Biggest string found so far 'key2' with 6 bytes
+  [00.00%] Biggest zset   found so far 'myZset' with 3 members
+  
+  -------- summary -------
+  
+  Sampled 8 keys in the keyspace!
+  Total key length in bytes is 46 (avg len 5.75)
+  
+  Biggest   hash found 'userInfoKey' has 3 fields
+  Biggest string found 'key2' has 6 bytes
+  Biggest    set found 'mySet' has 2 members
+  Biggest   zset found 'myZset' has 3 members
+  
+  0 lists with 0 items (00.00% of keys, avg size 0.00)
+  1 hashs with 3 fields (12.50% of keys, avg size 3.00)
+  3 strings with 12 bytes (37.50% of keys, avg size 4.00)
+  0 streams with 0 entries (00.00% of keys, avg size 0.00)
+  3 sets with 5 members (37.50% of keys, avg size 1.67)
+  1 zsets with 3 members (12.50% of keys, avg size 3.00)
+  ```
+  这个命令会扫描(Scan) Redis 中的所有 key ，会对 Redis 的性能有一点影响。(线上环境禁用)
+  并且，这种方式只能找出每种数据结构 top 1 bigkey（占用内存最大的 string 数据类型，包含元素最多的复合数据类型）。
+- 2、分析 RDB 文件
 - 用途
   1. 最主要方向:分布式缓存
   2. 分布式锁:
