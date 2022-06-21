@@ -76,7 +76,7 @@
 	- redis大key删除
 	  redis4之后异步线程删除，不影响主线程的执行
 - [[redis持久化机制]]
-- redis事务
+- [[redis事务]]
 - redis生产问题
   缓存穿透
   缓存雪崩
