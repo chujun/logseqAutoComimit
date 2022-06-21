@@ -24,8 +24,17 @@
   redis键过期实现
   Redis 通过一个叫做过期字典（可以看作是 hash 表）来保存数据过期的时间。过期字典的键指向 Redis 数据库中的某个 key(键)，过期字典的值是一个 long long 类型的整数，这个整数保存了 key 所指向的数据库键的过期时间（毫秒精度的 UNIX 时间戳）。
   ```
+  typedef struct redisDb {
+      ...
+  
+      dict *dict;     //数据库键空间,保存着数据库中所有键值对
+      dict *expires   // 过期字典,保存着键的过期时间
+      ...
+  } redisDb;
   ```
   ![image.png](../assets/image_1655800487990_0.png)
+  
+  redis过期键删除策略
 - redis持久化机制
   RDB(快照 snapshotting)
   AOF(只追加文件，append only file)
