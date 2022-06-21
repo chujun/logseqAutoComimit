@@ -21,37 +21,37 @@
   一般像 MySQL 这类的数据库的 QPS 大概都在 1w 左右（4 核 8g） ，但是使用 Redis 缓存之后很容易达到 10w+，甚至最高能达到 30w+（就单机 redis 的情况，redis 集群的话会更高）。
   高可用
 - redis内存管理
-  redis键过期实现
-  Redis 通过一个叫做过期字典（可以看作是 hash 表）来保存数据过期的时间。过期字典的键指向 Redis 数据库中的某个 key(键)，过期字典的值是一个 long long 类型的整数，这个整数保存了 key 所指向的数据库键的过期时间（毫秒精度的 UNIX 时间戳）。
-  ```
-  typedef struct redisDb {
-      ...
-  
-      dict *dict;     //数据库键空间,保存着数据库中所有键值对
-      dict *expires   // 过期字典,保存着键的过期时间
-      ...
-  } redisDb;
-  ```
-  ![image.png](../assets/image_1655800487990_0.png)
-  
-  redis键过期删除策略
-  1. 惰性删除 ：只会在取出 key 的时候才对数据进行过期检查。这样对 CPU 最友好，对内存不友好,但是可能会造成太多过期 key 没有被删除。
-  2. 定期删除 ： 每隔一段时间抽取一批 key 执行删除过期 key 操作。并且，Redis 底层会通过限制删除操作执行的时长和频率来减少删除操作对 CPU 时间的影响。对内存更加友好，对CPU不友好
-  
-  redis内存淘汰机制
-  1. volatile-lru（least recently used）：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
-  2. volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
-  3. volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
-  4. allkeys-lru（least recently used）：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的 key（这个是最常用的）
-  5. allkeys-random：当内存不足以容纳新写入数据时，从数据集（server.db[i].dict）中任意选择数据淘汰
-  6. no-eviction：禁止驱逐数据，也就是说当内存不足以容纳新写入数据时，新写入操作会报错。这个应该没人使用吧！
-  4.0 版本后增加以下两种：
-  7. volatile-lfu（least frequently used）：从已设置过期时间的数据集（server.db[i].expires）中挑选最不经常使用的数据淘汰
-  8. allkeys-lfu（least frequently used）：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的 key
-  
-  
-  redis大key删除
-  redis4之后异步线程删除，不影响主线程的执行
+	- 设置键的生存时间或过期时间
+	  通过EXPIRE命令或者PEXPIRE命令，EXPIREAT，客户端可以以秒或者毫秒精度为数据库中的某个键设置生存时间（Time To Live，TTL）。
+	  实际上EXPIRE、PEXPIRE、EXPIREAT三个命令都是使用PEXPIREAT命令来实现的
+	  SETEX命令可以在设置一个字符串键的同时为键设置过期时间，因为这个命令是一个类型限定的命令（只能用于字符串键）。
+	- redis键过期实现
+	  Redis 通过一个叫做过期字典（可以看作是 hash 表）来保存数据过期的时间。过期字典的键指向 Redis 数据库中的某个 key(键)，过期字典的值是一个 long long 类型的整数，这个整数保存了 key 所指向的数据库键的过期时间（毫秒精度的 UNIX 时间戳）。
+	  ```
+	  typedef struct redisDb {
+	      ...
+	  
+	      dict *dict;     //数据库键空间,保存着数据库中所有键值对
+	      dict *expires   // 过期字典,保存着键的过期时间
+	      ...
+	  } redisDb;
+	  ```
+	  ![image.png](../assets/image_1655800487990_0.png)
+	- redis键过期删除策略
+	  1. 惰性删除 ：只会在取出 key 的时候才对数据进行过期检查。这样对 CPU 最友好，对内存不友好,但是可能会造成太多过期 key 没有被删除。
+	  2. 定期删除 ： 每隔一段时间抽取一批 key 执行删除过期 key 操作。并且，Redis 底层会通过限制删除操作执行的时长和频率来减少删除操作对 CPU 时间的影响。对内存更加友好，对CPU不友好
+	- redis内存淘汰机制
+	  1. volatile-lru（least recently used）：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
+	  2. volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
+	  3. volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
+	  4. allkeys-lru（least recently used）：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的 key（这个是最常用的）
+	  5. allkeys-random：当内存不足以容纳新写入数据时，从数据集（server.db[i].dict）中任意选择数据淘汰
+	  6. no-eviction：禁止驱逐数据，也就是说当内存不足以容纳新写入数据时，新写入操作会报错。这个应该没人使用吧！
+	  4.0 版本后增加以下两种：
+	  7. volatile-lfu（least frequently used）：从已设置过期时间的数据集（server.db[i].expires）中挑选最不经常使用的数据淘汰
+	  8. allkeys-lfu（least frequently used）：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的 key
+	- redis大key删除
+	  redis4之后异步线程删除，不影响主线程的执行
 - redis持久化机制
   RDB(快照 snapshotting)
   AOF(只追加文件，append only file)
