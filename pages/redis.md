@@ -207,7 +207,11 @@
   ```
   这个命令会扫描(Scan) Redis 中的所有 key ，会对 Redis 的性能有一点影响。(线上环境禁用)
   并且，这种方式只能找出每种数据结构 top 1 bigkey（占用内存最大的 string 数据类型，包含元素最多的复合数据类型）。
-- 2、分析 RDB 文件
+  2、分析 RDB 文件
+  通过分析 RDB 文件来找出 big key。这种方案的前提是你的 Redis 采用的是 RDB 持久化。
+  网上有现成的代码/工具可以直接拿来使用：
+   [redis-rdb-tools](https://github.com/sripathikrishnan/redis-rdb-tools) ：Python 语言写的用来分析 Redis 的 RDB 快照文件用的工具
+  [rdb_bigkeys](https://github.com/weiyanwei412/rdb_bigkeys) : Go 语言写的用来分析 Redis 的 RDB 快照文件用的工具，性能更好。
 - 用途
   1. 最主要方向:分布式缓存
   2. 分布式锁:
