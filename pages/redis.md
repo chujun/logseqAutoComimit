@@ -43,6 +43,7 @@
 	  ```
 	  ![image.png](../assets/image_1655800487990_0.png)
 	- redis键过期删除策略
+	  id:: 62b18694-2605-4dfe-a272-d244ace60894
 	  ~~1. 定时删除：在设置键的过期时间的同时，创建一个定时器（timer），让定时器在键的过期时间来临时，立即执行对键的删除操作。(redis没有采用这种方式)~~
 	  对CPU时间最不友好，对内存最友好
 	  redis不采用定时删除策略原因
@@ -163,55 +164,58 @@
   缓存穿透
   缓存雪崩
 - redis性能优化
-  Redis bigkey
-  什么是bigkey
-  简单来说，如果一个 key 对应的 value 所占用的内存比较大，那这个 key 就可以看作是 bigkey。
-  具体多大才算大呢？
-  有一个不是特别精确的参考标准：
-  string 类型的 value 超过 10 kb，
-  复合类型的 value 包含的元素超过 5000 个（对于复合类型的 value 来说，不一定包含的元素越多，占用的内存就越多）
-  bigkey 有什么危害？
-  1. 消耗更多的内存空间
-  2. bigkey 对性能也会有比较大的影响,因为redis是单线程，执行效率慢的话，就会阻塞其他请求命令
-  如何发现 bigkey？
-  1、使用 Redis 自带的 --bigkeys 参数来查找。
-  ```
-  redis-cli -p 6379 --bigkeys
-  
-  # Scanning the entire keyspace to find biggest keys as well as
-  # average sizes per key type.  You can use -i 0.1 to sleep 0.1 sec
-  # per 100 SCAN commands (not usually needed).
-  
-  [00.00%] Biggest string found so far 'hello' with 5 bytes
-  [00.00%] Biggest set    found so far 'mySet' with 2 members
-  [00.00%] Biggest hash   found so far 'userInfoKey' with 3 fields
-  [00.00%] Biggest string found so far 'key2' with 6 bytes
-  [00.00%] Biggest zset   found so far 'myZset' with 3 members
-  
-  -------- summary -------
-  
-  Sampled 8 keys in the keyspace!
-  Total key length in bytes is 46 (avg len 5.75)
-  
-  Biggest   hash found 'userInfoKey' has 3 fields
-  Biggest string found 'key2' has 6 bytes
-  Biggest    set found 'mySet' has 2 members
-  Biggest   zset found 'myZset' has 3 members
-  
-  0 lists with 0 items (00.00% of keys, avg size 0.00)
-  1 hashs with 3 fields (12.50% of keys, avg size 3.00)
-  3 strings with 12 bytes (37.50% of keys, avg size 4.00)
-  0 streams with 0 entries (00.00% of keys, avg size 0.00)
-  3 sets with 5 members (37.50% of keys, avg size 1.67)
-  1 zsets with 3 members (12.50% of keys, avg size 3.00)
-  ```
-  这个命令会扫描(Scan) Redis 中的所有 key ，会对 Redis 的性能有一点影响。(线上环境禁用)
-  并且，这种方式只能找出每种数据结构 top 1 bigkey（占用内存最大的 string 数据类型，包含元素最多的复合数据类型）。
-  2、分析 RDB 文件
-  通过分析 RDB 文件来找出 big key。这种方案的前提是你的 Redis 采用的是 RDB 持久化。
-  网上有现成的代码/工具可以直接拿来使用：
-   [redis-rdb-tools](https://github.com/sripathikrishnan/redis-rdb-tools) ：Python 语言写的用来分析 Redis 的 RDB 快照文件用的工具
-  [rdb_bigkeys](https://github.com/weiyanwei412/rdb_bigkeys) : Go 语言写的用来分析 Redis 的 RDB 快照文件用的工具，性能更好。
+	- Redis bigkey
+		- 什么是bigkey
+		  简单来说，如果一个 key 对应的 value 所占用的内存比较大，那这个 key 就可以看作是 bigkey。
+		  具体多大才算大呢？
+		  有一个不是特别精确的参考标准：
+		  string 类型的 value 超过 10 kb，
+		  复合类型的 value 包含的元素超过 5000 个（对于复合类型的 value 来说，不一定包含的元素越多，占用的内存就越多）
+		- bigkey 有什么危害？
+		  1. 消耗更多的内存空间
+		  2. bigkey 对性能也会有比较大的影响,因为redis是单线程，执行效率慢的话，就会阻塞其他请求命令
+		- 如何发现 bigkey？
+		  1、使用 Redis 自带的 --bigkeys 参数来查找。
+		  ```
+		  redis-cli -p 6379 --bigkeys
+		  
+		  # Scanning the entire keyspace to find biggest keys as well as
+		  # average sizes per key type.  You can use -i 0.1 to sleep 0.1 sec
+		  # per 100 SCAN commands (not usually needed).
+		  
+		  [00.00%] Biggest string found so far 'hello' with 5 bytes
+		  [00.00%] Biggest set    found so far 'mySet' with 2 members
+		  [00.00%] Biggest hash   found so far 'userInfoKey' with 3 fields
+		  [00.00%] Biggest string found so far 'key2' with 6 bytes
+		  [00.00%] Biggest zset   found so far 'myZset' with 3 members
+		  
+		  -------- summary -------
+		  
+		  Sampled 8 keys in the keyspace!
+		  Total key length in bytes is 46 (avg len 5.75)
+		  
+		  Biggest   hash found 'userInfoKey' has 3 fields
+		  Biggest string found 'key2' has 6 bytes
+		  Biggest    set found 'mySet' has 2 members
+		  Biggest   zset found 'myZset' has 3 members
+		  
+		  0 lists with 0 items (00.00% of keys, avg size 0.00)
+		  1 hashs with 3 fields (12.50% of keys, avg size 3.00)
+		  3 strings with 12 bytes (37.50% of keys, avg size 4.00)
+		  0 streams with 0 entries (00.00% of keys, avg size 0.00)
+		  3 sets with 5 members (37.50% of keys, avg size 1.67)
+		  1 zsets with 3 members (12.50% of keys, avg size 3.00)
+		  ```
+		  这个命令会扫描(Scan) Redis 中的所有 key ，会对 Redis 的性能有一点影响。(线上环境禁用)
+		  并且，这种方式只能找出每种数据结构 top 1 bigkey（占用内存最大的 string 数据类型，包含元素最多的复合数据类型）。
+		  2、分析 RDB 文件
+		  通过分析 RDB 文件来找出 big key。这种方案的前提是你的 Redis 采用的是 RDB 持久化。
+		  网上有现成的代码/工具可以直接拿来使用：
+		   [redis-rdb-tools](https://github.com/sripathikrishnan/redis-rdb-tools) ：Python 语言写的用来分析 Redis 的 RDB 快照文件用的工具
+		  [rdb_bigkeys](https://github.com/weiyanwei412/rdb_bigkeys) : Go 语言写的用来分析 Redis 的 RDB 快照文件用的工具，性能更好。
+	- 大量 key 集中过期问题
+	  对于过期 key，Redis 采用的是 定期删除+惰性删除 策略。 ((62b18694-2605-4dfe-a272-d244ace60894)) 
+	  定期删除执行过程中，如果突然遇到大量过期 key 的话，客户端请求必须等待定期清理过期 key 任务线程执行完成，因为这个这个定期任务线程是在 Redis 主线程中执行的。这就导致客户端请求没办法被及时处理，响应速度会比较慢。
 - 用途
   1. 最主要方向:分布式缓存
   2. 分布式锁:
