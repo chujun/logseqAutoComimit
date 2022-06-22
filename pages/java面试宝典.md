@@ -23,6 +23,13 @@
   分布式id
   分布式事务
   WAL(Write-Ahead Logging) ：先写日志，再写磁盘 ，MySQL先写redolog，再执行事务，保证事务一致性。
+  一般而言，满足ACID的事务的为钢性事务，满足BASE理论的为柔性事务
+  TCC
+  两阶段型
+  补偿型
+  异步确保型
+  最大努力通知型
+  [分布式事务TCC原理介绍](https://zhuanlan.zhihu.com/p/61779584)
   分布式协调：zookeeper
   分布式缓存
   Memcached，Redis，现在基本都是用Redis了
