@@ -1,4 +1,4 @@
-- info命令
+- redis info命令
   ```
   127.0.0.1:6379> info
   # Server
