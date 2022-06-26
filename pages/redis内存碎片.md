@@ -42,6 +42,18 @@
   一定不要误认为 `used_memory_rss` 减去 `used_memory` 值就是内存碎片的大小！！！这不仅包括内存碎片，还包括其他进程开销，以及共享库、堆栈等的开销。
   很多小伙伴可能要问了：“多大的内存碎片率才是需要清理呢？”。
   通常情况下，我们认为 `mem_fragmentation_ratio > 1.5` 的话才需要清理内存碎片。 `mem_fragmentation_ratio > 1.5` 意味着你使用 Redis 存储实际大小 2G 的数据需要使用大于 3G 的内存。
-## 如何清理 Redis 内存碎片？
+  如果想要快速查看内存碎片率的话，你还可以通过下面这个命令：
+  ```
+  > redis-cli -p 6379 info | grep mem_fragmentation_ratio
+  ```
+  另外，内存碎片率可能存在小于 1 的情况。这种情况我在日常使用中还没有遇到过，感兴趣的小伙伴可以看看这篇文章
+  [故障分析 | Redis 内存碎片率太低该怎么办？- 爱可生开源社区open in new window](https://mp.weixin.qq.com/s/drlDvp7bfq5jt2M5pTqJCw)。
+- ## 如何清理 Redis 内存碎片？
+  edis4.0-RC3 版本以后自带了内存整理，可以避免内存碎片率过大的问题。
+  直接通过 `config set` 命令将 `activedefrag` 配置项设置为 `yes` 即可。
+  ```
+  config set activedefrag yes
+  ```
+  具体什么时候清理需要通过下面两个参数控制：
 - ## 参考
   [Redis 官方文档 内存优化](https://redis.io/topics/memory-optimization)
