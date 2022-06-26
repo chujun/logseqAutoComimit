@@ -150,6 +150,7 @@
   Redis server v=5.0.4 sha=00000000:0 malloc=libc bits=64 build=d4ba11298acbb366
   ```
 - 查看和修改redis配置
+  id:: 62afcdb5-b39a-4b65-9826-903cb6fb48e2
   config get *：查看所有配置
   
   config get appendonly：查看指定配置

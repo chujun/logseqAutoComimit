@@ -71,6 +71,7 @@
   # 内存碎片清理所占用 CPU 时间的比例不高于 50%
   config set active-defrag-cycle-max 50
   ```
+  
   ```
   redis-cli -p 6379 info | grep defrag
   active_defrag_running:0
@@ -78,6 +79,10 @@
   active_defrag_misses:0
   active_defrag_key_hits:0
   active_defrag_key_misses:0
+  ```
+  redis-cli 执行“config get *”命令 ((62afcdb5-b39a-4b65-9826-903cb6fb48e2)) 
+  ```
+  redis-cli -p 6379 config get \*|grep -1 defrag
   ```
 - ## 参考
   [Redis 官方文档 内存优化](https://redis.io/topics/memory-optimization)
