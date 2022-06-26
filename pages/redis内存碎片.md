@@ -49,11 +49,35 @@
   另外，内存碎片率可能存在小于 1 的情况。这种情况我在日常使用中还没有遇到过，感兴趣的小伙伴可以看看这篇文章
   [故障分析 | Redis 内存碎片率太低该怎么办？- 爱可生开源社区open in new window](https://mp.weixin.qq.com/s/drlDvp7bfq5jt2M5pTqJCw)。
 - ## 如何清理 Redis 内存碎片？
-  edis4.0-RC3 版本以后自带了内存整理，可以避免内存碎片率过大的问题。
+  方法一:redis4.0-RC3 版本以后自带了内存整理，可以避免内存碎片率过大的问题。
+  方法二:另外，重启节点可以做到内存碎片重新整理。
+  方法三：如果你采用的是高可用架构的 Redis 集群的话，你可以将碎片率过高的主节点转换为从节点，以便进行安全重启。
+  
   直接通过 `config set` 命令将 `activedefrag` 配置项设置为 `yes` 即可。
   ```
   config set activedefrag yes
   ```
   具体什么时候清理需要通过下面两个参数控制：
+  ```
+  # 内存碎片占用空间达到 500mb 的时候开始清理
+  config set active-defrag-ignore-bytes 500mb
+  # 内存碎片率大于 1.5 的时候开始清理
+  config set active-defrag-threshold-lower 50
+  ```
+  通过 Redis 自动内存碎片清理机制可能会对 Redis 的性能产生影响，我们可以通过下面两个参数来减少对 Redis 性能的影响
+  ```
+  # 内存碎片清理所占用 CPU 时间的比例不低于 20%
+  config set active-defrag-cycle-min 20
+  # 内存碎片清理所占用 CPU 时间的比例不高于 50%
+  config set active-defrag-cycle-max 50
+  ```
+  ```
+  redis-cli -p 6379 info | grep defrag
+  active_defrag_running:0
+  active_defrag_hits:0
+  active_defrag_misses:0
+  active_defrag_key_hits:0
+  active_defrag_key_misses:0
+  ```
 - ## 参考
   [Redis 官方文档 内存优化](https://redis.io/topics/memory-optimization)
