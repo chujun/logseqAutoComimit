@@ -35,7 +35,13 @@
 	  ![image.png](../assets/image_1656251088089_0.png)
 	  [相关文档redis官网地址](https://redis.io/topics/memory-optimization)。
 - ## 如何查看 Redis 内存碎片的信息？
-  使用 `info memory` 命令即可查看 Redis 内存相关的信息。下图中每个参数具体的含义
+  使用 `info memory` 命令即可查看 Redis 内存相关的信息。下图中每个参数具体的含义 ((62b860bd-9158-4eca-9c91-f7af917427b6))
+  ![image.png](../assets/image_1656251309031_0.png) 
+  Redis 内存碎片率的计算公式： `mem_fragmentation_ratio` （内存碎片率）= `used_memory_rss` (操作系统实际分配给 Redis 的物理内存空间大小)/ `used_memory` (Redis 内存分配器为了存储数据实际申请使用的内存空间大小)
+  也就是说， `mem_fragmentation_ratio` （内存碎片率）的值越大代表内存碎片率越严重(上图mem_fragmentation_ratio值为9.40)。
+  一定不要误认为 `used_memory_rss` 减去 `used_memory` 值就是内存碎片的大小！！！这不仅包括内存碎片，还包括其他进程开销，以及共享库、堆栈等的开销。
+  很多小伙伴可能要问了：“多大的内存碎片率才是需要清理呢？”。
+  通常情况下，我们认为 `mem_fragmentation_ratio > 1.5` 的话才需要清理内存碎片。 `mem_fragmentation_ratio > 1.5` 意味着你使用 Redis 存储实际大小 2G 的数据需要使用大于 3G 的内存。
 ## 如何清理 Redis 内存碎片？
 - ## 参考
   [Redis 官方文档 内存优化](https://redis.io/topics/memory-optimization)

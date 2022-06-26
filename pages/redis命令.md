@@ -1,4 +1,6 @@
 - redis info命令
+  id:: 62b860bd-9158-4eca-9c91-f7af917427b6
+  [info 命令官网说明](https://redis.io/commands/info/)
   ```
   127.0.0.1:6379> info
   # Server
@@ -142,7 +144,6 @@
   db0:keys=8,expires=0,avg_ttl=0
   db1:keys=1,expires=0,avg_ttl=0
   ```
-  [info 命令](https://redis.io/commands/info/)
 - 查看服务端版本
   ```
   redis-server -v
