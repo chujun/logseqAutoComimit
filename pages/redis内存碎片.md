@@ -83,6 +83,39 @@
   redis-cli 执行“config get *”命令 ((62afcdb5-b39a-4b65-9826-903cb6fb48e2)) 
   ```
   redis-cli -p 6379 config get \*|grep -1 defrag
+  0
+  active-defrag-threshold-lower
+  10
+  --
+  --
+  10
+  active-defrag-threshold-upper
+  100
+  --
+  --
+  100
+  active-defrag-ignore-bytes
+  104857600
+  --
+  --
+  104857600
+  active-defrag-cycle-min
+  5
+  --
+  --
+  5
+  active-defrag-cycle-max
+  75
+  --
+  --
+  75
+  active-defrag-max-scan-fields
+  1000
+  --
+  --
+  yes
+  activedefrag
+  no
   ```
 - ## 参考
   [Redis 官方文档 内存优化](https://redis.io/topics/memory-optimization)
