@@ -54,6 +54,15 @@
   
   我们知道 Kafka 中 Partition(分区)是真正保存消息的地方，我们发送的消息都被放在了这里。而我们的 Partition(分区) 又存在于 Topic(主题) 这个概念中，并且我们可以给特定 Topic 指定多个 Partition。
   ![image.png](../assets/image_1656333435188_0.png)
+  每次添加消息到 Partition(分区) 的时候都会采用尾加法，如上图所示。**Kafka 只能为我们保证 Partition(分区) 中的消息有序。**
+  
+  对于如何保证 Kafka 中消息消费的顺序，有下面两种方法：
+  1. 1个Topic只对应一个 Partition。
+  这样当然可以解决问题，但是破坏了 Kafka 的设计初衷。
+  2.（推荐）发送消息的时候指定 key/Partition。
+  Kafka 中发送 1 条消息的时候，可以指定 topic, partition, key,data（数据） 4 个参数。如果你发送消息的时候指定了 Partition 的话，所有消息都会被发送到指定的 Partition。并且，同一个 key 的消息可以保证只发送到同一个 partition，这个我们可以采用表/对象的 id 来作为 key 。
+  
+  当然不仅仅只有上面两种方法，上面两种方法是我觉得比较好理解的，
 - Kafka 如何保证消息不丢失
 - Kafka 如何保证消息不重复消费
 - 配置:无消息丢失配置怎么实现
