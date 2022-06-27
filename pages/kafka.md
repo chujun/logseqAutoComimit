@@ -62,6 +62,7 @@
   这样当然可以解决问题，但是破坏了 Kafka 的设计初衷。
   2.（推荐）发送消息的时候指定 key/Partition。
   Kafka 中发送 1 条消息的时候，可以指定 topic, partition, key,data（数据） 4 个参数。如果你发送消息的时候指定了 Partition 的话，所有消息都会被发送到指定的 Partition。并且，同一个 key 的消息可以保证只发送到同一个 partition，这个我们可以采用表/对象的 id 来作为 key 。
+  ---
 - Kafka 如何保证消息不丢失
 - Kafka 如何保证消息不重复消费
 - 配置:无消息丢失配置怎么实现
