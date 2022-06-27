@@ -20,11 +20,12 @@
   1. **Producer（生产者）**: 产生消息的一方。
   2. **Consumer（消费者）**: 消费消息的一方。
   3.  **Broker（代理）**: 可以看作是一个独立的 Kafka 实例。多个 Kafka Broker 组成一个 Kafka Cluster。
-  Kafka 将生产者发布的消息发送到**Topic（主题）**中，需要这些消息的消费者可以订阅这些**Topic（主题）**，如下图所示
   你一定也注意到每个 Broker 中又包含了 Topic 以及 Partition 这两个重要的概念：
--
--
--
-- ![image.png](../assets/image_1656332366658_0.png)
--
+  4. **Topic（主题）**: Producer 将消息发送到特定的主题，Consumer 通过订阅特定的 Topic(主题) 来消费消息。
+  5. **Partition（分区）**: Partition 属于 Topic 的一部分。一个 Topic 可以有多个 Partition ，并且同一 Topic 下的 Partition 可以分布在不同的 Broker 上，这也就表明一个 Topic 可以横跨多个 Broker 。这正如我上面所画的图一样。
+  Kafka 将生产者发布的消息发送到**Topic（主题）**中，需要这些消息的消费者可以订阅这些**Topic（主题）**，如下图所示
+  ![image.png](../assets/image_1656332366658_0.png)
+  --->划重点：**Kafka 中的 Partition（分区） 实际上可以对应成为消息队列中的队列。这样是不是更好理解一点？**
+- Kafka 的多副本机制
+  Kafka 为分区（Partition）引入了多副本（Replica）机制。分区（Partition）中的多个副本之间会有一个叫做 leader 的家伙，其他副本称为 follower。我们发送的消息会被发送到 leader 副本，然后 follower 副本才能从 leader 副本中拉取消息进行同步。
 - 配置:无消息丢失配置怎么实现
