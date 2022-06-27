@@ -129,3 +129,6 @@
    ((62b9b684-ea94-4d4a-8b67-6cdc9fd08e48))
 - 资料
   [Kafka 官方文档](https://kafka.apache.org/documentation/)
+  
+  [kafka持久化设计](https://kafka.apache.org/documentation/#persistence)
+  [kafka高性能设计](https://kafka.apache.org/documentation/#maximizingefficiency)
