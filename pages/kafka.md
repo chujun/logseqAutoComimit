@@ -99,6 +99,15 @@
 	  多副本机制当中的主从复制过程中可能丢消息, kafka只能保证AP,[[CAP理论]] 
 	  ((8c5cbd2f-3f87-4fe3-b5f0-0d1a581c367e)) 
 	  假设一个业务场景:假如 leader 副本所在的 broker 突然挂掉，那么就要从 follower 副本重新选出一个 leader ，但是 leader 的数据还有一些没有被 follower 副本的同步的话，就会造成消息丢失。
+	  解决主从复制过程中消息丢失的配置
+		- 1. **设置 acks = all**
+		  acks 的默认值即为1，代表我们的消息被leader副本接收之后就算被成功发送。
+		  当我们配置**acks = all**代表则所有副本都要接收到该消息之后该消息才算真正成功被发送。
+		- 2. **设置 replication.factor >= 3**
+		  为了保证 leader 副本能有 follower 副本能同步消息，我们一般会为 topic 设置**replication.factor >= 3**。这样就可以保证每个 分区(partition) 至少有 3 个副本。虽然造成了数据冗余，但是带来了数据的安全性。
+		- 3. **设置 min.insync.replicas > 1**
+		- 4. **设置 unclean.leader.election.enable = false**
+		-
 	- 4. kafka异步刷盘丢消息
 - Kafka 如何保证消息不重复消费
 - 配置:无消息丢失配置怎么实现
