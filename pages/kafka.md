@@ -111,6 +111,9 @@
 		  需要注意的是:为了保证整个 Kafka 服务的高可用性，你需要确保**replication.factor > min.insync.replicas**。为什么呢？设想一下假如两者相等的话，只要是有一个副本挂掉，整个分区就无法正常工作了(因为此时无法到达必须写入min.insync.replicas数量副本的要求了)。这明显违反高可用性！一般推荐设置成**replication.factor = min.insync.replicas + 1**。
 		- 4. **设置 unclean.leader.election.enable = false**
 		  Kafka >0.11.0.0version 默认值由原来的true 改为false
+		  参数含义:
+		  当我们配置了**unclean.leader.election.enable = false**的话，当 leader 副本发生故障时就不会从 follower 副本中和 leader 同步程度达不到要求的副本中选择出 leader ，这样降低了消息丢失的可能性。
+		  (发送消息会被发送到 leader 副本，然后 follower 副本才能从 leader 副本中拉取消息进行同步。多个 follower 副本之间的消息同步情况不一样.)
 		-
 		-
 	- 4. kafka异步刷盘丢消息
