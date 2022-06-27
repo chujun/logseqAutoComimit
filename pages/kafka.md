@@ -106,7 +106,12 @@
 		- 2. **设置 replication.factor >= 3**
 		  为了保证 leader 副本能有 follower 副本能同步消息，我们一般会为 topic 设置**replication.factor >= 3**。这样就可以保证每个 分区(partition) 至少有 3 个副本。虽然造成了数据冗余，但是带来了数据的安全性。
 		- 3. **设置 min.insync.replicas > 1**
+		  一般情况下我们还需要设置**min.insync.replicas> 1**，这样配置代表消息至少要被写入到 2 个副本才算是被成功发送。
+		  **min.insync.replicas**的默认值为 1 ，在实际生产中应尽量避免默认值 1。
+		  需要注意的是:为了保证整个 Kafka 服务的高可用性，你需要确保**replication.factor > min.insync.replicas**。为什么呢？设想一下假如两者相等的话，只要是有一个副本挂掉，整个分区就无法正常工作了(因为此时无法到达必须写入min.insync.replicas数量副本的要求了)。这明显违反高可用性！一般推荐设置成**replication.factor = min.insync.replicas + 1**。
 		- 4. **设置 unclean.leader.election.enable = false**
+		  Kafka >0.11.0.0version 默认值由原来的true 改为false
+		-
 		-
 	- 4. kafka异步刷盘丢消息
 - Kafka 如何保证消息不重复消费
