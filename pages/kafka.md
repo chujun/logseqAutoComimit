@@ -68,7 +68,23 @@
 	- 1. 生产者丢失消息的情况
 	  生产者(Producer) 调用 `send` 方法发送消息之后，消息可能因为网络问题并没有发送过去。
 	  所以，我们不能默认在调用 `send` 方法发送消息之后消息发送成功了。为了确定消息是发送成功，我们要判断消息发送的结果。
-	  但是要注意的是 Kafka 生产者(Producer) 使用 `send` 方法发送消息实际上是异步的操作，我们可以通过 `get()` 方法获取调用结果，但是这样也让它变为了同步操作，示例代码如下：
+	  但是要注意的是 Kafka 生产者(Producer) 使用 `send` 方法发送消息实际上是异步的操作，我们可以通过 `get()` 方法获取调用结果，但是这样也让它变为了同步操作(需要同步等待操作结果)，示例代码如下：
+	  ```
+	  SendResult<String, Object> sendResult = kafkaTemplate.send(topic, o).get();
+	  if (sendResult.getRecordMetadata() != null) {
+	    logger.info("生产者成功发送消息到" + sendResult.getProducerRecord().topic() + "-> " + sendRe
+	                sult.getProducerRecord().value().toString());
+	  }
+	  ```
+	  但是一般不推荐这么做！可以采用为其添加回调函数的形式，不阻塞业务线程执行，示例代码如下：
+	  ```
+	  ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, o);
+	          future.addCallback(result -> logger.info("生产者成功发送消息到topic:{} partition:{}的消息", result.getRecordMetadata().topic(), result.getRecordMetadata().partition()),
+	                  ex -> logger.error("生产者发送消失败，原因：{}", ex.getMessage()));
+	  ```
+	  
+	  如果消息发送失败的话，我们检查失败的原因之后重新发送即可！**
+	  另外这里推荐为 Producer 的 `retries` （重试次数）设置一个比较合理的值，一般是 3 ，但是为了保证消息不丢失的话一般会设置比较大一点。设置完成之后，当出现网络问题之后能够自动重试消息发送，避免消息丢失。另外，建议还要设置重试间隔，因为间隔太小的话重试的效果就不明显了，网络波动一次你3次一下子就重试完了**
 	- 2.
 	- 3.
 - Kafka 如何保证消息不重复消费
