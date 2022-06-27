@@ -114,8 +114,7 @@
 		  参数含义:
 		  当我们配置了**unclean.leader.election.enable = false**的话，当 leader 副本发生故障时就不会从 follower 副本中和 leader 同步程度达不到要求的副本中选择出 leader ，这样降低了消息丢失的可能性。
 		  (发送消息会被发送到 leader 副本，然后 follower 副本才能从 leader 副本中拉取消息进行同步。多个 follower 副本之间的消息同步情况不一样.)
-		-
-		-
 	- 4. kafka异步刷盘丢消息
 - Kafka 如何保证消息不重复消费
-- 配置:无消息丢失配置怎么实现
+- 资料
+  [Kafka 官方文档](https://kafka.apache.org/documentation/)
