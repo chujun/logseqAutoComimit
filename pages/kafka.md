@@ -45,4 +45,15 @@
   2. Topic 注册**： 在 Kafka 中，同一个**Topic 的消息会被分成多个分区**并将其分布在多个 Broker 上，**这些分区信息及与 Broker 的对应关系**也都是由 Zookeeper 在维护。比如我创建了一个名字为 my-topic 的主题并且它有两个分区，对应到 zookeeper 中会创建这些文件夹： `/brokers/topics/my-topic/Partitions/0` 、 `/brokers/topics/my-topic/Partitions/1`**
   3. **负载均衡**：上面也说过了 Kafka 通过给特定 Topic 指定多个 Partition, 而各个 Partition 可以分布在不同的 Broker 上, 这样便能提供比较好的并发能力。 对于同一个 Topic 的不同 Partition，Kafka 会尽力将这些 Partition 分布到不同的 Broker 服务器上。当生产者产生消息后也会尽量投递到不同 Broker 的 Partition 里面。当 Consumer 消费的时候，Zookeeper 可以根据当前的 Partition 数量以及 Consumer 数量来实现动态负载均衡。
   4. ......
+- Kafka 如何保证消息的消费顺序？
+  举例业务场景:
+  我们在使用消息队列的过程中经常有业务场景需要严格保证消息的消费顺序，比如我们同时发了 2 个消息，这 2 个消息对应的操作分别对应的数据库操作是：
+  1. 更改用户会员等级。
+  2. 根据会员等级计算订单价格。
+  假如这两条消息的消费顺序不一样造成的最终结果就会截然不同。
+  
+  我们知道 Kafka 中 Partition(分区)是真正保存消息的地方，我们发送的消息都被放在了这里。而我们的 Partition(分区) 又存在于 Topic(主题) 这个概念中，并且我们可以给特定 Topic 指定多个 Partition。
+  ![image.png](../assets/image_1656333435188_0.png)
+- Kafka 如何保证消息不丢失
+- Kafka 如何保证消息不重复消费
 - 配置:无消息丢失配置怎么实现
