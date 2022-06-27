@@ -34,4 +34,6 @@
   **Kafka 的多分区（Partition）以及多副本（Replica）机制有什么好处呢？**
   1. Kafka 通过给特定 Topic 指定多个 Partition, 而各个 Partition 可以分布在不同的 Broker 上, 这样便能提供比较好的并发能力（负载均衡）。
   2. Partition 可以指定对应的 Replica 数, 这也极大地提高了消息存储的安全性, 提高了容灾能力，不过也相应的增加了所需要的存储空间。
+- Zookeeper 在 Kafka 中的作用
+  >**要想搞懂 zookeeper 在 Kafka 中的作用 一定要自己搭建一个 Kafka 环境然后自己进 zookeeper 去看一下有哪些文件夹和 Kafka 有关，每个节点又保存了什么信息。**一定不要光看不实践，这样学来的也终会忘记！[这部分内容参考和借鉴了这篇文章](https://www.jianshu.com/p/a036405f989c) 。
 - 配置:无消息丢失配置怎么实现
