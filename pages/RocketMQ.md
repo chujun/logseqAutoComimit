@@ -118,5 +118,15 @@
 		  b.第一次消息回查最快时间：该参数支持自定义设置。若指定消息未达到设置的最快回查时间前，系统默认每隔30秒一次的回查任务不会检查该消息。
 		- 消费消息规则
 		  事务消息的Group ID不能与其他类型消息的Group ID共用。与其他类型的消息不同，事务消息有回查机制，回查时消息队列RocketMQ版服务端会根据Group ID去查询生产者客户端。
+	- RocketMQ事务消息实现流程
+	  以RocketMQ 4.5.2版本为例，事务消息有专门的一个队列RMQ_SYS_TRANS_HALF_TOPIC，所有的prepare消息都先往这里放，当消息收到Commit请求后，就把消息再塞到真实的Topic队列里，供Consumer消费，同时向RMQ_SYS_TRANS_OP_HALF_TOPIC塞一条消息。简易流程图如下：
+	  ![image.png](../assets/image_1656420471976_0.png)
+	  RocketMQ事务消息实现流程
+	  上述流程中，请允许我这样划分模块职责：
+	  RocketMQ Client即我们工程中导入的依赖jar包，RocketMQ Broker端即部署的服务端，NameServer暂未体现。
+	  应用模块成对出现，上游为事务消息生产端，下游为事务消息消费端（事务消息对消费端是透明的，与普通消息一致）。
+	  
+	  应用模块的事务因为中断，或是其他的网络原因，导致无法立即响应的，RocketMQ当做UNKNOW处理，RocketMQ事务消息还提供了一个补救方案：事务回查机制:定时查询事务消息的数据库事务状态
+	  ![image.png](../assets/image_1656420581612_0.png)
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
