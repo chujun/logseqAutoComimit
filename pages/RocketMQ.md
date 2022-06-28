@@ -106,11 +106,15 @@
 	  2. 生产者根据检查得到的本地事务的最终状态再次提交二次确认，服务端仍按照步骤4对半事务消息进行处理。
 	- 使用规则
 		- 生产消息规则
-		  事务消息发送完成本地事务后，可在 `execute` 方法中返回以下三种状态：`
+		  1.事务消息发送完成本地事务后，可在 `execute` 方法中返回以下三种状态：`
 		  a.TransactionStatus.CommitTransaction` ：提交事务，允许消费者消费该消息。`
 		  b.TransactionStatus.RollbackTransaction` ：回滚事务，消息将被丢弃不允许消费。`
 		  c.TransactionStatus.Unknow` ：暂时无法判断状态，等待固定时间以后消息队列RocketMQ版服务端根据回查规则向生产者进行消息回查。
-		  通过 `ONSFactory.createTransactionProducer` 创建事务消息的Producer时必须指定 `LocalTransactionChecker` 的实现类，处理异常情况下事务消息的回查。
+		  2.通过 `ONSFactory.createTransactionProducer` 创建事务消息的Producer时必须指定 `LocalTransactionChecker` 的实现类，处理异常情况下事务消息的回查。
+		  3.回查规则：本地事务执行完成后，若消息队列RocketMQ版服务端收到的本地事务返回状态为 `TransactionStatus.Unknow` ，或生产者应用退出导致本地事务未提交任何状态。则消息队列RocketMQ版服务端会向消息生产者发起事务回查，第一次回查后仍未获取到事务状态，则之后每隔一段时间会再次回查。
+		  a.回查间隔时间：系统默认每隔30秒发起一次定时任务，对未提交的半事务消息进行回查，共持续12小时。
+		  b.第一次消息回查最快时间：该参数支持自定义设置。若指定消息未达到设置的最快回查时间前，系统默认每隔30秒一次的回查任务不会检查该消息。
 		- 消费消息规则
+		  事务消息的Group ID不能与其他类型消息的Group ID共用。与其他类型的消息不同，事务消息有回查机制，回查时消息队列RocketMQ版服务端会根据Group ID去查询生产者客户端。
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
