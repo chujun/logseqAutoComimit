@@ -105,5 +105,12 @@
 	  1. 生产者收到消息回查后，需要检查对应消息的本地事务执行的最终结果。
 	  2. 生产者根据检查得到的本地事务的最终状态再次提交二次确认，服务端仍按照步骤4对半事务消息进行处理。
 	- 使用规则
+		- 生产消息规则
+		  事务消息发送完成本地事务后，可在 `execute` 方法中返回以下三种状态：`
+		  a.TransactionStatus.CommitTransaction` ：提交事务，允许消费者消费该消息。`
+		  b.TransactionStatus.RollbackTransaction` ：回滚事务，消息将被丢弃不允许消费。`
+		  c.TransactionStatus.Unknow` ：暂时无法判断状态，等待固定时间以后消息队列RocketMQ版服务端根据回查规则向生产者进行消息回查。
+		  通过 `ONSFactory.createTransactionProducer` 创建事务消息的Producer时必须指定 `LocalTransactionChecker` 的实现类，处理异常情况下事务消息的回查。
+		- 消费消息规则
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
