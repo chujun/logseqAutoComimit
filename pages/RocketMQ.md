@@ -183,6 +183,7 @@
 	  由于 `RocketMQ` 是基于主题 `Topic` 的订阅模式，消息消费是针对主题进行的。
 	  如果要遍历 `commitlog` 文件中根据 `Topic` 检索消息是非常低效的。 `Consumer` 即可根据 `ConsumeQueue` 来查找待消费的消息。其中， `ConsumeQueue` （逻辑消费队列）**作为消费消息的索引**，保存了指定 `Topic` 下的队列消息在 `CommitLog` 中的**起始物理偏移量 `offset` **，消息大小 `size` 和消息 `Tag` 的 `HashCode` 值。
 	  `consumequeue` 文件可以看成是基于 `topic` 的 `commitlog` 索引文件，故 `consumequeue` 文件夹的组织方式如下：topic/queue/file三层组织结构，具体存储路径为：$HOME/store/consumequeue/{topic}/{queueId}/{fileName}。同样 `consumequeue` 文件采取定长设计，每一个条目共20个字节，分别为8字节的 `commitlog` 物理偏移量、4字节的消息长度、8字节tag `hashcode` ，单个文件由30W个条目组成，可以像数组一样随机访问每一个条目，每个 `ConsumeQueue` 文件大小约5.72M(20*300000/1024/1024.0=5.72M)；
+	  ![image.png](../assets/image_1656426210616_0.png)
 	- `IndexFile` ： 
 	  `IndexFile` （索引文件）提供了一种可以通过key或时间区间来查询消息的方法。这里只做科普不做详细介绍。
 	- 总结来说，整个消息存储的结构，最主要的就是 `CommitLoq` 和 `ConsumeQueue` 。而 `ConsumeQueue` 你可以大概理解为 `Topic` 中的队列。
@@ -197,6 +198,9 @@
 	  左边生产者表示一个生产者集群,右边消费者表示一个消费者组
 	  首先，在最上面的那一块就是我刚刚讲的你现在可以直接**把 `ConsumerQueue` 理解为 `Queue` **。
 	  在图中最左边说明了红色方块代表被写入的消息，虚线方块代表等待被写入的。左边的生产者发送消息会指定 `Topic` 、 `QueueId` 和具体消息内容，而在 `Broker` 中管你是哪门子消息，他直接**全部顺序存储到了 CommitLog**。而根据生产者指定的 `Topic` 和 `QueueId` 将这条消息本身在 `CommitLog` 的偏移(offset)，消息本身大小，和tag的hash值存入对应的 `ConsumeQueue` 索引文件中。而在每个队列中都保存了 `ConsumeOffset` 即每个消费者组的消费位置 ((62bac06c-eaa4-4c39-97ea-8119cb35bb69)) ，而消费者拉取消息进行消费的时候只需要根据 `ConsumeOffset` 获取下一个未被消费的消息就行了。
+	  
+	  广播模式下，同消费组的消费者相互独立，消费进度(ConsumeOffset)要单独存储;集群模式下，同一条消息只会被同一个消费组消费一次，消费进度(ConsumeOffset)会参与到负载均衡中，故消费进度是需要共享的。
+	  
 	  上述就是我对于整个消息存储架构的大概理解(这里不涉及到一些细节讨论，比如稀疏索引等等问题)
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
