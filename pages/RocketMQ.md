@@ -179,5 +179,9 @@
 	- `IndexFile` ： `IndexFile` （索引文件）提供了一种可以通过key或时间区间来查询消息的方法。这里只做科普不做详细介绍。
 	- 总结来说，整个消息存储的结构，最主要的就是 `CommitLoq` 和 `ConsumeQueue` 。而 `ConsumeQueue` 你可以大概理解为 `Topic` 中的队列。
 	  ![image.png](../assets/image_1656424562196_0.png)
+	- 关于topic是否公用同一个commit logw
+	  `RocketMQ` 采用的是**混合型的存储结构**，即为 `Broker` 单个实例下所有的队列共用一个日志数据文件来存储消息。
+	  有意思的是在同样高并发的 `Kafka` 中会为每个 `Topic` 分配一个存储文件。--->这就有点类似于我们有一大堆书需要装上书架， `RockeMQ` 是不分书的种类直接成批的塞上去的，而 `Kafka` 是将书本放入指定的分类区域的。
+	  而 `RocketMQ` 为什么要这么做呢？原因是**提高数据的写入效率**，不分 `Topic` 意味着我们有更大的几率获取**成批**的消息进行数据写入，但也会带来一个麻烦就是读取消息的时候需要遍历整个大文件，这是非常耗时的。
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
