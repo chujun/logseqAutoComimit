@@ -199,7 +199,10 @@
 	  首先，在最上面的那一块就是我刚刚讲的你现在可以直接**把 `ConsumerQueue` 理解为 `Queue` **。
 	  在图中最左边说明了红色方块代表被写入的消息，虚线方块代表等待被写入的。左边的生产者发送消息会指定 `Topic` 、 `QueueId` 和具体消息内容，而在 `Broker` 中管你是哪门子消息，他直接**全部顺序存储到了 CommitLog**。而根据生产者指定的 `Topic` 和 `QueueId` 将这条消息本身在 `CommitLog` 的偏移(offset)，消息本身大小，和tag的hash值存入对应的 `ConsumeQueue` 索引文件中。而在每个队列中都保存了 `ConsumeOffset` 即每个消费者组的消费位置 ((62bac06c-eaa4-4c39-97ea-8119cb35bb69)) ，而消费者拉取消息进行消费的时候只需要根据 `ConsumeOffset` 获取下一个未被消费的消息就行了。
 	  
-	  广播模式下，同消费组的消费者相互独立，消费进度(ConsumeOffset)要单独存储;集群模式下，同一条消息只会被同一个消费组消费一次，消费进度(ConsumeOffset)会参与到负载均衡中，故消费进度是需要共享的。
+	  广播模式下，同消费组的消费者相互独立，消费进度(ConsumeOffset)要单独存储;
+	  集群模式下，同一条消息只会被同一个消费组消费一次，消费进度(ConsumeOffset)会参与到负载均衡中，故消费进度是需要共享的。
+	  广播模式：DefaultMQPushConsumer的BROADCASTING模式，各个Consumer没有互相干扰，使用LoclaFileOffsetStore，把Offset存储在Consumer本地。
+	  集群模式：DefaultMQPushConsumer的CLUSTERING模式，由Broker端存储和控制Offset的值，使用RemoteBrokerOffsetStore。
 	  
 	  上述就是我对于整个消息存储架构的大概理解(这里不涉及到一些细节讨论，比如稀疏索引等等问题)
 - 资料
