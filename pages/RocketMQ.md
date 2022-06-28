@@ -39,6 +39,6 @@
 	- 2. `NameServer` ：它其实也是一个**注册中心**，主要提供两个功能：**Broker管理**和**路由信息管理**。说白了就是 `Broker` 会将自己的信息注册到 `NameServer` 中，此时 `NameServer` 就存放了很多 `Broker` 的信息(Broker的路由表)，消费者和生产者就从 `NameServer` 中获取路由表然后照着路由表的信息和对应的 `Broker` 进行通信(生产者和消费者定期会向 `NameServer` 去查询相关的 `Broker` 的信息)。
 	  每个节点存储状态完全一致,NameServer集群保证CAP中的AP
 	  --->类似`ZooKeeper` 和 `Spring Cloud` 中的 `Eureka`
-	- 3.
-	- 4.
+	- 3. `Producer` ： 消息发布的角色，支持分布式集群方式部署。说白了就是生产者。
+	- 4. `Consumer` ： 消息消费的角色，支持分布式集群方式部署。支持以push推，pull拉两种模式对消息进行消费。同时也支持集群方式和广播方式的消费，它提供实时消息订阅机制。说白了就是消费者。
 - 资料
