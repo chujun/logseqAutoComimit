@@ -187,5 +187,7 @@
 	  所以，在 `RocketMQ` 中又使用了 `ConsumeQueue` 作为每个队列的索引文件来**提升读取消息的效率**。我们可以直接根据队列的消息序号，计算出索引的全局位置（索引序号*索引固定⻓度20） ((62bb06e8-8f7f-4eca-b7b0-9d513b1758e1)) ，然后直接读取这条索引，再根据索引中记录的消息的全局位置，找到消息。
 	- RocketMQ存储架构图
 	  ![image.png](../assets/image_1656425059030_0.png)
+	  首先，在最上面的那一块就是我刚刚讲的你现在可以直接**把 `ConsumerQueue` 理解为 `Queue` **。
+	  在图中最左边说明了红色方块代表被写入的消息，虚线方块代表等待被写入的。左边的生产者(集群)发送消息会指定 `Topic` 、 `QueueId` 和具体消息内容，而在 `Broker` 中管你是哪门子消息，他直接**全部顺序存储到了 CommitLog**。而根据生产者指定的 `Topic` 和 `QueueId` 将这条消息本身在 `CommitLog` 的偏移(offset)，消息本身大小，和tag的hash值存入对应的 `ConsumeQueue` 索引文件中。而在每个队列中都保存了 `ConsumeOffset` 即每个消费者组的消费位置(我在架构那里提到了，忘了的同学可以回去看一下)，而消费者拉取消息进行消费的时候只需要根据 `ConsumeOffset` 获取下一个未被消费的消息就行了。
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
