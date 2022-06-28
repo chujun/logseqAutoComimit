@@ -30,13 +30,15 @@
   3. **每个消费组在topic每个队列上维护一个消费位置**
 - RocketMQ的架构图
   `RocketMQ` 技术架构中有四大角色 `NameServer` 、 `Broker` 、 `Producer` 、 `Consumer`.
-  ![image.png](../assets/image_1656406670928_0.png)
 	- 1. `Broker` ： 主要负责消息的存储、投递和查询以及服务高可用保证。说白了就是消息队列服务器嘛，生产者生产消息到 `Broker` ，消费者从 `Broker` 拉取消息并消费.
 	  这里，我还得普及一下关于 `Broker` 、 `Topic` 和 队列的关系。上面我讲解了 `Topic` 和队列的关系——一个 `Topic` 中存在多个队列，那么这个 `Topic` 和队列存放在哪呢？**
 	  一个 `Topic` 分布在多个 `Broker` 上，一个 `Broker` 可以配置多个 `Topic` ，它们是多对多的关系**。
 	  如果某个 `Topic` 消息量很大，应该给它多配置几个队列(上文中提到了提高并发能力)，并且**尽量多分布在不同 `Broker` 上，以减轻某个 `Broker` 的压力**。`
 	  Topic` 消息量都比较均匀的情况下，如果某个 `broker` 上的队列越多，则该 `broker` 压力越大。
-	- 2.
+	  ![image.png](../assets/image_1656406670928_0.png)
+	- 2. `NameServer` ：它其实也是一个**注册中心**，主要提供两个功能：**Broker管理**和**路由信息管理**。说白了就是 `Broker` 会将自己的信息注册到 `NameServer` 中，此时 `NameServer` 就存放了很多 `Broker` 的信息(Broker的路由表)，消费者和生产者就从 `NameServer` 中获取路由表然后照着路由表的信息和对应的 `Broker` 进行通信(生产者和消费者定期会向 `NameServer` 去查询相关的 `Broker` 的信息)。
+	  每个节点存储状态完全一致,NameServer集群保证CAP中的AP
+	  --->类似`ZooKeeper` 和 `Spring Cloud` 中的 `Eureka`
 	- 3.
 	- 4.
 - 资料
