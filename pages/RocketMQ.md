@@ -175,6 +175,9 @@
 	- `ConsumeQueue` ： 消息消费队列，**引入的目的主要是提高消息消费的性能**(我们再前面也讲了)，
 	  由于 `RocketMQ` 是基于主题 `Topic` 的订阅模式，消息消费是针对主题进行的。
 	  如果要遍历 `commitlog` 文件中根据 `Topic` 检索消息是非常低效的。 `Consumer` 即可根据 `ConsumeQueue` 来查找待消费的消息。其中， `ConsumeQueue` （逻辑消费队列）**作为消费消息的索引**，保存了指定 `Topic` 下的队列消息在 `CommitLog` 中的**起始物理偏移量 `offset` **，消息大小 `size` 和消息 `Tag` 的 `HashCode` 值。
-	  `consumequeue` 文件可以看成是基于 `topic` 的 `commitlog` 索引文件，故 `consumequeue` 文件夹的组织方式如下：topic/queue/file三层组织结构，具体存储路径为：$HOME/store/consumequeue/{topic}/{queueId}/{fileName}。同样 `consumequeue` 文件采取定长设计，每一个条目共20个字节，分别为8字节的 `commitlog` 物理偏移量、4字节的消息长度、8字节tag `hashcode` ，单个文件由30W个条目组成，可以像数组一样随机访问每一个条目，每个 `ConsumeQueue` 文件大小约5.72M；
+	  `consumequeue` 文件可以看成是基于 `topic` 的 `commitlog` 索引文件，故 `consumequeue` 文件夹的组织方式如下：topic/queue/file三层组织结构，具体存储路径为：$HOME/store/consumequeue/{topic}/{queueId}/{fileName}。同样 `consumequeue` 文件采取定长设计，每一个条目共20个字节，分别为8字节的 `commitlog` 物理偏移量、4字节的消息长度、8字节tag `hashcode` ，单个文件由30W个条目组成，可以像数组一样随机访问每一个条目，每个 `ConsumeQueue` 文件大小约5.72M(20*300000/1024/1024.0=5.72M)；
+	- `IndexFile` ： `IndexFile` （索引文件）提供了一种可以通过key或时间区间来查询消息的方法。这里只做科普不做详细介绍。
+	- 总结来说，整个消息存储的结构，最主要的就是 `CommitLoq` 和 `ConsumeQueue` 。而 `ConsumeQueue` 你可以大概理解为 `Topic` 中的队列。
+	  ![image.png](../assets/image_1656424562196_0.png)
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
