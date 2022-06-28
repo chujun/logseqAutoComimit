@@ -207,3 +207,5 @@
 	  上述就是我对于整个消息存储架构的大概理解(这里不涉及到一些细节讨论，比如稀疏索引等等问题)
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
+  博客
+  [通过这三个文件彻底搞懂Rocketmq的存储原理](https://developer.51cto.com/article/685836.html)
