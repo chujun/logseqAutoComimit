@@ -219,4 +219,6 @@
 - 资料
   [阿里云 事务消息](https://help.aliyun.com/document_detail/43348.html)
   博客
+  [MappedByteBuffer的一点优化](https://lishoubo.github.io/2017/09/27/MappedByteBuffer%E7%9A%84%E4%B8%80%E7%82%B9%E4%BC%98%E5%8C%96/)
   [通过这三个文件彻底搞懂Rocketmq的存储原理](https://developer.51cto.com/article/685836.html)
+-
