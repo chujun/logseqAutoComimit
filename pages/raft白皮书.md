@@ -16,6 +16,8 @@
   
   本文的剩余部分介绍了复制状态机问题（第 2 节），讨论了 Paxos 的优点和缺点（第3节），描述了我们实现易理解性的方法（第 4 节），提出了Raft一致性算法（第 5-8 节），评估Raft（第 9 节），并讨论了相关工作（第 10 节）。
 - 二.复制状态机（Replicated state machines）
+  一致性算法是在[复制状态机[37]](https://www.cs.cornell.edu/fbs/publications/SMSurvey.pdf)的背景下产生的。 在这种方法中，一组服务器上的状态机计算相同状态的相同副本，并且即使某些服务器宕机，也可以继续运行。
+  复制状态机用于解决分布式系统中的各种容错问题。 例如，具有单个 leader 的大规模系统，如 GFS [8]，HDFS [38] 和 RAMCloud [33] ，通常使用单独的复制状态机来进行 leader 选举和存储 leader 崩溃后重新选举需要的配置信息。Chubby [2] 和 ZooKeeper [11] 都是复制状态机。
 - 资料
   reft白皮书论文
   [Raft论文翻译](https://willzhuang.github.io/2018/03/04/Raft%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/)
