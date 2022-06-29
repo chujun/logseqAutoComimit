@@ -117,20 +117,20 @@
   2. 如果votedFor为空或者与candidateId相同，并且 Candidate 的日志和自己的日志一样新，则给该 Candidate 投票（5.2节 和 5.4节）
   表-2-iii
   **服务器需要遵守的规则：**
-  **All Server：**
+  a。**All Server：**
   1. 如果commitIndex > lastApplied，lastApplied自增，将log[lastApplied]应用到状态机（5.3节）
-  如果 RPC 的请求或者响应中包含一个 term T 大于 currentTerm，则currentTerm赋值为 T，并切换状态为 Follower （Follower）（5.1节）
-- **Followers: 5.2节**
-- 响应来自 Candidate 和 Leader 的 RPC
-- 如果在超过选取 Leader 时间之前没有收到来自当前 Leader 的AppendEntries RPC或者没有收到 Candidate 的投票请求，则自己转换状态为 Candidate
-- **Candidate：5.2节**
-- 转变为选举人之后开始选举：
-- currentTerm自增
-- 给自己投票
-- 重置选举计时器
-- 向其他服务器发送RequestVote RPC
-- 如果收到了来自大多数服务器的投票：成为 Leader
-- 如果收到了来自新 Leader 的AppendEntries RPC（heartbeat）：转换状态为 Follower
+  2. 如果 RPC 的请求或者响应中包含一个 term T 大于 currentTerm，则currentTerm赋值为 T，并切换状态为 Follower （Follower）（5.1节）
+  b。**Followers: 5.2节**
+  1. 响应来自 Candidate 和 Leader 的 RPC
+  2. 如果在超过选取 Leader 时间之前没有收到来自当前 Leader 的AppendEntries RPC或者没有收到 Candidate 的投票请求，则自己转换状态为 Candidate
+  c。**Candidate：5.2节**
+  1.转变为选举人之后开始选举：
+  1.1 currentTerm自增
+  1.2 给自己投票
+  1.3 重置选举计时器
+  1.4 向其他服务器发送RequestVote RPC
+  2. 如果收到了来自大多数服务器的投票：成为 Leader
+  3. 如果收到了来自新 Leader 的AppendEntries RPC（heartbeat）：转换状态为 Follower
 - 如果选举超时：开始新一轮的选举
 - **Leader：**
 - 一旦成为 Leader ：向其他所有服务器发送空的AppendEntries RPC（heartbeat）;在空闲时间重复发送以防止选举超时（5.2节）
