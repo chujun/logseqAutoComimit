@@ -98,6 +98,47 @@
   4. 添加任何在已有的日志中不存在的条目
   5. 如果leaderCommit > commitIndex，将commitIndex设置为leaderCommit和最新日志条目索引号中较小的一个
   表-2-ii
+  **投票请求 RPC（RequestVote RPC**）
+  由 Candidate 发起收集选票（5.2节）
+  | 参数 | 描述 |
+  | ---- | ---- | ---- |
+  | term | Candidate 的任期号 |
+  | candidateId | 请求投票的 Candidate id |
+  | lastLogIndex | Candidate 最新日志条目的索引值 |
+  | lastLogTerm | Candidate 最新日志条目对应的任期号 |
+  
+  | 返回值 | 描述 |
+  | ---- | ---- | ---- |
+  | term | 当前的任期号，用于 Candidate 更新自己的任期号 |
+  | voteGranted | 如果 Candidate 收到选票为 true |
+  
+  **接受者需要实现：**
+  1. 如果term < currentTerm返回 false（5.1节）
+  2. 如果votedFor为空或者与candidateId相同，并且 Candidate 的日志和自己的日志一样新，则给该 Candidate 投票（5.2节 和 5.4节）
+  表-2-iii
+  **服务器需要遵守的规则：**
+  **All Server：**
+  1. 如果commitIndex > lastApplied，lastApplied自增，将log[lastApplied]应用到状态机（5.3节）
+  如果 RPC 的请求或者响应中包含一个 term T 大于 currentTerm，则currentTerm赋值为 T，并切换状态为 Follower （Follower）（5.1节）
+- **Followers: 5.2节**
+- 响应来自 Candidate 和 Leader 的 RPC
+- 如果在超过选取 Leader 时间之前没有收到来自当前 Leader 的AppendEntries RPC或者没有收到 Candidate 的投票请求，则自己转换状态为 Candidate
+- **Candidate：5.2节**
+- 转变为选举人之后开始选举：
+- currentTerm自增
+- 给自己投票
+- 重置选举计时器
+- 向其他服务器发送RequestVote RPC
+- 如果收到了来自大多数服务器的投票：成为 Leader
+- 如果收到了来自新 Leader 的AppendEntries RPC（heartbeat）：转换状态为 Follower
+- 如果选举超时：开始新一轮的选举
+- **Leader：**
+- 一旦成为 Leader ：向其他所有服务器发送空的AppendEntries RPC（heartbeat）;在空闲时间重复发送以防止选举超时（5.2节）
+- 如果收到来自客户端的请求：向本地日志增加条目，在该条目应用到状态机后响应客户端（5.3节）
+- 对于一个 Follower 来说，如果上一次收到的日志索引大于将要收到的日志索引（nextIndex）：通过AppendEntries RPC将 nextIndex 之后的所有日志条目发送出去
+- 如果发送成功：将该 Follower 的 nextIndex和matchIndex更新
+- 如果由于日志不一致导致AppendEntries RPC失败：nextIndex递减并且重新发送（5.3节）
+- 如果存在一个满足N > commitIndex和matchIndex[i] >= N并且log[N].term == currentTerm的 N，则将commitIndex赋值为 N
 -
 -
 -
