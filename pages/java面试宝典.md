@@ -16,7 +16,10 @@
   [[数据结构]]
 - # 分布式
   分布式理论：[[CAP理论]]，Base理论，2PC
-  
+  分布式系统会碰到的三座大山问题,NPC
+  N:Network Delay，网络延迟
+  P:Process Pause，进程暂停（GC）
+  C:Clock Drift，时钟漂移
   一致性算法::paxos,raft
   一致性哈希算法
   分布式配置中心
