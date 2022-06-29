@@ -22,7 +22,7 @@
   P:Process Pause，进程暂停（GC）
   C:Clock Drift，时钟漂移
   
-  一致性算法::paxos,raft
+  共识算法::paxos,[[raft]]
   一致性哈希算法
   分布式配置中心
   分布式id
