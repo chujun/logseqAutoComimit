@@ -3,10 +3,15 @@
   与Multi-Paxos共识算法相比，更加便于理解和学习.
   Raft 是用来管理复制日志（replicated log）的一致性协议。它跟 multi-Paxos 作用相同，效率也相当，但是它的组织结构跟 Paxos 不同。这使得 Raft 比 Paxos 更容易理解并且更容易在工程实践中实现。为了使 Raft 协议更易懂，Raft将一致性的关键元素分开，如 leader 选举、日志复制和安全性，并且它实施更强的一致性以减少必须考虑的状态的数量.用户研究的结果表明，Raft 比 Paxos 更容易学习。 Raft 还包括一个用于变更集群成员的新机制，它使用重叠的大多数（overlapping majorities）来保证安全性。
 - 介绍
-  Consensus algorithms allow a collection of machinesto work as a coherent group that can survive the fail-ures of some of its members. 
+  ((62bc018e-975a-4bc4-a91a-d5a97824cc91))
   一致性算法允许多台机器作为一个集群协同工作，并且在其中的某几台机器出故障时集群仍然能正常工作。 正因为如此，一致性算法在建立可靠的大规模软件系统方面发挥了关键作用。
   在过去十年中，Paxos [15,16] 主导了关于一致性算法的讨论：大多数一致性的实现都是基于 Paxos 或受其影响，Paxos 已成为用于教授学生一致性相关知识的主要工具。
-  Paxos缺点：实在是太难以理解--->所以设计了Raft一致性算法
+  Paxos缺点：实在是太难以理解--->所以设计了Raft便于学习和理解的一致性算法
+  在设计 Raft 时，我们使用了特定的技术来提高可理解性，包括分解（Raft 分离 leader 选举，日志复制和安全）和状态空间减少（相对于 Paxos ，Raft 减少了不确定性程度和服务器之间彼此不一致的方式 ）
+- Raft 在许多方面类似于现有的一致性算法（尤其是[Oki 和 Liskov 的 Viewstamped Replication [29,22]](http://www.pmg.csail.mit.edu/papers/vr.pdf)），但它有几个新特性：
+- Strong leader：在 Raft 中，日志条目（log entries）只从 leader 流向其他服务器。 这简化了复制日志的管理，使得 raft 更容易理解。
+- Leader 选举：Raft 使用随机计时器进行 leader 选举。这只需在任何一致性算法都需要的心跳（heartbeats）上增加少量机制，同时能够简单快速地解决冲突。
+- 成员变更：Raft 使用了一种新的联合一致性方法，其中两个不同配置的大多数在过渡期间重叠。 这允许集群在配置更改期间继续正常运行。
 - 资料
   reft白皮书论文
   [Raft论文翻译](https://willzhuang.github.io/2018/03/04/Raft%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/)
