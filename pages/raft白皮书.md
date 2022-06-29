@@ -131,14 +131,14 @@
   1.4 向其他服务器发送RequestVote RPC
   2. 如果收到了来自大多数服务器的投票：成为 Leader
   3. 如果收到了来自新 Leader 的AppendEntries RPC（heartbeat）：转换状态为 Follower
-- 如果选举超时：开始新一轮的选举
-- **Leader：**
-- 一旦成为 Leader ：向其他所有服务器发送空的AppendEntries RPC（heartbeat）;在空闲时间重复发送以防止选举超时（5.2节）
-- 如果收到来自客户端的请求：向本地日志增加条目，在该条目应用到状态机后响应客户端（5.3节）
-- 对于一个 Follower 来说，如果上一次收到的日志索引大于将要收到的日志索引（nextIndex）：通过AppendEntries RPC将 nextIndex 之后的所有日志条目发送出去
-- 如果发送成功：将该 Follower 的 nextIndex和matchIndex更新
-- 如果由于日志不一致导致AppendEntries RPC失败：nextIndex递减并且重新发送（5.3节）
-- 如果存在一个满足N > commitIndex和matchIndex[i] >= N并且log[N].term == currentTerm的 N，则将commitIndex赋值为 N
+  4. 如果选举超时：开始新一轮的选举
+  d。**Leader：**
+  1. 一旦成为 Leader ：向其他所有服务器发送空的AppendEntries RPC（heartbeat）;在空闲时间重复发送以防止选举超时（5.2节）
+  2. 如果收到来自客户端的请求：向本地日志增加条目，在该条目应用到状态机后响应客户端（5.3节）
+  3. 对于一个 Follower 来说，如果上一次收到的日志索引大于将要收到的日志索引（nextIndex）：通过AppendEntries RPC将 nextIndex 之后的所有日志条目发送出去
+  4. 如果发送成功：将该 Follower 的 nextIndex和matchIndex更新
+  5. 如果由于日志不一致导致AppendEntries RPC失败：nextIndex递减并且重新发送（5.3节）
+  6. 如果存在一个满足N > commitIndex和matchIndex[i] >= N并且log[N].term == currentTerm的 N，则将commitIndex赋值为 N
 -
 -
 -
