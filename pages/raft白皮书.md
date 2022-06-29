@@ -76,6 +76,7 @@
   | ---- | ---- | ---- |
   | nextIndex[] | 对于每一个服务器，记录需要发给它的下一个日志条目的索引（初始化为 Leader 上一条日志的索引值+1） |
   | matchIndex[] | 对于每一个服务器，记录已经复制到该服务器的日志的最高索引值（从0开始递增） |
+  
   表-2-i
   **附加日志远程过程调用 （AppendEntries RPC）**
   由 Leader 来调用复制日志（5.3节）；也会用作heartbeat。
@@ -97,6 +98,7 @@
   3. 如果一条已经存在的日志与新的冲突（index 相同但是任期号 term 不同），则删除已经存在的日志和它之后所有的日志（5.3节）
   4. 添加任何在已有的日志中不存在的条目
   5. 如果leaderCommit > commitIndex，将commitIndex设置为leaderCommit和最新日志条目索引号中较小的一个
+  
   表-2-ii
   **投票请求 RPC（RequestVote RPC**）
   由 Candidate 发起收集选票（5.2节）
@@ -115,6 +117,7 @@
   **接受者需要实现：**
   1. 如果term < currentTerm返回 false（5.1节）
   2. 如果votedFor为空或者与candidateId相同，并且 Candidate 的日志和自己的日志一样新，则给该 Candidate 投票（5.2节 和 5.4节）
+  
   表-2-iii
   **服务器需要遵守的规则：**
   a。**All Server：**
@@ -139,6 +142,18 @@
   4. 如果发送成功：将该 Follower 的 nextIndex和matchIndex更新
   5. 如果由于日志不一致导致AppendEntries RPC失败：nextIndex递减并且重新发送（5.3节）
   6. 如果存在一个满足N > commitIndex和matchIndex[i] >= N并且log[N].term == currentTerm的 N，则将commitIndex赋值为 N
+  
+  表-2-iv
+  表-2：Raft 一致性算法的总结（不包括成员变化 membership changes 和日志压缩 log compaction）
+  | 性质 | 描述 |
+  | ---- | ---- | ---- |
+  | 选举安全原则（Election Safety） | 一个任期（term）内最多允许有一个 Leader 被选上（5.2节） |
+  | Leader 只增加原则（Leader Append-Only） | Leader 永远不会覆盖或者删除自己的日志，它只会增加条目 |
+  | 日志匹配原则（Log Matching） | 如果两个日志在相同的索引位置上的日志条目的任期号相同，那么我们就认为这个日志从头到这个索引位置之间的条目完全相同（5.3 节） |
+  | Leader 完全原则（Leader Completeness) | 如果一个日志条目在一个给定任期内被提交，那么这个条目一定会出现在所有任期号更大的 Leader 中 |
+  | 状态机安全原则（State Machine Safety） | 如果一个服务器已经将给定索引位置的日志条目应用到状态机中，则所有其他服务器不会在该索引位置应用不同的条目（5.4.3节） |
+  | 表-3：Raft 算法保证这些特性任何时刻都成立 |  |
+- Raft 通过首先选举一个 distinguished leader，然后让它全权负责管理复制日志来实现一致性。Leader 从客户端接收日志条目，把日志条目复制到其他服务器上，并且在保证安全性的时候通知其他服务器将日志条目应用到他们的状态机中。拥有一个 leader 大大简化了对复制日志的管理。例如， Leader 可以决定新的日志条目需要放在日志中的什么位置而不需要和其他服务器商议，并且数据都是从 leader 流向其他服务器。leader 可能宕机，也可能和其他服务器断开连接，这时一个新的 leader 会被选举出来。
 -
 -
 -
