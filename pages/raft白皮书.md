@@ -92,7 +92,11 @@
   | term | 当前的任期号，用于 Leader 更新自己的任期号 |
   | success | 如果其它服务器包含能够匹配上 prevLogIndex 和 prevLogTerm 的日志时为真 |
   **接受者需要实现：**
--
+  1. 如果 term < currentTerm返回 false（5.1节）
+  2. 如果在prevLogIndex处的日志的任期号与prevLogTerm不匹配时，返回 false（5.3节）
+  3. 如果一条已经存在的日志与新的冲突（index 相同但是任期号 term 不同），4. 则删除已经存在的日志和它之后所有的日志（5.3节）
+  5. 添加任何在已有的日志中不存在的条目
+  如果leaderCommit > commitIndex，将commitIndex设置为leaderCommit和最新日志条目索引号中较小的一个
 -
 -
 -
