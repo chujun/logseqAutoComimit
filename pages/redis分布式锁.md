@@ -45,6 +45,8 @@
 -
 - redisson分布式锁解决方案
   基于Hash数据结构实现
+- Redis主从架构的分布式锁失效问题
+  [Redis主从架构的分布式锁失效问题](https://blog.csdn.net/SHU15121856/article/details/117373966)
 - 资料
   [Distributed Locks with Redis 官方资料](https://redis.io/docs/reference/patterns/distributed-locks/)
   
