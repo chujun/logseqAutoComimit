@@ -170,7 +170,9 @@
   
   ![raft图3.png](../assets/raft图3_1656491773664_0.png){:height 610, :width 708} 
   图3
--
+- 六.集群成员变更
+- 七.日志压缩
+- 八.客户端和交互
 - 资料
   reft白皮书论文
   [Raft论文翻译](https://willzhuang.github.io/2018/03/04/Raft%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/)
