@@ -256,3 +256,5 @@
   关于集群成员变更的博客
   [知乎-Raft成员变更的工程实践](https://zhuanlan.zhihu.com/p/359206808)
   [TiDB 在 Raft 成员变更上踩的坑](https://blog.openacid.com/distributed/raft-bug/)
+-
+-
