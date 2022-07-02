@@ -12,5 +12,12 @@
   其中：x：代表解压
   示例：
   a。将 /test 下的 test.tar.gz 解压到当前目录下可以使用命令：** `tar -xvf test.tar.gz` **
-  b。
--
+  b。将 /test 下的 test.tar.gz 解压到根目录/usr 下:** `tar -xvf test.tar.gz -C /usr` **（- C 代表指定解压的位置）
+- 权限命令
+  操作系统中每个文件都拥有特定的权限、所属用户和所属组。权限是操作系统用来限制资源访问的机制，在 Linux 中权限一般分为读(readable)、写(writable)和执行(excutable)，分为三组。分别对应文件的属主(owner)，属组(group)和其他用户(other)，通过这样的机制来限制哪些用户、哪些组可以对特定的文件进行什么样的操作。
+  
+  通过** `ls -l` **命令我们可以 查看某个目录下的文件或目录的权限
+  
+  ![image.png](../assets/image_1656750273440_0.png)
+  第一列的内容的信息解释如下：
+  ![image.png](../assets/image_1656750325968_0.png)
