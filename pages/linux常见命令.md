@@ -56,3 +56,10 @@
   2. 为新建的脚本 zookeeper 添加可执行权限，命令是: `chmod +x zookeeper`
   3. 把 zookeeper 这个脚本添加到开机启动项里面，命令是： `chkconfig --add zookeeper`
   4. 如果想看看是否添加成功，命令是： `chkconfig --list`
+- 进程命令
+  ** `ps -ef` / `ps -aux` ：**这两个命令都是查看当前系统正在运行进程，两者的区别是展示格式不同。
+  如果想要查看特定的进程可以使用这样的格式：** `ps aux|grep redis` **（查看包括 redis 字符串的进程），也可使用 `pgrep redis -a` 。
+- **网络通信命令：**
+  查看当前系统的网卡信息：ifconfig
+  查看与某台机器的连接情况：ping
+  查看当前系统的端口使用：netstat -an
