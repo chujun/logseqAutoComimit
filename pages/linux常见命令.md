@@ -5,3 +5,12 @@
   c：打包文件
   v：显示运行过程
   f：指定文件名
+  比如：假如 test 目录下有三个文件分别是：aaa.txt bbb.txt ccc.txt，如果我们要打包 test 目录并指定压缩后的压缩包名称为 test.tar.gz 可以使用命令：** `tar -zcvf test.tar.gz aaa.txt bbb.txt ccc.txt` 或 `tar -zcvf test.tar.gz /test/` **
+  
+  **2）解压压缩包：**
+  命令： `tar [-xvf] 压缩文件`
+  其中：x：代表解压
+  示例：
+  a。将 /test 下的 test.tar.gz 解压到当前目录下可以使用命令：** `tar -xvf test.tar.gz` **
+  b。
+-
