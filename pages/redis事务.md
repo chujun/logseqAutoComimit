@@ -41,7 +41,7 @@
   > EXEC
   ERR EXEC without MULTI
   ```
-  WATCH命令通过事务可以实现CAS操作
+  WATCH命令也可以通过事务可以实现CAS操作
   应用场景:秒杀系统中的redis减库存
   ![image.png](../assets/image_1656724747093_0.png)
 - redis事务与数据库事务比较
