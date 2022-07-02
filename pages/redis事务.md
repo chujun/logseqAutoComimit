@@ -41,6 +41,9 @@
   > EXEC
   ERR EXEC without MULTI
   ```
+  WATCH命令通过事务可以实现CAS操作
+  应用场景:秒杀系统中的redis减库存
+  ![image.png](../assets/image_1656724747093_0.png)
 - redis事务与数据库事务比较
   数据库事务支持ACID四大特性 ((62a6f8f4-7476-4657-98a0-da5603c8b194))
   redis不支持原子性，不支持回滚操作，在运行错误的情况下，除了执行过程中出现错误的命令外，其他命令都能正常执行。
