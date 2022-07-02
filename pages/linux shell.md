@@ -27,4 +27,17 @@
 	  echo $HOME
 	  ```
 	- 环境变量修改
+	  通过 `export` 命令可以修改指定的环境变量。不过，这种方式修改环境变量仅仅对当前 shell 终端生效，关闭 shell 终端就会失效。修改完成之后，立即生效。
+	  ```
+	  export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib
+	  ```
+	  通过 `vim` 命令修改环境变量配置文件。这种方式修改环境变量永久有效。
+	  ```
+	  vim ~/.bash_profile
+	  ```
+	  如果修改的是系统级别环境变量则对所有用户生效，如果修改的是用户级别环境变量则仅对当前用户生效。
+	  修改完成之后，需要 `source` 命令让其生效或者关闭 shell 终端重新登录。
+	  ```
+	  source /etc/profile
+	  ```
 -
