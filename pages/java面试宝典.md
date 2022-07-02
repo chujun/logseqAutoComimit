@@ -14,6 +14,10 @@
 - # 数据结构与算法
   [[算法]]
   [[数据结构]]
+- # 架构
+  架构核心要素
+  
+  架构分层
 - # 分布式
   分布式理论：[[CAP理论]]，Base理论，2PC
   
@@ -58,6 +62,8 @@
   zookeeper
   [[redis]]
   [[kafka]]
+- 设计类
+  [[秒杀系统设计方案]]
 - # 源码阅读
 - 参考资料
   [JavaGuide 在线阅读网站](https://javaguide.cn/java/basis/java-basic-questions-01.html#%E5%BF%85%E7%9C%8B%E4%B8%93%E6%A0%8F)
