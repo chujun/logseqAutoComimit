@@ -39,7 +39,14 @@
     save        Save one or more images to a tar archive (streamed to STDOUT by default)
     tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
   ```
-  
+  docker images
   ```
+  REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+  mysql        latest    33037edcac9b   2 hours ago    444MB
+  postgres     latest    1133a9cdc367   22 hours ago   376MB
+  nginx        latest    41b0e86104ba   27 hours ago   142MB
+  redis        latest    3534610348b5   30 hours ago   117MB
   ```
+  其中镜像的ID信息十分重要，它唯一标识了镜像。在使用镜像ID的时候，一般可以使用该ID的前若干个字符组成的可区分串来替代完整的ID。
+-
 -
