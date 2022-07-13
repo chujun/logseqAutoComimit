@@ -68,10 +68,23 @@
   ```
   brew install --cask docker
   docker --version
+  docker info
   ```
   下面启动一个Nginx容器，检查能正确获取镜像并运行：
   ```
   docker run -d -p 80:80 --name webserver nginx
+  ```
+  服务运行后，可以访问 [http://localhost](http://localhost)，如果看到了 "Welcome to nginx!"，就说明 Docker Desktop for Mac 安装成功了。
+  使用docker ps指令查看运行的容器：
+  ```
+  docker ps
+  ```
+  可见Nginx容器已经在0.0.0.0:80启动，并映射到80端口。打开浏览器访问此地址
+  
+  要停止 Nginx 服务器并删除执行下面的命令：
+  ```
+  docker stop webserver
+  docker rm webserver
   ```
 - 资料
   [docker官网](https://www.docker.com/)
