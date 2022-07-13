@@ -408,4 +408,6 @@
   sonatype/nexus3   latest             be6da324b885   2 weeks ago    691MB
   #删除对应容器，bdfdadb9424c镜像id成功删除
   ```
+  清理镜像
+  使用Docker一段时间后，系统中可能会遗留一些临时的镜像文件，以及一些没有被使用的镜像，可以通过docker image prune命令来进行清理。
 -
