@@ -63,8 +63,7 @@
   其中镜像的ID信息十分重要，它唯一标识了镜像。在使用镜像ID的时候，一般可以使用该ID的前若干个字符组成的可区分串来替代完整的ID。
   
   镜像大小信息只是表示了该镜像的逻辑体积大小，实际上由于相同的镜像层本地只会存储一份，物理上占用的存储空间会小于各镜像逻辑体积之和。
-  
-  使用tag命令添加镜像标签
+- 添加镜像标命令tag
   docker tag mysql:latest mymysql:latest
   使用tag命令为本地镜像增加新标签
   ```
@@ -77,6 +76,6 @@
   nginx        latest    41b0e86104ba   28 hours ago   142MB
   redis        latest    3534610348b5   30 hours ago   117MB
   ```
-  多出来了一个镜像mymysql:
--
+  多出来了一个镜像mymysql:latest,和mysql:latest都指向同一个镜像ID(33037edcac9b)
+- 查看详细信息命令inspect命令
 -
