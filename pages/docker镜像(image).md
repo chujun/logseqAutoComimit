@@ -307,7 +307,8 @@
   clearlinux/nginx                   Nginx reverse proxy server with the benefits…   4
   ```
 - 删除和清理镜像命令image rm和prune
-  使用docker rmi或docker image rm命令可以删除镜像，命令格式为docker rmi IMAGE [IMAGE...]，其中IMAGE可以为标签或ID。
+  
+  使用docker rmi或docker image rm命令可以删除镜像，命令格式为docker rmi IMAGE [IMAGE...]，其中IMAGE可以为镜像标签或镜像ID。
   ```
   
   Usage:  docker rmi [OPTIONS] IMAGE [IMAGE...]
@@ -318,4 +319,8 @@
     -f, --force      Force removal of the image
         --no-prune   Do not delete untagged parents不要清理未带标签的父镜像
   ```
+  1.使用镜像标签删除镜像
+  当同一个镜像拥有多个标签的时候，docker rmi命令只是删除了该镜像多个标签中的指定标签而已，并不影响镜像文件。
+  当镜像只剩下一个标签的时候，此时再使用docker rmi命令会彻底删除镜像。
+  2.使用镜像ID删除镜像
 -
