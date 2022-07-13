@@ -308,3 +308,14 @@
   ```
 - 删除和清理镜像命令image rm和prune
   使用docker rmi或docker image rm命令可以删除镜像，命令格式为docker rmi IMAGE [IMAGE...]，其中IMAGE可以为标签或ID。
+  ```
+  
+  Usage:  docker rmi [OPTIONS] IMAGE [IMAGE...]
+  
+  Remove one or more images
+  
+  Options:
+    -f, --force      Force removal of the image
+        --no-prune   Do not delete untagged parents不要清理未带标签的父镜像
+  ```
+-
