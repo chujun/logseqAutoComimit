@@ -3,7 +3,7 @@
   镜像是创建Docker容器的基础。
   
   Docker运行容器前需要本地存在对应的镜像，如果镜像不存在，Docker会尝试先从默认镜像仓库下载（默认使用Docker Hub公共注册服务器中的仓库），用户也可以通过配置，使用自定义的镜像仓库
-- 获取镜像
+- 获取镜像命令pull
   docker pull NAME[:TAG]
   对于Docker镜像来说，如果不显式指定TAG，则默认会选择latest标签，这会下载仓库中最新版本的镜像。
   一般来说，镜像的latest标签意味着该镜像的内容会跟踪最新版本的变更而变化，内容是不稳定的。因此，从稳定性上考虑，不要在生产环境中忽略镜像的标签信息或使用默认的latest标记的镜像。
@@ -15,4 +15,31 @@
   docker pull hub.c.163.com/public/ubuntu:18.04
   
   另外，有时需要使用镜像代理服务来加速Docker镜像获取过程，可以在Docker服务启动配置中增加--registry-mirror=proxy_URL来指定镜像代理服务地址（如https://registry.docker-cn.com）。
+- 查看镜像命令
+  docker images
+  docker image 
+  ```
+   chujun@chujundeMacBook-Pro-2  ~  docker image
+  
+  Usage:  docker image COMMAND
+  
+  Manage images
+  
+  Commands:
+    build       Build an image from a Dockerfile
+    history     Show the history of an image
+    import      Import the contents from a tarball to create a filesystem image
+    inspect     Display detailed information on one or more images
+    load        Load an image from a tar archive or STDIN
+    ls          List images
+    prune       Remove unused images
+    pull        Pull an image or a repository from a registry
+    push        Push an image or a repository to a registry
+    rm          Remove one or more images
+    save        Save one or more images to a tar archive (streamed to STDOUT by default)
+    tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  ```
+  
+  ```
+  ```
 -
