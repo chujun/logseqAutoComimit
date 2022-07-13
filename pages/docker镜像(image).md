@@ -200,4 +200,20 @@
   ]
   ```
   返回的是一个JSON格式的消息，如果我们只要其中一项内容时，可以使用-f来指定
+  ```
+  docker inspect -f {{".Architecture"}} nginx:latest
+  ```
+  
+  其中选项中的名称是json里面的key
+  ```
+  docker inspect -f {{".Architecture"}} nginx:latest
+  amd64
+   chujun@chujundeMacBook-Pro-2  ~  docker inspect -f {{".ContainerConfig"}} nginx:latest
+  {6fdddc3714ed   false false false map[80/tcp:{}] false false false [PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin NGINX_VERSION=1.23.0 NJS_VERSION=0.7.5 PKG_RELEASE=1~bullseye] [/bin/sh -c #(nop)  CMD ["nginx" "-g" "daemon off;"]] <nil> false sha256:bcdd0667cf621a29e893be9968d0bad14ccaae14a0b3f91d9c07371bf6f64cd2 map[]  [/docker-entrypoint.sh] false  [] map[maintainer:NGINX Docker Maintainers <docker-maint@nginx.com>] SIGQUIT <nil> []}
+   chujun@chujundeMacBook-Pro-2  ~  docker inspect -f {{".ContainerConfigError"}} nginx:latest
+  
+  Template parsing error: template: :1:2: executing "" at <.ContainerConfigError>: map has no entry for key "ContainerConfigError"
+   ✘ chujun@chujundeMacBook-Pro-2  ~ 
+  ```
+-
 -
