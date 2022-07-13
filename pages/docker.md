@@ -127,5 +127,5 @@
   ```
 - 资料
   [docker官网](https://www.docker.com/)
-  [docker官方仓库](https://hub.docker.com/)
+  [docker hub官方仓库](https://hub.docker.com/)
   [github源码地址](https://github.com/docker)
