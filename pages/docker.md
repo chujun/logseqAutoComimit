@@ -71,7 +71,36 @@
   查看安装情况
   ```
   docker --version
+   chujun@chujundeMacBook-Pro-2  ~/my  docker version
+  Client:
+   Cloud integration: v1.0.24
+   Version:           20.10.17
+   API version:       1.41
+   Go version:        go1.17.11
+   Git commit:        100c701
+   Built:             Mon Jun  6 23:04:45 2022
+   OS/Arch:           darwin/amd64
+   Context:           default
+   Experimental:      true
   
+  Server: Docker Desktop 4.10.1 (82475)
+   Engine:
+    Version:          20.10.17
+    API version:      1.41 (minimum version 1.12)
+    Go version:       go1.17.11
+    Git commit:       a89b842
+    Built:            Mon Jun  6 23:01:23 2022
+    OS/Arch:          linux/amd64
+    Experimental:     false
+   containerd:
+    Version:          1.6.6
+    GitCommit:        10c12954828e7c7c9b6e0ea9b0c02b01407d3ae1
+   runc:
+    Version:          1.1.2
+    GitCommit:        v1.1.2-0-ga916309
+   docker-init:
+    Version:          0.19.0
+    GitCommit:        de40ad0
   docker info
   ```
   下面启动一个Nginx容器，检查能正确获取镜像并运行：
@@ -79,9 +108,12 @@
   docker run -d -p 80:80 --name webserver nginx
   ```
   服务运行后，可以访问 [http://localhost](http://localhost)，如果看到了 "Welcome to nginx!"，就说明 Docker Desktop for Mac 安装成功了。
+  ![截屏2022-07-13 上午11.14.16.png](../assets/截屏2022-07-13_上午11.14.16_1657682073566_0.png) 
   使用docker ps指令查看运行的容器：
   ```
   docker ps
+  CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                NAMES
+  cd3abe4e8800   nginx     "/docker-entrypoint.…"   59 seconds ago   Up 58 seconds   0.0.0.0:80->80/tcp   webserver
   ```
   可见Nginx容器已经在0.0.0.0:80启动，并映射到80端口。打开浏览器访问此地址
   
