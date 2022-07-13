@@ -37,6 +37,8 @@
 			  例如jdk8升级到jdk9
 		- docker与虚拟化技术比较
 		  ![截屏2022-07-13 上午9.48.08.png](../assets/截屏2022-07-13_上午9.48.08_1657676920129_0.png)
+		  Docker通过类似Git设计理念的操作来方便用户获取、分发和更新应用镜像，存储复用，增量更新；
+		  Docker通过Dockerfile支持灵活的自动化创建和部署机制，以提高工作效率，并标准化流程。
 - 资料
   [docker官网](https://www.docker.com/)
   [github源码地址](https://github.com/docker)
