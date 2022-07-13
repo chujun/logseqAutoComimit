@@ -306,4 +306,4 @@
   ibmcom/nginx-ingress-controller    Docker Image for IBM Cloud Private-CE (Commu…   4
   clearlinux/nginx                   Nginx reverse proxy server with the benefits…   4
   ```
--
+- 删除和清理镜像命令
