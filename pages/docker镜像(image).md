@@ -329,6 +329,42 @@
   正确的做法是，先删除依赖该镜像的所有容器，再来删除镜像。(不推荐使用-f参数强制删除镜像)
   实验
   ```
+   chujun@chujundeMacBook-Pro-2  ~  docker tag openjdk:8-jre-buster openjdk8jre
+   chujun@chujundeMacBook-Pro-2  ~  docker tag openjdk:8-jre-buster openjdk8jre2
+   chujun@chujundeMacBook-Pro-2  ~  docker images
+  REPOSITORY        TAG                IMAGE ID       CREATED        SIZE
+  mymysql           latest             33037edcac9b   6 hours ago    444MB
+  mysql             latest             33037edcac9b   6 hours ago    444MB
+  zookeeper         latest             979f6ccbba92   19 hours ago   279MB
+  openjdk8jre2      latest             bdfdadb9424c   21 hours ago   268MB
+  openjdk8jre       latest             bdfdadb9424c   21 hours ago   268MB
+  openjdk           8-jre-buster       bdfdadb9424c   21 hours ago   268MB
+  openjdk           8u332-jdk-buster   b28af378ba08   21 hours ago   514MB
+  openjdk           8u332-jdk          69e18e8ca9ce   21 hours ago   526MB
+  jenkins/jenkins   latest             616d2581d755   22 hours ago   463MB
+  postgres          latest             1133a9cdc367   27 hours ago   376MB
+  nginx             latest             41b0e86104ba   32 hours ago   142MB
+  redis             latest             3534610348b5   34 hours ago   117MB
+  sonatype/nexus3   latest             be6da324b885   2 weeks ago    691MB
+  #删除指定标签的镜像
+  docker rmi openjdk8jre2
+  Untagged: openjdk8jre2:latest
+  chujun@chujundeMacBook-Pro-2  ~  docker images
+  REPOSITORY        TAG                IMAGE ID       CREATED        SIZE
+  mymysql           latest             33037edcac9b   6 hours ago    444MB
+  mysql             latest             33037edcac9b   6 hours ago    444MB
+  zookeeper         latest             979f6ccbba92   19 hours ago   279MB
+  openjdk8jre       latest             bdfdadb9424c   21 hours ago   268MB
+  openjdk           8-jre-buster       bdfdadb9424c   21 hours ago   268MB
+  openjdk           8u332-jdk-buster   b28af378ba08   21 hours ago   514MB
+  openjdk           8u332-jdk          69e18e8ca9ce   21 hours ago   526MB
+  jenkins/jenkins   latest             616d2581d755   22 hours ago   463MB
+  postgres          latest             1133a9cdc367   27 hours ago   376MB
+  nginx             latest             41b0e86104ba   32 hours ago   142MB
+  redis             latest             3534610348b5   34 hours ago   117MB
+  sonatype/nexus3   latest             be6da324b885   2 weeks ago    691MB
+   chujun@chujundeMacBook-Pro-2  ~  docker rmi openjdk8jre
+  Untagged: openjdk8jre:latest
   
   ```
 -
