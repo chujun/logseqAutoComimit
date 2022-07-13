@@ -64,10 +64,14 @@
   [[docker仓库(repository)]]
   docker的生命周期
 - 安装
-  mac
+  mac的brew的cask已经支持 Docker Desktop for Mac，因此可以很方便的使用 Homebrew Cask 来进行安装：
   ```
   brew install --cask docker
   docker --version
+  ```
+  下面启动一个Nginx容器，检查能正确获取镜像并运行：
+  ```
+  docker run -d -p 80:80 --name webserver nginx
   ```
 - 资料
   [docker官网](https://www.docker.com/)
