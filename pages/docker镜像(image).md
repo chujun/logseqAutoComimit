@@ -427,6 +427,28 @@
 	  root@5a04bd2fe37d:/# touch test
 	  root@5a04bd2fe37d:/# exit
 	  exit
+	  #此时容器ID为5a04bd2fe37d
+	  #使用docker [container] commit命令来提交为一个新的镜像
+	  #chujun@chujundeMacBook-Pro-查看本地镜像列表，会发现新创建的镜像已经存在2  ~  docker commit -m "first image" -a "cj" f3a36a6310b0
+	  sha256:8cc86cc587bc163a2abaa755b423e105c547f032282bb9eb213c2d385dfa4454
+	   chujun@chujundeMacBook-Pro-2  ~  docker commit -m "first image" -a "cj" f3a36a6310b0 test:v01
+	  sha256:39ac1899b15408f34c11a881cbeb2b5bb62860d10a20fe9289d0ea74a0c28e98
+	  #顺利的话，会返回新创建镜像的ID信息，例如 8cc86cc587bc163a2abaa755b423e105c547f032282bb9eb213c2d385dfa4454 39ac1899b15408f34c11a881cbeb2b5bb62860d10a20fe9289d0ea74a0c28e98。
+	  #查看本地镜像列表，会发现新创建的镜像已经存在
+	   chujun@chujundeMacBook-Pro-2  ~  docker images
+	  REPOSITORY        TAG                IMAGE ID       CREATED              SIZE
+	  test              v01                39ac1899b154   4 seconds ago        514MB
+	  <none>            <none>             8cc86cc587bc   About a minute ago   514MB
+	  mymysql           latest             33037edcac9b   7 hours ago          444MB
+	  mysql             latest             33037edcac9b   7 hours ago          444MB
+	  zookeeper         latest             979f6ccbba92   19 hours ago         279MB
+	  openjdk           8u332-jdk-buster   b28af378ba08   22 hours ago         514MB
+	  openjdk           8u332-jdk          69e18e8ca9ce   22 hours ago         526MB
+	  jenkins/jenkins   latest             616d2581d755   23 hours ago         463MB
+	  postgres          latest             1133a9cdc367   28 hours ago         376MB
+	  nginx             latest             41b0e86104ba   33 hours ago         142MB
+	  redis             latest             3534610348b5   35 hours ago         117MB
+	  sonatype/nexus3   latest             be6da324b885   2 weeks ago          691MB
 	  ```
 	- 2.基于本地模板导入(import)
 	- 3.基于Dockerfile创建(build)
