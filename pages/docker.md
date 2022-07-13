@@ -60,8 +60,8 @@
 		  传统方式是在硬件层面实现虚拟化，需要有额外的虚拟机管理应用和虚拟机操作系统层。Docker容器是在操作系统层面上实现虚拟化，直接复用本地主机的操作系统，因此更加轻量级。
 - docker三大核心概念
   [[docker镜像(image)]]
-  docker容器(container)
-  docker仓库(repository)
+  [[docker容器(container)]]
+  [[docker仓库(repository)]]
   docker的生命周期
 - 资料
   [docker官网](https://www.docker.com/)
