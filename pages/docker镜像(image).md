@@ -413,6 +413,13 @@
 - 创建镜像方法
   创建镜像的方法主要有三种：基于已有镜像的容器创建、基于本地模板导入、基于Dockerfile创建。
   本节主要介绍Docker的commit、import和build子命令
-  1.基于已有容器创建()
-  2.基于本地模板导入
-  3.基于Dockerfile创建
+	- 1.基于已有容器创建(commit)
+	  该方法主要是使用docker [container] commit命令
+	  命令格式为docker [container] commit [OPTIONS] CONTAINER [REPOSITORY [:TAG]]，主要选项包括：
+	  ❑ -a, --author=""：作者信息；
+	  ❑ -c, --change=[]：提交的时候执行Dockerfile指令，包括CMD|ENTRYPOINT|E NV|EXPOSE|LABEL|ONBUILD|USER|VOLUME|WORKDIR等；
+	  ❑ -m, --message=""：提交消息；
+	  ❑ -p, --pause=true：提交时暂停容器运行。
+	- 2.基于本地模板导入(import)
+	- 3.基于Dockerfile创建(build)
+-
