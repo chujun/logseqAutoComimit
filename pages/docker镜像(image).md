@@ -219,5 +219,26 @@
   Template parsing error: template: :1:2: executing "" at <.ContainerConfigError>: map has no entry for key "ContainerConfigError"
    ✘ chujun@chujundeMacBook-Pro-2  ~ 
   ```
--
+- 查看镜像历史命令history
+  既然镜像文件由多个层组成，那么怎么知道各个层的内容具体是什么呢？这时候可以使用history子命令，该命令将列出各层的创建信息。
+  docker history nginx:latest
+  ```
+  IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+  41b0e86104ba   28 hours ago   /bin/sh -c #(nop)  CMD ["nginx" "-g" "daemon…   0B
+  <missing>      28 hours ago   /bin/sh -c #(nop)  STOPSIGNAL SIGQUIT           0B
+  <missing>      28 hours ago   /bin/sh -c #(nop)  EXPOSE 80                    0B
+  <missing>      28 hours ago   /bin/sh -c #(nop)  ENTRYPOINT ["/docker-entr…   0B
+  <missing>      28 hours ago   /bin/sh -c #(nop) COPY file:09a214a3e07c919a…   4.61kB
+  <missing>      28 hours ago   /bin/sh -c #(nop) COPY file:0fd5fca330dcd6a7…   1.04kB
+  <missing>      28 hours ago   /bin/sh -c #(nop) COPY file:0b866ff3fc1ef5b0…   1.96kB
+  <missing>      28 hours ago   /bin/sh -c #(nop) COPY file:65504f71f5855ca0…   1.2kB
+  <missing>      28 hours ago   /bin/sh -c set -x     && addgroup --system -…   61.1MB
+  <missing>      28 hours ago   /bin/sh -c #(nop)  ENV PKG_RELEASE=1~bullseye   0B
+  <missing>      28 hours ago   /bin/sh -c #(nop)  ENV NJS_VERSION=0.7.5        0B
+  <missing>      28 hours ago   /bin/sh -c #(nop)  ENV NGINX_VERSION=1.23.0     0B
+  <missing>      28 hours ago   /bin/sh -c #(nop)  LABEL maintainer=NGINX Do…   0B
+  <missing>      32 hours ago   /bin/sh -c #(nop)  CMD ["bash"]                 0B
+  <missing>      32 hours ago   /bin/sh -c #(nop) ADD file:d978f6d3025a06f51…   80.4MB
+  ```
+  注意，过长的命令被自动截断了，可以使用--no-trunc选项来输出完整命令。
 -
