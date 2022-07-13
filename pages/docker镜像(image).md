@@ -15,9 +15,20 @@
   docker pull hub.c.163.com/public/ubuntu:18.04
   
   另外，有时需要使用镜像代理服务来加速Docker镜像获取过程，可以在Docker服务启动配置中增加--registry-mirror=proxy_URL来指定镜像代理服务地址（如https://registry.docker-cn.com）。
-- 查看镜像命令
+- 查看镜像命令images
   docker images
   ```
+  Usage:  docker images [OPTIONS] [REPOSITORY[:TAG]]
+  
+  List images
+  
+  Options:
+    -a, --all             Show all images (default hides intermediate images),默认为false
+        --digests         Show digests,默认为false
+    -f, --filter filter   Filter output based on conditions provided
+        --format string   Pretty-print images using a Go template
+        --no-trunc        Don't truncate output,默认为true
+    -q, --quiet           Only show image IDs,默认为false
   ```
   docker image 
   ```
