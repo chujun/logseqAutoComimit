@@ -79,4 +79,125 @@
   多出来了一个镜像mymysql:latest,和mysql:latest都指向同一个镜像ID(33037edcac9b)
 - 查看镜像详细信息命令inspect
   使用docker[image]inspect命令可以获取该镜像的详细信息，包括制作者、适应架构、各层的数字摘要等：
+  ```
+  chujun@chujundeMacBook-Pro-2  ~  docker inspect nginx:latest
+  [
+      {
+          "Id": "sha256:41b0e86104ba681811bf60b4d6970ed24dd59e282b36c352b8a55823bbb5e14a",
+          "RepoTags": [
+              "nginx:latest"
+          ],
+          "RepoDigests": [
+              "nginx@sha256:dbe677093f569cc0afe2a149c529645f255aac959490ef11fb19ac6418b815d3"
+          ],
+          "Parent": "",
+          "Comment": "",
+          "Created": "2022-07-12T05:00:50.081423817Z",
+          "Container": "6fdddc3714ed390e2273b770258aef03b173b6f1be7221ab94f7ab673b7224c8",
+          "ContainerConfig": {
+              "Hostname": "6fdddc3714ed",
+              "Domainname": "",
+              "User": "",
+              "AttachStdin": false,
+              "AttachStdout": false,
+              "AttachStderr": false,
+              "ExposedPorts": {
+                  "80/tcp": {}
+              },
+              "Tty": false,
+              "OpenStdin": false,
+              "StdinOnce": false,
+              "Env": [
+                  "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                  "NGINX_VERSION=1.23.0",
+                  "NJS_VERSION=0.7.5",
+                  "PKG_RELEASE=1~bullseye"
+              ],
+              "Cmd": [
+                  "/bin/sh",
+                  "-c",
+                  "#(nop) ",
+                  "CMD [\"nginx\" \"-g\" \"daemon off;\"]"
+              ],
+              "Image": "sha256:bcdd0667cf621a29e893be9968d0bad14ccaae14a0b3f91d9c07371bf6f64cd2",
+              "Volumes": null,
+              "WorkingDir": "",
+              "Entrypoint": [
+                  "/docker-entrypoint.sh"
+              ],
+              "OnBuild": null,
+              "Labels": {
+                  "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+              },
+              "StopSignal": "SIGQUIT"
+          },
+          "DockerVersion": "20.10.12",
+          "Author": "",
+          "Config": {
+              "Hostname": "",
+              "Domainname": "",
+              "User": "",
+              "AttachStdin": false,
+              "AttachStdout": false,
+              "AttachStderr": false,
+              "ExposedPorts": {
+                  "80/tcp": {}
+              },
+              "Tty": false,
+              "OpenStdin": false,
+              "StdinOnce": false,
+              "Env": [
+                  "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                  "NGINX_VERSION=1.23.0",
+                  "NJS_VERSION=0.7.5",
+                  "PKG_RELEASE=1~bullseye"
+              ],
+              "Cmd": [
+                  "nginx",
+                  "-g",
+                  "daemon off;"
+              ],
+              "Image": "sha256:bcdd0667cf621a29e893be9968d0bad14ccaae14a0b3f91d9c07371bf6f64cd2",
+              "Volumes": null,
+              "WorkingDir": "",
+              "Entrypoint": [
+                  "/docker-entrypoint.sh"
+              ],
+              "OnBuild": null,
+              "Labels": {
+                  "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+              },
+              "StopSignal": "SIGQUIT"
+          },
+          "Architecture": "amd64",
+          "Os": "linux",
+          "Size": 141508615,
+          "VirtualSize": 141508615,
+          "GraphDriver": {
+              "Data": {
+                  "LowerDir": "/var/lib/docker/overlay2/16c2ea0bd9a83a6342328de9ef443797367c6f8029b0d2aacef0b74c48447cd9/diff:/var/lib/docker/overlay2/6eff80bd9475f7a5d43628134e328e2b0ad71595d76f5e37c26bbf5a70f4179f/diff:/var/lib/docker/overlay2/7a176df54170d72882ed54a99aa0a0233038b634c0083df526dbf6777059ea53/diff:/var/lib/docker/overlay2/d5f658c7fcf1a579bc6f2968cdbfc3556c871fc722d57795e7053892a7635068/diff:/var/lib/docker/overlay2/804c02e13a59e88871ba22856b2798a5e35623846a6854cad6a556506d33f3ed/diff",
+                  "MergedDir": "/var/lib/docker/overlay2/5d9e6436273a81d5720c8088ed971546b5acbe157dbf3f7fc242459bd3d5e852/merged",
+                  "UpperDir": "/var/lib/docker/overlay2/5d9e6436273a81d5720c8088ed971546b5acbe157dbf3f7fc242459bd3d5e852/diff",
+                  "WorkDir": "/var/lib/docker/overlay2/5d9e6436273a81d5720c8088ed971546b5acbe157dbf3f7fc242459bd3d5e852/work"
+              },
+              "Name": "overlay2"
+          },
+          "RootFS": {
+              "Type": "layers",
+              "Layers": [
+                  "sha256:43b3c4e3001c662d1c264ffb132f4e52950893452b15508df810214f1d3f124b",
+                  "sha256:1c99a7efe9d92fa6e492787de8a3278bc7fbedf371fae96029fda8bb0910f873",
+                  "sha256:305b0db3a2102757e5eddaf791cdc5e8f6d21dd9fff931230e51a3dc724bb19d",
+                  "sha256:c03189a5ef7018a691b7ef5970737127f07cce7df283ca3d9b32a00838058990",
+                  "sha256:1d561d93862806928bb7c99fea4035804ab7e86aa66ae8b547e5cde6856fb5db",
+                  "sha256:de100bd247e00374c0614bcd52615b847ffb36eebf07d87a3158a41703385867"
+              ]
+          },
+          "Metadata": {
+              "LastTagTime": "0001-01-01T00:00:00Z"
+          }
+      }
+  ]
+  ```
+  返回的是一个JSON格式的消息，如果我们只要其中一项内容时，可以使用-f来指定
 -
