@@ -346,6 +346,7 @@
   nginx             latest             41b0e86104ba   32 hours ago   142MB
   redis             latest             3534610348b5   34 hours ago   117MB
   sonatype/nexus3   latest             be6da324b885   2 weeks ago    691MB
+  # 此时bdfdadb9424c镜像id新增了两个标签
   #删除指定标签的镜像
   docker rmi openjdk8jre2
   Untagged: openjdk8jre2:latest
@@ -363,8 +364,48 @@
   nginx             latest             41b0e86104ba   32 hours ago   142MB
   redis             latest             3534610348b5   34 hours ago   117MB
   sonatype/nexus3   latest             be6da324b885   2 weeks ago    691MB
+  #此时bdfdadb9424c镜像id删除了一个标签，还剩一个标签和一个原始标签镜像
    chujun@chujundeMacBook-Pro-2  ~  docker rmi openjdk8jre
   Untagged: openjdk8jre:latest
-  
+   chujun@chujundeMacBook-Pro-2  ~  docker images
+  REPOSITORY        TAG                IMAGE ID       CREATED        SIZE
+  mymysql           latest             33037edcac9b   6 hours ago    444MB
+  mysql             latest             33037edcac9b   6 hours ago    444MB
+  zookeeper         latest             979f6ccbba92   19 hours ago   279MB
+  openjdk           8-jre-buster       bdfdadb9424c   21 hours ago   268MB
+  openjdk           8u332-jdk-buster   b28af378ba08   21 hours ago   514MB
+  openjdk           8u332-jdk          69e18e8ca9ce   21 hours ago   526MB
+  jenkins/jenkins   latest             616d2581d755   22 hours ago   463MB
+  postgres          latest             1133a9cdc367   27 hours ago   376MB
+  nginx             latest             41b0e86104ba   32 hours ago   142MB
+  redis             latest             3534610348b5   34 hours ago   117MB
+  sonatype/nexus3   latest             be6da324b885   2 weeks ago    691MB
+  #此时bdfdadb9424c镜像id只剩下一个原始标签
+   chujun@chujundeMacBook-Pro-2  ~  docker rmi openjdk:8-jre-buster
+  Error response from daemon: conflict: unable to remove repository reference "openjdk:8-jre-buster" (must force) - container bd4050197de8 is using its referenced image bdfdadb9424c
+  #此时bdfdadb9424c镜像id有对应容器在运行
+   ✘ chujun@chujundeMacBook-Pro-2  ~  docker rmi openjdk:8-jre-buster
+  Error response from daemon: conflict: unable to remove repository reference "openjdk:8-jre-buster" (must force) - container bd4050197de8 is using its referenced image bdfdadb9424c
+  #停止对应容器运行，然而此时bdfdadb9424c镜像id有对应容器
+   ✘ chujun@chujundeMacBook-Pro-2  ~  docker rmi openjdk:8-jre-buster
+  Untagged: openjdk:8-jre-buster
+  Untagged: openjdk@sha256:3a81fdb35ff1fc6fff52e3ef90ac59b8343db73fbabf6765b583e837205aaefc
+  Deleted: sha256:bdfdadb9424c82ad4e31ea9a6b8fdf1bb503a6ca4dd1a00306ef952062161ad1
+  Deleted: sha256:a93a37add53fb5bf6eda9ec85dad4f382a56f3fe83b91e018955563ff2a66be0
+  Deleted: sha256:bc68a79ec1326831dabc449c1b9e9eb2845f46b2823bdb63212551ab7d601b22
+  Deleted: sha256:e3b8ac624aea5d81b2a4a8c2ec93469648d1387d932f61f1877784807692fb91
+   chujun@chujundeMacBook-Pro-2  ~  docker images
+  REPOSITORY        TAG                IMAGE ID       CREATED        SIZE
+  mymysql           latest             33037edcac9b   6 hours ago    444MB
+  mysql             latest             33037edcac9b   6 hours ago    444MB
+  zookeeper         latest             979f6ccbba92   19 hours ago   279MB
+  openjdk           8u332-jdk-buster   b28af378ba08   21 hours ago   514MB
+  openjdk           8u332-jdk          69e18e8ca9ce   21 hours ago   526MB
+  jenkins/jenkins   latest             616d2581d755   22 hours ago   463MB
+  postgres          latest             1133a9cdc367   27 hours ago   376MB
+  nginx             latest             41b0e86104ba   32 hours ago   142MB
+  redis             latest             3534610348b5   34 hours ago   117MB
+  sonatype/nexus3   latest             be6da324b885   2 weeks ago    691MB
+  #删除对应容器，bdfdadb9424c镜像id成功删除
   ```
 -
