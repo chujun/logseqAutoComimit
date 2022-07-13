@@ -63,6 +63,12 @@
   [[docker容器(container)]]
   [[docker仓库(repository)]]
   docker的生命周期
+- 安装
+  mac
+  ```
+  brew install --cask docker
+  docker --version
+  ```
 - 资料
   [docker官网](https://www.docker.com/)
   [github源码地址](https://github.com/docker)
