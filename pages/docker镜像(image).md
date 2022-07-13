@@ -254,4 +254,36 @@
         --limit int       Max number of search results (default 25)
         --no-trunc        Don't truncate output
   ```
+  举例1
+   docker search nginx
+  ```
+   docker search nginx
+  NAME                                              DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+  nginx                                             Official build of Nginx.                        17087     [OK]
+  linuxserver/nginx                                 An Nginx container, brought to you by LinuxS…   169
+  bitnami/nginx                                     Bitnami nginx Docker Image                      136                  [OK]
+  ubuntu/nginx                                      Nginx, a high-performance reverse proxy & we…   52
+  bitnami/nginx-ingress-controller                  Bitnami Docker Image for NGINX Ingress Contr…   19                   [OK]
+  rancher/nginx-ingress-controller                                                                  10
+  clearlinux/nginx                                  Nginx reverse proxy server with the benefits…   4
+  ibmcom/nginx-ingress-controller                   Docker Image for IBM Cloud Private-CE (Commu…   4
+  bitnami/nginx-ldap-auth-daemon                                                                    3
+  bitnami/nginx-exporter                                                                            2
+  rapidfort/nginx                                   RapidFort optimized, hardened image for NGINX   2
+  rancher/nginx                                                                                     2
+  rancher/nginx-ingress-controller-defaultbackend                                                   2
+  vmware/nginx                                                                                      2
+  circleci/nginx                                    This image is for internal use                  2
+  vmware/nginx-photon                                                                               1
+  wallarm/nginx-ingress-controller                  Kubernetes Ingress Controller with Wallarm e…   1
+  bitnami/nginx-intel                                                                               1
+  kasmweb/nginx                                     An Nginx image based off nginx:alpine and in…   1
+  rancher/nginx-conf                                                                                0
+  ibmcom/nginx-ingress-controller-ppc64le           Docker Image for IBM Cloud Private-CE (Commu…   0
+  continuumio/nginx-ingress-ws                                                                      0
+  rancher/nginx-ingress-controller-amd64                                                            0
+  ibmcom/nginx-ppc64le                              Docker image for nginx-ppc64le                  0
+  rancher/nginx-ssl                                                                                 0
+  ```
+  docker search -f=is-official=true nginx
 -
