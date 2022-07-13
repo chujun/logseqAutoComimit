@@ -306,4 +306,5 @@
   ibmcom/nginx-ingress-controller    Docker Image for IBM Cloud Private-CE (Commu…   4
   clearlinux/nginx                   Nginx reverse proxy server with the benefits…   4
   ```
-- 删除和清理镜像命令
+- 删除和清理镜像命令image rm和prune
+  使用docker rmi或docker image rm命令可以删除镜像，命令格式为docker rmi IMAGE [IMAGE...]，其中IMAGE可以为标签或ID。
