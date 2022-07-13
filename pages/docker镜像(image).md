@@ -9,4 +9,8 @@
   一般来说，镜像的latest标签意味着该镜像的内容会跟踪最新版本的变更而变化，内容是不稳定的。因此，从稳定性上考虑，不要在生产环境中忽略镜像的标签信息或使用默认的latest标记的镜像。
   
   严格地讲，镜像的仓库名称中还应该添加仓库地址（即registry，注册服务器）作为前缀，只是默认使用的是官方Docker Hub服务，该前缀可以忽略。
+  例如，docker pull ubuntu:18.04命令相当于docker pull registry.hub.docker.com/ubuntu:18.04命令，即从默认的Docker官方注册服务器Docker Hub Registry中的ubuntu仓库来下载标记为18.04的镜像。
+  网易仓库服务器下载的
+  docker pull hub.c.163.com/public/ubuntu:18.04
+  另外，有时需要使用镜像代理服务来加速Docker镜像获取过程，可以在Docker服务启动配置中增加--registry-mirror=proxy_URL来指定镜像代理服务地址（如https://registry.docker-cn.com）。
 -
