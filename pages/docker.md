@@ -11,6 +11,9 @@
   最重要的就是Linux容器（Linux Containers, LXC）技术。
   
   从Linux容器到Docker
+- 为什么使用docker
+  docker容器的好处
+  举个简单的例子，假设用户试图基于最常见的LAMP（Linux+Apache+MySQL+PHP）组合来构建网站。按照传统的做法，首先需要安装Apache、MySQL和PHP以及它们各自运行所依赖的环境；之后分别对它们进行配置（包括创建合适的用户、配置参数等）；经过大量的操作后，还需要进行功能测试，看是否工作正常；如果不正常，则进行调试追踪，意味着更多的时间代价和不可控的风险。可以想象，如果应用数目变多，事情会变得更加难以处理。
 - 资料
   [docker官网](https://www.docker.com/)
   [github源码地址](https://github.com/docker)
