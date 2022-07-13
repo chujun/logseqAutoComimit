@@ -107,6 +107,9 @@
   ```
   docker run -d -p 80:80 --name webserver nginx
   ```
+  -d - run the container in detached mode (in the background)
+  -p 80:80 - map port 80 of the host to port 80 in the container
+  
   服务运行后，可以访问 [http://localhost](http://localhost)，如果看到了 "Welcome to nginx!"，就说明 Docker Desktop for Mac 安装成功了。
   ![截屏2022-07-13 上午11.14.16.png](../assets/截屏2022-07-13_上午11.14.16_1657682073566_0.png) 
   使用docker ps指令查看运行的容器：
