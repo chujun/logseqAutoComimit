@@ -316,11 +316,15 @@
   Remove one or more images
   
   Options:
-    -f, --force      Force removal of the image
+    -f, --force      Force removal of the image强制删除镜像，即使有容器依赖它；不推荐
         --no-prune   Do not delete untagged parents不要清理未带标签的父镜像
   ```
   1.使用镜像标签删除镜像
-  当同一个镜像拥有多个标签的时候，docker rmi命令只是删除了该镜像多个标签中的指定标签而已，并不影响镜像文件。
-  当镜像只剩下一个标签的时候，此时再使用docker rmi命令会彻底删除镜像。
+  两种情况
+  a.当同一个镜像拥有多个标签的时候，docker rmi命令只是删除了该镜像多个标签中的指定标签而已，并不影响镜像文件。
+  b.当镜像只剩下一个标签的时候，此时再使用docker rmi命令会彻底删除镜像。
   2.使用镜像ID删除镜像
+  当使用docker rmi命令，并且后面跟上镜像的ID（也可以是能进行区分的部分ID串前缀）时，会先尝试删除所有指向该镜像的标签，然后删除该镜像文件本身。
+  注意，当有该镜像创建的容器存在时，镜像文件默认是无法被删除的。
+  正确的做法是，先删除依赖该镜像的所有容器，再来删除镜像。(不推荐使用-f)
 -
