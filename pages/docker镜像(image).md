@@ -285,5 +285,25 @@
   ibmcom/nginx-ppc64le                              Docker image for nginx-ppc64le                  0
   rancher/nginx-ssl                                                                                 0
   ```
+  例子2基于官网镜像的过滤
   docker search -f=is-official=true nginx
+  ```
+  docker search -f=is-official=true nginx
+  AME      DESCRIPTION                STARS     OFFICIAL   AUTOMATED
+  nginx     Official build of Nginx.   17087     [OK]
+  ```
+  例子3star大于4的过滤
+  docker search -f=stars=4 nginx
+  ```
+   ✘ chujun@chujundeMacBook-Pro-2  ~  docker search -f=stars=4 nginx
+  NAME                               DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+  nginx                              Official build of Nginx.                        17087     [OK]
+  linuxserver/nginx                  An Nginx container, brought to you by LinuxS…   169
+  bitnami/nginx                      Bitnami nginx Docker Image                      136                  [OK]
+  ubuntu/nginx                       Nginx, a high-performance reverse proxy & we…   52
+  bitnami/nginx-ingress-controller   Bitnami Docker Image for NGINX Ingress Contr…   19                   [OK]
+  rancher/nginx-ingress-controller                                                   10
+  ibmcom/nginx-ingress-controller    Docker Image for IBM Cloud Private-CE (Commu…   4
+  clearlinux/nginx                   Nginx reverse proxy server with the benefits…   4
+  ```
 -
