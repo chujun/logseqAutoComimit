@@ -451,5 +451,7 @@
 	  sonatype/nexus3   latest             be6da324b885   2 weeks ago          691MB
 	  ```
 	- 2.基于本地模板导入(import)
+	  用户也可以直接从一个操作系统模板文件导入一个镜像，主要使用docker [container] import命令。命令格式为docker [image] import [OPTIONS]file|URL|-[REPOSITORY [:TAG]]
+	  要直接导入一个镜像，可以使用OpenVZ提供的模板来创建，或者用其他已导出的镜像模板来创建。[OPENVZ模板的下载地址为](http://openvz.org/Download/templates/precreated)
 	- 3.基于Dockerfile创建(build)
 -
