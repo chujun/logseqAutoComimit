@@ -67,7 +67,11 @@
   mac的brew的cask已经支持 Docker Desktop for Mac，因此可以很方便的使用 Homebrew Cask 来进行安装：
   ```
   brew install --cask docker
+  ```
+  查看安装情况
+  ```
   docker --version
+  
   docker info
   ```
   下面启动一个Nginx容器，检查能正确获取镜像并运行：
