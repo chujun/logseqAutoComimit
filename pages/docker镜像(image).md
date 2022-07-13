@@ -420,6 +420,14 @@
 	  ❑ -c, --change=[]：提交的时候执行Dockerfile指令，包括CMD|ENTRYPOINT|E NV|EXPOSE|LABEL|ONBUILD|USER|VOLUME|WORKDIR等；
 	  ❑ -m, --message=""：提交消息；
 	  ❑ -p, --pause=true：提交时暂停容器运行。
+	  实验
+	  ```
+	  #第一步基于现有镜像创建新容器
+	  chujun@chujundeMacBook-Pro-2  ~  docker run -it openjdk:8u332-jdk-buster /bin/bash
+	  root@5a04bd2fe37d:/# touch test
+	  root@5a04bd2fe37d:/# exit
+	  exit
+	  ```
 	- 2.基于本地模板导入(import)
 	- 3.基于Dockerfile创建(build)
 -
