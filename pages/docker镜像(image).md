@@ -241,4 +241,17 @@
   <missing>      32 hours ago   /bin/sh -c #(nop) ADD file:d978f6d3025a06f51…   80.4MB
   ```
   注意，过长的命令被自动截断了，可以使用--no-trunc选项来输出完整命令。
+- 搜索镜像命令search
+  ```
+  docker search --help
+  Usage:  docker search [OPTIONS] TERM
+  
+  Search the Docker Hub for images
+  
+  Options:
+    -f, --filter filter   Filter output based on conditions provided
+        --format string   Pretty-print search using a Go template
+        --limit int       Max number of search results (default 25)
+        --no-trunc        Don't truncate output
+  ```
 -
