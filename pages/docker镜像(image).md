@@ -471,6 +471,8 @@
   2.载入镜像
   可以使用docker [image] load将导出的tar文件再导入到本地镜像库。支持-i、-input string选项，从指定文件中读入镜像内容。
   ```
+  docker load -i myredis-latest.tar
+  docker load < myredis-latest.tar
   ```
 -
 -
