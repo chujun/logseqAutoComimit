@@ -459,4 +459,9 @@
 	- 3.基于Dockerfile创建(build)
 	  基于Dockerfile创建是最常见的方式。Dockerfile是一个文本文件，利用给定的指令描述基于某个父镜像创建新镜像的过程。
 	  ![dockerfile创建新镜像.png](../assets/dockerfile创建新镜像_1657721193163_0.png)
+- 载入载出镜像命令save和load
+  1.载出镜像
+  如果要导出镜像到本地文件，可以使用docker [image] save命令。该命令支持-o、-output string参数，导出镜像到指定的文件中。
+  2.载入镜像
+-
 -
