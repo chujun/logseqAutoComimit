@@ -462,7 +462,15 @@
 - 载入载出镜像命令save和load
   1.载出镜像
   如果要导出镜像到本地文件，可以使用docker [image] save命令。该命令支持-o、-output string参数，导出镜像到指定的文件中。
-  作用:之后，用户就可以通过复制ubuntu_18.04.tar文件将该镜像分享给他人。
+  ```
+  docker save -o myredis-latest.tar redis:latest
+   chujun@chujundeMacBook-Pro-2  ~/tmp/docker  ls
+  myredis-latest.tar
+  ```
+  作用:之后，用户就可以通过复制myredis-latest.tar文件将该镜像分享给他人。
   2.载入镜像
+  可以使用docker [image] load将导出的tar文件再导入到本地镜像库。支持-i、-input string选项，从指定文件中读入镜像内容。
+  ```
+  ```
 -
 -

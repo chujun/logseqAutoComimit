@@ -9,7 +9,10 @@
   
   **2）解压压缩包：**
   命令： `tar [-xvf] 压缩文件`
-  其中：x：代表解压
+  其中：
+  x：代表解压
+  v:显示运行过程
+  f：指定文件名
   示例：
   a。将 /test 下的 test.tar.gz 解压到当前目录下可以使用命令：** `tar -xvf test.tar.gz` **
   b。将 /test 下的 test.tar.gz 解压到根目录/usr 下:** `tar -xvf test.tar.gz -C /usr` **（- C 代表指定解压的位置）
